@@ -38,6 +38,75 @@ def load_game_paths():
     except Exception:
         return {}
 
+# ----------- Mod parsing and patching -----------
+def _parse_mod_file(path):
+    """Return a list of patch instructions from a mod file."""
+    patches = []
+    current_file = None
+    current_section = None
+    current_data = []
+    with open(path, "r", encoding="utf-8") as f:
+        for raw in f:
+            line = raw.strip()
+            if not line or line.startswith("#"):
+                continue
+            if line.startswith("[FILE") and line.endswith("]"):
+                if current_file and current_section and current_data:
+                    patches.append({
+                        "file": current_file,
+                        "section": current_section,
+                        "data": current_data,
+                    })
+                    current_section = None
+                    current_data = []
+                current_file = line[5:-1].strip()
+            elif line.startswith("section:"):
+                if current_file is None:
+                    continue
+                if current_section and current_data:
+                    patches.append({
+                        "file": current_file,
+                        "section": current_section,
+                        "data": current_data,
+                    })
+                    current_data = []
+                current_section = line[len("section:"):].strip()
+            elif line.startswith("data:"):
+                if current_file and current_section:
+                    current_data.append(line[len("data:"):].strip())
+    if current_file and current_section and current_data:
+        patches.append({"file": current_file, "section": current_section, "data": current_data})
+    return patches
+
+
+def _apply_patch_to_file(target_path, section, data_lines):
+    """Patch a single file in place."""
+    with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
+        lines = f.read().splitlines()
+
+    anchor = None
+    for i, line in enumerate(lines):
+        if section in line:
+            anchor = i
+            break
+    if anchor is None:
+        raise ValueError(f"Section '{section}' not found in {target_path}")
+
+    for new_line in data_lines:
+        key = new_line.split()[0] if new_line.split() else new_line
+        replaced = False
+        for j in range(anchor + 1, len(lines)):
+            if lines[j].lstrip().startswith(key):
+                lines[j] = new_line
+                replaced = True
+                break
+        if not replaced:
+            lines.insert(anchor + 1, new_line)
+            anchor += 1
+
+    with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
+        f.write("\n".join(lines) + "\n")
+
 # ----------- Unpack and repack functions -----------
 def _ensure_base_unpacked(game):
     """Unpack the original smallf.dat once and cache the result."""
@@ -169,18 +238,20 @@ def list_existing_profiles():
 
 # ----------- Patch/merge logic placeholder -----------
 def apply_mods_to_temp(game, mods):
-    """
-    Given a game ('fa' or 'fa2') and a list of mod objects,
-    patch the relevant files in the temp folder.
-    For now, this is just a placeholder!
-    """
+    """Apply a sequence of mod files to the temporary unpacked directory."""
     if game == "fa2":
         temp_dir = TEMP_FA2_DIR
     else:
         temp_dir = TEMP_FA_DIR
-    # For each mod, read patch instructions and modify files in temp_dir
-    print(f"[INFO] Would now patch files in: {temp_dir} using {len(mods)} mod(s)")
-    # ----> Insert section-replacement, merge, conflict detection, etc here
+
+    for mod in mods:
+        patches = _parse_mod_file(mod)
+        for p in patches:
+            target = os.path.join(temp_dir, p["file"])
+            if not os.path.isfile(target):
+                raise FileNotFoundError(f"Target file not found: {p['file']} in {mod}")
+            _apply_patch_to_file(target, p["section"], p["data"])
+        print(f"[OK] Applied mod: {os.path.basename(mod)}")
 
 # ----------- Main example usage -----------
 if __name__ == "__main__":
