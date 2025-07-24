@@ -56,8 +56,15 @@ def repack_smallf(game, mod_name):
         temp_dir = TEMP_FA_DIR
         finished_subdir = os.path.join(FINISHED_DIR, "fa", mod_name)
     subprocess.check_call([exe, temp_dir])
-    # The repacker creates smallf_repack.dat in temp_dir
-    src = os.path.join(temp_dir, "smallf_repack.dat")
+    # The repacker writes <temp_dir>_repack.dat next to the temp folder
+    # but some versions may create smallf_repack.dat in the folder instead.
+    # Support both to avoid FileNotFoundError.
+    candidate1 = f"{temp_dir}_repack.dat"
+    candidate2 = os.path.join(temp_dir, "smallf_repack.dat")
+    if os.path.isfile(candidate1):
+        src = candidate1
+    else:
+        src = candidate2
     os.makedirs(finished_subdir, exist_ok=True)
     dest = os.path.join(finished_subdir, "smallf.dat")
     shutil.move(src, dest)
