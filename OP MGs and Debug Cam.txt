@@ -1,0 +1,21 @@
+# name: OP MGs and Debug Cam
+# author: IsM1ku
+# description: Quadruples the firing speed of the machine guns and makes their projectiles hit instantly. Removes air stabilizer and enables debug cam
+
+[FILE MorphingWeaponSetup.psc]
+
+section: MorphingWeaponSetId "MachineGuns"
+data: MorphingWeaponSetData "firingRate = 100.0"
+MorphingWeaponSetData "projectileSpeed = 20000.0"
+
+[FILE gameFA.psc]
+
+section: //-----------POWERSLIDE, DRIVING AND STEERING--------------- 
+data: flipcorrectgain 0	//big air stabilizer.
+
+section: // Other debug stuff disabled by default
+data: isDeveloperBuild 1
+ShowComments 0
+ShowCamComments_Scale 0.0
+ShowCamComments_Opacity 0
+bind joy0_r3+joy0_l1 ShowComments 0
