@@ -37,12 +37,19 @@ def unpack_smallf(game):
     else:
         input_smallf = os.path.join(BASE_FA_DIR, "smallF.dat")
         temp_dir = TEMP_FA_DIR
+
     # Clean temp folder
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
     os.makedirs(temp_dir)
-    # Most tools output to their own folder; set cwd to temp_dir just in case
-    subprocess.check_call([exe, input_smallf], cwd=temp_dir)
+
+    # Some of the bundled tools require the smallf.dat to be in the
+    # working directory. Copy it there and run the tool using only the
+    # filename so paths with spaces don't cause issues.
+    dat_copy = os.path.join(temp_dir, os.path.basename(input_smallf))
+    shutil.copy2(input_smallf, dat_copy)
+    subprocess.check_call([exe, os.path.basename(dat_copy)], cwd=temp_dir)
+    os.remove(dat_copy)
     print(f"[OK] Unpacked {input_smallf} to {temp_dir}")
     return temp_dir
 
@@ -56,8 +63,15 @@ def repack_smallf(game, mod_name):
         temp_dir = TEMP_FA_DIR
         finished_subdir = os.path.join(FINISHED_DIR, "fa", mod_name)
     subprocess.check_call([exe, temp_dir])
-    # The repacker creates smallf_repack.dat in temp_dir
-    src = os.path.join(temp_dir, "smallf_repack.dat")
+    # The repacker writes <temp_dir>_repack.dat next to the temp folder
+    # but some versions may create smallf_repack.dat in the folder instead.
+    # Support both to avoid FileNotFoundError.
+    candidate1 = f"{temp_dir}_repack.dat"
+    candidate2 = os.path.join(temp_dir, "smallf_repack.dat")
+    if os.path.isfile(candidate1):
+        src = candidate1
+    else:
+        src = candidate2
     os.makedirs(finished_subdir, exist_ok=True)
     dest = os.path.join(finished_subdir, "smallf.dat")
     shutil.move(src, dest)
