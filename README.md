@@ -26,7 +26,9 @@ Use the **Settings** button in the GUI to select or update these paths. The back
 
 1. **Unpack** – `backend.unpack_smallf(game)` copies the original `smallf.dat` and unpacks it using `unpack_smallf_win.exe`.
 2. **Apply Mods** – modify files in the temporary folder (handled by `apply_mods_to_temp`).
-3. **Repack** – `backend.repack_smallf(game, mod_name)` uses `repack_smallf_win.exe` to rebuild `smallf.dat` and places it under `smallf/finished/<game>/<mod_name>/`.
+3. **Repack** – `backend.repack_smallf(game, mod_name)` copies the unpacked files
+   into `smallf/tools` and runs `repack_smallf_win.exe` without arguments. The
+   resulting file is stored under `smallf/finished/<mod_name>/smallf.dat`.
 4. **Export** – `backend.export_smallf_to_game(game, mod_name, game_root)` copies the new file to `PS3_GAME/USRDIR/smallf_modified.dat` in your configured game directory.
 
 This sequence is also demonstrated in the `__main__` section of `mod_manager_backend.py` and forms the foundation of the GUI.
