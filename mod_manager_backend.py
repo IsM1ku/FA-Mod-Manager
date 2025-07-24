@@ -161,16 +161,10 @@ def _extract_key(line):
         return f"{parts[0]} {parts[1]}"
     return parts[0]
 
-def _apply_patch_to_file(target_path, section, data_lines, next_section=None, mod_name=None, author=None):
-    """Patch a single file in place and append summary of modified lines."""
+def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
+    """Patch a single file in place and return list of modified line numbers."""
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.read().splitlines()
-
-    if target_path.lower().endswith(".psc"):
-        c_start, c_end = "// ", ""
-    else:
-        c_start, c_end = "/* ", " */"
-
     anchor = None
     for i, line in enumerate(lines):
         if section in line:
@@ -213,16 +207,29 @@ def _apply_patch_to_file(target_path, section, data_lines, next_section=None, mo
             changed.append(insert_pos + 1)
             section_end += 1
 
-    if changed:
-        mod_desc = mod_name or ""
-        if author:
-            mod_desc = f"{mod_desc} by {author}" if mod_desc else f"by {author}"
-        summary = f"{c_start}line(s): {','.join(str(n) for n in changed)} modified by {mod_desc}{c_end}"
-        lines.append(summary)
 
     with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("\n".join(lines) + "\n")
     log(f"[OK] Patched {os.path.basename(target_path)} section '{section}'")
+    return changed
+
+def _append_summary_comment(target_path, changed_lines, mod_name=None, author=None):
+    """Append a summary comment listing changed lines for a mod."""
+    if not changed_lines:
+        return
+    with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
+        lines = f.read().splitlines()
+    if target_path.lower().endswith(".psc"):
+        c_start, c_end = "// ", ""
+    else:
+        c_start, c_end = "/* ", " */"
+    mod_desc = mod_name or ""
+    if author:
+        mod_desc = f"{mod_desc} by {author}" if mod_desc else f"by {author}"
+    summary = f"{c_start}line(s): {','.join(str(n) for n in changed_lines)} modified by {mod_desc}{c_end}"
+    lines.append(summary)
+    with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
+        f.write('\n'.join(lines) + '\n')
 
 
 # ----------- Unpack and repack functions -----------
@@ -382,6 +389,7 @@ def apply_mods_to_temp(game, mods):
         meta, patches = _parse_mod_file(mod)
         mod_name = meta.get("name", os.path.basename(mod))
         author = meta.get("author")
+        pending = {}
         for p in patches:
             target = os.path.join(target_root, p["file"])
             if not os.path.isfile(target):
@@ -390,27 +398,16 @@ def apply_mods_to_temp(game, mods):
                 raise FileNotFoundError(err)
             log(f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'")
             try:
-                _apply_patch_to_file(target, p["section"], p["data"], p.get("next_section"), mod_name, author)
+                changed = _apply_patch_to_file(target, p["section"], p["data"], p.get("next_section"))
+                pending.setdefault(target, []).extend(changed)
+                if p.get("next_section") is None:
+                    _append_summary_comment(target, pending.pop(target, []), mod_name, author)
             except Exception as exc:
                 log(f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}")
                 raise
+        for path, lines_list in pending.items():
+            _append_summary_comment(path, lines_list, mod_name, author)
         log(f"[OK] Applied mod: {os.path.basename(mod)}")
-
-# ----------- Main example usage -----------
-if __name__ == "__main__":
-    # Example settings:
-    selected_game = "fa2"   # or "fa"
-    mod_name = "ExampleMod"
-
-    # 1. Unpack
-    temp_dir = unpack_smallf(selected_game)
-
-    # 2. Apply mods (add your mod objects/list here!)
-    apply_mods_to_temp(selected_game, mods=[])  # Insert real mods list!
-
-    # 3. Repack
-    output_smallf = repack_smallf(selected_game, mod_name)
-
     # 4. Export to the game folder if configured
     config = load_config()
     game_paths = config.get("game_paths", {})
