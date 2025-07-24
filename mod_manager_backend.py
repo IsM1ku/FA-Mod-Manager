@@ -75,29 +75,43 @@ def unpack_smallf(game):
     return temp_dir
 
 def repack_smallf(game, mod_name):
-    """Repack the temp folder for the given game into finished/{game}/{mod_name}/smallf.dat."""
+    """Repack the temp folder into ``finished/<mod_name>/smallf.dat``.
+
+    The repacker expects a ``smallf`` folder in the same directory, so the
+    unpacked data is copied into ``smallf/tools`` before running it without any
+    command line arguments.
+    """
     exe = os.path.join(TOOLS_DIR, "repack_smallf_win.exe")
     if game == "fa2":
         temp_dir = TEMP_FA2_DIR
-        finished_subdir = os.path.join(FINISHED_DIR, "fa2", mod_name)
     else:
         temp_dir = TEMP_FA_DIR
-        finished_subdir = os.path.join(FINISHED_DIR, "fa", mod_name)
-    # Run the repacker inside the temp directory so its output is generated
-    # relative to that folder, regardless of where this function is called
-    subprocess.check_call([exe, '.'], cwd=temp_dir)
-    # The repacker writes <temp_dir>_repack.dat next to the temp folder
-    # but some versions may create smallf_repack.dat in the folder instead.
-    # Support both to avoid FileNotFoundError.
-    candidate1 = f"{temp_dir}_repack.dat"
-    candidate2 = os.path.join(temp_dir, "smallf_repack.dat")
+
+    # Prepare folder structure for the repacker
+    working_smallf = os.path.join(TOOLS_DIR, "smallf")
+    if os.path.exists(working_smallf):
+        shutil.rmtree(working_smallf)
+    shutil.copytree(temp_dir, working_smallf)
+
+    # Run the repacker in the tools directory with no arguments
+    subprocess.check_call([exe], cwd=TOOLS_DIR)
+
+    # Determine repacker output file name
+    candidate1 = os.path.join(TOOLS_DIR, "smallf_repack.dat")
+    candidate2 = os.path.join(TOOLS_DIR, "smallf.dat")
     if os.path.isfile(candidate1):
         src = candidate1
     else:
         src = candidate2
+
+    finished_subdir = os.path.join(FINISHED_DIR, mod_name)
     os.makedirs(finished_subdir, exist_ok=True)
     dest = os.path.join(finished_subdir, "smallf.dat")
     shutil.move(src, dest)
+
+    # Clean up the working folder
+    shutil.rmtree(working_smallf)
+
     print(f"[OK] Repacked smallf written to: {dest}")
     return dest
 
@@ -108,10 +122,7 @@ def export_smallf_to_game(game, mod_name, game_root):
     The file is renamed to ``smallf_modified.dat`` so existing game files are
     left untouched. ``game`` should be either ``'fa'`` or ``'fa2'``.
     """
-    if game == "fa2":
-        finished_subdir = os.path.join(FINISHED_DIR, "fa2", mod_name)
-    else:
-        finished_subdir = os.path.join(FINISHED_DIR, "fa", mod_name)
+    finished_subdir = os.path.join(FINISHED_DIR, mod_name)
 
     src = os.path.join(finished_subdir, "smallf.dat")
     if not os.path.isfile(src):
