@@ -3,6 +3,13 @@ import json
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog, filedialog
 
+from mod_manager_backend import (
+    unpack_smallf,
+    apply_mods_to_temp,
+    repack_smallf,
+    export_smallf_to_game,
+)
+
 # --- Dummy data for demo purposes ---
 GAMES = ['Full Auto (Xbox 360)', 'Full Auto 2: Battlelines (PS3)']
 DEMO_PROFILES = ['Default', 'Debug', 'Modded Physics']
@@ -94,10 +101,31 @@ class FAModManager(tk.Tk):
 
     def set_active_profile(self):
         selected = self.profile_list.curselection()
-        if selected:
-            messagebox.showinfo("Active Profile", f"Set '{self.profile_list.get(selected[0])}' as active.")
-        else:
+        if not selected:
             messagebox.showwarning("Select a Profile", "No profile selected!")
+            return
+
+        selected_game = self.game_var.get()
+        game_root = self.game_paths.get(selected_game, "")
+        if not game_root:
+            messagebox.showerror("Error", "Game folder not set. Please use Settings first.")
+            return
+
+        profile_name = self.profile_list.get(selected[0])
+
+        if "Full Auto 2" in selected_game:
+            game_key = "fa2"
+        else:
+            game_key = "fa"
+
+        try:
+            export_smallf_to_game(game_key, profile_name, game_root)
+            messagebox.showinfo(
+                "Active Profile",
+                f"Exported smallf for '{profile_name}' to game folder as smallf_modified.dat.",
+            )
+        except FileNotFoundError as exc:
+            messagebox.showerror("Error", str(exc))
 
     def rename_profile(self):
         selected = self.profile_list.curselection()
@@ -118,26 +146,33 @@ class FAModManager(tk.Tk):
             messagebox.showwarning("Select a Profile", "No profile selected!")
 
     def merge_mods(self):
-        # Example use of the saved path (replace with real logic as needed)
         selected_game = self.game_var.get()
         game_root = self.game_paths.get(selected_game, "")
         if not game_root:
             messagebox.showerror("Error", "Game folder not set. Please use Settings first.")
             return
 
-        smallf_path = os.path.join(game_root, "PS3_GAME", "USRDIR", "smallf.dat")
-        if not os.path.isfile(smallf_path):
-            messagebox.showerror("Error", "Could not find smallf.dat in your game folder.")
+        profile_sel = self.profile_list.curselection()
+        if not profile_sel:
+            messagebox.showwarning("Select a Profile", "No profile selected!")
             return
+        profile_name = self.profile_list.get(profile_sel[0])
 
-        dest_path = os.path.join(game_root, "PS3_GAME", "USRDIR", "smallf_modified.dat")
+        if "Full Auto 2" in selected_game:
+            game_key = "fa2"
+        else:
+            game_key = "fa"
 
-        # Replace with real merge/copy logic
-        messagebox.showinfo(
-            "Merge",
-            f"Would now patch/replace:\n{smallf_path}\n"
-            f"Export would be written to:\n{dest_path}"
-        )
+        try:
+            unpack_smallf(game_key)
+            apply_mods_to_temp(game_key, mods=[])  # Placeholder for real mods
+            repack_smallf(game_key, profile_name)
+            messagebox.showinfo(
+                "Merge",
+                f"Saved new smallf for profile '{profile_name}'. Use Set Active to export."
+            )
+        except Exception as exc:
+            messagebox.showerror("Merge Failed", str(exc))
 
 if __name__ == "__main__":
     app = FAModManager()
