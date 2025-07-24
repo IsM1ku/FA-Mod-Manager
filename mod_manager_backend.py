@@ -134,8 +134,8 @@ def unpack_smallf(game):
         temp_dir = TEMP_FA2_DIR
     else:
         temp_dir = TEMP_FA_DIR
-
     unpack_dir = _ensure_base_unpacked(game)
+
 
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
@@ -155,12 +155,14 @@ def repack_smallf(game, mod_name):
         temp_dir = TEMP_FA2_DIR
     else:
         temp_dir = TEMP_FA_DIR
+    # The temporary folder contains a "smallf" subdirectory with the unpacked files.
+    source_dir = os.path.join(temp_dir, "smallf")
 
     # Prepare folder structure for the repacker
     working_smallf = os.path.join(TOOLS_DIR, "smallf")
     if os.path.exists(working_smallf):
         shutil.rmtree(working_smallf)
-    shutil.copytree(temp_dir, working_smallf)
+    shutil.copytree(source_dir, working_smallf)
 
     # Run the repacker in the tools directory with no arguments
     subprocess.check_call([exe], cwd=TOOLS_DIR)
@@ -244,10 +246,14 @@ def apply_mods_to_temp(game, mods):
     else:
         temp_dir = TEMP_FA_DIR
 
+    # Mods are applied to files inside the "smallf" subfolder of the temp
+    # directory produced by ``unpack_smallf``.
+    target_root = os.path.join(temp_dir, "smallf")
+
     for mod in mods:
         patches = _parse_mod_file(mod)
         for p in patches:
-            target = os.path.join(temp_dir, p["file"])
+            target = os.path.join(target_root, p["file"])
             if not os.path.isfile(target):
                 raise FileNotFoundError(f"Target file not found: {p['file']} in {mod}")
             _apply_patch_to_file(target, p["section"], p["data"])
