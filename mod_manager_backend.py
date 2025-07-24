@@ -145,6 +145,18 @@ def import_profile(game, profile_name, source_smallf):
     return dest
 
 
+def rename_profile(old_name, new_name):
+    """Rename a profile folder inside ``finished`` and return new path."""
+    old_dir = os.path.join(FINISHED_DIR, old_name)
+    new_dir = os.path.join(FINISHED_DIR, new_name)
+    if not os.path.isdir(old_dir):
+        raise FileNotFoundError(f"Profile not found: {old_name}")
+    if os.path.isdir(new_dir):
+        raise FileExistsError(f"Profile already exists: {new_name}")
+    os.rename(old_dir, new_dir)
+    return os.path.join(new_dir, "smallf.dat")
+
+
 def list_existing_profiles():
     """Return names of profiles already present in ``finished``."""
     if not os.path.isdir(FINISHED_DIR):
