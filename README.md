@@ -19,11 +19,12 @@ Game directories and settings are stored in `fa_mod_manager_config.json`. The JS
         "Full Auto (Xbox 360)": "C:/Path/To/Full Auto",
         "Full Auto 2: Battlelines (PS3)": "C:/Path/To/Full Auto 2"
     },
-    "logging_enabled": false
+    "logging_enabled": false,
+    "comments_enabled": true
 }
 ```
 
-Use the **Settings** button in the GUI to select or update these paths and toggle logging. The backend saves them using `save_config()` and they are loaded on startup via `load_config()`.
+Use the **Settings** button in the GUI to select or update these paths, toggle logging, and enable/disable the experimental comment feature. The backend saves them using `save_config()` and they are loaded on startup via `load_config()`.
 
 ## Basic Workflow
 

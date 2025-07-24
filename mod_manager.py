@@ -26,7 +26,9 @@ class FAModManager(TkinterDnD.Tk):
         self.game_paths = {game: "" for game in GAMES}
         self.game_paths.update(config.get("game_paths", {}))
         self.logging_enabled = config.get("logging_enabled", False)
+        self.comments_enabled = config.get("comments_enabled", True)
         backend.init_logger(self.logging_enabled)
+        backend.init_comments(self.comments_enabled)
 
         # Top: Game dropdown & settings
         top_frame = tk.Frame(self)
@@ -135,13 +137,18 @@ class FAModManager(TkinterDnD.Tk):
         log_var = tk.BooleanVar(value=self.logging_enabled)
         tk.Checkbutton(win, text="Enable logging", variable=log_var).grid(row=row, column=0, columnspan=3, sticky="w", pady=4, padx=5)
         row += 1
+        comment_var = tk.BooleanVar(value=self.comments_enabled)
+        tk.Checkbutton(win, text="Add mod comments (experimental)", variable=comment_var).grid(row=row, column=0, columnspan=3, sticky="w", pady=2, padx=5)
+        row += 1
 
         def save():
             for g, var in entries.items():
                 self.game_paths[g] = var.get()
             self.logging_enabled = log_var.get()
-            backend.save_config({"game_paths": self.game_paths, "logging_enabled": self.logging_enabled})
+            self.comments_enabled = comment_var.get()
+            backend.save_config({"game_paths": self.game_paths, "logging_enabled": self.logging_enabled, "comments_enabled": self.comments_enabled})
             backend.init_logger(self.logging_enabled)
+            backend.init_comments(self.comments_enabled)
             win.destroy()
 
         tk.Button(win, text="Save", command=save).grid(row=row, column=0, columnspan=3, pady=5)

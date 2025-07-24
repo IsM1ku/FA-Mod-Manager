@@ -3,5 +3,6 @@
     "Full Auto (Xbox 360)": "",
     "Full Auto 2: Battlelines (PS3)": ""
   },
-  "logging_enabled": false
+  "logging_enabled": false,
+  "comments_enabled": true
 }
