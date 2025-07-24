@@ -96,8 +96,8 @@ section:// Other debug stuff disabled by default
 ```
 
 Each `[FILE ...]` block patches a single `.psc` or `.txt` file.
-The `section:` line specifies the "anchor" for patching.
-Each `data:` line is either a replacement if a matching line exists below the section or an insertion if not found.
+The `section:` line specifies the anchor for patching.
+Lines beginning with `;` describe the edits for that section. If a line with the same key exists, it is replaced; otherwise it is appended to the end of the section. Prefix a line with `.;` to insert it immediately after the section header regardless of existing keys.
 
 ### Supported File Types
 

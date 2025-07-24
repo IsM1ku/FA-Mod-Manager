@@ -14,7 +14,7 @@ section://-----------POWERSLIDE, DRIVING AND STEERING---------------
 ;flipcorrectgain 0	//big air stabilizer.
 
 section:// Other debug stuff disabled by default
-;isDeveloperBuild 1
+.;isDeveloperBuild 1
 ;ShowComments 0
 ;ShowCamComments_Scale 0.0
 ;ShowCamComments_Opacity 0
