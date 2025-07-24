@@ -1,4 +1,7 @@
 {
-  "Full Auto (Xbox 360)": "",
-  "Full Auto 2: Battlelines (PS3)": ""
+  "game_paths": {
+    "Full Auto (Xbox 360)": "",
+    "Full Auto 2: Battlelines (PS3)": ""
+  },
+  "logging_enabled": false
 }

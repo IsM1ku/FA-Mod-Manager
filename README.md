@@ -11,16 +11,19 @@ This project provides a proof of concept for managing and merging mods for **Ful
 
 ## Configuring Game Paths
 
-Game directories are stored in `fa_mod_manager_config.json`. Each key is the game name and the value is the path to the game's root folder. The JSON looks like the following:
+Game directories and settings are stored in `fa_mod_manager_config.json`. The JSON looks like the following:
 
 ```json
 {
-    "Full Auto (Xbox 360)": "C:/Path/To/Full Auto",
-    "Full Auto 2: Battlelines (PS3)": "C:/Path/To/Full Auto 2"
+    "game_paths": {
+        "Full Auto (Xbox 360)": "C:/Path/To/Full Auto",
+        "Full Auto 2: Battlelines (PS3)": "C:/Path/To/Full Auto 2"
+    },
+    "logging_enabled": false
 }
 ```
 
-Use the **Settings** button in the GUI to select or update these paths. The backend saves them using `save_game_paths()` and they are loaded on startup via `load_game_paths()`.
+Use the **Settings** button in the GUI to select or update these paths and toggle logging. The backend saves them using `save_config()` and they are loaded on startup via `load_config()`.
 
 ## Basic Workflow
 
@@ -29,7 +32,7 @@ Use the **Settings** button in the GUI to select or update these paths. The back
 3. **Repack** – `backend.repack_smallf(game, mod_name)` copies the unpacked files
    into `smallf/tools` and runs `repack_smallf_win.exe` without arguments. The
    resulting file is stored under `smallf/finished/<mod_name>/smallf.dat`.
-4. **Export** – `backend.export_smallf_to_game(game, mod_name, game_root)` copies the new file to `PS3_GAME/USRDIR/smallf_modified.dat` in your configured game directory.
+4. **Export** – `backend.export_smallf_to_game(game, mod_name, game_root)` copies the new file to `PS3_GAME/USRDIR/smallf.dat`, replacing the existing file. Use the **Revert to Original** button to restore the vanilla file.
 
 This sequence is also demonstrated in the `__main__` section of `mod_manager_backend.py` and forms the foundation of the GUI.
 

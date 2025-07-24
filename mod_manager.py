@@ -21,9 +21,12 @@ class FAModManager(TkinterDnD.Tk):
         # Store paths to repacked smallf per profile
         self.profile_smallfs = {}
 
-        # Load or create game paths config
+        # Load configuration
+        config = backend.load_config()
         self.game_paths = {game: "" for game in GAMES}
-        self.game_paths.update(backend.load_game_paths())
+        self.game_paths.update(config.get("game_paths", {}))
+        self.logging_enabled = config.get("logging_enabled", False)
+        backend.init_logger(self.logging_enabled)
 
         # Top: Game dropdown & settings
         top_frame = tk.Frame(self)
@@ -62,6 +65,7 @@ class FAModManager(TkinterDnD.Tk):
             self.profile_smallfs[profile] = (None, os.path.join(backend.FINISHED_DIR, profile, 'smallf.dat'))
         self.update_profile_placeholder()
         tk.Button(profiles_frame, text='Set Active', command=self.set_active_profile).pack(fill='x', pady=2)
+        tk.Button(profiles_frame, text='Revert to Original', command=self.restore_original).pack(fill='x', pady=2)
         tk.Button(profiles_frame, text='Import Profile', command=self.import_profile).pack(fill='x', pady=2)
         b_frame = tk.Frame(profiles_frame)
         b_frame.pack()
@@ -103,29 +107,37 @@ class FAModManager(TkinterDnD.Tk):
         tk.Button(mods_frame, text='Merge', command=self.merge_mods).pack(pady=4, fill='x')
 
     def open_settings(self):
-        selected_game = self.game_var.get()
-        directory = filedialog.askdirectory(
-            title=f"Select game folder for {selected_game}",
-            mustexist=True
-        )
-        if directory:
-            self.game_paths[selected_game] = directory
-            backend.save_game_paths(self.game_paths)
-            smallf_path = None
+        win = tk.Toplevel(self)
+        win.title("Settings")
+        entries = {}
+        row = 0
+        for game in GAMES:
+            tk.Label(win, text=game).grid(row=row, column=0, sticky="w", padx=5, pady=2)
+            var = tk.StringVar(value=self.game_paths.get(game, ""))
+            tk.Entry(win, textvariable=var, width=40).grid(row=row, column=1, padx=5)
 
-            if "Full Auto 2" in selected_game:
-                candidate = os.path.join(directory, "PS3_GAME", "USRDIR", "smallf.dat")
-                if os.path.isfile(candidate):
-                    smallf_path = candidate
+            def browse(g=game, v=var):
+                path = filedialog.askdirectory(title=f"Select folder for {g}", mustexist=True)
+                if path:
+                    v.set(path)
 
-            # Add logic for other games as needed
+            tk.Button(win, text="Browse", command=browse).grid(row=row, column=2, padx=5)
+            entries[game] = var
+            row += 1
 
-            if smallf_path:
-                messagebox.showinfo("File Found", f"Found smallf.dat at:\n{smallf_path}")
-            else:
-                messagebox.showerror("Not Found", "Could not find smallf.dat at PS3_GAME/USRDIR/ in the selected folder.")
-        else:
-            messagebox.showwarning("No folder selected", "Please select a folder.")
+        log_var = tk.BooleanVar(value=self.logging_enabled)
+        tk.Checkbutton(win, text="Enable logging", variable=log_var).grid(row=row, column=0, columnspan=3, sticky="w", pady=4, padx=5)
+        row += 1
+
+        def save():
+            for g, var in entries.items():
+                self.game_paths[g] = var.get()
+            self.logging_enabled = log_var.get()
+            backend.save_config({"game_paths": self.game_paths, "logging_enabled": self.logging_enabled})
+            backend.init_logger(self.logging_enabled)
+            win.destroy()
+
+        tk.Button(win, text="Save", command=save).grid(row=row, column=0, columnspan=3, pady=5)
 
     def set_active_profile(self):
         selected = self.profile_list.curselection()
@@ -180,6 +192,19 @@ class FAModManager(TkinterDnD.Tk):
             self.profile_smallfs.pop(name, None)
         else:
             messagebox.showwarning("Select a Profile", "No profile selected!")
+
+    def restore_original(self):
+        selected_game = self.game_var.get()
+        game_key = 'fa2' if 'Full Auto 2' in selected_game else 'fa'
+        game_root = self.game_paths.get(selected_game, '')
+        if not game_root:
+            messagebox.showerror("Error", "Game folder not set. Please use Settings first.")
+            return
+        try:
+            backend.restore_original_smallf(game_key, game_root)
+            messagebox.showinfo("Restored", "Original smallf.dat restored.")
+        except Exception as exc:
+            messagebox.showerror("Error", f"Failed to restore original:\n{exc}")
 
     def import_profile(self):
         folder = filedialog.askdirectory(title='Select folder with smallf.dat', mustexist=True)
