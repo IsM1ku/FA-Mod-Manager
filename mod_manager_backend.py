@@ -89,7 +89,7 @@ def load_game_paths():
 
 # ----------- Mod parsing and patching -----------
 def _parse_mod_file(path):
-    """Return metadata dict and a list of patch instructions from a mod file."""
+    """Return metadata dict and ordered patch instructions from a mod file."""
     patches = []
     metadata = {}
     current_file = None
@@ -127,11 +127,24 @@ def _parse_mod_file(path):
                     })
                     current_data = []
                 current_section = line[len("section:"):].strip()
-            elif line.startswith("data:"):
+            elif stripped.startswith(";") or stripped.startswith(".;"):
                 if current_file and current_section:
-                    current_data.append(line[len("data:"):].strip())
+                    after_header = stripped.startswith(".;")
+                    if after_header:
+                        content = stripped[2:].strip()
+                    else:
+                        content = stripped[1:].strip()
+                    current_data.append({"line": content, "after_header": after_header})
     if current_file and current_section and current_data:
         patches.append({"file": current_file, "section": current_section, "data": current_data})
+
+    # Determine the next section marker for each patch within the same file
+    for i, patch in enumerate(patches):
+        patch["next_section"] = None
+        for j in range(i + 1, len(patches)):
+            if patches[j]["file"] == patch["file"]:
+                patch["next_section"] = patches[j]["section"]
+                break
     return metadata, patches
 
 
@@ -148,7 +161,7 @@ def _extract_key(line):
         return f"{parts[0]} {parts[1]}"
     return parts[0]
 
-def _apply_patch_to_file(target_path, section, data_lines, mod_name=None, author=None):
+def _apply_patch_to_file(target_path, section, data_lines, next_section=None, mod_name=None, author=None):
     """Patch a single file in place and append summary of modified lines."""
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.read().splitlines()
@@ -166,22 +179,39 @@ def _apply_patch_to_file(target_path, section, data_lines, mod_name=None, author
     if anchor is None:
         raise ValueError(f"Section '{section}' not found in {target_path}")
 
+    # find end of section for appends
+    section_end = len(lines)
+    if next_section:
+        for i in range(anchor + 1, len(lines)):
+            if next_section in lines[i]:
+                section_end = i
+                break
+
     changed = []
 
-    for new_line in data_lines:
+    for item in data_lines:
+        new_line = item["line"]
+        if item.get("after_header"):
+            insert_pos = anchor + 1
+            lines.insert(insert_pos, new_line)
+            changed.append(insert_pos + 1)
+            anchor += 1
+            section_end += 1
+            continue
+
         key = _extract_key(new_line)
         replaced = False
-        for j in range(anchor + 1, len(lines)):
+        for j in range(anchor + 1, section_end):
             if _extract_key(lines[j].lstrip()) == key:
                 lines[j] = new_line
                 changed.append(j + 1)
                 replaced = True
                 break
         if not replaced:
-            insert_pos = anchor + 1
+            insert_pos = section_end
             lines.insert(insert_pos, new_line)
             changed.append(insert_pos + 1)
-            anchor += 1
+            section_end += 1
 
     if changed:
         mod_desc = mod_name or ""
@@ -360,7 +390,7 @@ def apply_mods_to_temp(game, mods):
                 raise FileNotFoundError(err)
             log(f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'")
             try:
-                _apply_patch_to_file(target, p["section"], p["data"], mod_name, author)
+                _apply_patch_to_file(target, p["section"], p["data"], p.get("next_section"), mod_name, author)
             except Exception as exc:
                 log(f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}")
                 raise
