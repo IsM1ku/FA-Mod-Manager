@@ -134,6 +134,27 @@ def export_smallf_to_game(game, mod_name, game_root):
     shutil.copy2(src, dest)
     print(f"[OK] Exported modified smallf to: {dest}")
 
+# ----------- Profile management -----------
+def import_profile(game, profile_name, source_smallf):
+    """Import an existing smallf.dat as a mod profile."""
+    finished_subdir = os.path.join(FINISHED_DIR, profile_name)
+    os.makedirs(finished_subdir, exist_ok=True)
+    dest = os.path.join(finished_subdir, "smallf.dat")
+    shutil.copy2(source_smallf, dest)
+    print(f"[OK] Imported profile '{profile_name}' -> {dest}")
+    return dest
+
+
+def list_existing_profiles():
+    """Return names of profiles already present in ``finished``."""
+    if not os.path.isdir(FINISHED_DIR):
+        return []
+    names = []
+    for name in os.listdir(FINISHED_DIR):
+        if os.path.isfile(os.path.join(FINISHED_DIR, name, "smallf.dat")):
+            names.append(name)
+    return names
+
 # ----------- Patch/merge logic placeholder -----------
 def apply_mods_to_temp(game, mods):
     """
