@@ -32,3 +32,9 @@ Use the **Settings** button in the GUI to select or update these paths. The back
 4. **Export** – `backend.export_smallf_to_game(game, mod_name, game_root)` copies the new file to `PS3_GAME/USRDIR/smallf_modified.dat` in your configured game directory.
 
 This sequence is also demonstrated in the `__main__` section of `mod_manager_backend.py` and forms the foundation of the GUI.
+
+## Adding Mods
+
+Mods can be added to the list either by dragging `.txt` files onto the mod list
+box or by clicking the **Add Files** button which opens your system's file
+picker. When no mods are loaded, the list shows a helpful "Drag mods here" hint.
