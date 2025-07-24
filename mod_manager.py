@@ -348,7 +348,7 @@ class FAModManager(TkinterDnD.Tk):
 
         try:
             backend.unpack_smallf(game_key)
-            backend.apply_mods_to_temp(game_key, mods=mod_paths)
+            backend.apply_mods_to_temp(game_key, mods=mod_paths, merge_name=merge_name)
             out_path = backend.repack_smallf(game_key, merge_name)
             self.profile_smallfs[merge_name] = (game_key, out_path)
             if merge_name not in self.profile_list.get(0, 'end'):
