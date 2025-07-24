@@ -103,4 +103,34 @@ Each `data:` line is either a replacement if a matching line exists below the se
 
 Both `.psc` and `.txt` files are supported and are treated as plain text for patching. Mod authors should reference the filename exactly as it appears after unpacking.
 
+## In-File Comment Injection (Mod Transparency)
 
+Purpose:
+Automatically inject comments above each changed or inserted line, identifying the mod and author.
+This enables anyone to see what was changed, by whom, just by opening the file—without needing the mod manager.
+
+Comment style:
+
+    .psc files: use // ...
+
+    .txt files: use /* ... */
+
+Example Result:
+
+.psc:
+
+// MODIFIED BY: OP MGs and Debug Cam (IsM1ku)
+MorphingWeaponSetData "firingRate = 100.0"
+
+.txt:
+
+/* MODIFIED BY: OP MGs and Debug Cam (IsM1ku) */
+flipcorrectgain 0	//big air stabilizer.
+
+    If replacing a line, optionally comment out the original for transparency:
+
+        .psc: // ORIGINAL: ...
+
+        .txt: /* ORIGINAL: ... */
+
+        .txt: /* ORIGINAL: ... */
