@@ -59,3 +59,48 @@ A desktop GUI tool for managing, merging, and applying mods to Full Auto (Xbox 3
   {
     "Full Auto 2: Battlelines (PS3)": "C:/Games/Full Auto 2 - Battlelines (Europe)"
   }
+  ```
+
+## Mod File Format and Patching Specification
+
+### Mod File Overview
+
+Mods are defined using human-readable `.txt` files containing:
+
+- **Metadata:** such as `name`, `author`, and `description`.
+- One or more patch instructions, each targeting a file and section within the game's unpacked data.
+
+Example Layout
+
+```
+# name: OP MGs and Debug Cam
+# author: IsM1ku
+# description: Quadruples the firing speed of the machine guns and makes their projectiles hit instantly. Removes air stabilizer and enables debug cam
+
+[FILE MorphingWeaponSetup.psc]
+section: MorphingWeaponSetId "MachineGuns"
+data: MorphingWeaponSetData "firingRate = 100.0"
+data: MorphingWeaponSetData "projectileSpeed = 20000.0"
+
+[FILE gameFA.psc]
+section: //-----------POWERSLIDE, DRIVING AND STEERING---------------
+data: flipcorrectgain 0//big air stabilizer.
+
+[FILE gameFA.psc]
+section: // Other debug stuff disabled by default
+data: isDeveloperBuild 1
+data: ShowComments 0
+data: ShowCamComments_Scale 0.0
+data: ShowCamComments_Opacity 0
+data: bind joy0_r3+joy0_l1 ShowComments 0
+```
+
+Each `[FILE ...]` block patches a single `.psc` or `.txt` file.
+The `section:` line specifies the "anchor" for patching.
+Each `data:` line is either a replacement if a matching line exists below the section or an insertion if not found.
+
+### Supported File Types
+
+Both `.psc` and `.txt` files are supported and are treated as plain text for patching. Mod authors should reference the filename exactly as it appears after unpacking.
+
+
