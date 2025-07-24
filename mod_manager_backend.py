@@ -411,15 +411,15 @@ def apply_mods_to_temp(game, mods):
     # 4. Export to the game folder if configured
     config = load_config()
     game_paths = config.get("game_paths", {})
-    if selected_game == "fa2":
+    if game == "fa2":
         key = "Full Auto 2: Battlelines (PS3)"
     else:
         key = "Full Auto (Xbox 360)"
     game_root = game_paths.get(key)
     if game_root:
-        export_smallf_to_game(selected_game, mod_name, game_root)
+        export_smallf_to_game(game, mod_name, game_root)
     else:
         log("[WARN] Game path not configured; skipping export.")
 
     log("\n[Done] Workflow complete.")
-    log(f"You can find your new smallf.dat here:\n  {output_smallf}")
+    log("Mods applied to temporary folder. Repack to generate new smallf.dat.")
