@@ -148,9 +148,8 @@ def _extract_key(line):
         return f"{parts[0]} {parts[1]}"
     return parts[0]
 
-
 def _apply_patch_to_file(target_path, section, data_lines, mod_name=None, author=None):
-    """Patch a single file in place with optional comment injection."""
+    """Patch a single file in place and append summary of modified lines."""
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.read().splitlines()
 
@@ -158,14 +157,6 @@ def _apply_patch_to_file(target_path, section, data_lines, mod_name=None, author
         c_start, c_end = "// ", ""
     else:
         c_start, c_end = "/* ", " */"
-
-    def mod_comment():
-        if mod_name or author:
-            who = mod_name or ""
-            if author:
-                who = f"{mod_name} ({author})" if mod_name else f"({author})"
-            return f"{c_start}MODIFIED BY: {who}{c_end}"
-        return None
 
     anchor = None
     for i, line in enumerate(lines):
@@ -175,29 +166,34 @@ def _apply_patch_to_file(target_path, section, data_lines, mod_name=None, author
     if anchor is None:
         raise ValueError(f"Section '{section}' not found in {target_path}")
 
-    mod_tag = mod_comment()
+    changed = []
 
     for new_line in data_lines:
         key = _extract_key(new_line)
         replaced = False
         for j in range(anchor + 1, len(lines)):
             if _extract_key(lines[j].lstrip()) == key:
-                if mod_tag:
-                    lines[j:j+1] = [mod_tag, new_line]
-                    j += 1
-                else:
-                    lines[j] = new_line
+                lines[j] = new_line
+                changed.append(j + 1)
                 replaced = True
                 break
         if not replaced:
-            insert_lines = [new_line]
-            if mod_tag:
-                insert_lines.insert(0, mod_tag)
-            lines[anchor + 1:anchor + 1] = insert_lines
-            anchor += len(insert_lines)
+            insert_pos = anchor + 1
+            lines.insert(insert_pos, new_line)
+            changed.append(insert_pos + 1)
+            anchor += 1
+
+    if changed:
+        mod_desc = mod_name or ""
+        if author:
+            mod_desc = f"{mod_desc} by {author}" if mod_desc else f"by {author}"
+        summary = f"{c_start}line(s): {','.join(str(n) for n in changed)} modified by {mod_desc}{c_end}"
+        lines.append(summary)
 
     with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("\n".join(lines) + "\n")
+    log(f"[OK] Patched {os.path.basename(target_path)} section '{section}'")
+
 
 # ----------- Unpack and repack functions -----------
 def _ensure_base_unpacked(game):
@@ -359,8 +355,15 @@ def apply_mods_to_temp(game, mods):
         for p in patches:
             target = os.path.join(target_root, p["file"])
             if not os.path.isfile(target):
-                raise FileNotFoundError(f"Target file not found: {p['file']} in {mod}")
-            _apply_patch_to_file(target, p["section"], p["data"], mod_name, author)
+                err = f"Target file not found: {p['file']} in {mod}"
+                log(f"[ERROR] {err}")
+                raise FileNotFoundError(err)
+            log(f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'")
+            try:
+                _apply_patch_to_file(target, p["section"], p["data"], mod_name, author)
+            except Exception as exc:
+                log(f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}")
+                raise
         log(f"[OK] Applied mod: {os.path.basename(mod)}")
 
 # ----------- Main example usage -----------
