@@ -10,8 +10,14 @@ TOOLS_DIR = os.path.join(SMALLF_DIR, "tools")
 FINISHED_DIR = os.path.join(SMALLF_DIR, "finished")
 BASE_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa")
 BASE_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2")
+
+# Temporary working folders used when repacking
 TEMP_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa_temp")
 TEMP_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2_temp")
+
+# Cached clean unpacked folders so we only run the slow unpacker once
+CACHE_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa_cache")
+CACHE_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2_cache")
 
 CONFIG_FILE = os.path.join(BASE_DIR, "fa_mod_manager_config.json")
 
@@ -29,21 +35,41 @@ def load_game_paths():
 
 # ----------- Unpack and repack functions -----------
 def unpack_smallf(game):
-    """Unpack smallf.dat for the given game ('fa' or 'fa2') into its temp folder."""
+    """Prepare the temp folder for ``game`` by unpacking ``smallf.dat``.
+
+    The heavy unpack step is only done the first time and cached in
+    ``fa_cache``/``fa2_cache``. Subsequent calls simply copy the cached
+    contents to the temp folder, greatly speeding up merges.
+    """
+
     exe = os.path.join(TOOLS_DIR, "unpack_smallf_win.exe")
     if game == "fa2":
         input_smallf = os.path.join(BASE_FA2_DIR, "smallf.dat")
         temp_dir = TEMP_FA2_DIR
+        cache_dir = CACHE_FA2_DIR
     else:
         input_smallf = os.path.join(BASE_FA_DIR, "smallF.dat")
         temp_dir = TEMP_FA_DIR
-    # Clean temp folder
+        cache_dir = CACHE_FA_DIR
+
+    # If we do not have a cached clean unpack, create it now
+    if not os.path.isdir(cache_dir) or not os.listdir(cache_dir):
+        if os.path.exists(cache_dir):
+            shutil.rmtree(cache_dir)
+        os.makedirs(cache_dir)
+        dat_copy = os.path.join(cache_dir, os.path.basename(input_smallf))
+        shutil.copy2(input_smallf, dat_copy)
+        subprocess.check_call([exe, os.path.basename(dat_copy)], cwd=cache_dir)
+        os.remove(dat_copy)
+        print(f"[OK] Unpacked {input_smallf} to cache {cache_dir}")
+    else:
+        print(f"[INFO] Reusing cached unpack from {cache_dir}")
+
+    # Replace temp folder with a fresh copy from the cached unpack
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
-    os.makedirs(temp_dir)
-    # Most tools output to their own folder; set cwd to temp_dir just in case
-    subprocess.check_call([exe, input_smallf], cwd=temp_dir)
-    print(f"[OK] Unpacked {input_smallf} to {temp_dir}")
+    shutil.copytree(cache_dir, temp_dir)
+    print(f"[OK] Prepared temp folder at {temp_dir}")
     return temp_dir
 
 def repack_smallf(game, mod_name):
@@ -56,8 +82,15 @@ def repack_smallf(game, mod_name):
         temp_dir = TEMP_FA_DIR
         finished_subdir = os.path.join(FINISHED_DIR, "fa", mod_name)
     subprocess.check_call([exe, temp_dir])
-    # The repacker creates smallf_repack.dat in temp_dir
-    src = os.path.join(temp_dir, "smallf_repack.dat")
+    # The repacker writes <temp_dir>_repack.dat next to the temp folder
+    # but some versions may create smallf_repack.dat in the folder instead.
+    # Support both to avoid FileNotFoundError.
+    candidate1 = f"{temp_dir}_repack.dat"
+    candidate2 = os.path.join(temp_dir, "smallf_repack.dat")
+    if os.path.isfile(candidate1):
+        src = candidate1
+    else:
+        src = candidate2
     os.makedirs(finished_subdir, exist_ok=True)
     dest = os.path.join(finished_subdir, "smallf.dat")
     shutil.move(src, dest)
