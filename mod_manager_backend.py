@@ -89,15 +89,22 @@ def load_game_paths():
 
 # ----------- Mod parsing and patching -----------
 def _parse_mod_file(path):
-    """Return a list of patch instructions from a mod file."""
+    """Return metadata dict and a list of patch instructions from a mod file."""
     patches = []
+    metadata = {}
     current_file = None
     current_section = None
     current_data = []
     with open(path, "r", encoding="utf-8") as f:
         for raw in f:
-            line = raw.strip()
-            if not line or line.startswith("#"):
+            line = raw.rstrip("\n")
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith("#"):
+                if ":" in stripped:
+                    key, val = stripped[1:].split(":", 1)
+                    metadata[key.strip().lower()] = val.strip()
                 continue
             if line.startswith("[FILE") and line.endswith("]"):
                 if current_file and current_section and current_data:
@@ -125,22 +132,40 @@ def _parse_mod_file(path):
                     current_data.append(line[len("data:"):].strip())
     if current_file and current_section and current_data:
         patches.append({"file": current_file, "section": current_section, "data": current_data})
-    return patches
+    return metadata, patches
 
 
 # Helper to compare lines ignoring values
 def _extract_key(line):
-    line=line.strip();
+    """Return a comparison key for a config line, ignoring values."""
+    line = line.strip()
     if "=" in line:
-        return line.split("=",1)[0].strip();
-    parts=line.split();
-    return parts[0] if parts else line
+        return line.split("=", 1)[0].strip()
+    parts = line.split()
+    if not parts:
+        return line
+    if parts[0] == "bind" and len(parts) >= 2:
+        return f"{parts[0]} {parts[1]}"
+    return parts[0]
 
 
-def _apply_patch_to_file(target_path, section, data_lines):
-    """Patch a single file in place."""
+def _apply_patch_to_file(target_path, section, data_lines, mod_name=None, author=None):
+    """Patch a single file in place with optional comment injection."""
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.read().splitlines()
+
+    if target_path.lower().endswith(".psc"):
+        c_start, c_end = "// ", ""
+    else:
+        c_start, c_end = "/* ", " */"
+
+    def mod_comment():
+        if mod_name or author:
+            who = mod_name or ""
+            if author:
+                who = f"{mod_name} ({author})" if mod_name else f"({author})"
+            return f"{c_start}MODIFIED BY: {who}{c_end}"
+        return None
 
     anchor = None
     for i, line in enumerate(lines):
@@ -150,17 +175,28 @@ def _apply_patch_to_file(target_path, section, data_lines):
     if anchor is None:
         raise ValueError(f"Section '{section}' not found in {target_path}")
 
+    mod_tag = mod_comment()
+
     for new_line in data_lines:
         key = _extract_key(new_line)
         replaced = False
         for j in range(anchor + 1, len(lines)):
             if _extract_key(lines[j].lstrip()) == key:
-                lines[j] = new_line
+                if mod_tag:
+                    original = lines[j]
+                    comment_original = f"{c_start}ORIGINAL: {original}{c_end}"
+                    lines[j:j+1] = [comment_original, mod_tag, new_line]
+                    j += 2
+                else:
+                    lines[j] = new_line
                 replaced = True
                 break
         if not replaced:
-            lines.insert(anchor + 1, new_line)
-            anchor += 1
+            insert_lines = [new_line]
+            if mod_tag:
+                insert_lines.insert(0, mod_tag)
+            lines[anchor + 1:anchor + 1] = insert_lines
+            anchor += len(insert_lines)
 
     with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("\n".join(lines) + "\n")
@@ -319,12 +355,14 @@ def apply_mods_to_temp(game, mods):
     target_root = os.path.join(temp_dir, "smallf")
 
     for mod in mods:
-        patches = _parse_mod_file(mod)
+        meta, patches = _parse_mod_file(mod)
+        mod_name = meta.get("name", os.path.basename(mod))
+        author = meta.get("author")
         for p in patches:
             target = os.path.join(target_root, p["file"])
             if not os.path.isfile(target):
                 raise FileNotFoundError(f"Target file not found: {p['file']} in {mod}")
-            _apply_patch_to_file(target, p["section"], p["data"])
+            _apply_patch_to_file(target, p["section"], p["data"], mod_name, author)
         log(f"[OK] Applied mod: {os.path.basename(mod)}")
 
 # ----------- Main example usage -----------
