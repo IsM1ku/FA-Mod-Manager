@@ -159,11 +159,16 @@ class FAModManager(TkinterDnD.Tk):
         if selected:
             old_name = self.profile_list.get(selected[0])
             new_name = simpledialog.askstring("Rename Profile", f"Enter new name for '{old_name}':")
-            if new_name:
+            if new_name and new_name != old_name:
+                try:
+                    new_path = backend.rename_profile(old_name, new_name)
+                except Exception as exc:
+                    messagebox.showerror("Error", f"Failed to rename profile:\n{exc}")
+                    return
                 self.profile_list.delete(selected[0])
                 self.profile_list.insert(selected[0], new_name)
-                if old_name in self.profile_smallfs:
-                    self.profile_smallfs[new_name] = self.profile_smallfs.pop(old_name)
+                game_key, _ = self.profile_smallfs.pop(old_name, (None, None))
+                self.profile_smallfs[new_name] = (game_key, new_path)
         else:
             messagebox.showwarning("Select a Profile", "No profile selected!")
 
