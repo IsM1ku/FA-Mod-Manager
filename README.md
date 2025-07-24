@@ -36,5 +36,12 @@ This sequence is also demonstrated in the `__main__` section of `mod_manager_bac
 ## Adding Mods
 
 Mods can be added to the list either by dragging `.txt` files onto the mod list
-box or by clicking the **Add Files** button which opens your system's file
-picker. When no mods are loaded, the list shows a helpful "Drag mods here" hint.
+or by clicking the **Add Files** button which opens your system's file picker.
+Each mod entry now has a checkbox allowing you to enable or disable it for the
+next merge. When no mods are loaded, the list shows a helpful "Drag mods here" hint.
+
+### Importing Mod Profiles
+
+Existing `smallf.dat` files can be imported as mod profiles using the **Import
+Profile** button. Choose a folder containing a `smallf.dat` and it will appear
+in the profile list using the folder name.
