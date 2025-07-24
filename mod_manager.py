@@ -227,7 +227,26 @@ class FAModManager(TkinterDnD.Tk):
     def _add_mod(self, path):
         idx = len(self.mod_entries)
         var = tk.BooleanVar(value=True)
-        cb = tk.Checkbutton(self.mods_container, text=os.path.basename(path), variable=var, anchor='w')
+        try:
+            meta, _ = backend._parse_mod_file(path)
+        except Exception:
+            meta = {}
+
+        name = meta.get('name')
+        author = meta.get('author')
+        desc = meta.get('description')
+
+        if name:
+            parts = [name]
+            if author:
+                parts.append(f"by {author}")
+            text = " ".join(parts)
+            if desc:
+                text = f"{text} - {desc}"
+        else:
+            text = os.path.basename(path)
+
+        cb = tk.Checkbutton(self.mods_container, text=text, variable=var, anchor='w', justify='left', wraplength=300)
         cb.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
         cb.pack(anchor='w', fill='x')
         self.mod_entries.append({'path': path, 'var': var, 'widget': cb})

@@ -183,10 +183,8 @@ def _apply_patch_to_file(target_path, section, data_lines, mod_name=None, author
         for j in range(anchor + 1, len(lines)):
             if _extract_key(lines[j].lstrip()) == key:
                 if mod_tag:
-                    original = lines[j]
-                    comment_original = f"{c_start}ORIGINAL: {original}{c_end}"
-                    lines[j:j+1] = [comment_original, mod_tag, new_line]
-                    j += 2
+                    lines[j:j+1] = [mod_tag, new_line]
+                    j += 1
                 else:
                     lines[j] = new_line
                 replaced = True
