@@ -1,16 +1,17 @@
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog, filedialog
+from tkinterdnd2 import TkinterDnD, DND_FILES
 
 import mod_manager_backend as backend
 
 # --- Dummy data for demo purposes ---
 GAMES = ['Full Auto (Xbox 360)', 'Full Auto 2: Battlelines (PS3)']
 DEMO_PROFILES = ['Default', 'Debug', 'Modded Physics']
-DEMO_MODS = ['Weapon Overhaul', 'Classic Music Pack', 'Wreck Tweaks']
+DEMO_MODS = []  # start with an empty mod list
 
 
-class FAModManager(tk.Tk):
+class FAModManager(TkinterDnD.Tk):
     def __init__(self):
         super().__init__()
         self.title('Full Auto Mod Manager Prototype')
@@ -19,6 +20,8 @@ class FAModManager(tk.Tk):
 
         # Store paths to repacked smallf per profile
         self.profile_smallfs = {}
+        # List of mod file paths corresponding to entries in the listbox
+        self.mod_files = []
 
         # Load or create game paths config
         self.game_paths = {game: "" for game in GAMES}
@@ -53,10 +56,18 @@ class FAModManager(tk.Tk):
         # Right: Mod list for selected profile
         mods_frame = tk.LabelFrame(main_frame, text='Mod List')
         mods_frame.pack(side='left', fill='both', padx=10, expand=True)
-        self.mods_list = tk.Listbox(mods_frame, height=10, selectmode='multiple')
-        for mod in DEMO_MODS:
-            self.mods_list.insert('end', mod)
+        self.mods_list = tk.Listbox(mods_frame, height=10, selectmode='extended')
         self.mods_list.pack(padx=5, pady=5, fill='both', expand=True)
+        # Enable drag-and-drop of txt files into the listbox
+        self.mods_list.drop_target_register(DND_FILES)
+        self.mods_list.dnd_bind('<<Drop>>', self.on_file_drop)
+
+        btn_frame = tk.Frame(mods_frame)
+        btn_frame.pack(pady=4)
+        tk.Button(btn_frame, text='Up', width=6, command=self.move_up).pack(side='left', padx=2)
+        tk.Button(btn_frame, text='Down', width=6, command=self.move_down).pack(side='left', padx=2)
+        tk.Button(btn_frame, text='Remove', width=8, command=self.remove_selected_mods).pack(side='left', padx=2)
+        tk.Button(btn_frame, text='Clear', width=6, command=self.clear_mods).pack(side='left', padx=2)
         tk.Button(mods_frame, text='Merge', command=self.merge_mods).pack(pady=4, fill='x')
 
     def open_settings(self):
@@ -127,24 +138,77 @@ class FAModManager(tk.Tk):
         else:
             messagebox.showwarning("Select a Profile", "No profile selected!")
 
+    # --- Mod list helpers ---
+    def on_file_drop(self, event):
+        files = self.tk.splitlist(event.data)
+        for path in files:
+            if os.path.isfile(path) and path.lower().endswith('.txt'):
+                self.mods_list.insert('end', os.path.basename(path))
+                self.mod_files.append(path)
+
+    def remove_selected_mods(self):
+        selection = list(self.mods_list.curselection())
+        if not selection:
+            return
+        for index in reversed(selection):
+            self.mods_list.delete(index)
+            del self.mod_files[index]
+
+    def clear_mods(self):
+        self.mods_list.delete(0, 'end')
+        self.mod_files.clear()
+
+    def move_up(self):
+        selection = self.mods_list.curselection()
+        if not selection:
+            return
+        index = selection[0]
+        if index == 0:
+            return
+        item = self.mods_list.get(index)
+        self.mods_list.delete(index)
+        self.mods_list.insert(index - 1, item)
+        self.mod_files.insert(index - 1, self.mod_files.pop(index))
+        self.mods_list.selection_set(index - 1)
+
+    def move_down(self):
+        selection = self.mods_list.curselection()
+        if not selection:
+            return
+        index = selection[0]
+        if index == self.mods_list.size() - 1:
+            return
+        item = self.mods_list.get(index)
+        self.mods_list.delete(index)
+        self.mods_list.insert(index + 1, item)
+        self.mod_files.insert(index + 1, self.mod_files.pop(index))
+        self.mods_list.selection_set(index + 1)
+
     def merge_mods(self):
-        selected = self.profile_list.curselection()
-        if not selected:
-            messagebox.showwarning("Select a Profile", "No profile selected!")
+        mod_indices = list(self.mods_list.curselection())
+        if not mod_indices:
+            messagebox.showwarning("Select Mods", "No mods selected to merge!")
             return
 
-        profile = self.profile_list.get(selected[0])
+        merge_name = simpledialog.askstring("Merge Name", "Enter name for merged mod:")
+        if not merge_name:
+            return
+
         selected_game = self.game_var.get()
         game_key = "fa2" if "Full Auto 2" in selected_game else "fa"
+        mod_paths = [self.mod_files[i] for i in mod_indices]
 
         try:
             backend.unpack_smallf(game_key)
-            backend.apply_mods_to_temp(game_key, mods=[])
-            out_path = backend.repack_smallf(game_key, profile)
-            self.profile_smallfs[profile] = (game_key, out_path)
+            backend.apply_mods_to_temp(game_key, mods=mod_paths)
+            out_path = backend.repack_smallf(game_key, merge_name)
+            self.profile_smallfs[merge_name] = (game_key, out_path)
+            # Add the newly merged file as a selectable mod
+            self.mods_list.insert('end', merge_name)
+            self.mod_files.append(out_path)
             messagebox.showinfo(
                 "Merge Complete",
-                f"Repacked smallf for profile '{profile}' saved to:\n{out_path}"
+                f"Repacked smallf '{merge_name}' saved to:\n{out_path}"
             )
         except Exception as exc:
             messagebox.showerror("Error", f"Merge failed:\n{exc}")
