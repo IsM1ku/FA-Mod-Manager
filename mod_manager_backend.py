@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 import json
+import logging
 
 # ----------- Setup paths relative to this script -----------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -17,26 +18,74 @@ TEMP_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa_temp")
 TEMP_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2_temp")
 
 CONFIG_FILE = os.path.join(BASE_DIR, "fa_mod_manager_config.json")
+LOG_FILE = os.path.join(BASE_DIR, "fa_mod_manager.log")
 
-# ----------- Config: Save/load game paths (optional) -----------
-def save_game_paths(game_paths):
+logger = logging.getLogger("fa_mod_manager")
+logger.setLevel(logging.INFO)
+LOGGING_ENABLED = False
+
+
+# ----------- Config management -----------
+def save_config(config):
     with open(CONFIG_FILE, "w") as f:
-        json.dump(game_paths, f)
+        json.dump(config, f)
 
-def load_game_paths():
-    """Return saved game paths, creating an empty config if needed."""
+
+def load_config():
+    """Return config dictionary, creating a default one if needed."""
     if not os.path.isfile(CONFIG_FILE):
         example = os.path.join(BASE_DIR, "fa_mod_manager_config.example.json")
         if os.path.isfile(example):
             shutil.copy2(example, CONFIG_FILE)
         else:
+            default = {"game_paths": {}, "logging_enabled": False}
             with open(CONFIG_FILE, "w") as f:
-                json.dump({}, f)
+                json.dump(default, f)
     try:
         with open(CONFIG_FILE, "r") as f:
-            return json.load(f)
+            data = json.load(f)
     except Exception:
-        return {}
+        data = {}
+
+    if "game_paths" not in data:
+        # upgrade old format
+        data = {"game_paths": data, "logging_enabled": False}
+    if "logging_enabled" not in data:
+        data["logging_enabled"] = False
+    return data
+
+
+def init_logger(enabled):
+    """Enable or disable file logging."""
+    global LOGGING_ENABLED
+    LOGGING_ENABLED = enabled
+    logger.handlers.clear()
+    if enabled:
+        handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
+        handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
+        logger.addHandler(handler)
+
+
+def get_logging_enabled():
+    return LOGGING_ENABLED
+
+
+def log(msg):
+    print(msg)
+    if LOGGING_ENABLED:
+        logger.info(msg)
+
+
+# Backwards compatibility wrappers
+def save_game_paths(game_paths):
+    data = load_config()
+    data["game_paths"] = game_paths
+    save_config(data)
+
+
+def load_game_paths():
+    return load_config().get("game_paths", {})
+
 
 # ----------- Mod parsing and patching -----------
 def _parse_mod_file(path):
@@ -133,7 +182,7 @@ def _ensure_base_unpacked(game):
         shutil.copy2(input_smallf, dat_copy)
         subprocess.check_call([exe, os.path.basename(dat_copy)], cwd=unpack_dir)
         os.remove(dat_copy)
-        print(f"[OK] Cached base unpack to: {unpack_dir}")
+        log(f"[OK] Cached base unpack to: {unpack_dir}")
     return unpack_dir
 
 
@@ -149,7 +198,7 @@ def unpack_smallf(game):
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
     shutil.copytree(unpack_dir, temp_dir)
-    print(f"[OK] Prepared temp folder at {temp_dir}")
+    log(f"[OK] Prepared temp folder at {temp_dir}")
     return temp_dir
 
 def repack_smallf(game, mod_name):
@@ -192,16 +241,13 @@ def repack_smallf(game, mod_name):
     # Clean up the working folder
     shutil.rmtree(working_smallf)
 
-    print(f"[OK] Repacked smallf written to: {dest}")
+    log(f"[OK] Repacked smallf written to: {dest}")
     return dest
 
 # ----------- Export to game folder -----------
 def export_smallf_to_game(game, mod_name, game_root):
-    """Copy the repacked smallf.dat into the given game's PS3 folder.
-
-    The file is renamed to ``smallf_modified.dat`` so existing game files are
-    left untouched. ``game`` should be either ``'fa'`` or ``'fa2'``.
-    """
+    """Copy the repacked smallf.dat into the given game's PS3 folder as
+    ``smallf.dat``."""
     finished_subdir = os.path.join(FINISHED_DIR, mod_name)
 
     src = os.path.join(finished_subdir, "smallf.dat")
@@ -210,9 +256,22 @@ def export_smallf_to_game(game, mod_name, game_root):
 
     dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
     os.makedirs(dest_dir, exist_ok=True)
-    dest = os.path.join(dest_dir, "smallf_modified.dat")
+    dest = os.path.join(dest_dir, "smallf.dat")
     shutil.copy2(src, dest)
-    print(f"[OK] Exported modified smallf to: {dest}")
+    log(f"[OK] Exported modified smallf to: {dest}")
+
+
+def restore_original_smallf(game, game_root):
+    """Restore the original smallf.dat for the given game."""
+    if game == "fa2":
+        src = os.path.join(BASE_FA2_DIR, "smallf.dat")
+    else:
+        src = os.path.join(BASE_FA_DIR, "smallF.dat")
+    dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
+    os.makedirs(dest_dir, exist_ok=True)
+    dest = os.path.join(dest_dir, "smallf.dat")
+    shutil.copy2(src, dest)
+    log(f"[OK] Restored original smallf to: {dest}")
 
 # ----------- Profile management -----------
 def import_profile(game, profile_name, source_smallf):
@@ -221,7 +280,7 @@ def import_profile(game, profile_name, source_smallf):
     os.makedirs(finished_subdir, exist_ok=True)
     dest = os.path.join(finished_subdir, "smallf.dat")
     shutil.copy2(source_smallf, dest)
-    print(f"[OK] Imported profile '{profile_name}' -> {dest}")
+    log(f"[OK] Imported profile '{profile_name}' -> {dest}")
     return dest
 
 
@@ -266,7 +325,7 @@ def apply_mods_to_temp(game, mods):
             if not os.path.isfile(target):
                 raise FileNotFoundError(f"Target file not found: {p['file']} in {mod}")
             _apply_patch_to_file(target, p["section"], p["data"])
-        print(f"[OK] Applied mod: {os.path.basename(mod)}")
+        log(f"[OK] Applied mod: {os.path.basename(mod)}")
 
 # ----------- Main example usage -----------
 if __name__ == "__main__":
@@ -284,7 +343,8 @@ if __name__ == "__main__":
     output_smallf = repack_smallf(selected_game, mod_name)
 
     # 4. Export to the game folder if configured
-    game_paths = load_game_paths()
+    config = load_config()
+    game_paths = config.get("game_paths", {})
     if selected_game == "fa2":
         key = "Full Auto 2: Battlelines (PS3)"
     else:
@@ -293,7 +353,7 @@ if __name__ == "__main__":
     if game_root:
         export_smallf_to_game(selected_game, mod_name, game_root)
     else:
-        print("[WARN] Game path not configured; skipping export.")
+        log("[WARN] Game path not configured; skipping export.")
 
-    print("\n[Done] Workflow complete.")
-    print(f"You can find your new smallf.dat here:\n  {output_smallf}")
+    log("\n[Done] Workflow complete.")
+    log(f"You can find your new smallf.dat here:\n  {output_smallf}")
