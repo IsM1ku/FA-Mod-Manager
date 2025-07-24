@@ -130,8 +130,14 @@ class FAModManager(tk.Tk):
             messagebox.showerror("Error", "Could not find smallf.dat in your game folder.")
             return
 
+        dest_path = os.path.join(game_root, "PS3_GAME", "USRDIR", "smallf_modified.dat")
+
         # Replace with real merge/copy logic
-        messagebox.showinfo("Merge", f"Would now patch/replace:\n{smallf_path}")
+        messagebox.showinfo(
+            "Merge",
+            f"Would now patch/replace:\n{smallf_path}\n"
+            f"Export would be written to:\n{dest_path}"
+        )
 
 if __name__ == "__main__":
     app = FAModManager()
