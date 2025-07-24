@@ -64,6 +64,28 @@ def repack_smallf(game, mod_name):
     print(f"[OK] Repacked smallf written to: {dest}")
     return dest
 
+# ----------- Export to game folder -----------
+def export_smallf_to_game(game, mod_name, game_root):
+    """Copy the repacked smallf.dat into the given game's PS3 folder.
+
+    The file is renamed to ``smallf_modified.dat`` so existing game files are
+    left untouched. ``game`` should be either ``'fa'`` or ``'fa2'``.
+    """
+    if game == "fa2":
+        finished_subdir = os.path.join(FINISHED_DIR, "fa2", mod_name)
+    else:
+        finished_subdir = os.path.join(FINISHED_DIR, "fa", mod_name)
+
+    src = os.path.join(finished_subdir, "smallf.dat")
+    if not os.path.isfile(src):
+        raise FileNotFoundError(f"Repacked file not found: {src}")
+
+    dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
+    os.makedirs(dest_dir, exist_ok=True)
+    dest = os.path.join(dest_dir, "smallf_modified.dat")
+    shutil.copy2(src, dest)
+    print(f"[OK] Exported modified smallf to: {dest}")
+
 # ----------- Patch/merge logic placeholder -----------
 def apply_mods_to_temp(game, mods):
     """
@@ -93,6 +115,18 @@ if __name__ == "__main__":
 
     # 3. Repack
     output_smallf = repack_smallf(selected_game, mod_name)
+
+    # 4. Export to the game folder if configured
+    game_paths = load_game_paths()
+    if selected_game == "fa2":
+        key = "Full Auto 2: Battlelines (PS3)"
+    else:
+        key = "Full Auto (Xbox 360)"
+    game_root = game_paths.get(key)
+    if game_root:
+        export_smallf_to_game(selected_game, mod_name, game_root)
+    else:
+        print("[WARN] Game path not configured; skipping export.")
 
     print("\n[Done] Workflow complete.")
     print(f"You can find your new smallf.dat here:\n  {output_smallf}")
