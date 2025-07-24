@@ -374,8 +374,20 @@ def list_existing_profiles():
     return names
 
 # ----------- Patch/merge logic placeholder -----------
-def apply_mods_to_temp(game, mods):
-    """Apply a sequence of mod files to the temporary unpacked directory."""
+def apply_mods_to_temp(game, mods, merge_name=None):
+    """Apply a sequence of mod files to the temporary unpacked directory.
+
+    Parameters
+    ----------
+    game : str
+        Either ``"fa"`` or ``"fa2"``.
+    mods : list[str]
+        Paths to mod definition files.
+    merge_name : str, optional
+        Desired name for the merged profile. If given it will be referenced in
+        informational log messages. Defaults to the name of the last mod in
+        ``mods``.
+    """
     if game == "fa2":
         temp_dir = TEMP_FA2_DIR
     else:
@@ -408,19 +420,5 @@ def apply_mods_to_temp(game, mods):
         for path, lines_list in pending.items():
             _append_summary_comment(path, lines_list, mod_name, author)
         log(f"[OK] Applied mod: {os.path.basename(mod)}")
-    # 4. Export to the game folder if configured
-    config = load_config()
-    game_paths = config.get("game_paths", {})
-    if game == "fa2":
-        key = "Full Auto 2: Battlelines (PS3)"
-    else:
-        key = "Full Auto (Xbox 360)"
-    game_root = game_paths.get(key)
-    if game_root:
-        export_smallf_to_game(game, mod_name, game_root)
-    else:
-        log("[WARN] Game path not configured; skipping export.")
-
-    log("\n[Done] Workflow complete.")
-    output_smallf = os.path.join(FINISHED_DIR, mod_name, "smallf.dat")
-    log(f"You can find your new smallf.dat here:\n  {output_smallf}")
+    final_name = merge_name or mod_name
+    log(f"\n[Done] Mods applied for '{final_name}'. Ready for repack.")
