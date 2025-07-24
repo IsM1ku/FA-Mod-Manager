@@ -75,6 +75,13 @@ class FAModManager(TkinterDnD.Tk):
         # Right: Mod list for selected profile
         mods_frame = tk.LabelFrame(main_frame, text='Mod List')
         mods_frame.pack(side='left', fill='both', padx=10, expand=True)
+        header = tk.Frame(mods_frame)
+        header.pack(fill='x', padx=5)
+        tk.Label(header, text="", width=3).grid(row=0, column=0)
+        tk.Label(header, text="Name", width=20, anchor='w').grid(row=0, column=1, sticky='w')
+        tk.Label(header, text="Author", width=15, anchor='w').grid(row=0, column=2, sticky='w')
+        tk.Label(header, text="Description", anchor='w').grid(row=0, column=3, sticky='w')
+
         self.mods_container = tk.Frame(mods_frame)
         self.mods_container.pack(padx=5, pady=5, fill='both', expand=True)
         self.mod_entries = []
@@ -236,20 +243,21 @@ class FAModManager(TkinterDnD.Tk):
         author = meta.get('author')
         desc = meta.get('description')
 
-        if name:
-            parts = [name]
-            if author:
-                parts.append(f"by {author}")
-            text = " ".join(parts)
-            if desc:
-                text = f"{text} - {desc}"
-        else:
-            text = os.path.basename(path)
+        row = tk.Frame(self.mods_container)
+        cb = tk.Checkbutton(row, variable=var)
+        cb.grid(row=0, column=0, padx=2)
 
-        cb = tk.Checkbutton(self.mods_container, text=text, variable=var, anchor='w', justify='left', wraplength=300)
-        cb.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
-        cb.pack(anchor='w', fill='x')
-        self.mod_entries.append({'path': path, 'var': var, 'widget': cb})
+        name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w', width=20)
+        name_lbl.grid(row=0, column=1, sticky='w')
+        tk.Label(row, text=author or '', anchor='w', width=15).grid(row=0, column=2, sticky='w')
+        tk.Label(row, text=desc or '', anchor='w', wraplength=250, justify='left').grid(row=0, column=3, sticky='w')
+
+        row.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
+        for child in row.winfo_children():
+            child.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
+
+        row.pack(anchor='w', fill='x', pady=1)
+        self.mod_entries.append({'path': path, 'var': var, 'widget': row})
         self.update_mod_placeholder()
 
     def on_file_drop(self, event):
@@ -273,9 +281,15 @@ class FAModManager(TkinterDnD.Tk):
 
     def select_mod(self, index):
         if self.selected_mod_index is not None and 0 <= self.selected_mod_index < len(self.mod_entries):
-            self.mod_entries[self.selected_mod_index]['widget'].configure(background=self.mods_container.cget('background'))
+            old_row = self.mod_entries[self.selected_mod_index]['widget']
+            for child in old_row.winfo_children():
+                child.configure(background=old_row.cget('background'))
+            old_row.configure(background=self.mods_container.cget('background'))
         self.selected_mod_index = index
-        self.mod_entries[index]['widget'].configure(background='lightblue')
+        new_row = self.mod_entries[index]['widget']
+        new_row.configure(background='lightblue')
+        for child in new_row.winfo_children():
+            child.configure(background='lightblue')
 
     def remove_selected_mods(self):
         idx = self.selected_mod_index
@@ -298,6 +312,8 @@ class FAModManager(TkinterDnD.Tk):
             entry['widget'].pack_forget()
         for entry in self.mod_entries:
             entry['widget'].pack(anchor='w', fill='x')
+        if self.selected_mod_index is not None and 0 <= self.selected_mod_index < len(self.mod_entries):
+            self.select_mod(self.selected_mod_index)
 
     def move_up(self):
         idx = self.selected_mod_index
@@ -306,6 +322,7 @@ class FAModManager(TkinterDnD.Tk):
         self.mod_entries[idx-1], self.mod_entries[idx] = self.mod_entries[idx], self.mod_entries[idx-1]
         self.selected_mod_index -= 1
         self.refresh_mod_widgets()
+        self.select_mod(self.selected_mod_index)
 
     def move_down(self):
         idx = self.selected_mod_index
@@ -314,6 +331,7 @@ class FAModManager(TkinterDnD.Tk):
         self.mod_entries[idx+1], self.mod_entries[idx] = self.mod_entries[idx], self.mod_entries[idx+1]
         self.selected_mod_index += 1
         self.refresh_mod_widgets()
+        self.select_mod(self.selected_mod_index)
 
     def merge_mods(self):
         mod_paths = [e['path'] for e in self.mod_entries if e['var'].get()]
