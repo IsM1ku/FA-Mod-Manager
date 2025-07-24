@@ -79,6 +79,15 @@ def _parse_mod_file(path):
     return patches
 
 
+# Helper to compare lines ignoring values
+def _extract_key(line):
+    line=line.strip();
+    if "=" in line:
+        return line.split("=",1)[0].strip();
+    parts=line.split();
+    return parts[0] if parts else line
+
+
 def _apply_patch_to_file(target_path, section, data_lines):
     """Patch a single file in place."""
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -93,10 +102,10 @@ def _apply_patch_to_file(target_path, section, data_lines):
         raise ValueError(f"Section '{section}' not found in {target_path}")
 
     for new_line in data_lines:
-        key = new_line.split()[0] if new_line.split() else new_line
+        key = _extract_key(new_line)
         replaced = False
         for j in range(anchor + 1, len(lines)):
-            if lines[j].lstrip().startswith(key):
+            if _extract_key(lines[j].lstrip()) == key:
                 lines[j] = new_line
                 replaced = True
                 break
