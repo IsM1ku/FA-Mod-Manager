@@ -23,6 +23,7 @@ LOG_FILE = os.path.join(BASE_DIR, "fa_mod_manager.log")
 logger = logging.getLogger("fa_mod_manager")
 logger.setLevel(logging.INFO)
 LOGGING_ENABLED = False
+COMMENTS_ENABLED = True
 
 
 # ----------- Config management -----------
@@ -38,7 +39,7 @@ def load_config():
         if os.path.isfile(example):
             shutil.copy2(example, CONFIG_FILE)
         else:
-            default = {"game_paths": {}, "logging_enabled": False}
+            default = {"game_paths": {}, "logging_enabled": False, "comments_enabled": True}
             with open(CONFIG_FILE, "w") as f:
                 json.dump(default, f)
     try:
@@ -49,9 +50,11 @@ def load_config():
 
     if "game_paths" not in data:
         # upgrade old format
-        data = {"game_paths": data, "logging_enabled": False}
+        data = {"game_paths": data, "logging_enabled": False, "comments_enabled": True}
     if "logging_enabled" not in data:
         data["logging_enabled"] = False
+    if "comments_enabled" not in data:
+        data["comments_enabled"] = True
     return data
 
 
@@ -68,6 +71,16 @@ def init_logger(enabled):
 
 def get_logging_enabled():
     return LOGGING_ENABLED
+
+
+def init_comments(enabled):
+    """Enable or disable summary comments."""
+    global COMMENTS_ENABLED
+    COMMENTS_ENABLED = enabled
+
+
+def get_comments_enabled():
+    return COMMENTS_ENABLED
 
 
 def log(msg):
@@ -215,7 +228,7 @@ def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
 
 def _append_summary_comment(target_path, changed_lines, mod_name=None, author=None):
     """Append a summary comment listing changed lines for a mod."""
-    if not changed_lines:
+    if not COMMENTS_ENABLED or not changed_lines:
         return
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.read().splitlines()
