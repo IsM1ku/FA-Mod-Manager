@@ -10,6 +10,9 @@ TOOLS_DIR = os.path.join(SMALLF_DIR, "tools")
 FINISHED_DIR = os.path.join(SMALLF_DIR, "finished")
 BASE_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa")
 BASE_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2")
+
+UNPACKED_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa_unpacked")
+UNPACKED_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2_unpacked")
 TEMP_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa_temp")
 TEMP_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2_temp")
 
@@ -28,29 +31,39 @@ def load_game_paths():
         return {}
 
 # ----------- Unpack and repack functions -----------
-def unpack_smallf(game):
-    """Unpack smallf.dat for the given game ('fa' or 'fa2') into its temp folder."""
+def _ensure_base_unpacked(game):
+    """Unpack the original smallf.dat once and cache the result."""
     exe = os.path.join(TOOLS_DIR, "unpack_smallf_win.exe")
     if game == "fa2":
         input_smallf = os.path.join(BASE_FA2_DIR, "smallf.dat")
-        temp_dir = TEMP_FA2_DIR
+        unpack_dir = UNPACKED_FA2_DIR
     else:
         input_smallf = os.path.join(BASE_FA_DIR, "smallF.dat")
+        unpack_dir = UNPACKED_FA_DIR
+
+    if not os.path.isdir(unpack_dir):
+        os.makedirs(unpack_dir, exist_ok=True)
+        dat_copy = os.path.join(unpack_dir, os.path.basename(input_smallf))
+        shutil.copy2(input_smallf, dat_copy)
+        subprocess.check_call([exe, os.path.basename(dat_copy)], cwd=unpack_dir)
+        os.remove(dat_copy)
+        print(f"[OK] Cached base unpack to: {unpack_dir}")
+    return unpack_dir
+
+
+def unpack_smallf(game):
+    """Prepare a temp folder with the unpacked smallf for the given game."""
+    if game == "fa2":
+        temp_dir = TEMP_FA2_DIR
+    else:
         temp_dir = TEMP_FA_DIR
 
-    # Clean temp folder
+    unpack_dir = _ensure_base_unpacked(game)
+
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
-    os.makedirs(temp_dir)
-
-    # Some of the bundled tools require the smallf.dat to be in the
-    # working directory. Copy it there and run the tool using only the
-    # filename so paths with spaces don't cause issues.
-    dat_copy = os.path.join(temp_dir, os.path.basename(input_smallf))
-    shutil.copy2(input_smallf, dat_copy)
-    subprocess.check_call([exe, os.path.basename(dat_copy)], cwd=temp_dir)
-    os.remove(dat_copy)
-    print(f"[OK] Unpacked {input_smallf} to {temp_dir}")
+    shutil.copytree(unpack_dir, temp_dir)
+    print(f"[OK] Prepared temp folder at {temp_dir}")
     return temp_dir
 
 def repack_smallf(game, mod_name):
