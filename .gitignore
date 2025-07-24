@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+smallf/base/*_temp/
+smallf/base/*_unpacked/
+smallf/finished/
+fa_mod_manager_config.json
