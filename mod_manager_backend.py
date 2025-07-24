@@ -24,6 +24,14 @@ def save_game_paths(game_paths):
         json.dump(game_paths, f)
 
 def load_game_paths():
+    """Return saved game paths, creating an empty config if needed."""
+    if not os.path.isfile(CONFIG_FILE):
+        example = os.path.join(BASE_DIR, "fa_mod_manager_config.example.json")
+        if os.path.isfile(example):
+            shutil.copy2(example, CONFIG_FILE)
+        else:
+            with open(CONFIG_FILE, "w") as f:
+                json.dump({}, f)
     try:
         with open(CONFIG_FILE, "r") as f:
             return json.load(f)

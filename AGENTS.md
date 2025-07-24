@@ -31,8 +31,10 @@ A desktop GUI tool for managing, merging, and applying mods to Full Auto (Xbox 3
 - **`mod_manager_backend.py`**  
   Handles file operations, merging logic, and low-level mod management.
 
-- **`fa_mod_manager_config.json`**  
-  Stores user/game configuration, such as selected folders or mod profile info.
+- **`fa_mod_manager_config.json`**
+  Generated at runtime from `fa_mod_manager_config.example.json`. Stores user/game configuration, such as selected folders or mod profile info.
+- **`fa_mod_manager_config.example.json`**
+  Template configuration file with empty values used to create `fa_mod_manager_config.json` if it does not exist.
 
 - **`smallf/`**  
   Directory for base data files and/or example mod data.
