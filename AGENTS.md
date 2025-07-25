@@ -1,93 +1,134 @@
-# agents.md
+# AGENTS.md
 
 # Project Overview
 
 **Name:** Full Auto Mod Manager  
+**Author:** IsM1ku  
 **Purpose:**  
 A desktop GUI tool for managing, merging, and applying mods to Full Auto (Xbox 360) and Full Auto 2: Battlelines (PS3).  
 **Core Goals:**  
-- Help users easily patch/restore game data (`smallf.dat`) with modded content
-- Enable mod profiles and mod merging
-- User-friendly setup, backup, and restoration
-- Modular design for future game/format support
+- Help users easily patch/restore game data (`smallf.dat` / `smallF.dat`) with modded content  
+- Support mod profiles and intelligent mod merging  
+- User-friendly setup, backup, and restoration  
+- Modular design for future game/format support  
+- **Goal:** Add **native Linux compatibility** and support for cross-platform unpacking/repacking.
 
 ---
 
 ## Main Features
 
-- **Game Directory Selection:** User-friendly way to point to their Full Auto game folder.
-- **`smallf.dat` Detection:** Locates and manages the main game data file for mods.
-- **Mod Profiles:** Save/load different sets of mods.
-- **Mod Merging:** (WIP) Combine multiple mods into a single `smallf.dat`.
-- **Backup/Restore:** Automatically back up original files before changes.
+- **Cross-Platform Game Support:**  
+  - **Full Auto 2 (PS3):** Modifies `smallf.dat` in the game directory or backup.
+  - **Full Auto (Xbox 360):** Supports direct folder editing (for Xenia, Aurora, XeXMenu) and ISO extraction (for ISOs, via bundled extract-xiso).
+- **Game Directory/ISO Selection:** Easily select your Full Auto folder or Xbox 360 ISO.
+- **Mod Profiles:** Organize, save, and switch between different modded builds.
+- **Mod Merging:** Combine multiple mods with configurable order and conflict resolution.
+- **Backup/Restore:** Automatic backup of original files, easy restoration.
+- **Settings UI:** Configure game paths, ISO location, extraction folder, logging, and experimental features.
+- **Drag-and-Drop Mod Loading:** Add mods by dragging `.txt` files into the GUI.
+- **Import Existing Profiles:** Import `smallf.dat`/`smallF.dat` as reusable mod profiles.
 
 ---
 
 ## Main Files & Structure
 
 - **`mod_manager.py`**  
-  Main GUI application. Handles all user interactions and controls backend logic.
+  Main GUI application. Manages user interaction and frontend logic.
 
 - **`mod_manager_backend.py`**  
-  Handles file operations, merging logic, and low-level mod management.
+  Backend for file operations, mod logic, and low-level patching.
 
-- **`fa_mod_manager_config.json`**
-  Generated at runtime from `fa_mod_manager_config.example.json`. Stores user/game configuration, such as selected folders or mod profile info.
-- **`fa_mod_manager_config.example.json`**
-  Template configuration file with empty values used to create `fa_mod_manager_config.json` if it does not exist.
+- **`fa_mod_manager_config.json`**  
+  User-generated config (created at first launch, or when missing) storing game paths, ISO locations, and settings.
 
-- **`smallf/`**  
-  Directory for base data files and/or example mod data.
+- **`fa_mod_manager_config.example.json`**  
+  Template config shipped with the app.
+
+- **`bundled/`**  
+  Bundled inside the .exe by PyInstaller; contains essential tools and scripts:
+  - **`bundled/tools/`**:  
+    - Unpacker/repacker binaries for smallf.dat, with **source code included in the repo** for both Windows and Linux.
+    - **Both Windows and Linux versions of extract-xiso (exiso)** are included to support ISO extraction across platforms.
+
+- **Other directories** (such as `smallf/`, `mod_profiles/`, `exiso/`, `xbox_extract/`)  
+  Are always external—these stay next to the exe for user patching, mod development, or ISO extraction.
 
 ---
 
 ## Typical Usage
 
-1. **Run** `mod_manager.py` with Python 3.x and Tkinter installed.
-2. Use the **Settings** button to select the root game folder (e.g., `Full Auto 2 - Battlelines (Europe)`).
-3. The tool finds `smallf.dat` at `PS3_GAME/USRDIR/smallf.dat`.
-4. Create or choose a mod profile, select mods, and click **Merge** to apply.
-5. Restore original file easily if needed.
+1. **Launch** `mod_manager.py` (or the packaged `.exe`).
+2. Use **Settings** to choose your game folder, ISO, and extraction root.
+3. For Xbox 360 ISOs, click **Extract ISO** (works on both Windows and Linux thanks to bundled binaries).
+4. Add mods by drag-and-drop or using the Add button.
+5. Select/arrange mod profiles and click **Merge** to build your custom `smallf.dat`/`smallF.dat`.
+6. Use **Export** to deploy your modded file into the game directory or extracted folder.
+7. Restore original files at any time.
 
 ---
 
-## Data Structures / API
+## Xbox 360 ISO/FOLDER Workflow
 
-- **Configuration:**  
-  Stores paths and mod profile info in JSON format:
-  ```json
-  {
-    "Full Auto 2: Battlelines (PS3)": "C:/Games/Full Auto 2 - Battlelines (Europe)"
-  }
-  ```
+- **ISO extraction** uses [extract-xiso](https://github.com/XboxDev/extract-xiso) to unpack the game.  
+- **For emulators (Xenia) or modded consoles (Aurora/XeXMenu)**, the game can be played directly from the extracted folder.
+- **Modding process** is identical for both PS3 and Xbox 360:  
+  1. Extract ISO to folder (if needed)  
+  2. Patch/merge with desired mods  
+  3. Export patched `smallF.dat` to the appropriate location
+
+---
 
 ## Mod File Format and Patching Specification
 
 ### Mod File Overview
 
-Mods are defined using human-readable `.txt` files containing:
+Mods are defined as simple `.txt` files:
 
-- **Metadata:** such as `name`, `author`, and `description`.
-- One or more patch instructions, each targeting a file and section within the game's unpacked data.
+- **Metadata:** `name`, `author`, `description`
+- **Patch instructions:** Each `[FILE ...]` block targets a specific file (e.g., `.psc` or `.txt`), a section (anchor), and supplies edit lines.
+- **Insertion Syntax:**  
+  - `;` prefix: replace existing line or append if not found  
+  - `.;` prefix: insert immediately after section header
 
-Example Layout
-
+**Example Mod:**
 ```
 # name:OP MGs and Debug Cam
 # author:IsM1ku
-# description:Quadruples the firing speed of the machine guns and makes their projectiles hit instantly. Removes air stabilizer and enables debug cam
-
+# description:Makes the Machine Guns and Shotgun hilariously OP and removes the air stabilizer for more "realistic" in air gameplay, it also enables the debug freecam for FA2, this mod was made to test Full Auto Mod Manager during development.
+# game:fa,fa2
 [FILE MorphingWeaponSetup.psc]
-section:MorphingWeaponSetId "MachineGuns"
+
+sectionfa2:MorphingWeaponSetId "MachineGuns"
 ;MorphingWeaponSetData "firingRate = 100.0"
 ;MorphingWeaponSetData "projectileSpeed = 20000.0"
 
-[FILE gameFA.psc]
-section://-----------POWERSLIDE, DRIVING AND STEERING---------------
-;flipcorrectgain 0//big air stabilizer.
+sectionfa2:MorphingWeaponSetId "ScatterGun"
+;MorphingWeaponSetData "continuousFire = True"
+;MorphingWeaponSetData "projectileSpeed = 20000.0"
+;MorphingWeaponSetData "spreadAngleY = 0"
+;MorphingWeaponSetData "projectileCount = 45"
+
+sectionfa:MorphingWeaponSetId "MachineGuns0"
+;MorphingWeaponSetData "projectileSpeed = 20000.0"
+MorphingWeaponSetData "projectileMass = 20"
+
+sectionfa:MorphingWeaponSetId "MachineGuns1"
+;MorphingWeaponSetData "firingRate = 100.0"
+
+sectionfa:MorphingWeaponSetId "MachineGuns2"
+;MorphingWeaponSetData "firingRate = 200.0"
+
+sectionfa:MorphingWeaponSetId "Shotgun0"
+;MorphingWeaponSetData "projectileSpeed = 20000.0"
+;MorphingWeaponSetData "spreadAngleY = 0"
+;MorphingWeaponSetData "projectileCount = 45"
 
 [FILE gameFA.psc]
-section:// Other debug stuff disabled by default
+
+sectionfa2://-----------POWERSLIDE, DRIVING AND STEERING--------------- 
+;flipcorrectgain 0	//big air stabilizer.
+
+sectionfa2:// Other debug stuff disabled by default
 ;isDeveloperBuild 1
 ;ShowComments 0
 ;ShowCamComments_Scale 0.0
@@ -95,42 +136,35 @@ section:// Other debug stuff disabled by default
 ;bind joy0_r3+joy0_l1 ShowComments 0
 ```
 
-Each `[FILE ...]` block patches a single `.psc` or `.txt` file.
-The `section:` line specifies the anchor for patching.
-Lines beginning with `;` describe the edits for that section. If a line with the same key exists, it is replaced; otherwise it is appended to the end of the section. Prefix a line with `.;` to insert it immediately after the section header regardless of existing keys.
-
 ### Supported File Types
 
-Both `.psc` and `.txt` files are supported and are treated as plain text for patching. Mod authors should reference the filename exactly as it appears after unpacking.
+Both `.psc` and `.txt` are supported as plaintext.
 
-## In-File Comment Injection (Mod Transparency)
+---
 
-Purpose:
-Automatically inject comments above each changed or inserted line, identifying the mod and author.
-This enables anyone to see what was changed, by whom, just by opening the file—without needing the mod manager.
+## Transparency: In-File Comment Injection
 
-Comment style:
+- **Every edit includes a comment above it** noting the mod and author.
+  - `.psc`: `// MODIFIED BY: ...`
+  - `.txt`: `/* MODIFIED BY: ... */`
+- If a line is replaced, the original can be commented out for full transparency:
+  - `.psc`: `// ORIGINAL: ...`
+  - `.txt`: `/* ORIGINAL: ... */`
 
-    .psc files: use // ...
+---
 
-    .txt files: use /* ... */
+## API / Data Structure Example
 
-Example Result:
-
-.psc:
-
-// MODIFIED BY: OP MGs and Debug Cam (IsM1ku)
-MorphingWeaponSetData "firingRate = 100.0"
-
-.txt:
-
-/* MODIFIED BY: OP MGs and Debug Cam (IsM1ku) */
-flipcorrectgain 0	//big air stabilizer.
-
-    If replacing a line, optionally comment out the original for transparency:
-
-        .psc: // ORIGINAL: ...
-
-        .txt: /* ORIGINAL: ... */
-
-        .txt: /* ORIGINAL: ... */
+**fa_mod_manager_config.json:**
+```json
+{
+    "game_paths": {
+        "Full Auto (Xbox 360)": "C:/Path/To/Full Auto",
+        "Full Auto 2: Battlelines (PS3)": "C:/Path/To/Full Auto 2"
+    },
+    "logging_enabled": false,
+    "comments_enabled": true,
+    "xbox_iso": "C:/ISOs/FullAuto.iso",
+    "extract_root": "C:/Path/To/XboxExtract"
+}
+```
