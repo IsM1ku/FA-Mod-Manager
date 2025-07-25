@@ -136,11 +136,17 @@ def load_game_paths():
 
 # ----------- Mod parsing and patching -----------
 def _parse_mod_file(path):
-    """Return metadata dict and ordered patch instructions from a mod file."""
+    """Return metadata dict and ordered patch instructions from a mod file.
+
+    Each patch entry contains ``file``, ``section``, ``data`` and ``game`` keys.
+    ``game`` is ``"fa"`` for Xbox 360, ``"fa2"`` for PS3 or ``"both``" for
+    universal sections.
+    """
     patches = []
     metadata = {}
     current_file = None
     current_section = None
+    current_game = "both"
     current_data = []
     with open(path, "r", encoding="utf-8") as f:
         for raw in f:
@@ -159,11 +165,13 @@ def _parse_mod_file(path):
                         "file": current_file,
                         "section": current_section,
                         "data": current_data,
+                        "game": current_game,
                     })
                     current_section = None
                     current_data = []
+                    current_game = "both"
                 current_file = line[5:-1].strip()
-            elif line.startswith("section:"):
+            elif stripped.startswith("sectionfa2:") or stripped.startswith("sectionfa:") or stripped.startswith("section:"):
                 if current_file is None:
                     continue
                 if current_section and current_data:
@@ -171,19 +179,30 @@ def _parse_mod_file(path):
                         "file": current_file,
                         "section": current_section,
                         "data": current_data,
+                        "game": current_game,
                     })
                     current_data = []
-                current_section = line[len("section:"):].strip()
+                if stripped.startswith("sectionfa2:"):
+                    current_game = "fa2"
+                    current_section = stripped[len("sectionfa2:"):].strip()
+                elif stripped.startswith("sectionfa:"):
+                    current_game = "fa"
+                    current_section = stripped[len("sectionfa:"):].strip()
+                else:
+                    current_game = "both"
+                    current_section = stripped[len("section:"):].strip()
             elif stripped.startswith(";") or stripped.startswith(".;"):
                 if current_file and current_section:
                     after_header = stripped.startswith(".;")
-                    if after_header:
-                        content = stripped[2:].strip()
-                    else:
-                        content = stripped[1:].strip()
+                    content = stripped[2:].strip() if after_header else stripped[1:].strip()
                     current_data.append({"line": content, "after_header": after_header})
     if current_file and current_section and current_data:
-        patches.append({"file": current_file, "section": current_section, "data": current_data})
+        patches.append({
+            "file": current_file,
+            "section": current_section,
+            "data": current_data,
+            "game": current_game,
+        })
 
     # Determine the next section marker for each patch within the same file
     for i, patch in enumerate(patches):
@@ -472,6 +491,9 @@ def apply_mods_to_temp(game, mods, merge_name=None):
         author = meta.get("author")
         pending = {}
         for p in patches:
+            p_game = p.get("game", "both")
+            if p_game != "both" and p_game != game:
+                continue
             target = os.path.join(target_root, p["file"])
             if not os.path.isfile(target):
                 err = f"Target file not found: {p['file']} in {mod}"

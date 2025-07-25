@@ -33,11 +33,19 @@ class FAModManager(TkinterDnD.Tk):
         backend.init_logger(self.logging_enabled)
         backend.init_comments(self.comments_enabled)
 
+        # Load icons
+        icon_dir = os.path.join(os.path.dirname(__file__), "bundled", "icons")
+        self.icon_ps3 = tk.PhotoImage(file=os.path.join(icon_dir, "ps3.png"))
+        self.icon_xbox = tk.PhotoImage(file=os.path.join(icon_dir, "xbox360.png"))
+        self.icon_fa = tk.PhotoImage(file=os.path.join(icon_dir, "fa.png"))
+        self.icon_fa2 = tk.PhotoImage(file=os.path.join(icon_dir, "fa2.png"))
+
         # Top: Game dropdown & settings
         top_frame = tk.Frame(self)
         top_frame.pack(pady=10, fill='x')
         self.game_var = tk.StringVar(value=GAMES[0])
-        ttk.Label(top_frame, text='Game:').pack(side='left', padx=5)
+        self.game_icon_label = tk.Label(top_frame, image=self.icon_xbox)
+        self.game_icon_label.pack(side='left', padx=5)
         # Make combobox wide enough for long game titles
         max_chars = max(len(g) for g in GAMES) + 2
         self.game_dropdown = ttk.Combobox(
@@ -48,6 +56,7 @@ class FAModManager(TkinterDnD.Tk):
             width=max_chars,
         )
         self.game_dropdown.pack(side='left', padx=5)
+        self.game_dropdown.bind('<<ComboboxSelected>>', lambda e: self.on_game_change())
         tk.Button(top_frame, text='Settings', command=self.open_settings).pack(side='right', padx=5)
 
         # Middle: Profiles & Mods
@@ -91,11 +100,12 @@ class FAModManager(TkinterDnD.Tk):
         mods_frame.pack(side='left', fill='both', padx=10, expand=True)
         header = tk.Frame(mods_frame)
         header.pack(fill='x', padx=5)
-        header.columnconfigure(3, weight=1)
+        header.columnconfigure(4, weight=1)
         tk.Label(header, text="", width=3).grid(row=0, column=0)
-        tk.Label(header, text="Name", width=20, anchor='w').grid(row=0, column=1, sticky='w')
-        tk.Label(header, text="Author", width=15, anchor='w').grid(row=0, column=2, sticky='w')
-        tk.Label(header, text="Description", anchor='w').grid(row=0, column=3, sticky='w')
+        tk.Label(header, text="", width=6).grid(row=0, column=1)
+        tk.Label(header, text="Name", width=20, anchor='w').grid(row=0, column=2, sticky='w')
+        tk.Label(header, text="Author", width=15, anchor='w').grid(row=0, column=3, sticky='w')
+        tk.Label(header, text="Description", anchor='w').grid(row=0, column=4, sticky='w')
 
         # Canvas + scrollbar to allow scrolling when many mods are listed
         canvas_frame = tk.Frame(mods_frame)
@@ -141,10 +151,36 @@ class FAModManager(TkinterDnD.Tk):
         btn_frame.pack(pady=4)
         tk.Button(btn_frame, text='Up', width=6, command=self.move_up).pack(side='left', padx=2)
         tk.Button(btn_frame, text='Down', width=6, command=self.move_down).pack(side='left', padx=2)
-        tk.Button(btn_frame, text='Remove', width=8, command=self.remove_selected_mods).pack(side='left', padx=2)
         tk.Button(btn_frame, text='Clear', width=6, command=self.clear_mods).pack(side='left', padx=2)
         tk.Button(btn_frame, text='Add Files', command=self.add_files).pack(side='left', padx=2)
+        tk.Button(btn_frame, text='Enable All', command=self.enable_all).pack(side='left', padx=2)
+        tk.Button(btn_frame, text='Disable All', command=self.disable_all).pack(side='left', padx=2)
         tk.Button(mods_frame, text='Merge', command=self.merge_mods).pack(pady=4, fill='x')
+
+        # Mod info panel
+        info_frame = tk.LabelFrame(main_frame, text='Mod Info')
+        info_frame.pack(side='left', fill='y', padx=10, ipadx=8)
+        self.info_icons_frame = tk.Frame(info_frame)
+        self.info_icons_frame.pack(anchor='w')
+        self.info_name = tk.Label(info_frame, text='', font=('TkDefaultFont', 10, 'bold'))
+        self.info_name.pack(anchor='w')
+        self.info_author = tk.Label(info_frame, text='')
+        self.info_author.pack(anchor='w')
+        self.info_desc = tk.Label(info_frame, text='', wraplength=180, justify='left')
+        self.info_desc.pack(anchor='w', pady=(4, 0))
+        self.info_warning = tk.Label(info_frame, text='', fg='red', wraplength=180)
+        self.info_warning.pack(anchor='w', pady=(4, 0))
+        tk.Button(info_frame, text='Remove Mod', command=self.remove_selected_mods).pack(pady=5)
+
+    def on_game_change(self):
+        game = self.game_var.get()
+        if 'Full Auto 2' in game:
+            self.game_icon_label.configure(image=self.icon_ps3)
+        else:
+            self.game_icon_label.configure(image=self.icon_xbox)
+        self.update_mod_states()
+        if self.selected_mod_index is not None:
+            self.show_mod_info(self.selected_mod_index)
 
     def open_settings(self):
         win = tk.Toplevel(self)
@@ -339,24 +375,46 @@ class FAModManager(TkinterDnD.Tk):
         name = meta.get('name')
         author = meta.get('author')
         desc = meta.get('description')
+        game_meta = meta.get('game', 'fa,fa2')
+        games = {g.strip().lower() for g in game_meta.split(',') if g.strip()}
+        if not games:
+            games = {'fa', 'fa2'}
 
         row = tk.Frame(self.mods_container)
-        row.columnconfigure(3, weight=1)
+        row.columnconfigure(4, weight=1)
         cb = tk.Checkbutton(row, variable=var)
         cb.grid(row=0, column=0, padx=2)
 
+        icon_frame = tk.Frame(row)
+        if 'fa' in games:
+            tk.Label(icon_frame, image=self.icon_fa).pack(side='left')
+        if 'fa2' in games:
+            tk.Label(icon_frame, image=self.icon_fa2).pack(side='left')
+        icon_frame.grid(row=0, column=1, padx=2)
+
         name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w', width=20)
-        name_lbl.grid(row=0, column=1, sticky='w')
-        tk.Label(row, text=author or '', anchor='w', width=15).grid(row=0, column=2, sticky='w')
-        tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left').grid(row=0, column=3, sticky='ew')
+        name_lbl.grid(row=0, column=2, sticky='w')
+        author_lbl = tk.Label(row, text=author or '', anchor='w', width=15)
+        author_lbl.grid(row=0, column=3, sticky='w')
+        desc_lbl = tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left')
+        desc_lbl.grid(row=0, column=4, sticky='ew')
 
         row.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
         for child in row.winfo_children():
             child.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
 
         row.pack(anchor='w', fill='x', pady=1)
-        self.mod_entries.append({'path': path, 'var': var, 'widget': row})
+        self.mod_entries.append({
+            'path': path,
+            'var': var,
+            'widget': row,
+            'cb': cb,
+            'labels': [name_lbl, author_lbl, desc_lbl],
+            'games': games,
+            'meta': meta,
+        })
         self.update_mod_placeholder()
+        self.update_mod_states()
 
     def on_file_drop(self, event):
         files = self.tk.splitlist(event.data)
@@ -388,6 +446,7 @@ class FAModManager(TkinterDnD.Tk):
         new_row.configure(background='lightblue')
         for child in new_row.winfo_children():
             child.configure(background='lightblue')
+        self.show_mod_info(index)
 
     def remove_selected_mods(self):
         idx = self.selected_mod_index
@@ -397,6 +456,7 @@ class FAModManager(TkinterDnD.Tk):
         entry['widget'].destroy()
         self.selected_mod_index = None
         self.update_mod_placeholder()
+        self.update_mod_states()
 
     def clear_mods(self):
         for entry in self.mod_entries:
@@ -404,6 +464,7 @@ class FAModManager(TkinterDnD.Tk):
         self.mod_entries.clear()
         self.selected_mod_index = None
         self.update_mod_placeholder()
+        self.update_mod_states()
 
     def refresh_mod_widgets(self):
         for entry in self.mod_entries:
@@ -414,6 +475,18 @@ class FAModManager(TkinterDnD.Tk):
             self.select_mod(self.selected_mod_index)
         # update scroll region whenever the mod list changes
         self.mods_canvas.configure(scrollregion=self.mods_canvas.bbox("all"))
+
+    def update_mod_states(self):
+        game_key = 'fa2' if 'Full Auto 2' in self.game_var.get() else 'fa'
+        for entry in self.mod_entries:
+            enabled = game_key in entry['games'] or 'both' in entry['games']
+            state = 'normal' if enabled else 'disabled'
+            entry['cb'].configure(state=state)
+            if not enabled:
+                entry['var'].set(False)
+            fg = 'gray' if not enabled else 'black'
+            for lbl in entry['labels']:
+                lbl.configure(foreground=fg)
 
     def move_up(self):
         idx = self.selected_mod_index
@@ -432,6 +505,34 @@ class FAModManager(TkinterDnD.Tk):
         self.selected_mod_index += 1
         self.refresh_mod_widgets()
         self.select_mod(self.selected_mod_index)
+
+    def enable_all(self):
+        for entry in self.mod_entries:
+            if entry['cb']['state'] == 'normal':
+                entry['var'].set(True)
+
+    def disable_all(self):
+        for entry in self.mod_entries:
+            entry['var'].set(False)
+
+    def show_mod_info(self, index):
+        entry = self.mod_entries[index]
+        meta = entry['meta']
+        name = meta.get('name', os.path.basename(entry['path']))
+        self.info_name.configure(text=name)
+        self.info_author.configure(text=f"Author: {meta.get('author','')}")
+        self.info_desc.configure(text=meta.get('description',''))
+        for w in self.info_icons_frame.winfo_children():
+            w.destroy()
+        if 'fa' in entry['games']:
+            tk.Label(self.info_icons_frame, image=self.icon_fa).pack(side='left')
+        if 'fa2' in entry['games']:
+            tk.Label(self.info_icons_frame, image=self.icon_fa2).pack(side='left')
+        game_key = 'fa2' if 'Full Auto 2' in self.game_var.get() else 'fa'
+        if game_key not in entry['games'] and 'both' not in entry['games']:
+            self.info_warning.configure(text='This mod is not compatible with the selected game.')
+        else:
+            self.info_warning.configure(text='')
 
     def merge_mods(self):
         mod_paths = [e['path'] for e in self.mod_entries if e['var'].get()]
