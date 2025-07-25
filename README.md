@@ -57,5 +57,6 @@ in the profile list using the folder name.
 
 The `exiso` folder contains the `extract-xiso` tool used to unpack Xbox 360 ISOs.
 Select an ISO and extraction folder from the **Settings** menu and click
-**Extract ISO** to unpack the game. By default extracted files are placed in the
-`xbox_extract` directory next to the program.
+**Extract ISO** to unpack the game. The contents are placed inside a folder named
+after the ISO within the chosen directory. By default this directory is
+`xbox_extract` next to the program.

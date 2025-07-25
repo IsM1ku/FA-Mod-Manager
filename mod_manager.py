@@ -235,7 +235,7 @@ class FAModManager(TkinterDnD.Tk):
                 return
             dest = extract_var.get() or backend.XBOX_EXTRACT_DIR
             try:
-                backend.extract_xbox_iso(iso, dest)
+                dest = backend.extract_xbox_iso(iso, dest)
                 entries["Full Auto (Xbox 360)"].set(dest)
                 self.game_paths["Full Auto (Xbox 360)"] = dest
                 messagebox.showinfo("Extracted", f"ISO extracted to:\n{dest}")
