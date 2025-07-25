@@ -386,6 +386,15 @@ def list_existing_profiles():
             names.append(name)
     return names
 
+
+def delete_profile(name):
+    """Remove a profile folder inside ``finished``."""
+    path = os.path.join(FINISHED_DIR, name)
+    if not os.path.isdir(path):
+        raise FileNotFoundError(f"Profile not found: {name}")
+    shutil.rmtree(path)
+    log(f"[OK] Deleted profile '{name}'")
+
 # ----------- Patch/merge logic placeholder -----------
 def apply_mods_to_temp(game, mods, merge_name=None):
     """Apply a sequence of mod files to the temporary unpacked directory.
