@@ -377,9 +377,19 @@ class FAModManager(TkinterDnD.Tk):
         idx = len(self.mod_entries)
         var = tk.BooleanVar(value=True)
         try:
-            meta, _ = backend._parse_mod_file(path)
-        except Exception:
-            meta = {}
+            meta, patches = backend._parse_mod_file(path)
+            if not patches:
+                messagebox.showerror(
+                    "Invalid Mod File",
+                    f"{os.path.basename(path)} does not contain mod data."
+                )
+                return
+        except Exception as exc:
+            messagebox.showerror(
+                "Invalid Mod File",
+                f"Failed to parse {os.path.basename(path)}:\n{exc}"
+            )
+            return
 
         name = meta.get('name')
         author = meta.get('author')
