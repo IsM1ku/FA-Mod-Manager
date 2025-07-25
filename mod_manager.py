@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog, filedialog
+from PIL import Image, ImageTk
 from tkinterdnd2 import TkinterDnD, DND_FILES
 
 import mod_manager_backend as backend
@@ -45,14 +46,14 @@ class FAModManager(TkinterDnD.Tk):
         icon_dir = os.path.join(os.path.dirname(__file__), "bundled", "icons")
 
         def load_icon(name):
-            img = tk.PhotoImage(file=os.path.join(icon_dir, name))
-            # Many icons in the repo are quite large; shrink them so the UI
-            # isn't overwhelmed when they are placed in Labels.
+            path = os.path.join(icon_dir, name)
+            img = Image.open(path)
             max_size = 64
-            factor = max(img.width() // max_size, img.height() // max_size, 1)
-            if factor > 1:
-                img = img.subsample(factor, factor)
-            return img
+            ratio = max(img.width / max_size, img.height / max_size, 1)
+            if ratio > 1:
+                new_size = (int(img.width / ratio), int(img.height / ratio))
+                img = img.resize(new_size, Image.LANCZOS)
+            return ImageTk.PhotoImage(img)
 
         self.icon_ps3 = load_icon("ps3.png")
         self.icon_xbox = load_icon("xbox360.png")
