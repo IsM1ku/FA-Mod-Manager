@@ -35,6 +35,9 @@ CONFIG_EXAMPLE = os.path.join(BUNDLED_DIR, "fa_mod_manager_config.example.json")
 LOG_FILE = os.path.join(APP_DIR, "fa_mod_manager.log")
 EXISO_EXE = os.path.join(EXISO_DIR, "extract-xiso.exe")
 
+# Name of the json file storing metadata for each profile
+PROFILE_INFO_NAME = "profile.json"
+
 
 def _profile_dir(game, name):
     """Return directory for a profile of the given game."""
@@ -45,6 +48,33 @@ def get_profile_smallf(game, name):
     """Return path to the profile's ``smallf.dat`` using the correct case."""
     filename = "smallF.dat" if game == "fa" else "smallf.dat"
     return os.path.join(_profile_dir(game, name), filename)
+
+
+def _info_path(game, name):
+    """Return path to the metadata json for a profile."""
+    return os.path.join(_profile_dir(game, name), PROFILE_INFO_NAME)
+
+
+def write_profile_info(game, name, data):
+    """Write profile metadata to ``profile.json``."""
+    path = _info_path(game, name)
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f)
+    except OSError:
+        pass
+
+
+def read_profile_info(game, name):
+    """Return metadata dict for a profile or ``{}`` if missing."""
+    path = _info_path(game, name)
+    if os.path.isfile(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
 
 logger = logging.getLogger("fa_mod_manager")
 logger.setLevel(logging.INFO)
@@ -419,6 +449,9 @@ def repack_smallf(game, mod_name):
     dest = get_profile_smallf(game, mod_name)
     shutil.move(src, dest)
 
+    # Save metadata about the profile
+    write_profile_info(game, mod_name, {"game": game})
+
     # Clean up the working folder
     shutil.rmtree(working_smallf)
 
@@ -514,6 +547,7 @@ def import_profile(game, profile_name, source_smallf):
     os.makedirs(finished_subdir, exist_ok=True)
     dest = get_profile_smallf(game, profile_name)
     shutil.copy2(source_smallf, dest)
+    write_profile_info(game, profile_name, {"game": game})
     log(f"[OK] Imported profile '{profile_name}' -> {dest}")
     return dest
 
@@ -543,7 +577,9 @@ def list_existing_profiles():
                 os.path.isfile(os.path.join(prof_dir, fname))
                 for fname in ("smallf.dat", "smallF.dat")
             ):
-                result.append((game, name))
+                info = read_profile_info(game, name)
+                game_key = info.get("game", game)
+                result.append((game_key, name))
     return result
 
 
