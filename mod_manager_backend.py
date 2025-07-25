@@ -422,7 +422,9 @@ def extract_xbox_iso(iso_path, dest=None):
         raise FileNotFoundError(f"ISO not found: {iso_path}")
 
     os.makedirs(dest, exist_ok=True)
-    cmd = [EXISO_EXE, iso_path, "-d", dest]
+    # extract-xiso expects the -d option before the ISO path, otherwise it
+    # interprets "-d" as a filename. Pass arguments in the correct order.
+    cmd = [EXISO_EXE, "-d", dest, iso_path]
     try:
         result = subprocess.run(
             cmd,
