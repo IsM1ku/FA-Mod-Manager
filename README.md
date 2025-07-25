@@ -9,7 +9,8 @@ This project provides a proof of concept for managing and merging mods for **Ful
   - `bundled/tools/repack_smallf_win.exe`
 - Python 3 with Tkinter for the GUI (`mod_manager.py`).
 When packaged with PyInstaller the `bundled` directory is included inside the executable while
-`mod_profiles`, `smallf`, `exiso`, and `xbox_extract` remain next to the program so they can be modified by the user.
+`mod_profiles`, `smallf`, `exiso`, and `xbox_extract` remain next to the program so they can be modified by the user. If
+`bundled/tools` is missing the program falls back to `smallf/tools` for compatibility with older setups.
 
 ## Configuring Game Paths
 
