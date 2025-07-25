@@ -48,7 +48,8 @@ class FAModManager(TkinterDnD.Tk):
         def load_icon(name):
             path = os.path.join(icon_dir, name)
             img = Image.open(path)
-            max_size = 64
+            # Treeview rows are quite small, so scale icons down to fit
+            max_size = 20
             ratio = max(img.width / max_size, img.height / max_size, 1)
             if ratio > 1:
                 new_size = (int(img.width / ratio), int(img.height / ratio))
@@ -106,7 +107,7 @@ class FAModManager(TkinterDnD.Tk):
 
         self.update_profile_placeholder = update_profile_placeholder
         for game_key, profile in backend.list_existing_profiles():
-            icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+            icon = self.icon_fa2 if game_key == 'fa2' else self.icon_fa
             self.profile_list.insert('', 'end', iid=profile, text=profile, image=icon)
             self.profile_smallfs[profile] = (game_key, backend.get_profile_smallf(game_key, profile))
         self.update_profile_placeholder()
@@ -347,7 +348,7 @@ class FAModManager(TkinterDnD.Tk):
                     messagebox.showerror("Error", f"Failed to rename profile:\n{exc}")
                     return
                 self.profile_list.delete(selected[0])
-                icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+                icon = self.icon_fa2 if game_key == 'fa2' else self.icon_fa
                 self.profile_list.insert('', selected[0], iid=new_name, text=new_name, image=icon)
                 self.profile_smallfs.pop(old_name, None)
                 self.profile_smallfs[new_name] = (game_key, new_path)
@@ -400,7 +401,7 @@ class FAModManager(TkinterDnD.Tk):
         self.profile_smallfs[profile_name] = (game_key, dest)
         existing = [self.profile_list.item(i, 'text') for i in self.profile_list.get_children()]
         if profile_name not in existing:
-            icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+            icon = self.icon_fa2 if game_key == 'fa2' else self.icon_fa
             self.profile_list.insert('', 'end', iid=profile_name, text=profile_name, image=icon)
         self.update_profile_placeholder()
 
@@ -602,7 +603,7 @@ class FAModManager(TkinterDnD.Tk):
             self.profile_smallfs[merge_name] = (game_key, out_path)
             existing = [self.profile_list.item(i, 'text') for i in self.profile_list.get_children()]
             if merge_name not in existing:
-                icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+                icon = self.icon_fa2 if game_key == 'fa2' else self.icon_fa
                 self.profile_list.insert('', 'end', iid=merge_name, text=merge_name, image=icon)
                 self.update_profile_placeholder()
             messagebox.showinfo(
