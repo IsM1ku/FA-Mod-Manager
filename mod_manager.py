@@ -199,26 +199,17 @@ class FAModManager(TkinterDnD.Tk):
         win.title("Settings")
         entries = {}
         row = 0
-        for game in GAMES:
-            tk.Label(win, text=game).grid(row=row, column=0, sticky="w", padx=5, pady=2)
-            var = tk.StringVar(value=self.game_paths.get(game, ""))
-            tk.Entry(win, textvariable=var, width=40).grid(row=row, column=1, padx=5)
 
-            def browse(g=game, v=var):
-                path = filedialog.askdirectory(title=f"Select folder for {g}", mustexist=True)
-                if path:
-                    v.set(path)
-
-            tk.Button(win, text="Browse", command=browse).grid(row=row, column=2, padx=5)
-            entries[game] = var
-            row += 1
-
+        # --- ISO selection ---
         tk.Label(win, text="Xbox 360 ISO").grid(row=row, column=0, sticky="w", padx=5, pady=2)
         iso_var = tk.StringVar(value=self.xbox_iso)
         tk.Entry(win, textvariable=iso_var, width=40).grid(row=row, column=1, padx=5)
 
         def browse_iso():
-            path = filedialog.askopenfilename(title="Select Xbox 360 ISO", filetypes=[("ISO Files", "*.iso"), ("All Files", "*.*")])
+            path = filedialog.askopenfilename(
+                title="Select Xbox 360 ISO",
+                filetypes=[("ISO Files", "*.iso"), ("All Files", "*.*")],
+            )
             if path:
                 iso_var.set(path)
 
@@ -245,12 +236,29 @@ class FAModManager(TkinterDnD.Tk):
             dest = extract_var.get() or backend.XBOX_EXTRACT_DIR
             try:
                 backend.extract_xbox_iso(iso, dest)
+                entries["Full Auto (Xbox 360)"].set(dest)
+                self.game_paths["Full Auto (Xbox 360)"] = dest
                 messagebox.showinfo("Extracted", f"ISO extracted to:\n{dest}")
             except Exception as exc:
                 messagebox.showerror("Error", f"Extraction failed:\n{exc}")
 
         tk.Button(win, text="Extract ISO", command=run_extract).grid(row=row, column=0, columnspan=3, pady=2)
         row += 1
+
+        # --- Game folders ---
+        for game in GAMES:
+            tk.Label(win, text=game).grid(row=row, column=0, sticky="w", padx=5, pady=2)
+            var = tk.StringVar(value=self.game_paths.get(game, ""))
+            tk.Entry(win, textvariable=var, width=40).grid(row=row, column=1, padx=5)
+
+            def browse(g=game, v=var):
+                path = filedialog.askdirectory(title=f"Select folder for {g}", mustexist=True)
+                if path:
+                    v.set(path)
+
+            tk.Button(win, text="Browse", command=browse).grid(row=row, column=2, padx=5)
+            entries[game] = var
+            row += 1
 
         log_var = tk.BooleanVar(value=self.logging_enabled)
         tk.Checkbutton(win, text="Enable logging", variable=log_var).grid(row=row, column=0, columnspan=3, sticky="w", pady=4, padx=5)
