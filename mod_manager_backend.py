@@ -19,7 +19,9 @@ MOD_PROFILES_DIR = os.path.join(APP_DIR, "mod_profiles")
 EXISO_DIR = os.path.join(APP_DIR, "exiso")
 XBOX_EXTRACT_DIR = os.path.join(APP_DIR, "xbox_extract")
 
-TOOLS_DIR = os.path.join(BUNDLED_DIR, "tools")
+BUNDLED_TOOLS_DIR = os.path.join(BUNDLED_DIR, "tools")
+LEGACY_TOOLS_DIR = os.path.join(SMALLF_DIR, "tools")
+TOOLS_DIR = BUNDLED_TOOLS_DIR if os.path.isdir(BUNDLED_TOOLS_DIR) else LEGACY_TOOLS_DIR
 BASE_FA_DIR = os.path.join(SMALLF_DIR, "fa")
 BASE_FA2_DIR = os.path.join(SMALLF_DIR, "fa2")
 
