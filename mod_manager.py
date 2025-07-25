@@ -231,8 +231,14 @@ class FAModManager(TkinterDnD.Tk):
         selected = self.profile_list.curselection()
         if selected:
             name = self.profile_list.get(selected[0])
+            try:
+                backend.delete_profile(name)
+            except Exception as exc:
+                messagebox.showerror("Error", f"Failed to delete profile:\n{exc}")
+                return
             self.profile_list.delete(selected[0])
             self.profile_smallfs.pop(name, None)
+            self.update_profile_placeholder()
         else:
             messagebox.showwarning("Select a Profile", "No profile selected!")
 
