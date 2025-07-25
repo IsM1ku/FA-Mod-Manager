@@ -190,9 +190,9 @@ class FAModManager(TkinterDnD.Tk):
         self.info_author.pack(anchor='w', fill='x')
         # Message widgets handle word wrapping automatically based on the given
         # width, preventing long descriptions from being cut off.
-        self.info_desc = tk.Message(info_frame, text='', width=260, justify='left')
+        self.info_desc = tk.Message(info_frame, text='', width=320, justify='left')
         self.info_desc.pack(anchor='w', fill='x', pady=(4, 0))
-        self.info_warning = tk.Message(info_frame, text='', fg='red', width=260)
+        self.info_warning = tk.Message(info_frame, text='', fg='red', width=320)
         self.info_warning.pack(anchor='w', fill='x', pady=(4, 0))
         tk.Button(info_frame, text='Remove Mod', command=self.remove_selected_mods).pack(pady=5)
 
@@ -434,7 +434,7 @@ class FAModManager(TkinterDnD.Tk):
 
         row = tk.Frame(self.mods_container)
         row.columnconfigure(2, weight=1)
-        cb = tk.Checkbutton(row, variable=var)
+        cb = tk.Checkbutton(row, variable=var, font=('TkDefaultFont', 11))
         cb.grid(row=0, column=0, padx=2)
 
         icon_frame = tk.Frame(row)
@@ -444,14 +444,14 @@ class FAModManager(TkinterDnD.Tk):
             tk.Label(icon_frame, image=self.icon_fa2).pack(side='left')
         icon_frame.grid(row=0, column=1, padx=2)
 
-        name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w')
+        name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w', font=('TkDefaultFont', 11))
         name_lbl.grid(row=0, column=2, sticky='w')
 
         row.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
         for child in row.winfo_children():
             child.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
 
-        row.pack(anchor='w', fill='x', pady=1)
+        row.pack(anchor='w', fill='x', pady=2)
         self.mod_entries.append({
             'path': path,
             'var': var,
