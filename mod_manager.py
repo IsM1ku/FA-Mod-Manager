@@ -115,6 +115,8 @@ class FAModManager(TkinterDnD.Tk):
         )
         self.mod_entries = []
         self.selected_mod_index = None
+        self.mods_canvas.drop_target_register(DND_FILES)
+        self.mods_canvas.dnd_bind('<<Drop>>', self.on_file_drop)
         self.mods_container.drop_target_register(DND_FILES)
         self.mods_container.dnd_bind('<<Drop>>', self.on_file_drop)
         self.mods_placeholder = tk.Label(
@@ -285,7 +287,7 @@ class FAModManager(TkinterDnD.Tk):
         name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w', width=20)
         name_lbl.grid(row=0, column=1, sticky='w')
         tk.Label(row, text=author or '', anchor='w', width=15).grid(row=0, column=2, sticky='w')
-        tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left').grid(row=0, column=3, sticky='w')
+        tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left').grid(row=0, column=3, sticky='ew')
 
         row.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
         for child in row.winfo_children():
