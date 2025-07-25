@@ -42,8 +42,9 @@ def _profile_dir(game, name):
 
 
 def get_profile_smallf(game, name):
-    """Return path to ``smallf.dat`` for a profile."""
-    return os.path.join(_profile_dir(game, name), "smallf.dat")
+    """Return path to the profile's ``smallf.dat`` using the correct case."""
+    filename = "smallF.dat" if game == "fa" else "smallf.dat"
+    return os.path.join(_profile_dir(game, name), filename)
 
 logger = logging.getLogger("fa_mod_manager")
 logger.setLevel(logging.INFO)
@@ -330,11 +331,17 @@ def _normalize_smallf_dir(path):
         return lower
 
     try:
-        os.rename(found, lower)
+        # Renaming only the case can fail on Windows, so use a temporary name
+        # when needed to force the change.
+        if os.path.abspath(found).lower() == os.path.abspath(lower).lower():
+            temp = os.path.join(path, "__tmp_smallf__")
+            os.rename(found, temp)
+            os.rename(temp, lower)
+        else:
+            os.rename(found, lower)
         return lower
     except OSError:
-        # Renaming across case can fail on some file systems. Fall back to the
-        # existing directory if that happens.
+        # If renaming fails, fall back to using the existing directory.
         return found
 
 def _ensure_base_unpacked(game):
@@ -387,8 +394,8 @@ def repack_smallf(game, mod_name):
     else:
         temp_dir = TEMP_FA_DIR
     # The temporary folder contains a subdirectory with the unpacked files.
-    # Normalize and use whatever case was created by the unpacker.
-    source_dir = _find_smallf_dir(temp_dir)
+    # Ensure the folder name is consistently lowercase for the repacker.
+    source_dir = _normalize_smallf_dir(temp_dir)
 
     # Prepare folder structure for the repacker
     working_smallf = os.path.join(TOOLS_DIR, "smallf")
@@ -522,7 +529,11 @@ def list_existing_profiles():
         if not os.path.isdir(gdir):
             continue
         for name in os.listdir(gdir):
-            if os.path.isfile(os.path.join(gdir, name, "smallf.dat")):
+            prof_dir = os.path.join(gdir, name)
+            if any(
+                os.path.isfile(os.path.join(prof_dir, fname))
+                for fname in ("smallf.dat", "smallF.dat")
+            ):
                 result.append((game, name))
     return result
 
@@ -555,9 +566,9 @@ def apply_mods_to_temp(game, mods, merge_name=None):
     else:
         temp_dir = TEMP_FA_DIR
 
-    # Mods are applied inside the unpacked "smallf" directory. Use the
-    # normalized path so case mismatches don't break patching.
-    target_root = _find_smallf_dir(temp_dir)
+    # Mods are applied inside the unpacked "smallf" directory. Ensure the name
+    # is lowercase so patched file paths match consistently.
+    target_root = _normalize_smallf_dir(temp_dir)
 
     for mod in mods:
         meta, patches = _parse_mod_file(mod)
