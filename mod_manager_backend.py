@@ -408,12 +408,35 @@ def restore_original_smallf(game, game_root):
 
 
 def extract_xbox_iso(iso_path, dest=None):
-    """Extract an Xbox 360 ISO using ``extract-xiso``."""
+    """Extract an Xbox 360 ISO using ``extract-xiso``.
+
+    The previous implementation simply called the ``extract-xiso`` binary and
+    surfaced a generic ``CalledProcessError`` when the command failed.  This made
+    it hard for users to diagnose issues such as missing files or permission
+    errors.  We now verify the ISO path and capture the tool's output so the
+    raised exception contains useful information.
+    """
     if dest is None:
         dest = XBOX_EXTRACT_DIR
+    if not os.path.isfile(iso_path):
+        raise FileNotFoundError(f"ISO not found: {iso_path}")
+
     os.makedirs(dest, exist_ok=True)
     cmd = [EXISO_EXE, iso_path, "-d", dest]
-    subprocess.check_call(cmd, cwd=EXISO_DIR)
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=EXISO_DIR,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as e:
+        err_output = e.stderr.strip() or e.stdout.strip()
+        raise RuntimeError(
+            f"extract-xiso failed with code {e.returncode}: {err_output}"
+        ) from e
+
     log(f"[OK] Extracted {os.path.basename(iso_path)} to: {dest}")
     return dest
 
