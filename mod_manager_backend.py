@@ -141,7 +141,9 @@ def _parse_mod_file(path):
     metadata = {}
     current_file = None
     current_section = None
+    current_game = None
     current_data = []
+
     with open(path, "r", encoding="utf-8") as f:
         for raw in f:
             line = raw.rstrip("\n")
@@ -153,37 +155,47 @@ def _parse_mod_file(path):
                     key, val = stripped[1:].split(":", 1)
                     metadata[key.strip().lower()] = val.strip()
                 continue
+
             if line.startswith("[FILE") and line.endswith("]"):
                 if current_file and current_section and current_data:
                     patches.append({
                         "file": current_file,
                         "section": current_section,
+                        "game": current_game,
                         "data": current_data,
                     })
                     current_section = None
+                    current_game = None
                     current_data = []
                 current_file = line[5:-1].strip()
-            elif line.startswith("section:"):
+            elif line.startswith("sectionfa2:") or line.startswith("sectionfa:") or line.startswith("section:"):
                 if current_file is None:
                     continue
                 if current_section and current_data:
                     patches.append({
                         "file": current_file,
                         "section": current_section,
+                        "game": current_game,
                         "data": current_data,
                     })
                     current_data = []
-                current_section = line[len("section:"):].strip()
+                if line.startswith("sectionfa2:"):
+                    current_game = "fa2"
+                    current_section = line[len("sectionfa2:"):].strip()
+                elif line.startswith("sectionfa:"):
+                    current_game = "fa"
+                    current_section = line[len("sectionfa:"):].strip()
+                else:
+                    current_game = None
+                    current_section = line[len("section:"):].strip()
             elif stripped.startswith(";") or stripped.startswith(".;"):
                 if current_file and current_section:
                     after_header = stripped.startswith(".;")
-                    if after_header:
-                        content = stripped[2:].strip()
-                    else:
-                        content = stripped[1:].strip()
+                    content = stripped[2:].strip() if after_header else stripped[1:].strip()
                     current_data.append({"line": content, "after_header": after_header})
+
     if current_file and current_section and current_data:
-        patches.append({"file": current_file, "section": current_section, "data": current_data})
+        patches.append({"file": current_file, "section": current_section, "game": current_game, "data": current_data})
 
     # Determine the next section marker for each patch within the same file
     for i, patch in enumerate(patches):
@@ -470,21 +482,35 @@ def apply_mods_to_temp(game, mods, merge_name=None):
         meta, patches = _parse_mod_file(mod)
         mod_name = meta.get("name", os.path.basename(mod))
         author = meta.get("author")
+        # determine game compatibility from metadata
+        meta_games = meta.get("game", "fa,fa2")
+        meta_games = {g.strip().lower() for g in meta_games.split(",") if g.strip()}
+        if meta_games and game not in meta_games:
+            log(f"[INFO] Skipping mod {mod_name} - incompatible with current game")
+            continue
+
         pending = {}
         for p in patches:
+            patch_game = p.get("game")
+            if patch_game and patch_game != game:
+                continue
             target = os.path.join(target_root, p["file"])
             if not os.path.isfile(target):
                 err = f"Target file not found: {p['file']} in {mod}"
                 log(f"[ERROR] {err}")
                 raise FileNotFoundError(err)
-            log(f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'")
+            log(
+                f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'"
+            )
             try:
                 changed = _apply_patch_to_file(target, p["section"], p["data"], p.get("next_section"))
                 pending.setdefault(target, []).extend(changed)
                 if p.get("next_section") is None:
                     _append_summary_comment(target, pending.pop(target, []), mod_name, author)
             except Exception as exc:
-                log(f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}")
+                log(
+                    f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}"
+                )
                 raise
         for path, lines_list in pending.items():
             _append_summary_comment(path, lines_list, mod_name, author)

@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog, filedialog
 from tkinterdnd2 import TkinterDnD, DND_FILES
+from PIL import Image, ImageTk
 
 import mod_manager_backend as backend
 
@@ -33,6 +34,13 @@ class FAModManager(TkinterDnD.Tk):
         backend.init_logger(self.logging_enabled)
         backend.init_comments(self.comments_enabled)
 
+        # Load icons
+        icon_dir = os.path.join(os.path.dirname(__file__), 'bundled', 'icons')
+        self.icon_ps3 = ImageTk.PhotoImage(Image.open(os.path.join(icon_dir, 'ps3.png')))
+        self.icon_xbox = ImageTk.PhotoImage(Image.open(os.path.join(icon_dir, 'xbox360.png')))
+        self.icon_fa = ImageTk.PhotoImage(Image.open(os.path.join(icon_dir, 'fa.png')))
+        self.icon_fa2 = ImageTk.PhotoImage(Image.open(os.path.join(icon_dir, 'fa2.png')))
+
         # Top: Game dropdown & settings
         top_frame = tk.Frame(self)
         top_frame.pack(pady=10, fill='x')
@@ -40,6 +48,8 @@ class FAModManager(TkinterDnD.Tk):
         ttk.Label(top_frame, text='Game:').pack(side='left', padx=5)
         # Make combobox wide enough for long game titles
         max_chars = max(len(g) for g in GAMES) + 2
+        self.icon_label = tk.Label(top_frame, image=self.icon_xbox)
+        self.icon_label.pack(side='left', padx=2)
         self.game_dropdown = ttk.Combobox(
             top_frame,
             values=GAMES,
@@ -49,6 +59,16 @@ class FAModManager(TkinterDnD.Tk):
         )
         self.game_dropdown.pack(side='left', padx=5)
         tk.Button(top_frame, text='Settings', command=self.open_settings).pack(side='right', padx=5)
+
+        def update_game(*args):
+            if 'Full Auto 2' in self.game_var.get():
+                self.icon_label.configure(image=self.icon_ps3)
+            else:
+                self.icon_label.configure(image=self.icon_xbox)
+            self.update_mod_states()
+
+        self.game_var.trace_add('write', update_game)
+        update_game()
 
         # Middle: Profiles & Mods
         main_frame = tk.Frame(self)
@@ -89,13 +109,27 @@ class FAModManager(TkinterDnD.Tk):
         # Right: Mod list for selected profile
         mods_frame = tk.LabelFrame(main_frame, text='Mod List')
         mods_frame.pack(side='left', fill='both', padx=10, expand=True)
+
+        info_frame = tk.LabelFrame(main_frame, text='Mod Info')
+        info_frame.pack(side='left', fill='y', padx=10)
+        self.info_icons = tk.Frame(info_frame)
+        self.info_icons.pack(anchor='w', pady=2)
+        self.info_name = tk.Label(info_frame, text='', font=('TkDefaultFont', 10, 'bold'))
+        self.info_name.pack(anchor='w')
+        self.info_author = tk.Label(info_frame, text='')
+        self.info_author.pack(anchor='w')
+        self.info_desc = tk.Label(info_frame, text='', wraplength=200, justify='left')
+        self.info_desc.pack(anchor='w', pady=2)
+        tk.Button(info_frame, text='Remove Mod', command=self.remove_selected_mods).pack(anchor='w', pady=5)
+        self.show_mod_info(None)
         header = tk.Frame(mods_frame)
         header.pack(fill='x', padx=5)
-        header.columnconfigure(3, weight=1)
+        header.columnconfigure(4, weight=1)
         tk.Label(header, text="", width=3).grid(row=0, column=0)
-        tk.Label(header, text="Name", width=20, anchor='w').grid(row=0, column=1, sticky='w')
-        tk.Label(header, text="Author", width=15, anchor='w').grid(row=0, column=2, sticky='w')
-        tk.Label(header, text="Description", anchor='w').grid(row=0, column=3, sticky='w')
+        tk.Label(header, text="", width=4).grid(row=0, column=1)
+        tk.Label(header, text="Name", width=20, anchor='w').grid(row=0, column=2, sticky='w')
+        tk.Label(header, text="Author", width=15, anchor='w').grid(row=0, column=3, sticky='w')
+        tk.Label(header, text="Description", anchor='w').grid(row=0, column=4, sticky='w')
 
         # Canvas + scrollbar to allow scrolling when many mods are listed
         canvas_frame = tk.Frame(mods_frame)
@@ -339,24 +373,36 @@ class FAModManager(TkinterDnD.Tk):
         name = meta.get('name')
         author = meta.get('author')
         desc = meta.get('description')
+        games = {g.strip().lower() for g in meta.get('game', 'fa,fa2').split(',') if g.strip()}
 
         row = tk.Frame(self.mods_container)
-        row.columnconfigure(3, weight=1)
+        row.columnconfigure(4, weight=1)
         cb = tk.Checkbutton(row, variable=var)
         cb.grid(row=0, column=0, padx=2)
 
+        icon_frame = tk.Frame(row, width=32)
+        icon_frame.grid(row=0, column=1)
+        icons = []
+        if not games or 'fa' in games:
+            icons.append(tk.Label(icon_frame, image=self.icon_fa))
+        if not games or 'fa2' in games:
+            icons.append(tk.Label(icon_frame, image=self.icon_fa2))
+        for i, lbl in enumerate(icons):
+            lbl.pack(side='left')
+
         name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w', width=20)
-        name_lbl.grid(row=0, column=1, sticky='w')
-        tk.Label(row, text=author or '', anchor='w', width=15).grid(row=0, column=2, sticky='w')
-        tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left').grid(row=0, column=3, sticky='ew')
+        name_lbl.grid(row=0, column=2, sticky='w')
+        tk.Label(row, text=author or '', anchor='w', width=15).grid(row=0, column=3, sticky='w')
+        tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left').grid(row=0, column=4, sticky='ew')
 
         row.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
         for child in row.winfo_children():
             child.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
 
         row.pack(anchor='w', fill='x', pady=1)
-        self.mod_entries.append({'path': path, 'var': var, 'widget': row})
+        self.mod_entries.append({'path': path, 'var': var, 'widget': row, 'meta': meta, 'checkbox': cb})
         self.update_mod_placeholder()
+        self.update_mod_states()
 
     def on_file_drop(self, event):
         files = self.tk.splitlist(event.data)
@@ -388,6 +434,7 @@ class FAModManager(TkinterDnD.Tk):
         new_row.configure(background='lightblue')
         for child in new_row.winfo_children():
             child.configure(background='lightblue')
+        self.show_mod_info(index)
 
     def remove_selected_mods(self):
         idx = self.selected_mod_index
@@ -397,6 +444,7 @@ class FAModManager(TkinterDnD.Tk):
         entry['widget'].destroy()
         self.selected_mod_index = None
         self.update_mod_placeholder()
+        self.show_mod_info(None)
 
     def clear_mods(self):
         for entry in self.mod_entries:
@@ -404,6 +452,7 @@ class FAModManager(TkinterDnD.Tk):
         self.mod_entries.clear()
         self.selected_mod_index = None
         self.update_mod_placeholder()
+        self.show_mod_info(None)
 
     def refresh_mod_widgets(self):
         for entry in self.mod_entries:
@@ -414,6 +463,42 @@ class FAModManager(TkinterDnD.Tk):
             self.select_mod(self.selected_mod_index)
         # update scroll region whenever the mod list changes
         self.mods_canvas.configure(scrollregion=self.mods_canvas.bbox("all"))
+        self.update_mod_states()
+
+    def update_mod_states(self):
+        game_key = 'fa2' if 'Full Auto 2' in self.game_var.get() else 'fa'
+        for entry in self.mod_entries:
+            meta = entry.get('meta', {})
+            games = {g.strip().lower() for g in meta.get('game', 'fa,fa2').split(',') if g.strip()}
+            allowed = not games or game_key in games
+            state = tk.NORMAL if allowed else tk.DISABLED
+            entry['checkbox'].config(state=state)
+            fg = 'black' if allowed else 'gray'
+            for child in entry['widget'].winfo_children():
+                if isinstance(child, tk.Label) or isinstance(child, tk.Checkbutton) or isinstance(child, tk.Frame):
+                    try:
+                        child.configure(foreground=fg)
+                    except Exception:
+                        pass
+
+    def show_mod_info(self, index):
+        for child in self.info_icons.winfo_children():
+            child.destroy()
+        if index is None or index >= len(self.mod_entries):
+            self.info_name.config(text='')
+            self.info_author.config(text='')
+            self.info_desc.config(text='')
+            return
+        entry = self.mod_entries[index]
+        meta = entry.get('meta', {})
+        self.info_name.config(text=meta.get('name', os.path.basename(entry['path'])))
+        games = {g.strip().lower() for g in meta.get('game', 'fa,fa2').split(',') if g.strip()}
+        if not games or 'fa' in games:
+            tk.Label(self.info_icons, image=self.icon_fa).pack(side='left')
+        if not games or 'fa2' in games:
+            tk.Label(self.info_icons, image=self.icon_fa2).pack(side='left')
+        self.info_author.config(text=f"Author: {meta.get('author', '')}")
+        self.info_desc.config(text=meta.get('description', ''))
 
     def move_up(self):
         idx = self.selected_mod_index

@@ -1,6 +1,6 @@
 # Full Auto Mod Manager
 
-This project provides a proof of concept for managing and merging mods for **Full Auto** (Xbox 360) and **Full Auto 2: Battlelines** (PS3). It relies on command line tools to unpack and repack `smallf.dat` so that modified files can be exported back to the game.
+This project provides a proof of concept for managing and merging mods for **Full Auto** (Xbox 360) and **Full Auto 2: Battlelines** (PS3). It relies on command line tools to unpack and repack `smallf.dat` so that modified files can be exported back to the game. The GUI now displays platform icons and a dedicated mod info panel inspired by the v2 specification.
 
 ## Requirements
 
@@ -59,3 +59,15 @@ The `exiso` folder contains the `extract-xiso` tool used to unpack Xbox 360 ISOs
 Select an ISO and extraction folder from the **Settings** menu and click
 **Extract ISO** to unpack the game. By default extracted files are placed in the
 `xbox_extract` directory next to the program.
+
+### Icons
+
+Platform and compatibility icons live in `bundled/icons` and are shown in the
+game picker, mod list, and mod info panel.
+
+### Mod File Format
+
+Mod files are plain text and begin with a header of `# key:value` pairs. The
+`# game:` field accepts `fa`, `fa2`, or both separated by commas. Patch sections
+are written using `[FILE filename]` blocks with `section:`, `sectionfa:`, or
+`sectionfa2:` markers to target lines in the unpacked files.
