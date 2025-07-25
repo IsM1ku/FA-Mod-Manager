@@ -15,8 +15,9 @@ class FAModManager(TkinterDnD.Tk):
     def __init__(self):
         super().__init__()
         self.title('Full Auto Mod Manager Prototype')
-        self.geometry('720x400')
-        self.resizable(False, False)
+        self.geometry('800x500')
+        self.minsize(720, 400)
+        self.resizable(True, True)
 
         # Store paths to repacked smallf per profile
         self.profile_smallfs = {}
@@ -35,7 +36,15 @@ class FAModManager(TkinterDnD.Tk):
         top_frame.pack(pady=10, fill='x')
         self.game_var = tk.StringVar(value=GAMES[0])
         ttk.Label(top_frame, text='Game:').pack(side='left', padx=5)
-        self.game_dropdown = ttk.Combobox(top_frame, values=GAMES, textvariable=self.game_var, state='readonly')
+        # Make combobox wide enough for long game titles
+        max_chars = max(len(g) for g in GAMES) + 2
+        self.game_dropdown = ttk.Combobox(
+            top_frame,
+            values=GAMES,
+            textvariable=self.game_var,
+            state='readonly',
+            width=max_chars,
+        )
         self.game_dropdown.pack(side='left', padx=5)
         tk.Button(top_frame, text='Settings', command=self.open_settings).pack(side='right', padx=5)
 
@@ -46,12 +55,13 @@ class FAModManager(TkinterDnD.Tk):
         # Left: Mod profiles
         profiles_frame = tk.LabelFrame(main_frame, text='Mod Profiles')
         profiles_frame.pack(side='left', fill='y', padx=10, ipadx=8)
-        self.profile_list = tk.Listbox(profiles_frame, height=10)
+        # wider listbox so placeholder text fits comfortably
+        self.profile_list = tk.Listbox(profiles_frame, height=10, width=25)
         self.profile_list.pack(padx=5, pady=5)
         self.profile_placeholder = tk.Label(
             self.profile_list,
             text='No mod profiles found, create one or import one',
-            foreground='gray', wraplength=150, justify='center'
+            foreground='gray', wraplength=180, justify='center'
         )
         self.profile_placeholder.place(relx=0.5, rely=0.5, anchor='center')
 
@@ -79,13 +89,30 @@ class FAModManager(TkinterDnD.Tk):
         mods_frame.pack(side='left', fill='both', padx=10, expand=True)
         header = tk.Frame(mods_frame)
         header.pack(fill='x', padx=5)
+        header.columnconfigure(3, weight=1)
         tk.Label(header, text="", width=3).grid(row=0, column=0)
         tk.Label(header, text="Name", width=20, anchor='w').grid(row=0, column=1, sticky='w')
         tk.Label(header, text="Author", width=15, anchor='w').grid(row=0, column=2, sticky='w')
         tk.Label(header, text="Description", anchor='w').grid(row=0, column=3, sticky='w')
 
-        self.mods_container = tk.Frame(mods_frame)
-        self.mods_container.pack(padx=5, pady=5, fill='both', expand=True)
+        # Canvas + scrollbar to allow scrolling when many mods are listed
+        canvas_frame = tk.Frame(mods_frame)
+        canvas_frame.pack(padx=5, pady=5, fill='both', expand=True)
+        self.mods_canvas = tk.Canvas(canvas_frame, highlightthickness=0)
+        scrollbar = tk.Scrollbar(canvas_frame, orient="vertical", command=self.mods_canvas.yview)
+        self.mods_canvas.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side="right", fill="y")
+        self.mods_canvas.pack(side="left", fill="both", expand=True)
+        self.mods_container = tk.Frame(self.mods_canvas)
+        self.mods_container.bind(
+            "<Configure>",
+            lambda e: self.mods_canvas.configure(scrollregion=self.mods_canvas.bbox("all"))
+        )
+        self.mods_canvas.create_window((0, 0), window=self.mods_container, anchor="nw")
+        self.mods_canvas.bind_all(
+            "<MouseWheel>",
+            lambda e: self.mods_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units")
+        )
         self.mod_entries = []
         self.selected_mod_index = None
         self.mods_container.drop_target_register(DND_FILES)
@@ -251,13 +278,14 @@ class FAModManager(TkinterDnD.Tk):
         desc = meta.get('description')
 
         row = tk.Frame(self.mods_container)
+        row.columnconfigure(3, weight=1)
         cb = tk.Checkbutton(row, variable=var)
         cb.grid(row=0, column=0, padx=2)
 
         name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w', width=20)
         name_lbl.grid(row=0, column=1, sticky='w')
         tk.Label(row, text=author or '', anchor='w', width=15).grid(row=0, column=2, sticky='w')
-        tk.Label(row, text=desc or '', anchor='w', wraplength=250, justify='left').grid(row=0, column=3, sticky='w')
+        tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left').grid(row=0, column=3, sticky='w')
 
         row.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
         for child in row.winfo_children():
@@ -321,6 +349,8 @@ class FAModManager(TkinterDnD.Tk):
             entry['widget'].pack(anchor='w', fill='x')
         if self.selected_mod_index is not None and 0 <= self.selected_mod_index < len(self.mod_entries):
             self.select_mod(self.selected_mod_index)
+        # update scroll region whenever the mod list changes
+        self.mods_canvas.configure(scrollregion=self.mods_canvas.bbox("all"))
 
     def move_up(self):
         idx = self.selected_mod_index
