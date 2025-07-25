@@ -45,27 +45,31 @@ class FAModManager(TkinterDnD.Tk):
         # Load icons (scale large source images down for the UI)
         icon_dir = os.path.join(os.path.dirname(__file__), "bundled", "icons")
 
-        def load_icon(name):
+        def load_icon(name, max_size=20):
             path = os.path.join(icon_dir, name)
             img = Image.open(path)
-            # Treeview rows are quite small, so scale icons down to fit
-            max_size = 20
             ratio = max(img.width / max_size, img.height / max_size, 1)
             if ratio > 1:
                 new_size = (int(img.width / ratio), int(img.height / ratio))
                 img = img.resize(new_size, Image.LANCZOS)
             return ImageTk.PhotoImage(img)
 
+        # Small icons for lists
         self.icon_ps3 = load_icon("ps3.png")
         self.icon_xbox = load_icon("xbox360.png")
         self.icon_fa = load_icon("fa.png")
         self.icon_fa2 = load_icon("fa2.png")
+        # Larger icons for game selector and mod info
+        self.big_icon_ps3 = load_icon("ps3.png", 40)
+        self.big_icon_xbox = load_icon("xbox360.png", 40)
+        self.big_icon_fa = load_icon("fa.png", 40)
+        self.big_icon_fa2 = load_icon("fa2.png", 40)
 
         # Top: Game dropdown & settings
         top_frame = tk.Frame(self)
         top_frame.pack(pady=10, fill='x')
         self.game_var = tk.StringVar(value=GAMES[0])
-        self.game_icon_label = tk.Label(top_frame, image=self.icon_xbox)
+        self.game_icon_label = tk.Label(top_frame, image=self.big_icon_xbox)
         self.game_icon_label.pack(side='left', padx=5)
         # Make combobox wide enough for long game titles
         max_chars = max(len(g) for g in GAMES) + 2
@@ -199,9 +203,9 @@ class FAModManager(TkinterDnD.Tk):
     def on_game_change(self):
         game = self.game_var.get()
         if 'Full Auto 2' in game:
-            self.game_icon_label.configure(image=self.icon_ps3)
+            self.game_icon_label.configure(image=self.big_icon_ps3)
         else:
-            self.game_icon_label.configure(image=self.icon_xbox)
+            self.game_icon_label.configure(image=self.big_icon_xbox)
         self.update_mod_states()
         if self.selected_mod_index is not None:
             self.show_mod_info(self.selected_mod_index)
@@ -574,9 +578,9 @@ class FAModManager(TkinterDnD.Tk):
         for w in self.info_icons_frame.winfo_children():
             w.destroy()
         if 'fa' in entry['games']:
-            tk.Label(self.info_icons_frame, image=self.icon_fa).pack(side='left')
+            tk.Label(self.info_icons_frame, image=self.big_icon_fa).pack(side='left')
         if 'fa2' in entry['games']:
-            tk.Label(self.info_icons_frame, image=self.icon_fa2).pack(side='left')
+            tk.Label(self.info_icons_frame, image=self.big_icon_fa2).pack(side='left')
         game_key = 'fa2' if 'Full Auto 2' in self.game_var.get() else 'fa'
         if game_key not in entry['games'] and 'both' not in entry['games']:
             self.info_warning.configure(text='This mod is not compatible with the selected game.')
