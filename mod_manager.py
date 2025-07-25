@@ -80,10 +80,11 @@ class FAModManager(TkinterDnD.Tk):
         # wider listbox so placeholder text fits comfortably
         self.profile_list = tk.Listbox(profiles_frame, height=10, width=35)
         self.profile_list.pack(padx=5, pady=5)
-        self.profile_placeholder = tk.Label(
+        # Use a Message widget so long text wraps correctly within the list box
+        self.profile_placeholder = tk.Message(
             self.profile_list,
             text='No mod profiles found, create one or import one',
-            foreground='gray', wraplength=250, justify='center'
+            foreground='gray', width=250, justify='center'
         )
         self.profile_placeholder.place(relx=0.5, rely=0.5, anchor='center')
 
@@ -172,13 +173,15 @@ class FAModManager(TkinterDnD.Tk):
         self.info_icons_frame = tk.Frame(info_frame)
         self.info_icons_frame.pack(anchor='w')
         self.info_name = tk.Label(info_frame, text='', font=('TkDefaultFont', 10, 'bold'))
-        self.info_name.pack(anchor='w')
+        self.info_name.pack(anchor='w', fill='x')
         self.info_author = tk.Label(info_frame, text='')
-        self.info_author.pack(anchor='w')
-        self.info_desc = tk.Label(info_frame, text='', wraplength=260, justify='left')
-        self.info_desc.pack(anchor='w', pady=(4, 0))
-        self.info_warning = tk.Label(info_frame, text='', fg='red', wraplength=260)
-        self.info_warning.pack(anchor='w', pady=(4, 0))
+        self.info_author.pack(anchor='w', fill='x')
+        # Message widgets handle word wrapping automatically based on the given
+        # width, preventing long descriptions from being cut off.
+        self.info_desc = tk.Message(info_frame, text='', width=260, justify='left')
+        self.info_desc.pack(anchor='w', fill='x', pady=(4, 0))
+        self.info_warning = tk.Message(info_frame, text='', fg='red', width=260)
+        self.info_warning.pack(anchor='w', fill='x', pady=(4, 0))
         tk.Button(info_frame, text='Remove Mod', command=self.remove_selected_mods).pack(pady=5)
 
     def on_game_change(self):
