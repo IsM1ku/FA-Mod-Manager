@@ -1,4 +1,4 @@
-# Full Auto Mod Manager
+# Full Auto Mod Manager v2
 
 This project provides a proof of concept for managing and merging mods for **Full Auto** (Xbox 360) and **Full Auto 2: Battlelines** (PS3). It relies on command line tools to unpack and repack `smallf.dat` so that modified files can be exported back to the game.
 
@@ -24,11 +24,13 @@ Game directories and settings are stored in `fa_mod_manager_config.json`. The JS
         "Full Auto 2: Battlelines (PS3)": "C:/Path/To/Full Auto 2"
     },
     "logging_enabled": false,
-    "comments_enabled": true
+    "comments_enabled": true,
+    "xbox_iso": "C:/ISOs/FullAuto.iso",
+    "extract_root": "C:/Path/To/XboxExtract"
 }
 ```
 
-Use the **Settings** button in the GUI to select or update these paths, toggle logging, and enable/disable the experimental comment feature. The backend saves them using `save_config()` and they are loaded on startup via `load_config()`.
+Use the **Settings** button in the GUI to select or update these paths, toggle logging, and enable/disable the experimental comment feature. The backend saves them using `save_config()` and they are loaded on startup via `load_config()`. The same file also stores the last Xbox 360 ISO you opened (`xbox_iso`) and the folder used for extraction (`extract_root`).
 
 ## Basic Workflow
 
@@ -53,11 +55,17 @@ next merge. When no mods are loaded, the list shows a helpful "Drag mods here" h
 Existing `smallf.dat` files can be imported as mod profiles using the **Import
 Profile** button. Choose a folder containing a `smallf.dat` and it will appear
 in the profile list using the folder name.
+Each profile folder contains a small `profile.json` file with metadata such as
+which game it belongs to. The manager uses this information when listing and
+loading profiles.
 
 ### Xbox 360 ISO Extraction
 
-The `exiso` folder contains the `extract-xiso` tool used to unpack Xbox 360 ISOs.
-Select an ISO and extraction folder from the **Settings** menu and click
-**Extract ISO** to unpack the game. The contents are placed inside a folder named
-after the ISO within the chosen directory. By default this directory is
-`xbox_extract` next to the program.
+The `exiso` folder must contain the `extract-xiso` tool used to unpack Xbox 360 ISOs.
+Download the **x64** release from [XboxDev/extract-xiso](https://github.com/XboxDev/extract-xiso)
+and place `extract-xiso.exe` inside this folder. Select an ISO and extraction
+folder from the **Settings** menu and click **Extract ISO** to unpack the game.
+The contents are placed inside a folder named after the ISO within the chosen
+directory. By default this directory is `xbox_extract` next to the program.
+The paths you choose are saved back to `fa_mod_manager_config.json` under
+`xbox_iso` and `extract_root` so the manager remembers them next time.
