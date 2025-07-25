@@ -301,7 +301,14 @@ def _append_summary_comment(target_path, changed_lines, mod_name=None, author=No
 # ----------- Unpack and repack functions -----------
 
 def _normalize_smallf_dir(path):
-    """Ensure unpacked directory uses a lowercase 'smallf' folder."""
+    """Return the path to the ``smallf`` folder inside ``path``.
+
+    The smallf unpacker may create the directory using whatever case was present
+    in the source filename (e.g. ``smallF``). This helper attempts to rename the
+    folder to a consistent lowercase form and returns the actual folder path.
+    If the rename fails for any reason, the original directory is returned so
+    callers can still access the files.
+    """
     lower = os.path.join(path, "smallf")
     if os.path.isdir(lower):
         return lower
@@ -312,11 +319,11 @@ def _normalize_smallf_dir(path):
                 return lower
             try:
                 os.rename(src, lower)
+                return lower
             except OSError:
-                tmp = os.path.join(path, "_tmp_smallf")
-                os.rename(src, tmp)
-                os.rename(tmp, lower)
-            return lower
+                # Renaming across case can fail on some file systems. Fall back
+                # to using the existing directory if that happens.
+                return src
     return lower
 
 def _ensure_base_unpacked(game):
@@ -368,8 +375,9 @@ def repack_smallf(game, mod_name):
         temp_dir = TEMP_FA2_DIR
     else:
         temp_dir = TEMP_FA_DIR
-    # The temporary folder contains a "smallf" subdirectory with the unpacked files.
-    source_dir = os.path.join(temp_dir, "smallf")
+    # The temporary folder contains a subdirectory with the unpacked files.
+    # Normalize and use whatever case was created by the unpacker.
+    source_dir = _normalize_smallf_dir(temp_dir)
 
     # Prepare folder structure for the repacker
     working_smallf = os.path.join(TOOLS_DIR, "smallf")
@@ -536,9 +544,9 @@ def apply_mods_to_temp(game, mods, merge_name=None):
     else:
         temp_dir = TEMP_FA_DIR
 
-    # Mods are applied to files inside the "smallf" subfolder of the temp
-    # directory produced by ``unpack_smallf``.
-    target_root = os.path.join(temp_dir, "smallf")
+    # Mods are applied inside the unpacked "smallf" directory. Use the
+    # normalized path so case mismatches don't break patching.
+    target_root = _normalize_smallf_dir(temp_dir)
 
     for mod in mods:
         meta, patches = _parse_mod_file(mod)
