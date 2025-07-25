@@ -33,12 +33,23 @@ class FAModManager(TkinterDnD.Tk):
         backend.init_logger(self.logging_enabled)
         backend.init_comments(self.comments_enabled)
 
-        # Load icons
+        # Load icons (scale large source images down for the UI)
         icon_dir = os.path.join(os.path.dirname(__file__), "bundled", "icons")
-        self.icon_ps3 = tk.PhotoImage(file=os.path.join(icon_dir, "ps3.png"))
-        self.icon_xbox = tk.PhotoImage(file=os.path.join(icon_dir, "xbox360.png"))
-        self.icon_fa = tk.PhotoImage(file=os.path.join(icon_dir, "fa.png"))
-        self.icon_fa2 = tk.PhotoImage(file=os.path.join(icon_dir, "fa2.png"))
+
+        def load_icon(name):
+            img = tk.PhotoImage(file=os.path.join(icon_dir, name))
+            # Many icons in the repo are quite large; shrink them so the UI
+            # isn't overwhelmed when they are placed in Labels.
+            max_size = 64
+            factor = max(img.width() // max_size, img.height() // max_size, 1)
+            if factor > 1:
+                img = img.subsample(factor, factor)
+            return img
+
+        self.icon_ps3 = load_icon("ps3.png")
+        self.icon_xbox = load_icon("xbox360.png")
+        self.icon_fa = load_icon("fa.png")
+        self.icon_fa2 = load_icon("fa2.png")
 
         # Top: Game dropdown & settings
         top_frame = tk.Frame(self)
