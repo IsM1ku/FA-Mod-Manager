@@ -1,0 +1,1275 @@
+//----------------------------------------------------------------------
+// WARLORD
+//----------------------------------------------------------------------
+// EVENT 701
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+In this Time trial on Twister, something in the outskirts waits for you.  Move fast but stay loose, expect the unexpected to survive!
+
+Player must finish timetrial in 3 minutes. Along the track are several HSK turrets, 
+as well as exploding propate tanks which must be destroyed. Player is hunted by and invincible Warlord.
+
+Primary Objective:
+-Finish the race in under 3 minutes.
+
+Secondary Objectives:
+-Take out 5 fuel canisters.
+-Eliminate all Ascendant Observers
+-Don't Die
+
+Event play by play:
+-Player starts race alone.
+-Player must race to finish without dieing and destroy all HSK turrets and gas canisters in less than 3 mins.
+-When player reaches 15% of the race the invulnerable warlord spawns to pursue
+-if the warlord falls back 128m from the player it will be respawned 64m behind.
+
+*/
+Begin Event
+    Name = 701 Evasive Action
+	EventID = 701
+	TrackID = Track_724
+	LapCount = 1
+	Mode = TimeTrial
+	Theme = Backwards
+	maxTime = 150
+	ValidPopulationGroups = 01
+	ValidTargetGroups = 10
+/*	
+//Player has 3 lives!	
+	Begin Player
+		lives = 3
+	End
+*/
+//finish the race
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			maxTime = 150
+			minRacePercentage = 1.00
+		End 
+		Begin Description
+            textId = 146
+                  
+			criterion = maxTime minRacePercentage
+		End
+	End
+
+//destroy fuel canisters	
+	Begin Objective
+		Name = Secondary 1
+		Begin Condition
+			destroyed = 10
+            maxNonDestroyedCount = 3
+		End 
+		Begin Description
+		    textId = 147
+                              
+			criterion = maxNonDestroyedCount
+		End
+	End
+	
+//destroy all Wraith ambushers
+	Begin Objective
+		Name = Secondary 2
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Description
+			textId = 148
+                          
+			criterion = MinTakedowns
+		End
+	End
+	
+//Don't die
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = True
+		End
+			Begin Description
+				textId = 149
+                                    
+				criterion = maxDeaths eventiscomplete
+			End
+	End
+
+//Opponent #1
+	Begin Opponent
+	    name = HSK-75 Observer 1
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    //onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #2	
+	Begin Opponent
+	    name = HSK-75 Observer 2
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    //onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #3	
+	Begin Opponent
+	    name = HSK-75 Observer 3
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    //onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #4	
+	Begin Opponent
+	    name = HSK-75 Observer 4
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    //onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #5	
+	Begin Opponent
+	    name = HSK-75 Observer 5
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    //onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #6	
+	Begin Opponent
+	    name = HSK-75 Observer 6
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    //onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #7	
+	Begin Opponent
+	    name = HSK-75 Observer 7
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    //onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #8	
+	Begin Opponent
+		name = WARLORD
+		CarID = Warlord
+		skinNumber = 3
+		ColorID = Amber
+		difficulty = 19
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		displayName = true
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = HeavyStubber
+		isRival = true
+		type = Rival
+		triggeredSpawn = true
+		invulnerable = true
+		teamID = 2
+		//unlimitedWeapons = true
+		canParticipate = false
+	End
+
+//Spawn and lock turret ambushers
+	Begin Script
+		Begin Condition
+			minTime = 0.01
+		End
+		Begin Commands
+			//CustomMessage "Spawning dudes"
+			spawnOpponent "1 spawnpoint 8 speed 0"
+			setforcestop "1 True"
+			spawnOpponent "2 spawnpoint 9 speed 0"
+			setforcestop "2 True"
+			spawnOpponent "3 spawnpoint 10 speed 0"
+			setforcestop "3 True"
+			spawnOpponent "4 spawnpoint 11 speed 0"
+			setforcestop "4 True"
+			spawnOpponent "5 spawnpoint 12 speed 0"
+			setforcestop "5 True"
+			spawnOpponent "6 spawnpoint 13 speed 0"
+			setforcestop "6 True"
+			spawnOpponent "7 spawnpoint 14 speed 0"
+			setforcestop "7 True"
+		End
+	End
+	
+			
+//Turn down weaponssafteytime
+	Begin Script
+		Begin Commands
+			weaponsSafetyTime 5
+		End
+	End			
+
+
+
+//warn and spawn warlord ambush
+	Begin Script
+		Begin condition
+			minRacePercentage .126
+		End
+		Begin commands
+			ClearCustommessages
+			Message 234
+            
+			Message 235
+                   
+		End
+	End
+	
+	Begin Script
+		Begin condition
+			minRacePercentage .15
+		End
+		Begin commands
+			spawnOpponent "8 spawnpoint 16 speed 60"
+			startCamera "T724_E701_Rival1 8 8 .95"
+		End
+	End
+	
+//Kill Count messaging
+	Begin Script 
+		Begin Condition
+			minTakedowns = 1
+		End
+		Begin Commands 
+			ClearCustommessages
+			Message 236
+                                  
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 2
+		End
+		Begin Commands 
+			ClearCustommessages
+			Message 237
+                                   
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 3
+		End
+		Begin Commands 
+			ClearCustommessages
+			Message 238
+                                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 4
+		End
+		Begin Commands 
+			ClearCustommessages
+			Message 239
+                                    
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands 
+			ClearCustommessages
+			Message 240
+                                    
+		End
+	End
+	
+//respawn warlord close to player if he falls behind	
+	Begin Script
+	    opponentID = 8
+	    recurring = true
+		Begin condition
+			minDistanceFromPlayer = 128
+			mustHaveSpawned = true
+		End
+		Begin commands
+			spawnOpponent "8 force playerRelative -64 speed 80"
+		End
+	End
+End
+//----------------------------------------------------------------------
+// EVENT 702
+//----------------------------------------------------------------------
+
+/*
+>>Event Overview<<
+It is superior to you in every way.  And yet, you must evade this prototype speed tank while you win this Race through the outskirts track Rockslide.
+
+Player must win race against 7 HSK's either by getting 1st place or killing them all.
+Player is hunted by and invincible Warlord.
+
+Primary Objective:
+-Finish in 1st place or kill all opponents.
+
+Secondary Objectives:
+-Eliminate all Ascendant HSK-75's.
+-Win the race within 3:00:00.
+-Don't Die
+
+Event play by play:
+-Player starts race agains 7 HSK-75s
+-Player must race to finish without dieing and destroy all HSK racers in less than 3 mins.
+-When player reaches 23% of the race the invulnerable warlord spawns to pursue
+-if the warlord falls back 128m from the player it will be respawned 64m behind.
+
+*/
+
+Begin Event
+	Name = 702 Circuit Breaker
+	EventID = 702
+	TrackID = Track_711
+	Mode = Race
+	LapCount = 3
+	ValidPopulationGroups = 0
+	ValidTargetGroups = L10
+
+//Get 1st place 	
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			minPosition = 1
+			maxTime = 240
+			EventIsComplete = True
+		End
+		Begin Description
+			textId = 10
+                 
+			criterion = minPosition EventIsComplete
+		End
+		Begin Description
+			textId = 150
+                                        
+			criterion = maxTime EventIsComplete
+		End
+	End
+
+//kill all HSKs	
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			minTakedowns = 7
+		End 
+		Begin Description
+			textId = 151
+                
+			criterion = minTakedowns
+		End
+	End
+
+//Destroy Pride Rock	
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			Destroyed = L10
+		End
+		Begin Description
+			textId = 152
+                                        
+			criterion = Destroyed
+		End
+	End
+	
+//Don't die
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = True
+		End
+			Begin Description
+				textId = 153
+                        
+				criterion = maxDeaths eventIsComplete
+			End
+	End
+	
+	
+//Opponent #1
+	Begin Opponent
+	    name = HSK-75 Racer 1
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = Minelayer
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    //canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #2	
+	Begin Opponent
+	    name = HSK-75 Racer 2
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = Minelayer
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    //canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #3	
+	Begin Opponent
+	    name = HSK-75 Racer 3
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = Minelayer
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    //canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #4	
+	Begin Opponent
+	    name = HSK-75 Racer 4
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = Minelayer
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    //canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #5	
+	Begin Opponent
+	    name = HSK-75 Racer 5
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = Minelayer
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    //canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #6	
+	Begin Opponent
+	    name = HSK-75 Elite 1
+	    CarID = HSK75
+	    ColorID = Amber
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = TitanMissiles
+	    SecondaryWeaponId = ReverseGrenadier
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    //canParticipate = false
+	    //armorGains = 1.2, 1.2, 1.2, 1.2
+	End
+
+//Opponent #7	
+	Begin Opponent
+	    name = HSK-75 Elite 2
+	    CarID = HSK75
+	    ColorID = Amber
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = TitanMissiles
+	    SecondaryWeaponId = ReverseGrenadier
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    //canParticipate = false
+	    //armorGains = 1.2, 1.2, 1.2, 1.2
+	End
+
+//Opponent #8	
+	Begin Opponent
+		name = WARLORD
+		CarID = Warlord
+		skinNumber = 3
+		ColorID = Amber
+		difficulty = 17
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		displayName = true
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = HeavyStubber
+		isRival = true
+		type = Rival
+		triggeredSpawn = true
+		invulnerable = true
+		teamID = 2
+		//unlimitedWeapons = true
+		canParticipate = false
+	End
+	
+//Turn down weaponssafteytime
+	Begin Script
+		Begin Commands
+			weaponsSafetyTime 8
+		End
+	End			
+
+
+//warn of warlord	
+	Begin Script
+		Begin condition
+			minRacePercentage .225
+		End
+		Begin commands
+			ClearCustomMessage
+			Message 234
+            
+			Message 235
+                   
+		End
+	End
+	
+
+//spawn warlord at 26.5%	
+	Begin Script
+		Begin condition
+			minRacePercentage .265
+		End
+		Begin commands
+			//custommessage "spawining warlord"
+			spawnOpponent "8 spawnpoint 8 speed 60"
+			startCamera "T711_E702_Rival1 8 8 .95"
+		End
+	End
+//Warlord auto catchup	
+	Begin Script
+	    opponentID = 8
+	    recurring = true
+		Begin condition
+			minDistanceFromPlayer = 128
+			mustHaveSpawned = true
+		End
+		Begin commands
+			spawnOpponent "8 force playerRelative -64 speed 80"
+		End
+	End
+//kill objective messaging	
+	
+
+	Begin Script
+		Begin condition
+			mintakedowns = 3
+		End
+		Begin commands
+			ClearCustommessages
+			Message 241
+                          
+			Message 242
+                       
+		End
+	End
+
+	
+	Begin Script
+		Begin condition
+			mintakedowns = 6
+		End
+		Begin commands
+			ClearCustommessages
+			Message 243
+                        
+			Message 244
+                      
+		End
+	End
+	
+	Begin Script
+		Begin condition
+			mintakedowns = 7
+		End
+		Begin commands
+			ClearCustommessages
+			Message 245
+                          
+		End
+	End
+End
+
+//----------------------------------------------------------------------
+// EVENT 703
+//----------------------------------------------------------------------
+
+/*
+>>Event Overview<<
+Turn the tables on the supposedly invincible Warlord. In this Race on Marathon destroy anything stopping you from putting the final bullet in it’s CPU.
+
+Player must chase down the Warlord and battle through his escorts to kill him.
+
+Primary Objective:
+-Kill the Warlord before the finish
+
+Secondary Objectives:
+-Destroy all the Ascendant Warlord Escorts.
+-Destroy all the Kamakaze Ascendants.
+-Don't Die
+
+Event play by play:
+-Player starts race against Warlord, and 2 HSK escorts
+-As warlord takes 20% and 50% damage pairs of HSK pursuers spawn
+-As warlord takes 80% and 85% damage pairs of HSK Kamakaze's spawn
+-if the warlord falls back 128m from the player it will be respawned 64m behind.
+
+*/
+
+Begin Event
+	Name = 703 Hunter - Hunted
+	EventID = 703
+	TrackID = Track_721
+	LapCount = 1
+	Mode = TimeTrial
+	//endOnSuccess = true
+	theme = Backwards
+	maxTime = 210
+	
+
+//kill the Warlord
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			killed 1
+			eventIsComplete = True
+		End
+			Begin Description
+				textId = 154
+                                  
+				criterion = killed eventIsComplete
+			End
+	End
+//kill all escorts
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			killed 2 3 4 5 6 7
+		End
+			Begin Description
+				textId = 155
+                         
+				criterion = killed
+			End
+	End
+
+//kill all suicide Ascendants
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			killed 8 9 10 11
+		End
+			Begin Description
+				textId = 156
+                             
+				criterion = killed
+			End
+	End
+	
+//Don't Die
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = True
+		End
+			Begin Description
+				textId = 12
+                          
+				criterion = maxDeaths eventIsComplete
+			End 
+	End
+	
+//Opponent #1	
+	Begin Opponent
+		name = WARLORD
+		CarID = Warlord
+		skinNumber = 3
+		ColorID = Amber
+		difficulty = 15
+		Begin Goal
+			type = Avoid
+			targetID = -1
+		End
+		displayName = true
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = Minelayer
+		isRival = true
+		type = Rival
+		lives = 1
+		//triggeredSpawn = true
+		//invulnerable = true
+		teamID = 2
+		//unlimitedWeapons = true
+		canParticipate = false
+		armorGains = 2, 2, 2, 2
+		hitpointgain = 5
+		onlycountplayerkills = True
+		//displayTargetTag = True
+	End
+	
+//Opponent #2	
+	Begin Opponent
+	    name = HSK-75 Escort 1
+	    CarID = HSK75
+	    ColorID = Amber
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = Minelayer
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #3	
+	Begin Opponent
+	    name = HSK-75 Escort 2
+	    CarID = HSK75
+	    ColorID = Amber
+	    skinNumber = 3
+	    difficulty = 15
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = Minelayer
+	    teamID = 2
+	    Lives = 1
+	    onlycountPlayerKills = true
+	    //triggeredSpawn = true
+	    canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+	
+//Opponent #4	
+	Begin Opponent
+	    name = HSK-75 Escort 3
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #5	
+	Begin Opponent
+	    name = HSK-75 Escort 4
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+	
+//Opponent #6	
+	Begin Opponent
+	    name = HSK-75 Escort 5
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+//Opponent #7	
+	Begin Opponent
+	    name = HSK-75 Escort 6
+	    CarID = HSK75
+	    ColorID = Cyan
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = HomingMissiles
+	    SecondaryWeaponId = MachineGuns
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    //armorGains = .2, .2, .2, .2
+	End
+
+
+//Opponent #8	
+	Begin Opponent
+	    name = HSK-75 Lt. 1
+	    CarID = HSK75
+	    ColorID = FerrariRed
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = RamPlate
+	    SecondaryWeaponId = ReverseGrenadier
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .1, .1, .1, .1
+	    isRival = true
+		type = Lieutenant
+	End
+
+//Opponent #9	
+	Begin Opponent
+	    name = HSK-75 Lt. 2
+	    CarID = HSK75
+	    ColorID = FerrariRed
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = RamPlate
+	    SecondaryWeaponId = ReverseGrenadier
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .1, .1, .1, .1
+	    isRival = true
+		type = Lieutenant
+	End
+	
+//Opponent #10	
+	Begin Opponent
+	    name = HSK-75 Lt. 3
+	    CarID = HSK75
+	    ColorID = FerrariRed
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = RamPlate
+	    SecondaryWeaponId = ReverseGrenadier
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .1, .1, .1, .1
+	    isRival = true
+		type = Lieutenant
+	End
+
+//Opponent #11	
+	Begin Opponent
+	    name = HSK-75 Lt. 4
+	    CarID = HSK75
+	    ColorID = FerrariRed
+	    skinNumber = 3
+	    difficulty = 17
+	    PrimaryWeaponId = RamPlate
+	    SecondaryWeaponId = ReverseGrenadier
+	    teamID = 2
+	    Lives = 1
+	    Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+	    onlycountPlayerKills = true
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .1, .1, .1, .1
+	    isRival = true
+		type = Lieutenant
+	End
+//hsk shield goal contol
+	Begin Script
+		Begin Condition
+			MinTime = 1
+		End
+		Begin Commands
+			AddAIGoal "2 Protect 1"
+			AddAIGoal "3 Protect 1"
+		End
+	End
+//spawn Ascendants when Warlord takes 10%damage
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minDamage = .1
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 246
+                          
+			Message 175
+                    
+			spawnOpponent "4 playerRelative -40 speed 70"
+			spawnOpponent "5 playerRelative -45 speed 70"
+		End
+	End
+	
+//spawn Ascendants when Warlord takes 30%damage
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minDamage = .3
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 247
+                            
+			Message 49
+                         
+			spawnOpponent "6 playerrelative -40 speed 70"
+			spawnOpponent "7 playerrelative -45 speed 70"
+		End
+	End
+	
+//spawn Ascendants when Warlord takes 60%damage
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minDamage = .5
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 248
+                             
+			Message 49
+                         
+			spawnOpponent "8 playerrelative 160 speed 0"
+			spawnOpponent "9 playerrelative 170 speed 0"
+		End
+	End
+	
+//spawn Ascendants when Warlord takes 65%damage
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minDamage = .6
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 249
+                               
+			Message 49
+                         
+			spawnOpponent "10 playerrelative 160 speed 0"
+			spawnOpponent "11 playerrelative 170 speed 0"
+		End
+	End
+/*
+//hsk4 auto catchup	
+	Begin Script
+	    opponentID = 4
+	    recurring = true
+		Begin condition
+			minDistanceFromPlayer = 128
+			mustHaveSpawned = true
+		End
+		Begin commands
+			spawnOpponent "4 force playerRelative -64 speed 80"
+		End
+	End
+
+//hsk5 auto catchup	
+	Begin Script
+	    opponentID = 5
+	    recurring = true
+		Begin condition
+			minDistanceFromPlayer = 128
+			mustHaveSpawned = true
+		End
+		Begin commands
+			spawnOpponent "5 force playerRelative -64 speed 80"
+		End
+	End
+//hsk6 auto catchup	
+	Begin Script
+	    opponentID = 6
+	    recurring = true
+		Begin condition
+			minDistanceFromPlayer = 128
+			mustHaveSpawned = true
+		End
+		Begin commands
+			spawnOpponent "6 force playerRelative -64 speed 80"
+		End
+	End
+//hsk7 auto catchup	
+	Begin Script
+	    opponentID = 7
+	    recurring = true
+		Begin condition
+			minDistanceFromPlayer = 128
+			mustHaveSpawned = true
+		End
+		Begin commands
+			spawnOpponent "7 force playerRelative -64 speed 80"
+		End
+	End
+	
+*/
+//Win event if Warlord killed
+	Begin Script
+	    Begin Condition
+	        killed 1
+	    End
+	    Begin Commands
+			ClearCustomMessages
+	        Message 250
+                       
+	        ClearAIGoal "2 All"
+			AddAIGoal "2 Pursue -1"
+			ClearAIGoal "3 All"
+			AddAIGoal "3 Pursue -1"
+	        //Custommessage "Objective Complete"
+	    End
+	End
+
+	Begin Script
+	    Begin Condition
+	        killed 2 3 4 5 6 7
+	    End
+	    Begin Commands
+			ClearCustomMessages
+	        Message 251
+                              
+	        //Custommessage "Objective Complete"
+	    End
+	End
+	Begin Script
+	    Begin Condition
+	        killed 8 9 10 11
+	    End
+	    Begin Commands
+			ClearCustomMessages
+	        Message 252
+                                  
+	        //Custommessage "Objective Complete"
+	    End
+	End
+	Begin Script
+	    Begin Condition
+	        killed 1 2 3 4 5 6 7 8 9 10 11
+	    End
+	    Begin Commands
+			ClearCustomMessages
+	        Message 44
+                           
+	        //Custommessage "Objective Complete"
+	    End
+	End
+	Begin Script
+		Delay = 2
+	    Begin Condition
+	        killed 1 2 3 4 5 6 7 8 9 10 11 
+	    End
+	    Begin Commands
+	        WinObjective 1
+	    End
+	End
+
+	    
+//fail event if Warlord escapes	
+	Begin Script
+	    opponentID = 1
+	    Begin Condition
+	        minRacePercentage = 1.0
+	    End
+	    Begin Commands
+			ClearCustomMessages
+	        Message 253
+                     
+	    End
+	End
+	Begin Script
+		Delay = 5
+	    opponentID = 1
+	    Begin Condition
+	        minRacePercentage = 1.0
+	    End
+	    Begin Commands
+	        failEvent
+	    End
+	End   
+//Turn down weaponssafteytime
+	Begin Script
+		Begin Commands
+			weaponsSafetyTime 5
+		End
+	End
+ 
+End
+//----------------------------------------------------------------------
+// UNLOCK SEQUENCE & REWARDS					(3, 5)
+//----------------------------------------------------------------------
+Begin Reward
+	Name = Event 701 Complete
+	EventID = 701
+	isPrimaryReward = true
+	unlockedEvents = 702
+End
+Begin Reward
+	Name = Event 702 Complete
+	EventID = 702
+	isPrimaryReward = true
+	unlockedEvents = 703
+End
+Begin Reward
+	Name = Primary Reward pack for Warlord
+	EventID = 703
+	isPrimaryReward = true
+	unlockedEvents = 801
+	unlockedCars = Warlord
+End
+Begin Reward
+	Name = Secondary Reward pack #1 for Warlord
+	EventID = 700
+	isPrimaryReward = false
+	objectiveCount = 5
+	unlockedSkins = Warlord.1 Warlord.2
+End
+Begin Reward
+	Name = Secondary Reward pack #2 for Warlord
+	EventID = 700
+	isPrimaryReward = false
+	objectiveCount = 8
+	unlockedSkins = Warlord.3
+End
+//----------------------------------------------------------------------

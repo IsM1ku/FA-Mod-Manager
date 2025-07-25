@@ -1,0 +1,977 @@
+//----------------------------------------------------------------------
+// KINETIK
+//----------------------------------------------------------------------
+// EVENT 511
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+Player races against TEC technical drivers who race with by the books technical precision.
+Opponents never take shortcuts.
+
+Primary Objective:
+-Get 3rd Place
+
+Secondary Objectives:
+-Get at least 10 Kills
+-Get 1st place
+-Don't die
+
+Event play by play:
+-Player starts race against 7 Streamlines, the Streamline's should avoid all shortcuts.
+-all shortcuts should have additional construction barriers places blocking entry to discourage shortcut taking.
+
+*/
+
+Begin Event
+	Name = 511 Straight and Narrow
+	EventID = 511
+	TrackID = Track_511
+	Mode = Race
+	LapCount = 2
+	Theme = Backwards
+	ValidPopulationGroups = 1
+	
+	
+// come in at least 3rd
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			minPosition = 3
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 8
+                   
+				criterion = minPosition eventIsComplete
+			End
+	End
+//get 1st	
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			minPosition = 1
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 29
+        
+				criterion = minPosition eventIsComplete
+			End
+	End
+//kill 10 guys
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			mintakedowns = 10
+		End
+			Begin Description
+				textId = 45
+                     
+				criterion = mintakedowns
+			End
+	End
+// don't die	
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 5
+                            
+				criterion = maxDeaths eventIsComplete
+			End
+	End
+//Opponent #1
+	Begin Opponent
+		name = TEC 1
+		CarID = TEC
+		skinNumber = 0
+		ColorID = Blue
+		Difficulty = 14
+		TeamID = 2
+		//Begin Goal
+		//	type = Pursuit
+		//	targetID = -1
+		//End
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseScatterGun
+		detourChanceShift = -1
+	End
+//Opponent #2
+	Begin Opponent
+		name = TEC 2
+		CarID = TEC
+		skinNumber = 0
+		ColorID = Blue
+		difficulty = 14
+		TeamID = 2
+		//Begin Goal
+		//	type = Pursuit
+		//	targetID = -1
+		//End
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseScatterGun
+		detourChanceShift = -1
+	End
+//Opponent #3
+	Begin Opponent
+		name = TEC 3
+		CarID = TEC
+		skinNumber = 0
+		ColorID = RCBlue
+		difficulty = 15
+		TeamID = 2
+		//Begin Goal
+		//	type = Pursuit
+		//	targetID = -1
+		//End
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = MachineGuns
+		detourChanceShift = -1
+	End
+//Opponent #4	
+	Begin Opponent
+		name = TEC 4
+		CarID = TEC
+		skinNumber = 0
+		ColorID = RCBlue
+		difficulty = 15
+		TeamID = 2
+		//Begin Goal
+		//	type = Pursuit
+		//	targetID = -1
+		//End
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = MachineGuns
+		detourChanceShift = -1
+	End
+//Opponent #5	
+	Begin Opponent
+		name = TEC 5
+		CarID = TEC
+		skinNumber = 0
+		ColorID = Indigo
+		difficulty = 15
+		TeamID = 2
+		//Begin Goal
+			//type = Pursuit
+			//targetID = -1
+		//End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Minelayer
+		detourChanceShift = -1
+	End
+//Opponent #6	
+	Begin Opponent
+		name = TEC 6
+		CarID = TEC
+		skinNumber = 0
+		ColorID = Indigo
+		difficulty = 15
+		TeamID = 2
+		//Begin Goal
+			//type = Pursuit
+			//targetID = -1
+		//End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Minelayer
+		detourChanceShift = -1
+	End
+/*
+//Opponent #7	
+	Begin Opponent
+		name = TEC 7
+		CarID = TEC
+		skinNumber = 0
+		ColorID = Blue
+		difficulty = 16
+		TeamID = 2
+		//Begin Goal
+			//type = Pursuit
+			//targetID = -1
+		//End
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseScatterGun
+		detourChanceShift = -1
+	End
+*/
+	
+//kill count messaging
+	Begin Script
+		Begin Condition
+			mintakedowns = 5
+		End
+		Begin Commands
+			Message 59
+                        
+		End
+	End
+	Begin Script
+		Begin Condition
+			mintakedowns = 10
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 60
+                       
+//			Custommessage "Objective Complete"
+		End
+	End
+	
+End
+//----------------------------------------------------------------------
+// EVENT 512
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+You have the attention of this precision crew.  The Technik Pro will hound your tail as you compete in this Lap Knockout on Takeover.  
+
+Player races in a lap knockout against TEC technical drivers who race with by the books technical precision.
+Opponents never take shortcuts. The Technik Pro driver who doesn't participate in the race, but protects the AI leader.
+
+Primary Objective:
+-Get 1st place
+-Kill the Technik Pro
+
+Secondary Objectives:
+-Get at least 10 Kills
+-Kill the Technik Pro 5 times
+-Don't die
+
+Event play by play:
+-Player starts race against 4 Streamlines, the Streamline's should avoid all shortcuts.
+-whenever one of the streamlines takes the lead a 5th streamline will protect it.
+
+*/
+
+Begin Event
+	Name = 512 Thorn in Your Side
+	EventID = 512
+	TrackID = Track_513
+	Mode = knockout
+	LapCount = 5
+	Theme = Forwards
+	ValidTargetGroups = L0
+
+//get 1st and kill rival	
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			minPosition = 1
+			MinRivalTakedowns = 1
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 29
+        
+				criterion = minPosition eventIsComplete
+			End
+			Begin Description
+				textId = 105
+                                     
+				criterion = MinRivalTakedowns
+			End		
+	End
+//get 5 rival kills
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			MinRivalTakedowns = 3
+		End
+			Begin Description
+				textId = 106
+                                   
+				criterion = MinRivalTakedowns
+			End				
+	End
+//kill 8 guys
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			mintakedowns = 5
+		End
+			Begin Description
+				textId = 107
+                     
+				criterion = mintakedowns
+			End
+	End
+// don't die	
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			Destroyed = L0
+		End
+			Begin Description
+				textId = 108
+                    
+				criterion = Destroyed
+			End
+	End
+
+//Opponent #1
+	Begin Opponent
+		name = TEC Lt.
+		CarID = TEC
+		skinNumber = 2
+		ColorID = DarkestRed
+		difficulty = 19
+		isRival = true
+		Type = Lieutenant
+		TeamID = 2
+		//lives = 1
+		//Begin Goal
+		//	type = Pursue
+		//	targetID = -1
+		//End
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = MachineGuns
+		detourChanceShift = -1	
+		cantBeKnockedOut = True	
+		canParticipate = False
+		displayName = true
+		//displayTargetTag = True
+	End
+//Opponent #2	
+	Begin Opponent
+		name = TEC 1
+		CarID = TEC
+		skinNumber = 0
+		ColorID = Blue
+		difficulty = 14
+		TeamID = 2
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseScatterGun
+		detourChanceShift = -1
+		//displayName = true
+	End
+//Opponent #3	
+	Begin Opponent
+		name = TEC 2
+		CarID = TEC
+		skinNumber = 0
+		ColorID = Blue
+		difficulty = 14
+		TeamID = 2
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseScatterGun
+		detourChanceShift = -1
+		//displayName = true
+	End
+//Opponent #4	
+	Begin Opponent
+		name = TEC 3
+		CarID = TEC
+		skinNumber = 0
+		ColorID = RCBlue
+		difficulty = 14
+		TeamID = 2
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = MachineGuns
+		detourChanceShift = -1
+		//displayName = true
+	End
+//Opponent #5
+	Begin Opponent
+		name = TEC 4
+		CarID = TEC
+		skinNumber = 0
+		ColorID = RCBlue
+		difficulty = 14
+		TeamID = 2
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = MachineGuns
+		detourChanceShift = -1
+		//displayName = true
+	End
+	
+	
+//Technik Pro Protects pursues player untill last lap
+	Begin Script
+		Begin Condition
+			minTime = 0
+		End
+		Begin Commands
+			AddAIGoal "1 Pursue -1"
+			SetEventFlag "1 False"
+		End
+	End
+	Begin Script
+		Begin Condition
+			minlaps = 4
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 168
+                             
+			SetEventFlag "1 True" 
+			ClearAIGoal "1 All"
+		End
+	End
+
+
+
+//force respawn the technik pro if he falls behind	
+	Begin Script
+		OpponentID = 1
+		recurring = true
+		Begin Condition
+			eventflagsnot = 1
+			minDistanceFromPlayer = 100
+		End
+		Begin Commands
+			//custommessage "TEC LIEUTENANT DETECTED"
+			spawnOpponent "1 force playerrelative -50 speed 70"
+		End
+	End
+	
+	
+//technik pro kill messaging
+	Begin Script
+		Begin Condition
+			minRivalTakeDowns = 1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 169
+                      
+//			Custommessage "Objective Complete"
+//			Custommessage "Destroy him 2 more times to humiliate him!"
+		End
+	End	
+	Begin Script
+		Begin Condition
+			minRivalTakeDowns = 2
+		End
+		Begin Commands
+			Message 170
+                       
+//			Custommessage "Objective Complete"
+		End
+	End
+	Begin Script
+		Begin Condition
+			minRivalTakeDowns = 3
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 171
+                      
+//			Custommessage "Objective Complete"
+		End
+	End
+
+	
+//kill count messaging
+	Begin Script
+		Begin Condition
+			mintakedowns = 4
+		End
+		Begin Commands
+			Message 85
+                        
+		End
+	End
+	Begin Script
+		Begin Condition
+			mintakedowns = 8
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 172
+                        
+//			Custommessage "Objective Complete"
+		End
+	End
+End
+//----------------------------------------------------------------------
+// EVENT 513
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+You’ve proven worthy of challenging their leader the Kinetik Specialist. Beat him head to head in this Race on Freeway.  No quarter asked, none given.
+
+Player races 1on1 against the Kinetik Challenger.
+At 3 points in the race a pair of enforcers will spawn to attack whichever car is in the lead.
+
+Primary Objective:
+-Get 1st place
+-Kill the Kinetik
+
+Secondary Objectives:
+-finish race in under 4 mins
+-get 10 kills
+-Don't die
+
+Event play by play:
+-Player starts race in a standing start beside the kinetik.
+-at 20%, 50%, and 80% of the race 2 enforcers spawn and attack either the player or the Kinetik depending on who's in the lead.
+
+*/
+
+
+
+Begin Event
+	Name = 513 Razor's Edge
+	EventID = 513
+	TrackID = Track_514
+	Mode = Race
+	LapCount = 4
+	Theme = Forwards
+	ValidPopulationGroups = 1
+	
+	
+	//Begin Player
+   //     spawnPointOverride = 8
+    //End
+	
+//get 1st and take out the kinetik
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			minPosition = 1
+			MinRivalTakedowns = 1
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 29
+        
+				criterion = minPosition eventIsComplete
+			End
+			Begin Description
+				textId = 109
+                           
+				criterion = MinRivalTakedowns
+			End
+	End
+//Finish in time limit
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			maxTime = 270
+			minlaps = 4
+		End
+			Begin Description
+				textId = 110
+                           
+				criterion = maxTime minlaps
+			End
+	End
+	
+//kill 5 guys
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			mintakedowns = 5
+		End
+			Begin Description
+				textId = 111
+                          
+				criterion = mintakedowns
+			End
+	End
+	
+// don't die	
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 12
+                          
+				criterion = maxDeaths eventIsComplete
+			End
+	End
+	
+
+	
+//Opponent #1
+	Begin Opponent
+		name = Enforcer 1
+		CarID = Enforcer
+		skinNumber = 0
+		ColorID = GlossBlack
+		difficulty = 19
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+		triggeredSpawn = true
+		canparticipate = False
+		lives = 1
+		onlyCountCompetitorKills = True
+	End
+//Opponent #2	
+	Begin Opponent
+		name = Enforcer 2
+		CarID = Enforcer
+		skinNumber = 0
+		ColorID = GlossBlack
+		difficulty = 19
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+		triggeredSpawn = true
+		canparticipate = False
+		lives = 1
+		onlyCountCompetitorKills = True
+	End
+	
+//Opponent #3
+	Begin Opponent
+		name = Enforcer 3
+		CarID = Enforcer
+		skinNumber = 0
+		ColorID = GlossBlack
+		difficulty = 19
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+		triggeredSpawn = true
+		canparticipate = False
+		lives = 1
+		onlyCountCompetitorKills = True
+	End
+	
+//Opponent #4	
+	Begin Opponent
+		name = Enforcer 4
+		CarID = Enforcer
+		skinNumber = 0
+		ColorID = GlossBlack
+		difficulty = 19
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+		triggeredSpawn = true
+		canparticipate = False
+		lives = 1
+		onlyCountCompetitorKills = True
+	End
+	
+//Opponent #5
+	Begin Opponent
+		name = Enforcer 5
+		CarID = Enforcer
+		skinNumber = 0
+		ColorID = GlossBlack
+		difficulty = 19
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+		triggeredSpawn = true
+		canparticipate = False
+		lives = 1
+		onlyCountCompetitorKills = True
+	End
+	
+//Opponent #6	
+	Begin Opponent
+		name = Enforcer 6
+		CarID = Enforcer
+		skinNumber = 0
+		ColorID = GlossBlack
+		difficulty = 19
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+		triggeredSpawn = true
+		canparticipate = False
+		lives = 1
+		onlyCountCompetitorKills = True
+	End
+	
+//Opponent #7 kinetik rival
+	Begin Opponent
+		name = Kinetik Challenger
+		displayName = True
+		CarID = Kinetik
+		skinNumber = 3
+		ColorID = FerrariRed
+		difficulty = 18
+		isRival = true
+		type = Rival
+		//lives = 1
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = ReverseScatterGun
+		//triggeredSpawn = true
+		//displayTargetTag = True
+	End
+
+
+//Spawn Kinetik at startline and hold him and the player there
+	Begin Script
+		//Begin Condiditon
+		//	mintime = 0
+		//End
+		Begin Commands
+			introAISpeedClamp 0
+			//spawnopponent "7 spawnpoint 9 speed 0"
+			//startCamera "T514_E513_Rival1 1 1 .7"
+			setforcestop "7 true"
+			//setforcestop "-1 True"
+		End
+	End
+	
+//Release player and kinetik	
+	Begin Script
+        Begin Condition
+            minTime = 0.1
+        End
+        Begin Commands
+			//Custommessage "GO!"
+            //SetForceStop "-1 false"
+            SetForceStop "7 false"
+        End
+    End
+
+
+//set all event flags false
+	Begin Script
+		Begin Condition
+			mintime = 1
+		End
+		Begin Commands
+			SetEventFlag "1 False"	
+			SetEventFlag "2 False"
+			SetEventFlag "3 False"	
+
+		End
+	End
+//copchatter
+	Begin Script
+		Begin condition
+			minRacePercentage = .16
+		End
+		Begin commands
+			CopChatterOn
+		End
+	End		
+	Begin Script
+		Delay = 30
+		Begin condition
+			minRacePercentage = .16
+		End
+		Begin commands
+			CopChatterOff
+		End
+	End	
+	Begin Script
+		Begin condition
+			minRacePercentage = .49
+		End
+		Begin commands
+			CopChatterOn
+		End
+	End		
+	Begin Script
+		Delay = 30
+		Begin condition
+			minRacePercentage = .49
+		End
+		Begin commands
+			CopChatterOff
+		End
+	End
+	Begin Script
+		Begin condition
+			minRacePercentage = .79
+		End
+		Begin commands
+			CopChatterOn
+		End
+	End		
+	Begin Script
+		Delay = 30
+		Begin condition
+			minRacePercentage = .79
+		End
+		Begin commands
+			CopChatterOff
+		End
+	End
+//Spawn Deputies after opponent if he is winning
+	Begin Script
+		OpponentID = 7
+		Begin condition
+			minRacePercentage = .17
+			minPosition = 1
+			eventFlagsNot = 1
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 173
+                             
+			spawnOpponent "1 RacePercentage .18"
+			spawnOpponent "2 RacePercentage .185"
+			AddAIGoal "1 Pursue 7"
+			AddAIGoal "2 Pursue 7"
+			SetEventFlag "1 true"
+		End
+	End		
+
+//Spawn Deputies after you if you are winning
+	Begin Script
+		Begin condition
+			minRacePercentage = .17
+			minPosition = 1
+			eventFlagsNot = 1
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 122
+                     
+			spawnOpponent "1 RacePercentage .18"
+			spawnOpponent "2 RacePercentage .185"
+			AddAIGoal "1 Pursue -1"
+			AddAIGoal "2 Pursue -1"
+			SetEventFlag "1 true"
+		End
+	End
+
+//Spawn Deputy wave 2 after opponent if he is winning
+	Begin Script
+		OpponentID = 7
+		Begin condition
+			minRacePercentage = .50
+			minPosition = 1
+			eventFlagsNot = 2
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 173
+                             
+			spawnOpponent "3 RacePercentage .51"
+			spawnOpponent "4 RacePercentage .515"
+			AddAIGoal "3 Pursue 7"
+			AddAIGoal "4 Pursue 7"
+			SetEventFlag "2 true"
+		End
+	End
+	
+//Spawn Deputy wave 2 after you if you are winning
+	Begin Script
+		Begin condition
+			minRacePercentage = .50
+			minPosition = 1
+			eventFlagsNot = 2
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 122
+                     
+			spawnOpponent "3 RacePercentage .51"
+			spawnOpponent "4 RacePercentage .515"
+			AddAIGoal "3 Pursue -1"
+			AddAIGoal "4 Pursue -1"
+			SetEventFlag "2 true"
+		End
+	End
+
+//Spawn Deputy wave 3 after opponent if he is winning
+	Begin Script
+		OpponentID = 7
+		Begin condition
+			minRacePercentage = .80
+			minPosition = 1
+			eventFlagsNot = 3
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 173
+                             
+			spawnOpponent "5 RacePercentage .81"
+			spawnOpponent "6 RacePercentage .815"
+			AddAIGoal "5 Pursue 7"
+			AddAIGoal "6 Pursue 7"
+			SetEventFlag "3 true"
+		End
+	End
+	
+//Spawn Deputy wave 3 after you if you are winning
+	Begin Script
+		Begin condition
+			minRacePercentage = .80
+			minPosition = 1
+			eventFlagsNot = 3
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 122
+                     
+			spawnOpponent "5 RacePercentage .81"
+			spawnOpponent "6 RacePercentage .815"
+			AddAIGoal "5 Pursue -1"
+			AddAIGoal "6 Pursue -1"
+			SetEventFlag "3 true"
+		End
+	End
+//kill count messaging
+	Begin Script
+		Begin Condition
+			mintakedowns = 5
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 59
+                        
+		End
+	End
+//last push
+	Begin Script
+		Begin condition
+			minRacePercentage = .94
+			minPosition = 1
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 174
+                        
+		End
+	End
+		
+	
+End
+//----------------------------------------------------------------------
+// UNLOCK SEQUENCE & REWARDS					(2, 4, 6)
+//----------------------------------------------------------------------
+Begin Reward
+	Name = Event 511 Complete
+	EventID = 511
+	isPrimaryReward = true
+	unlockedEvents = 512
+End
+Begin Reward
+	Name = Event 512 Complete
+	EventID = 512
+	isPrimaryReward = true
+	unlockedEvents = 513
+End
+Begin Reward
+	Name = Primary Reward pack for Kinetik
+	EventID = 513
+	isPrimaryReward = true
+	unlockedEvents = 601
+	unlockedCars = Kinetik
+End
+Begin Reward
+	Name = Secondary Reward pack #1 for Kinetik
+	EventID = 510
+	isPrimaryReward = false
+	objectiveCount = 3
+	unlockedWeapons = ReverseScatterGun		
+	unlockedSkins = Kinetik.1
+End
+Begin Reward
+	Name = Secondary Reward pack #2 for Kinetik
+	EventID = 510
+	isPrimaryReward = false
+	objectiveCount = 6
+	unlockedCars = TEC
+	unlockedSkins = Kinetik.2
+End
+Begin Reward
+	Name = Secondary Reward pack #3 for Kinetik
+	EventID = 510
+	isPrimaryReward = false
+	objectiveCount = 8
+	unlockedSkins = TEC.1 TEC.2 Kinetik.3
+End
+//----------------------------------------------------------------------

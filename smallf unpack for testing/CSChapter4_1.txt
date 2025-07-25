@@ -1,0 +1,1564 @@
+//----------------------------------------------------------------------
+// DEMON
+//----------------------------------------------------------------------
+// EVENT 411
+//----------------------------------------------------------------------
+//
+/*
+**** Overview ****
+Team Deathmatch event
+Some independant competitors a group of Jupiters are trying to challenge
+the ascendants in this area, who are led by Demon.
+Help their group beat the Demon's "Magnus Lieutenant" and his minons...
+
+
+EVENT DESCRIPTION FOR FE:
+
+
+Primary Objectives:
+- Finish in 1st place.
+- Kill the Magnus Lieutenant.
+
+
+Secondary Objectives:
+- Eliminate the Magnus Lieutenant in 3:30:00.
+- Ensure that at least 1 wingman survives.
+- Get a score of over 10
+
+*/
+//
+Begin Event
+	Name = 411 Snake Pit
+	EventID = 411
+	TrackID = Track_641
+	Mode = Deathmatch
+	maxTime = 300
+	Theme = Forwards
+	validPopulationGroups = 0
+//	isTeamGame = true   //Should I do this?
+
+	Begin Objective
+		Name = Primary
+		Begin Condition
+		    MinPosition = 1
+			minRivalTakedowns = 3
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 29
+        
+			criterion = MinPosition eventIsComplete
+		End
+		Begin Description
+			textId = 75
+                           
+			criterion = minRivalTakedowns
+		End
+	End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			maxTime = 120
+			minRivalTakedowns = 3
+		End 
+		Begin Description
+			textId = 76
+                                   
+			criterion = minRivalTakedowns maxTime
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 77
+                                                      
+			criterion = survived eventIsComplete
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			MinScore = 10
+		End 
+		Begin Description
+			textId = 78
+                    
+			criterion = MinScore
+		End
+	End
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+		lives = 3
+		spawnPointOverride = 8
+	End
+
+// Opponent #1: Wingman1
+	Begin Opponent
+		name = TEC Wingman 1
+		CarID = TEC
+		skinNumber = 0
+		ColorID = White 
+		difficulty = 11
+		teamID = 1
+        Begin Goal
+            type = Protect
+            targetID = -1
+        End
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		displayName = true
+        canParticipate = false
+		lives = 2
+		spawnPointOverride = 9
+	End
+// Opponent #2: Wingman2
+	Begin Opponent
+		name = TEC Wingman 2
+		CarID = TEC
+		skinNumber = 0
+		ColorID = White 
+		difficulty = 11
+		teamID = 1
+        Begin Goal
+            type = Protect
+            targetID = -1
+        End
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		displayName = true
+        canParticipate = false
+		lives = 2
+		spawnPointOverride = 10
+	End
+// Opponent #3: Wingman3
+	Begin Opponent
+		name = TEC Wingman 3
+		CarID = TEC
+		skinNumber = 0
+		ColorID = White 
+		difficulty = 11
+		teamID = 1
+        Begin Goal
+            type = Protect
+            targetID = -1
+        End
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		displayName = true
+        canParticipate = false
+		lives = 2
+		spawnPointOverride = 11
+	End
+// Opponent #4: Magnus Lieutenant
+	Begin Opponent
+		name = Magnus Lt.
+		CarID = Magnus
+		skinNumber = 2
+		ColorID = MetallicBlack 
+		difficulty = 15
+		teamID = 2
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseGrenadier
+		displayName = true
+		type = Lieutenant
+		armorGains = 1.0, 1.0, 1.0, 1.0
+		isRival = true
+		lives = 3
+		spawnPointOverride = 12
+		onlyCountPlayerKills = true
+	End
+// Opponent #5: Python
+	Begin Opponent
+		name = Python 1
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 13
+		teamID = 2
+        Begin Goal
+            type = Protect
+            targetID = 4
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+        canParticipate = false
+		lives = 3
+		spawnPointOverride = 13
+	End
+// Opponent #6: Python
+	Begin Opponent
+		name = Python 2
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 13
+		teamID = 2
+        Begin Goal
+            type = Protect
+            targetID = 4
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+        canParticipate = false
+		lives = 3
+		spawnPointOverride = 14
+	End
+// Opponent #7: Python
+	Begin Opponent
+		name = Python 3
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 13
+		teamID = 2
+        Begin Goal
+            type = Protect
+            targetID = 4
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+        canParticipate = false
+		lives = 3
+		spawnPointOverride = 15
+	End
+// Opponent #8: Ardent
+	Begin Opponent
+		name = Python Attacker 1
+		CarID = Python
+		skinNumber = 0
+		ColorID = ElectricGreen 
+		difficulty = 13
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = ScatterGun
+//		armorGains = 1.5, 1.5, 1.5, 1.5
+		triggeredSpawn = true
+//		displayName = true
+        canParticipate = false
+		lives = 2
+	End
+// Opponent #9: Ardent
+	Begin Opponent
+		name = Python Attacker 2 
+		CarID = Python
+		skinNumber = 0
+		ColorID = ElectricGreen 
+		difficulty = 13
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+//		armorGains = 1.5, 1.5, 1.5, 1.5
+		triggeredSpawn = true
+//		displayName = true
+        canParticipate = false
+		lives = 2
+	End
+
+// Objective Messaging - Wingman1 killed
+	Begin Script
+		Begin Condition
+			killed = 1
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 112
+                         
+		End
+	End
+
+// Objective Messaging - Wingman 2 killed
+	Begin Script
+		Begin Condition
+			killed = 2
+		End 
+ 		Begin Commands
+ 			ClearCustomMessages
+			Message 113
+                         
+		End
+	End
+// Objective Messaging - Wingman3 killed
+	Begin Script
+		Begin Condition
+			killed = 3
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 114
+                         
+		End
+	End
+// Objective Messaging - Wingmen all killed
+	Begin Script
+		Begin Condition
+			killed = 1 2 3
+		End 
+ 		Begin Commands
+ 			FailObjective 3
+ 			ClearCustomMessages
+			Message 115
+                          
+//			CustomMessage "SECONDARY OBJECTIVE FAILED"
+		End
+	End
+
+// Objective Messaging - Python1 killed
+	Begin Script
+		Begin Condition
+			killed = 5
+		End 
+ 		Begin Commands
+ 			ClearCustomMessages
+			Message 116
+                     
+		End
+	End
+// Objective Messaging - Python2 killed
+	Begin Script
+		Begin Condition
+			killed = 6
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 116
+                     
+		End
+	End
+// Objective Messaging - Python 3 killed
+	Begin Script
+		Begin Condition
+			killed = 7
+		End 
+ 		Begin Commands
+ 			ClearCustomMessages
+			Message 116
+                     
+		End
+	End
+
+// Objective Messaging - Magnus Lieutenant Died 1 time
+	Begin Script 
+		opponentID = 4
+		Begin Condition
+			minDeaths = 1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 117
+                              
+		End
+	End
+// Objective Messaging - Magnus Ascendant Died 2 times
+	Begin Script 
+		opponentID = 4
+		Begin Condition
+			minDeaths = 2
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 118
+                             
+		End
+	End
+// Objective Messaging - Magnus Lieutenant Dead
+	Begin Script
+		Begin Condition
+			killed = 4
+		End 
+ 		Begin Commands
+ 			clearAIgoal "5 all"
+ 			clearAIgoal "6 all"
+ 			clearAIgoal "7 all"
+ 			AddAIGoal "5 Pursue -1"
+ 			AddAIGoal "6 Pursue -1"
+ 			AddAIGoal "7 Pursue -1"
+ 			ClearCustomMessages
+			Message 119
+                          
+//			CustomMessage "PRIMARY OBJECTIVE COMPLETE"
+		End
+	End
+// MagnusLieutenant Eliminated and Position 1st - Win EVENT!
+	Begin Script
+		OpponentID =4
+		Begin Condition
+		    MinPosition = 1
+			killed = 4 5 6 7
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 120
+                            
+		End
+	End
+// MagnusLieutenant Eliminated and Position 1st - Win EVENT!
+	Begin Script
+		OpponentID =4
+		Delay = 6
+		Begin Condition
+		    MinPosition = 1
+			killed = 4 5 6 7
+		End
+		Begin Commands 
+			failEvent
+		End
+	End
+
+// MagnusLieutenant Eliminated and Position 1st - Win EVENT!
+	Begin Script 
+		Begin Condition
+		    MinPosition = 1
+			killed = 4 5 6 7
+		End
+		Begin Commands 
+			Message 120
+                            
+		End
+	End
+// MagnusLieutenant Eliminated and Position 1st - Win EVENT!
+	Begin Script
+		Delay = 6
+		Begin Condition
+		    MinPosition = 1
+			killed = 4 5 6 7
+		End
+		Begin Commands 
+			winEvent
+		End
+	End
+
+
+// MagnusLieutenant Eliminated and Position 1st - Message WIN EVENT!
+	Begin Script 
+		Begin Condition
+		    MinPosition = 1
+			killed = 4
+		End
+		Begin Commands
+			clearCustomMessages
+			Message 121
+                              
+		End
+	End
+// MagnusLieutenant Eliminated and Position 1st - WIN EVENT!
+	Begin Script 
+		Delay = 3
+		Begin Condition
+		    MinPosition = 1
+			killed = 4
+		End
+		Begin Commands 
+			WinEvent
+		End
+	End
+
+// Send in the Equalizers after the player if he is winning
+	Begin Script
+		Begin Condition
+			minTime = 150
+			minPosition = 1
+		End
+		Begin Commands
+			spawnOpponent "8"
+			AddAIGoal "8 Pursue -1"
+			SetTeamID "8 2"
+			spawnOpponent "9"
+			AddAIGoal "9 Pursue -1"
+			SetTeamID "9 2"
+			Message 122
+                     
+		End
+	End
+
+// Send in the Equalizers after the rival if he is winning
+	Begin Script
+		opponentID = 4
+		Begin Condition
+			minTime = 150
+			minPosition = 1
+		End
+		Begin Commands
+			spawnOpponent "8"
+			AddAIGoal "8 Pursue 4"
+			SetTeamID "8 1"
+			spawnOpponent "9"
+			AddAIGoal "9 Pursue 4"
+			SetTeamID "9 1"
+			Message 123
+                             
+		End
+	End
+// The Equalizers attack you if Magnus is dead
+	Begin Script
+		opponentID = 8
+		Begin Condition
+			mustHaveSpawned = true
+			killed = 4
+		End
+		Begin Commands
+			clearAIgoal "8 all"
+			AddAIGoal "8 Pursue -1"
+			SetTeamID "8 2"
+			spawnOpponent "9"
+			AddAIGoal "9 Pursue -1"
+			SetTeamID "9 2"
+			Message 122
+                     
+		End
+	End
+// Fail secondary objective if Lt hasn't been killed in two minutes
+	Begin Script
+		opponentID = 4
+		Begin Condition
+			mintime = 120
+			minDeaths = 2
+		End
+		Begin Commands
+			failObjective 2
+//			customMessage "MAGNUS LT.: SURVIVED"
+//			customMessage "SECONDARY OBJECTIVE FAILED"
+		End
+	End
+End
+
+//----------------------------------------------------------------------
+// EVENT 412
+//----------------------------------------------------------------------
+//
+/*
+**** Overview ****
+Team Race event
+Trying to gain access to the Demon, you and a some friendly TECs challenge 
+the ascendants in this area.
+Defeat the Demon's "Magnus Lieutenant" and his minons...
+
+*/
+Begin Event
+	Name = 412 Summoner
+	EventID = 412
+	TrackID = Track_611
+	Mode = Race
+	LapCount = 3
+	Theme = Backwards
+//	isTeamGame = true   //Should I do this?
+
+	Begin Objective
+		Name = Primary
+		Begin Condition
+		    MinPosition = 1
+		    killed = 1
+		    eventIsComplete = true
+			minRacePercentage = 1
+		End
+		Begin Description
+			textId = 29
+        
+			criterion = MinPosition eventIsComplete minRacePercentage
+		End
+		Begin Description
+			textId = 79
+                      
+			criterion = killed
+		End
+
+	End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 12
+                          
+				criterion = maxDeaths eventIsComplete
+			End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 80
+                                       
+			criterion = survived eventIsComplete
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			killed = 9
+		End 
+		Begin Description
+			textId = 81
+                             
+			criterion = killed
+		End
+	End
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+		lives = 3
+	End
+// Opponent #1: Magnus Lieutenant
+	Begin Opponent
+		name = Magnus Lt.
+		CarID = Magnus
+		skinNumber = 1
+		ColorID = CandyAppleRed 
+		difficulty = 16
+		teamID = 2
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = minelayer
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		displayName = true
+		type = Lieutenant
+		lives = 1
+		onlyCountPlayerKills = true
+	End
+// Opponent #2: Python
+	Begin Opponent
+		name = Python 1
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 16
+		teamID = 2
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+//		lives = 1
+	End
+// Opponent #3: Python
+	Begin Opponent
+		name = Python 2
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+//		lives = 1
+	End
+// Opponent #4: Python
+	Begin Opponent
+		name = Python 3
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+//		lives = 1
+	End
+// Opponent #5: Wingman1
+	Begin Opponent
+		name = Wingman 1
+		CarID = TEC
+		skinNumber = 0
+		ColorID = White 
+		difficulty = 19
+		teamID = 1
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseGrenadier
+		armorGains = 2.5, 2.5, 2.5, 2.5
+		displayName = true
+		lives = 2
+		canParticipate = false
+		Begin Goal
+			type = Protect
+			targetID = -1
+		End
+	End
+// Opponent #6: Wingman2
+	Begin Opponent
+		name = Wingman 2
+		CarID = TEC
+		skinNumber = 0
+		ColorID = White 
+		difficulty = 19
+		teamID = 1
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseGrenadier
+		armorGains = 2.5, 2.5, 2.5, 2.5
+		displayName = true
+		lives = 2
+		canParticipate = false
+		Begin Goal
+			type = Protect
+			targetID = -1
+		End
+	End
+// Opponent #7: Magnus
+	Begin Opponent
+		name = Magnus Attacker 1
+		CarID = Magnus
+		skinNumber = 0
+		ColorID = Orange 
+		difficulty = 15
+		teamID = 2
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = Grenadier
+		lives = 1
+		triggeredSpawn = true
+		onlyCountPlayerKills = true
+        canParticipate = false
+	End
+// Opponent #8: Magnus
+	Begin Opponent
+		name = Magnus Attacker 2
+		CarID = Magnus
+		skinNumber = 0
+		ColorID = Orange 
+		difficulty = 15
+		teamID = 2
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = Grenadier
+		lives = 1
+		triggeredSpawn = true
+		onlyCountPlayerKills = true
+        canParticipate = false
+	End
+// Opponent #9: Demon Challenger
+	Begin Opponent
+		name = Demon Challenger
+		CarID = Demon
+		skinNumber = 3
+		ColorID = FerrariRed 
+		difficulty = 15
+		teamID = 2
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 2.0, 2.0, 2.0, 2.0
+		isRival = true
+		displayName = true
+		type = Rival
+		lives = 1
+		triggeredSpawn = true
+		onlyCountPlayerKills = true
+	End
+// Objective Messaging - Player killed 1 Python
+	Begin Script
+		Begin Condition
+			minTakedowns = 1
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 13
+               
+		End
+	End
+
+// Objective Messaging - Player killed 2 Pythons
+	Begin Script
+		Begin Condition
+			minTakedowns = 2
+		End 
+ 		Begin Commands
+ 			ClearCustomMessages
+			Message 14
+                
+		End
+	End
+
+// Objective Messaging - Player killed 3 Pythons
+	Begin Script
+		Begin Condition
+			minTakedowns = 3
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 15
+               
+		End
+	End
+// Objective Messaging - Player killed 4 Pythons
+	Begin Script
+		Begin Condition
+			minTakedowns = 4
+		End 
+ 		Begin Commands
+ 			ClearCustomMessages
+			Message 16
+                
+		End
+	End
+// Objective Messaging - Player killed 5 Pythons
+	Begin Script
+		Begin Condition
+			minTakedowns = 5
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 24
+               
+		End
+	End
+
+// Objective Messaging - Player killed 6 Pythons
+	Begin Script
+		Begin Condition
+			minTakedowns = 6
+		End 
+ 		Begin Commands
+ 			weaponsSafetyTime 8
+			SpawnOpponent "9 playerRelative -80 speed 80"
+			AddAIGoal "9 Pursue -1"
+			ClearCustomMessages
+			Message 124
+                   
+		End
+	End
+// Objective Messaging - Magnus Lieutenant Eliminated
+	Begin Script 
+		Begin Condition
+			killed = 1
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 125
+                         
+//			CustomMessage "First Primary Objective Completed"
+		End
+	End
+// RIVAL CAMERA REVEAL - Once DEMON spawns!
+	Begin Script
+		OpponentID = 9
+		Begin Condition
+			mustHaveSpawned = true
+			maxDistanceFromPlayer = 60
+		End 
+ 		Begin Commands 
+            StartCamera "Relative_reveal_front -1 9 0.90"
+		End
+	End
+
+// After RIVAL CAMERA REVEAL - Let Demon Race
+	Begin Script
+		Delay = 5
+		OpponentID = 9
+		Begin Condition
+			mustHaveSpawned = true
+			maxDistanceFromPlayer = 50
+		End 
+ 		Begin Commands
+ 			weaponsSafetyTime 2 
+            clearAIGoal "9 all"
+		End
+	End
+
+// Objective Messaging - When DEMON is half health, spawn backup.
+	Begin Script
+		OpponentID = 9
+		Begin Condition
+			minDamage = .50
+		End 
+ 		Begin Commands 
+			SpawnOpponent "7 playerRelative 230 speed 80"
+			SpawnOpponent "8 playerRelative 250 speed 80"
+			ClearCustomMessages
+			Message 28
+                           
+		End
+	End
+
+
+// Objective Messaging - DEMON Eliminated
+	Begin Script 
+		Begin Condition
+			killed = 9
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 126
+                    
+//			CustomMessage "Seconday Objective Completed"
+		End
+	End
+
+// Objective Messaging - Wingman1 killed
+	Begin Script
+		Begin Condition
+			killed = 1
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 127
+                        
+		End
+	End
+
+// Objective Messaging - Wingman2 killed
+	Begin Script
+		Begin Condition
+			killed = 2
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 128
+                        
+		End
+	End
+// Objective Messaging - Wingmen all killed
+	Begin Script
+		Begin Condition
+			killed = 1 2
+		End 
+ 		Begin Commands
+ 			FailObjective 3
+ 			ClearCustomMessages
+			Message 115
+                          
+//			CustomMessage "SECONDARY OBJECTIVE FAILED"
+		End
+	End
+End
+//----------------------------------------------------------------------
+// EVENT 413
+//----------------------------------------------------------------------
+//
+/*
+**** Overview ****
+Race event
+The Demon has finally decided to accept the players challenge.
+He will be accompanied by a Magnus Ascendant. 
+You and a friendly TEC will Race him to the end of entertainment.
+
+*/
+//
+Begin Event
+	Name = 413 Exorcism
+	EventID = 413
+	TrackID = Track_622
+//	Mode = Race
+    Mode = TimeTrial
+	LapCount = 1
+    MaxTime = 120
+	Theme = Backwards
+	EndOnFailure = true
+    validPopulationGroups = 1
+
+	Begin Objective
+		Name = Primary
+		Begin Condition
+		    minRacePercentage = 1
+		    MinPosition = 1
+		    killed = 1
+		End
+		Begin Description
+			textId = 10
+                 
+			criterion = MinPosition minRacePercentage
+		End
+		Begin Description
+			textId = 82
+                
+			criterion = killed
+		End
+	End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			killed = 2 
+		End 
+		Begin Description
+			textId = 79
+                      
+			criterion = killed
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			survived = 4
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 83
+                             
+			criterion = survived eventIsComplete
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End 
+		Begin Description
+			textId = 5
+                            
+			criterion = maxDeaths eventIsComplete
+		End
+	End
+	Begin Script
+    	Begin Commands
+        	weaponsSafetyTime 2
+    	End
+	End
+
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+		lives = 3
+	End
+// Opponent #1: DemonChallenger
+	Begin Opponent
+		name = Demon Challenger
+		CarID = Demon
+		skinNumber = 3
+		ColorID = FerrariRed 
+		difficulty = 14
+		teamID = 2
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Minelayer
+		armorGains = 1.0, 1.0, 1.0, 1.0
+		hitPointGain = 3.0
+		isRival = true
+		displayName = true
+		type = Rival
+		lives = 1
+		onlyCountPlayerKills = true
+	End
+// Opponent #2: MagnusLieutenant
+	Begin Opponent
+		name = Magnus Lt.
+		CarID = Magnus
+		skinNumber = 2
+		ColorID = MetallicBlack 
+		difficulty = 17
+		teamID = 2
+        //Begin Goal
+         //   type = Protect
+         //   targetID = 1
+        //End
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+//		armorGains = 1.5, 1.5, 1.5, 1.5, 1.5		
+		displayName = true
+//		triggeredSpawn = true
+//		canParticipate = false
+		type = Lieutenant
+		lives = 1
+		onlyCountCompetitorKills = True
+	End	
+// Opponent #3: MagnusLieutenant //CUT
+	Begin Opponent
+		name = Magnus Lt. 2
+		CarID = Magnus
+		skinNumber = 1
+		ColorID = CandyAppleRed 
+		difficulty = 17
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ScatterGun
+//		armorGains = 1.5, 1.5, 1.5, 1.5, 1.5		
+		triggeredSpawn = true
+		type = Lieutenant
+		canParticipate = false
+		lives = 1
+		onlyCountCompetitorKills = True
+	End
+// Opponent #4: Wingman
+	Begin Opponent
+		name = Wingman 1
+		CarID = TEC
+		skinNumber = 0
+		ColorID = White 
+		difficulty = 16
+        //Begin Goal
+        //    type = Protect
+        //    targetID = -1
+        //End
+		teamID = 1
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 1.5, 1.5, 1.5, 1.5
+        canParticipate = false
+		displayName = true
+		lives = 2
+	End
+// Opponent #5: Python
+	Begin Opponent
+		name = Python Racer 1
+		CarID = Python
+		skinNumber = 0
+		ColorID = PurpleEnvy 
+		difficulty = 15
+		teamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = ReverseGrenadier
+		triggeredSpawn = true
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 1.5, 1.5, 1.5, 1.5, 1.5
+	End
+// Opponent #6: Python
+	Begin Opponent
+		name = Python Blocker 1
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = ReverseGrenadier
+		triggeredSpawn = true
+		canParticipate = false
+		lives = 1
+//		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #7: Python
+	Begin Opponent
+		name = Python Blocker 2
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+//		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #8: Python
+	Begin Opponent
+		name = Python Blocker 3
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+//		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #9: Python
+	Begin Opponent
+		name = Python Blocker 4
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+		End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = ReverseGrenadier
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #10: Python
+	Begin Opponent
+		name = Python Blocker 5
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = ReverseGrenadier
+		triggeredSpawn = true
+		canParticipate = false
+		lives = 1
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #11: Python
+	Begin Opponent
+		name = Python Blocker 7
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #12: Python
+	Begin Opponent
+		name = Python Blocker 8
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+           targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #13: Python
+	Begin Opponent
+		name = Python Blocker 9
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #14: Python
+	Begin Opponent
+		name = Python Blocker 10
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = ReverseGrenadier
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #15: Python
+	Begin Opponent
+		name = Python Blocker 11
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #16: Python
+	Begin Opponent
+		name = Python Blocker 12
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+// Opponent #17: Python
+	Begin Opponent
+		name = Python Blocker 13
+		CarID = Python
+		skinNumber = 0
+		ColorID = CandyAppleRed 
+		difficulty = 15
+		teamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		lives = 1
+        canParticipate = false
+		onlyCountPlayerKills = true
+		armorGains = 0.5, 0.5, 0.5, 0.5, 0.5
+	End
+	
+
+/* Objective Messaging - Spawn the Ambush!
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minDamage .40 
+		End 
+ 		Begin Commands 
+ 			weaponsSafetyTime 8
+			SpawnOpponent "2 playerRelative -40 speed 60"
+//			StartCamera "Relative_reveal_front -1 2 0.85"
+//			SpawnOpponent "3 playerRelative -80 speed 60"
+			Message 26
+            
+		End
+	End
+*/
+// Objective Messaging - Spawn the Ambush!
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minDamage .40 
+		End 
+ 		Begin Commands 
+ 			weaponsSafetyTime 3
+			clearAIGoal "2 all"
+			AddAIGoal "2 Protect 1"
+		End
+	End
+// Spawn Roadblock 1!
+	Begin Script
+		Begin Condition
+			minRacePercentage .15 
+		End 
+ 		Begin Commands 
+//			Message 34
+               
+			SpawnOpponent "6 SpawnPoint 8 speed 0"
+			SpawnOpponent "7 SpawnPoint 9 speed -30"
+			SpawnOpponent "8 SpawnPoint 10 speed -30"
+			SpawnOpponent "9 SpawnPoint 11 speed 0"
+			SetForceStop "6 true"
+			SetForceStop "9 true"
+		End
+	End
+// Road blocks give chase!
+	Begin Script
+		Delay 8
+		Begin Condition
+			minRacePercentage .15
+		End 
+ 		Begin Commands 
+			SetForceStop "6 false"
+			clearAIGoal "6 all"
+			clearAIGoal "9 all"
+			SetForceStop "9 false"
+		End
+	End
+// Spawn Roadblock 2!
+	Begin Script
+		Begin Condition
+			minRacePercentage .30 
+		End 
+ 		Begin Commands 
+//			Message 34
+               
+			SpawnOpponent "10 SpawnPoint 12 speed 0"
+//			SpawnOpponent "11 SpawnPoint 13 speed 0"
+//			SpawnOpponent "12 SpawnPoint 14 speed 0"
+			SpawnOpponent "13 SpawnPoint 15 speed 0"
+			SetForceStop "10 true"
+//			SetForceStop "11 true"
+//			SetForceStop "12 true"
+			SetForceStop "13 true"
+		End
+	End
+// Roadblock gives chase
+	Begin Script
+		Delay = 7
+		Begin Condition
+			minRacePercentage .30 
+		End 
+ 		Begin Commands 
+			SetForceStop "10 false"
+			clearAIGoal "10 all"
+			clearAIGoal "13 all"
+			SetForceStop "13 false"
+		End
+	End
+// Spawn Roadblock 3!
+	Begin Script
+		Begin Condition
+			minRacePercentage .75 
+		End 
+ 		Begin Commands 
+//			Message 34
+               
+
+			SpawnOpponent "17 SpawnPoint 19 speed 0"
+			SetForceStop "14 true"
+			SetForceStop "17 true"
+		End
+	End
+// Spawn Roadblock 3!
+	Begin Script
+		Delay = 8
+		Begin Condition
+			minRacePercentage .75 
+		End 
+ 		Begin Commands 
+			SetForceStop "14 false"
+			clearAIGoal "14 all"
+			clearAIGoal "17 all"
+			SetForceStop "17 false"
+		End
+	End
+// Objective Messaging - Demon killed 
+	Begin Script 
+		Begin Condition
+			killed = 1
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 126
+                    
+//			CustomMessage "FIRST PRIMARY OBJECTIVE COMPLETE"
+		End
+	End
+// Objective Messaging - Magnus Ascendant killed
+	Begin Script 
+		Begin Condition
+			killed = 2
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 129
+                                
+//			CustomMessage "SECONDARY OBJECTIVE COMPLETE"
+		End
+	End
+
+// Objective Messaging - TECAlly1 killed
+	Begin Script
+		Begin Condition
+			killed = 4
+		End 
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 130
+                      
+//			CustomMessage "SECONDARY OBJECTIVE COMPLETE"
+		End
+	End
+End
+//----------------------------------------------------------------------
+// UNLOCK SEQUENCE & REWARDS					(3, 6, 8)
+//----------------------------------------------------------------------
+Begin Reward
+	Name = Event 411 Complete
+	EventID = 411
+	isPrimaryReward = true
+	unlockedEvents = 412
+End
+Begin Reward
+	Name = Event 412 Complete
+	EventID = 412
+	isPrimaryReward = true
+	unlockedEvents = 413
+End
+Begin Reward
+	Name = Primary Reward pack for Demon
+	EventID = 413
+	isPrimaryReward = true
+	unlockedEvents = 501
+	unlockedCars = Demon
+End
+Begin Reward
+	Name = Secondary Reward pack #1 for Demon
+	EventID = 410
+	isPrimaryReward = false
+	objectiveCount = 3
+	unlockedWeapons = MiniRockets		//STU: Check - is this correct?
+	unlockedSkins = Demon.1
+End
+Begin Reward
+	Name = Secondary Reward pack #2 for Demon
+	EventID = 410
+	isPrimaryReward = false
+	objectiveCount = 6
+	unlockedCars = Magnus
+	unlockedSkins = Demon.2
+End
+Begin Reward
+	Name = Secondary Reward pack #3 for Demon
+	EventID = 410
+	isPrimaryReward = false
+	objectiveCount = 8
+	unlockedSkins = Magnus.1 Magnus.2 Demon.3
+End
+
+
+

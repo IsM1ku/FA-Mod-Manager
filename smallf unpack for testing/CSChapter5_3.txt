@@ -1,0 +1,1250 @@
+//----------------------------------------------------------------------
+// INFERNO
+//----------------------------------------------------------------------
+// EVENT 531
+//----------------------------------------------------------------------
+
+/*
+>>Event Overview<<
+Player must protect the Rampart Civil Servant for the duration of this Deathmatch. 
+The Sidewinder Big Bully Rival and waves of Vulcans come to attack.
+
+Primary Objective:
+-Kill the Sidewinder Bully
+-Rampart must survive
+
+Secondary Objectives:
+-get 8 kills
+-kill all opponents in under 2.5mins
+-Destroy the factory landmark
+
+Event play by play:
+-Player starts deathmatch protecting Rampart against Sidewinder Bully.
+-30 seconds into the match 3 Vulcans spawn to attack Rampart and Player
+-When the 1st 3 Vulcans are killed, 3 more spawn
+-If player kills all Vulcans and gets a rival kill event ends in victory
+-If Rampart dies event end in loss.
+
+*/
+
+Begin Event
+	Name = 531 Bloody Nose Bully
+	EventID = 531
+	TrackID = Track_242
+	Mode = Deathmatch
+	Theme = Forwards
+	maxTime = 300
+	ValidTargetGroups = L10
+
+	Begin Player
+        teamID = 1
+    End
+
+//Protect the Rampart and kill the rival
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			survived 1
+			eventIsComplete = true
+		End
+			
+			begin description
+				textId = 120
+                           
+				criterion = survived eventIsComplete
+			End
+	End
+	
+//kill the Thugs	
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			Killed 2
+		End
+			begin description
+				textId = 121
+                              
+				criterion = killed
+			End
+	End
+//All attackers killed in time
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxTime = 210
+			killed 2 3 4 5 6 7 8
+		End
+			begin description
+				textId = 122
+                           
+				criterion = maxtime killed
+			End
+	End
+	
+//Destroy Train factory
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			Destroyed = L10
+		End
+			begin description
+				textId = 123
+                      
+				criterion = Destroyed
+			End
+	End
+
+//Opponent #1 Ally Rampart1
+	Begin Opponent
+		name = Rampart Ally
+		CarID = Rampart
+		skinNumber = 2
+		ColorID = White
+		difficulty = 13
+		PrimaryWeaponId = ScatterGun
+		SecondaryWeaponId = ReverseScatterGun
+		lives = 1
+		armorGains = 2, 2, 2, 2
+		hitpointgain = 8
+		teamID = 1
+		displayName = true
+		onlyCountCompetitorKills = True
+		Begin Goal
+			Type = Avoid
+			TargetID = 2
+		End
+		smarts = 1
+		displayName = true
+	End
+	
+//Opponent #2	
+	Begin Opponent
+		name = Sidewinder Lt.
+		CarID = Thunderhawk
+		skinNumber = 2
+		ColorID = FerrariRed
+		difficulty = 16
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Flamethrower
+		isRival = True
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		canParticipate = false
+		type = Lieutenant
+		displayName = true
+		//displayTargetTag = True
+		armorGains = 1, 1, 1, 1
+		hitpointgain = 3
+		onlycountplayerkills = true
+		smarts = 0
+		displayName = true
+	End
+	
+//Opponent #3
+	Begin Opponent
+		name = Vulcan Attacker 1
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 16
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		canParticipate = false
+		onlycountplayerkills = true
+		smarts = 0
+		displayName = false
+	End
+	
+//Opponent #4
+	Begin Opponent
+		name = Vulcan Attacker 2
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 16
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		canParticipate = false
+		onlycountplayerkills = true
+		smarts = 0
+		displayName = false
+	End
+	
+//Opponent #5
+	Begin Opponent
+		name = Vulcan Attacker 3
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 16
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		canParticipate = false
+		onlycountplayerkills = true
+		smarts = 0
+		displayName = false
+	End
+//Opponent #6
+	Begin Opponent
+		name = Vulcan Attacker 4
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 16
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		canParticipate = false
+		onlycountplayerkills = true
+		smarts = 0
+		displayName = false
+	End
+//Opponent #7
+	Begin Opponent
+		name = Vulcan Attacker 5
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 16
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		canParticipate = false
+		onlycountplayerkills = true
+		smarts = 0
+		displayName = false
+	End
+//Opponent #8
+	Begin Opponent
+		name = Vulcan Attacker 6
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 16
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		canParticipate = false
+		onlycountplayerkills = true
+		smarts = 0
+		displayName = false
+	End
+//delete trains from level
+	Begin Script
+		Begin condition
+			minTime = 0
+		End
+		Begin Commands
+			ScriptPackOff nb_Trainengine_pathfollower
+			ScriptPackOff nb_TrainFlatbed_pathfollower
+		End
+	End
+
+//Win event if Rampart is alive when time is up
+	Begin Script
+		Begin condition
+			minTime = 296
+			survived 1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 188
+                         
+		End
+	End
+	Begin Script
+		Delay = 3
+		Begin condition
+			minTime = 296
+			survived 1
+		End
+		Begin Commands
+			WinObjective 1
+		End
+	End
+	
+	
+//Win Event if all attack waves and Rival killed
+	Begin Script
+		begin condition
+			killed 2 3 4 5 6 7 8
+			survived 1
+		End
+		begin commands
+			ClearCustomMessages
+			Message 44
+                           
+		End
+	End
+	Begin Script
+		Delay = 3.0
+		begin condition
+			killed 2 3 4 5 6 7 8
+			survived 1
+		End
+		begin commands
+			WinEvent
+		End
+	End
+
+
+//Rampart damage messaging
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minDamage = .1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 189
+                          
+		End
+	End
+	Begin Script
+		opponentID = 1
+		Begin Condition
+			minDamage = .5
+		End
+		Begin Commands
+			Message 190
+                            
+		End
+	End
+	Begin Script
+		opponentID = 1
+		Begin Condition
+			minDamage = .75
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 191
+                               
+		End
+	End
+//Big Bully damage messaging
+	Begin Script
+		OpponentID = 2
+		Begin Condition
+			minDamage = .1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 192
+                             
+		End
+	End
+	Begin Script
+		opponentID = 2
+		Begin Condition
+			minDamage = .5
+		End
+		Begin Commands
+			Message 193
+                               
+		End
+	End
+	Begin Script
+		opponentID = 2
+		Begin Condition
+			minDamage = .75
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 194
+                                  
+		End
+	End
+	
+	Begin Script
+		Begin Condition
+			killed 2
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 195
+                          
+//			Custommessage "Objective Complete"
+		End
+	End
+	
+	
+//Fail for dead rampart	
+	Begin Script
+		Begin Condition
+			killed 1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 196
+                       
+		End
+	End
+	Begin Script
+		delay = 6.0
+		Begin Condition
+			killed 1
+		End
+		Begin Commands
+			FailEvent
+		End
+	End
+	
+//Spawn 1st Attack wave
+	Begin Script 
+		Begin Condition 
+			minTime = 20 
+		End 
+		Begin Commands 
+			ClearCustomMessages
+			Message 197
+                      
+			SpawnOpponent "3 spawnPoint 1"
+			SpawnOpponent "4 spawnPoint 2"
+			SpawnOpponent "5 spawnPoint 3"
+			AddAIGoal "1 Avoid 3"
+			AddAIGoal "1 Avoid 4"
+			AddAIGoal "1 Avoid 5"
+		End
+	End
+
+//Spawn 2nd Attack wave
+	Begin Script 
+		Begin Condition 
+			killed 3 4 5 
+		End 
+		Begin Commands 
+			Message 198
+                 
+			ClearAIGoal "1 All"
+			AddAIGoal "1 Avoid 2"
+		End
+	End
+	
+	Begin Script 
+		Delay = 10
+		Begin Condition 
+			killed 3 4 5 
+		End 
+		Begin Commands 
+			ClearCustomMessages
+			Message 28
+                           
+			SpawnOpponent "6 spawnPoint 4"
+			SpawnOpponent "7 spawnPoint 5"
+			SpawnOpponent "8 spawnPoint 6"
+			AddAIGoal "1 Avoid 6"
+			AddAIGoal "1 Avoid 7"
+			AddAIGoal "1 Avoid 8"
+		End
+	End
+
+End
+
+//----------------------------------------------------------------------
+// EVENT 532
+//----------------------------------------------------------------------
+
+/*
+>>Event Overview<<
+Player must kill all opponents befoer the end of this race agains Vulcans and Sidewinders.
+
+Primary Objective:
+-Kill the Sidewinder Bully
+
+Secondary Objectives:
+-kill all opponents in under in less than 3 laps
+-Finish 3 laps in under 3 mins
+-Don't Die
+
+Event play by play:
+-Player starts race against 3 Sidewinders and 6 Vulcans
+-The 2 Menace Sidewinders protect the Bully Sidewinder untill he is killed.
+-Player must kill all opponents before race is over to win
+
+*/
+
+Begin Event
+	Name = 532 Run'em Down
+	EventID = 532
+	TrackID = Track_213
+	Mode = Race
+	LapCount = 3
+	Theme = Forwards
+
+//kill the bully
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			killed 1
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 121
+                              
+				criterion = killed eventIsComplete
+			End
+	End
+//kill all the gang in less than 3 laps	
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			killed = 1 2 3 4 5 6 7 8 9
+		End
+			Begin Description
+				textId = 124
+                     
+				criterion = killed
+			End
+	End
+//survive
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 12
+                          
+				criterion = maxDeaths eventIsComplete
+			End
+	End
+//time trial	
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			maxTime = 195
+			minlaps = 3
+		End
+			Begin Description
+				textId = 125
+                            
+				criterion = maxTime minlaps
+			End
+	End
+
+//Opponent #1	
+	Begin Opponent
+		name = Sidewinder Lt.
+		CarID = Thunderhawk
+		skinNumber = 2
+		ColorID = FerrariRed
+		difficulty = 17
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Flamethrower
+		isRival = True
+		type = lieutenant
+		displayName = true
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		onlyCountPlayerKills = true
+		//displayTargetTag = True
+		
+	End
+//Opponent #2	
+	Begin Opponent
+		name = Sidewinder Escort 1
+		CarID = Thunderhawk
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 18
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MineLayer
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		//isRival = True
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		onlyCountPlayerKills = true
+		displayName = false
+		Begin Goal 
+			type = Protect
+			targetID = 1
+		End
+	End
+//Opponent #3	
+	Begin Opponent
+		name = Sidewinder Escort 2
+		CarID = Thunderhawk
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 17
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MineLayer
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		//isRival = True
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		onlyCountPlayerKills = true
+		displayName = false
+		Begin Goal 
+			type = Protect
+			targetID = 1
+		End
+	End
+//Opponent #4
+	Begin Opponent
+		name = Vulcan 1
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		displayName = false
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		onlyCountPlayerKills = true
+	End
+	
+//Opponent #5
+	Begin Opponent
+		name = Vulcan 2
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		displayName = false
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		onlyCountPlayerKills = true
+	End
+	
+//Opponent #6
+	Begin Opponent
+		name = Vulcan 3
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+//Opponent #7
+	Begin Opponent
+		name = Vulcan 4
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+//Opponent #8
+	Begin Opponent
+		name = Vulcan 5
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+//Opponent #9
+	Begin Opponent
+		name = Vulcan 6
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+	
+//Spawn extra thugs
+	Begin Script
+		Begin Condition
+			MinTime = 0.5
+		End
+		Begin Commands
+			spawnOpponent "8 playerRelative -35 Speed 60"
+			spawnOpponent "9 playerRelative -40 Speed 60"
+		End
+	End
+	
+//menaces race when lieutenant dies
+	Begin Script
+		Begin Condition
+			killed 1
+		End
+			Begin Commands
+				ClearCustomMessages
+				Message 195
+                          
+//				Custommessage "Objective Complete"
+				ClearAIGoal "2 All"
+				ClearAIGoal "3 All"
+			End
+	End
+//kill objective messaging
+	Begin Script
+		Begin Condition
+			minTakedowns = 3
+		End
+			Begin Commands
+				ClearCustomMessages
+				Message 55
+                         
+			End
+	End
+	Begin Script
+		Begin Condition
+			minTakedowns = 6
+		End
+			Begin Commands
+				ClearCustomMessages
+				Message 56
+                       
+			End
+	End
+	Begin Script
+		Begin Condition
+			minTakedowns = 9
+		End
+			Begin Commands
+				ClearCustomMessages
+				Message 44
+                           
+//				Custommessage "Objective Complete"
+			End
+	End
+	Begin Script
+		Begin Condition
+			minLaps = 3
+			//maxTakedowns = 8
+		End
+			Begin Commands
+				Message 158
+                
+			End
+	End
+End
+//----------------------------------------------------------------------
+// EVENT 533
+//----------------------------------------------------------------------
+
+/*
+>>Event Overview<<
+A powerful rival, you now face the Inferno Gang Boss.  Fight through his thugs to put him down and show who’s really in charge of this Race on Pitfall. 
+
+Player must kill all opponents before the end of this race against The Inferno Gang boss, Vulcans and Sidewinders.
+
+Primary Objective:
+-Kill the Inferno Gang Boss
+
+Secondary Objectives:
+-kill all Vulcans in under in less than 3 laps
+-kill the Sidewinder Bully and his Escorts
+-Destroy all 6 oil shpheres
+
+Event play by play:
+-Player starts race against The Inferno Gang Boss and 6 Vulcans
+-The Gang Boss has 3 Lives. When his 1st life is lost 2 Menace Sidewinders spawn to attack the player.
+-When the gang Boss loses his 2nd likfe 2 more Menace Sidewinders and the Bully Sidewinder spawn to attack the player.
+-Player must kill all opponents before race is over and destroy all oilspheres to win all objectives.
+
+*/
+
+
+Begin Event
+	Name = 533 Muscle Show Down
+	EventID = 533
+	TrackID = Track_217
+	Mode = Race
+	LapCount = 3
+	Theme = Forwards
+	ValidTargetGroups = L0
+	maxTime = 360
+
+//kill the Gang Boss
+	Begin Objective
+		Name = Primary
+		Begin Condition
+			killed 1
+			eventIsComplete = true
+		End
+			Begin Description
+				textId = 126
+                                   
+				criterion = killed eventIsComplete
+			End
+	End
+//kill all the gang in less than 3 laps	
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			killed = 2 3 4 5 6 7
+		End
+			Begin Description
+				textId = 127
+                             
+				criterion = killed
+			End
+	End
+//time trial	
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			killed 8 9 10 11 12 
+		End
+			Begin Description
+				textId = 128
+                               
+				criterion = killed
+			End
+	End
+//survive
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			Destroyed = L0
+		End
+			Begin Description
+				textId = 129
+                               
+				criterion = Destroyed
+			End
+	End
+
+//Opponent #1
+	Begin Opponent
+		name = Inferno Rival
+		CarID = Inferno
+		skinNumber = 3
+		ColorID = MetallicIndigo
+		difficulty = 14
+		PrimaryWeaponId = Grenadier
+		SecondaryWeaponId = Flamethrower
+		isRival = True
+		type = Rival
+		displayName = true
+		lives = 3
+		//triggeredSpawn = true
+		teamID = 2
+		onlyCountPlayerKills = true
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		//displayTargetTag = True
+	End
+
+//Opponent #2
+	Begin Opponent
+		name = Vulcan Escort 1
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 13
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+	
+//Opponent #3
+	Begin Opponent
+		name = Vulcan Escort 2
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 13
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+	
+//Opponent #4
+	Begin Opponent
+		name = Vulcan Escort 3
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 13
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+	
+//Opponent #5
+	Begin Opponent
+		name = Vulcan Escort 4
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 13
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+	
+//Opponent #6
+	Begin Opponent
+		name = Vulcan Escort 5
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 13
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		displayName = false
+		onlyCountPlayerKills = true
+	End
+	
+//Opponent #7
+	Begin Opponent
+		name = Vulcan Escort 6
+		CarID = Vulcan
+		skinNumber = 0
+		ColorID = Orange
+		difficulty = 13
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		lives = 1
+		//triggeredSpawn = true
+		teamID = 2
+		//canParticipate = false
+		onlyCountPlayerKills = true
+		displayName = false
+	End
+	
+//Opponent #8	
+	Begin Opponent
+		name = Sidewinder Lt. 1
+		CarID = Thunderhawk
+		skinNumber = 2
+		ColorID = FerrariRed
+		difficulty = 14
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		isRival = True
+		type = lieutenant
+		displayName = true
+		lives = 1
+		teamID = 2
+		triggeredSpawn = True
+		Begin Goal
+			Type = Pursue
+			TargetID = -1
+		End
+		canParticipate = false
+		onlyCountPlayerKills = true
+		//displayTargetTag = True
+	End
+	
+//Opponent #9	
+	Begin Opponent
+		name = Sidewinder Lt. 2
+		CarID = Thunderhawk
+		skinNumber = 0
+		ColorID = FerrariRed
+		difficulty = 13
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MineLayer
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		isRival = True
+		type = lieutenant
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		Begin Goal
+			Type = Pursue
+			TargetID = -1
+		End
+		canParticipate = false
+		onlyCountPlayerKills = true
+		//Begin Goal 
+		//	type = Protect
+		//	targetID = 1
+		//End
+	End
+	
+//Opponent #10	
+	Begin Opponent
+		name = Sidewinder Lt. 3 
+		CarID = Thunderhawk
+		skinNumber = 0
+		ColorID = FerrariRed
+		difficulty = 13
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MineLayer
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		isRival = True
+		type = lieutenant
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		Begin Goal
+			Type = Pursue
+			TargetID = -1
+		End
+		canParticipate = false
+		onlyCountPlayerKills = true
+		//Begin Goal 
+		//	type = Protect
+		//	targetID = 1
+		//End
+	End
+	
+//Opponent #11	
+	Begin Opponent
+		name = Sidewinder Lt. 4
+		CarID = Thunderhawk
+		skinNumber = 0
+		ColorID = FerrariRed
+		difficulty = 13
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MineLayer
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		isRival = True
+		type = lieutenant
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		Begin Goal
+			Type = Pursue
+			TargetID = -1
+		End
+		canParticipate = false
+		onlyCountPlayerKills = true
+		//Begin Goal 
+		//	type = Protect
+		//	targetID = 1
+		//End
+	End
+	
+//Opponent #12	
+	Begin Opponent
+		name = Sidewinder Lt. 5
+		CarID = Thunderhawk
+		skinNumber = 0
+		ColorID = FerrariRed
+		difficulty = 13
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MineLayer
+		armorGains = 0.8, 0.8, 0.8, 0.8
+		isRival = True
+		type = lieutenant
+		lives = 1
+		triggeredSpawn = true
+		teamID = 2
+		Begin Goal
+			Type = Pursue
+			TargetID = -1
+		End
+		canParticipate = false
+		onlyCountPlayerKills = true
+		//Begin Goal 
+		//	type = Protect
+		//	targetID = 1
+		//End
+	End
+
+// Inferno has three lives at the start
+		Begin Script
+			Begin Condition
+				minTime = 2
+			End
+			Begin Commands
+				ClearCustomMessages
+				Message 199
+                           
+			End
+		End
+//Spawn menaces when Boss is at 2 lifes.
+	Begin Script
+		OpponentID = 1
+		Begin condition
+			minDeaths = 1
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 200
+                           
+			//spawnOpponent "8 playerRelative -20"
+			spawnOpponent "9 playerRelative -22 Speed 60"
+			spawnOpponent "10 playerRelative -24 Speed 60"
+		End
+	End
+	//Spawn Bully and menaces when Boss is at 1 life.
+	Begin Script
+		OpponentID = 1
+		Begin condition
+			minDeaths = 2
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 201
+                          
+//			Custommessage "The Bully is coming for retribution!"
+			spawnOpponent "8 playerRelative 50"
+			spawnOpponent "11 playerRelative -22 Speed 60"
+			spawnOpponent "12 playerRelative -24 Speed 60"
+		End
+	End
+//Spawn menaces when Boss is at 1 life.
+	Begin Script
+		OpponentID = 1
+		Begin condition
+			minDeaths = 3
+		End
+		Begin commands
+			ClearCustomMessages
+			Message 202
+                       
+		End
+	End
+	
+//Fail event if gang boss escapes
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minlaps = 4
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 203
+                     
+		End
+	End
+	Begin Script
+		OpponentID = 1
+		Delay = 5
+		Begin Condition
+			minlaps = 4
+		End
+		Begin Commands
+			FailEvent
+		End
+	End
+End
+//----------------------------------------------------------------------
+// UNLOCK SEQUENCE & REWARDS					(2, 4, 6)
+//----------------------------------------------------------------------
+Begin Reward
+	Name = Event 531 Complete
+	EventID = 531
+	isPrimaryReward = true
+	unlockedEvents = 532
+End
+Begin Reward
+	Name = Event 532 Complete
+	EventID = 532
+	isPrimaryReward = true
+	unlockedEvents = 533
+End
+Begin Reward
+	Name = Primary Reward pack for Inferno
+	EventID = 533
+	isPrimaryReward = true
+	unlockedEvents = 601
+	unlockedCars = Inferno
+End
+Begin Reward
+	Name = Secondary Reward pack #1 for Inferno
+	EventID = 530
+	isPrimaryReward = false
+	objectiveCount = 3
+	unlockedWeapons = Grenadier		//STU: Check - is this correct?
+	unlockedSkins = Inferno.1
+End
+Begin Reward
+	Name = Secondary Reward pack #2 for Inferno
+	EventID = 530
+	isPrimaryReward = false
+	objectiveCount = 6
+	unlockedCars = Thunderhawk
+	unlockedSkins = Inferno.2
+End
+Begin Reward
+	Name = Secondary Reward pack #3 for Inferno
+	EventID = 530
+	isPrimaryReward = false
+	objectiveCount = 8
+	unlockedSkins = Thunderhawk.1 Thunderhawk.2 Inferno.3
+End
+//----------------------------------------------------------------------

@@ -1,0 +1,985 @@
+//----------------------------------------------------------------------
+// ENFORCER
+//----------------------------------------------------------------------
+// EVENT 201
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+Make a beeline through the Enforcer's territory. Stop for nothing.
+
+Player races against the clock and numerous Enforcer ambushers. 
+The Enforcer rival ambushes at the midpoint of the track.
+
+Primary Objective:
+-Reach the end of the Enforcer's territory in 3 minutes or less.
+
+Secondary Objectives:
+-Finish in 2 minutes or less.
+-Kill the Enforcer Rival.
+-Kill 6 Enforcers.
+
+Event play by play:
+-Player chased by 2 enforcers at start.
+-Must crash through or avoid roadblock under overpass
+-Crash through roadblock on highway
+-Several enforcers pursue off highway.
+-Rival jumps off of overpass down onto road at end of highway.
+-Two head on enforcers attack shortly after rival ambush.
+-Player must then navigate a minefield in the marketplace alleys
+-Finally the player must crash a roadblock at the end of the race.
+*/
+Begin Event
+    Name = 201 Too Hot Pursuit
+    EventID = 201
+    TrackID = Track_511
+    Mode = TimeTrial
+    Theme = Forward
+    MaxTime = 150
+    LapCount = 1
+    validPopulationGroups = 0
+	EndOnFailure = true
+	
+    Begin Objective
+		Name = Primary
+        Begin Condition
+		    maxTime = 150
+		    minRacePercentage = 1
+        End
+   		Begin Description
+			textId = 22
+                            
+			criterion = maxTime minRacePercentage
+		End
+    End
+    
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = True
+		End
+		Begin Description
+			textId = 12
+                          
+			criterion = maxDeaths eventIsComplete
+		End
+	End
+    Begin Objective
+		Name = Secondary2
+        Begin Condition
+            minRivalTakedowns = 1
+        End
+		Begin Description
+			textId = 23
+                   
+			criterion = MinRivalTakedowns
+		End
+    End
+    Begin Objective
+		Name = Secondary3
+        Begin Condition
+            minTakedowns = 5
+        End
+		Begin Description
+			textId = 24
+                   
+			criterion = MinTakedowns
+		End
+    End
+    
+    // Opponent #1: Rival
+    Begin Opponent
+		name = Enforcer Rival
+        CarID = Enforcer
+        skinNumber = 3
+        ColorID = DarkRed
+        difficulty = 17
+        TeamID = 2
+//      Begin Goal
+//          type = Pursue
+//          targetID = -1
+//      End
+//      spawnOffset = .65
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = RamPlate
+//        armorGains = 1, 1.25, 1.25, 1.25
+        hitpointGain = .75
+		lives = 1
+		type = Rival
+		displayName = true
+        triggeredSpawn = true
+        canParticipate = false
+        displayTargetTag = true
+        onlyCountPlayerKills = true
+        detourChanceShift = -1
+    End
+    
+    // Opponent #2
+    // starts in front of player
+    Begin Opponent
+		name = Enforcer Unit 2
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        difficulty = 14
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+//		hitpointGain = .5
+		onlyCountPlayerKills = true
+	End
+	
+	// Opponent #3
+	// starts behind player
+    Begin Opponent
+		name = Enforcer Unit 3
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        difficulty = 14
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = Scattergun
+        SecondaryWeaponId = EmptyWeapon
+		lives = 1
+		triggeredSpawn = true
+		canParticipate = false
+		triggeredSpawn = true
+		armorGains = .5, .5, .5, .5
+//		hitpointGain = .5
+		onlyCountPlayerKills = true
+	End
+	
+	// Opponent #4
+	// parked alongside road
+    Begin Opponent
+		name = Enforcer Unit 4
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        difficulty = 14
+        TeamID = 2
+//      Begin Goal
+//          type = Pursue
+//          targetID = -1
+//      End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+//		hitpointGain = .5
+		onlyCountPlayerKills = true
+	End
+	
+	Begin Script
+	    Begin Commands
+	        weaponsSafetyTime 2
+	    End
+	End
+	
+	//spawn opponent #2, #3 and #4
+	Begin Script
+		Begin Condition
+			MinTime = 0.01
+		End
+		Begin Commands
+//			SpawnOpponent "2 spawnPoint 8 speed 120"
+//			SpawnOpponent "3 spawnPoint 9 speed 90"
+			SpawnOpponent "4 spawnPoint 10 speed 0"
+			SetForceStop "4 true"
+		End
+	End
+	
+	/*
+	// release 3
+	Begin Script
+		Begin Condition
+			minRacePercentage .04
+		End
+		Begin Commands
+			SetForceStop "3 false"
+		End
+	End
+	*/
+	
+	// release 4
+	Begin Script
+		Begin Condition
+			minRacePercentage .05
+		End
+		Begin Commands
+			SetForceStop "4 false"
+		End
+	End
+	Begin Script
+		Begin Condition
+			minRacePercentage .08
+		End
+		Begin Commands
+			SpawnOpponent "2 playerRelative -70 speed 70"
+			SpawnOpponent "3 playerRelative -80 speed 70"
+			ClearCustomMessages
+			ClearCustomMessages
+			Message 33
+                      
+		End
+	End
+	// Opponent #5
+	// roadblock 1
+    Begin Opponent
+	    name = Enforcer Roadblock 5
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        TeamID = 2
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+        difficulty = 15
+	    lives = 1
+	    triggeredSpawn = true
+	    canParticipate = false
+	    armorGains = .5, .5, .5, .5
+	    //hitpointGain = .5
+	    spamWeapons = true
+    End
+    
+    // Opponent #6
+    // roadblock 1 (top overwatch)
+    Begin Opponent
+		name = Enforcer Roadblock 6
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        difficulty = 17
+        TeamID = 2
+        difficultysetup = Sharpshooter
+        PrimaryWeaponId = MiniRockets
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		unlimitedWeapons = true
+		spamWeapons = true
+    End
+    
+    // Opponent #7
+    // roadblock 1 (bottom right)
+    Begin Opponent
+		name = Enforcer Roadblock 7
+        CarID = Enforcer
+        difficulty = 15
+        skinNumber = 0
+        ColorID = Blue
+        TeamID = 2
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // Opponent #8
+    // roadblock 1 (middle lower)
+    Begin Opponent
+		name = Enforcer Roadblock 8
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        TeamID = 2
+        difficulty = 15
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // roadblock #1
+	Begin Script
+		Begin Condition
+			minRacePercentage = .15
+		End
+		Begin Commands
+            SpawnOpponent "5 spawnPoint 11 speed 0"
+            SpawnOpponent "6 spawnPoint 12 speed 0"
+            SpawnOpponent "7 spawnPoint 13 speed 0"
+            SpawnOpponent "8 spawnPoint 14 speed 0"
+            SetForceStop "5 true"
+            SetForceStop "6 true"
+            SetForceStop "7 true"
+            SetForceStop "8 true"
+		End
+	End
+    
+    // Opponent #9
+    // highwayspawn 1
+    Begin Opponent
+		name = Enforcer Unit 9
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = White
+        difficulty = 15
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    
+    // Opponent #10
+    // highwayspawn 2
+    Begin Opponent
+		name = Enforcer Unit 10
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = White
+        difficulty = 15
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    
+    Begin Script
+        Begin Condition
+            minRacePercentage .29
+        End
+        Begin Commands
+            SetForceStop "2 true"
+            SetForceStop "3 true"
+            SetForceStop "4 true"    
+            KillOpponent 5
+            KillOpponent 6
+            KillOpponent 7
+            KillOpponent 8
+        End
+    End
+        
+    
+    Begin Script
+        Begin Condition
+            minRacePercentage = .32
+        End
+        Begin Commands
+            SpawnOpponent "9 playerRelative -60 speed 90"
+            SpawnOpponent "10 playerRelative -70 speed 90"
+            KillOpponent 2
+            KillOpponent 3
+            KillOpponent 4
+        End
+    End
+    
+    // Opponent #11
+    // roadblock 2
+    Begin Opponent
+		name = Enforcer Roadblock 11
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        TeamID = 2
+        difficulty = 11
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // Opponent #12
+    // roadblock 2
+    Begin Opponent
+		name = Enforcer Roadblock 12
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        TeamID = 2
+        difficulty = 11
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // Opponent #13
+    // roadblock 2
+    Begin Opponent
+		name = Enforcer Roadblock 13
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        TeamID = 2
+        difficulty = 11
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End        
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // Opponent #14
+    // roadblock 2
+    Begin Opponent
+		name = Enforcer Roadblock 14
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Blue
+        TeamID = 2
+        difficulty = 11
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // roadblock #2
+	Begin Script
+		Begin Condition
+			minRacePercentage = .46
+		End
+		Begin Commands
+            SpawnOpponent "11 spawnPoint 18 speed 0"
+            SpawnOpponent "12 spawnPoint 19 speed 0"
+            SpawnOpponent "13 spawnPoint 20 speed 0"
+            SpawnOpponent "14 spawnPoint 21 speed 0"
+            SetForceStop "11 true"
+            SetForceStop "12 true"
+            SetForceStop "13 true"
+            SetForceStop "14 true"
+		End
+	End
+	
+// roadblock #2 reveal camera
+	Begin Script
+		Begin Condition
+			minRacePercentage = .47
+		End
+		Begin Commands
+            StartCamera "T511_E201_Rival2 1 1 .85"
+            Message 34
+               
+		End
+	End
+//Release Roadblock
+	Begin Script
+		Delay = 4
+		Begin Condition
+			minRacePercentage = .49
+		End
+		Begin Commands
+            SetForceStop "11 false"
+            SetForceStop "12 false"
+            SetForceStop "13 false"
+            SetForceStop "14 false"
+		End
+	End
+    Begin Script
+        Begin Condition
+            minRacePercentage .7
+        End
+        Begin Commands
+            SetForceStop "11 true"
+            SetForceStop "12 true"
+            SetForceStop "13 true"
+            SetForceStop "14 true" 
+        End
+    End
+    Begin Script
+        Begin Condition
+            minRacePercentage = .75
+        End
+        Begin Commands
+            KillOpponent 11
+            KillOpponent 12
+            KillOpponent 13
+            KillOpponent 14
+        End
+    End
+/*	
+	// Opponent #15
+    // highwayspawn 2
+    Begin Opponent
+		name = Enforcer Unit 15
+        CarID = Enforcer
+        skinNumber = 1
+        ColorID = DarkBlue
+        difficulty = 15
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    
+    // Opponent #16
+    // highwayspawn 2
+    Begin Opponent
+		name = Enforcer Unit 16
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = DarkBlue
+        difficulty = 15
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+
+    
+    // highwayspawn 2
+	Begin Script
+		Begin Condition
+			minRacePercentage = .48
+		End
+		Begin Commands
+            SpawnOpponent "15 spawnPoint 22 speed 0"
+            SpawnOpponent "16 spawnPoint 23 speed 0"
+            SetForceStop "15 true"
+            SetForceStop "16 true"
+		End
+	End
+	
+	// release highwayspawn 2
+	Begin Script
+		Begin Condition
+			minRacePercentage = .52
+		End
+		Begin Commands
+            SetForceStop "15 false"
+            SetForceStop "16 false"
+		End
+	End
+	
+	// Opponent #17
+    // highwayspawn staggered 1
+    Begin Opponent
+		name = Enforcer Unit 17
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = DarkBlue
+        difficulty = 19
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    
+    // Opponent #18
+    // highwayspawn staggered 2
+    Begin Opponent
+		name = Enforcer Unit 18
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = DarkBlue
+        difficulty = 19
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .5, .5, .5, .5
+		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    
+    // highwayspawn staggered 1
+	Begin Script
+		Begin Condition
+			minRacePercentage = .48
+		End
+		Begin Commands
+            SpawnOpponent "17 spawnPoint 24 speed 60"
+            SpawnOpponent "18 spawnPoint 25 speed 60"
+		End
+	End
+*/    
+	// spawn rival "Enforcer"
+	Begin Script
+		Begin Condition
+			minRacePercentage = .615
+		End
+		Begin Commands
+			SpawnOpponent "1 spawnPoint 15 speed 50"
+			AddAIGoal "1 Pursue -1"
+			ClearCustomMessages
+			Message 35
+                             
+			startCamera "T511_E201_Rival1 1 1 .9"
+//			KillOpponent 11
+//			KillOpponent 12
+//			KillOpponent 13
+//			KillOpponent 14
+		End
+	End
+	
+	// Opponent #19
+    // Shooter
+    Begin Opponent
+		name = Enforcer Unit 19
+        CarID = Enforcer
+        skinNumber = 1
+        ColorID = Yellow
+        difficulty = 14
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .75, .75, .75, .75
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    // Opponent #20
+    // Shooter
+    Begin Opponent
+		name = Enforcer Unit 20
+        CarID = Enforcer
+        skinNumber = 1
+        ColorID = Yellow
+        difficulty = 12
+        TeamID = 2
+        Begin Goal
+            type = Pursue
+            targetID = -1
+        End
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .75, .75, .75, .75
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    // Opponent #21
+    // Minelayer
+    Begin Opponent
+		name = Enforcer Unit 21
+        CarID = Enforcer
+        skinNumber = 1
+        ColorID = Yellow
+        difficulty = 12
+        TeamID = 2
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = Minelayer
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .75, .75, .75, .75
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    // Opponent #22
+    // Minelayer
+    Begin Opponent
+		name = Enforcer Unit 22
+        CarID = Enforcer
+        skinNumber = 1
+        ColorID = Yellow
+        difficulty = 12
+        TeamID = 2
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = Minelayer
+		triggeredSpawn = true
+		canParticipate = false
+		armorGains = .75, .75, .75, .75
+//		hitpointGain = .5
+		lives = 1
+		onlyCountPlayerKills = true
+    End
+    Begin Script
+        Begin Condition
+            minRacePercentage = .75
+        End
+        Begin Commands
+            SpawnOpponent "15 playerRelative -70 speed 70"
+            SpawnOpponent "16 playerRelative -80 speed 70"
+            SpawnOpponent "17 playerRelative -90 speed 70"
+            SpawnOpponent "18 playerRelative -100 speed 70"
+        End
+    End
+    
+
+    
+    // Opponent #23
+    // roadblock 3
+    Begin Opponent
+		name = Enforcer Roadblock 21
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Yellow
+        difficulty = 14
+        TeamID = 2
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		//armorGains = .5, .5, .5, .5
+		//hitpointGain = .5
+		lives = 1
+		spamWeapons = true
+    End
+    
+   // Opponent #24
+    // roadblock 3
+    Begin Opponent
+		name = Enforcer Roadblock 22
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Yellow
+        difficulty = 14
+        TeamID = 2
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // Opponent #25
+    // roadblock 3
+    Begin Opponent
+		name = Enforcer Roadblock 23
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Yellow
+        difficulty = 14
+        TeamID = 2
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		lives = 1
+		spamWeapons = true
+    End
+    
+    // Opponent #26
+    // roadblock 3
+    Begin Opponent
+		name = Enforcer Roadblock 24
+        CarID = Enforcer
+        skinNumber = 0
+        ColorID = Yellow
+        difficulty = 14
+        TeamID = 2
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+		triggeredSpawn = true
+		canParticipate = false
+		lives = 1
+		spamWeapons = true
+    End
+    
+    Begin Script
+        Begin Condition
+            minRacePercentage = .75
+        End
+        Begin Commands
+            SpawnOpponent "19 SpawnPoint 3 speed 0"
+            SpawnOpponent "20 SpawnPoint 4 speed 0"
+            SpawnOpponent "21 SpawnPoint 5 speed 0"
+            SpawnOpponent "22 SpawnPoint 6 speed 0"
+            SetForceStop "19 true"
+            SetForceStop "20 true"
+            SetForceStop "21 true"
+            SetForceStop "22 true"
+        End
+    End
+
+//Cop Chatter #1
+    Begin Script
+        Begin Condition
+            minRacePercentage = .03
+        End
+        Begin Commands
+			CopChatterOn
+		End
+	End
+    Begin Script
+        Begin Condition
+            minRacePercentage = .07
+        End
+        Begin Commands
+			CopChatterOff
+		End
+	End
+//Cop Chatter #2
+    Begin Script
+        Begin Condition
+            minRacePercentage = .15
+        End
+        Begin Commands
+			CopChatterOn
+		End
+	End
+    Begin Script
+        Begin Condition
+            minRacePercentage = .22
+        End
+        Begin Commands
+			CopChatterOff
+		End
+	End
+//Cop Chatter #4
+    Begin Script
+        Begin Condition
+            minRacePercentage = .49
+        End
+        Begin Commands
+			CopChatterOn
+		End
+	End
+    Begin Script
+        Begin Condition
+            minRacePercentage = .56
+        End
+        Begin Commands
+			CopChatterOff
+		End
+	End
+//Cop Chatter #5
+    Begin Script
+        Begin Condition
+            minRacePercentage = .95
+        End
+        Begin Commands
+			CopChatterOn
+		End
+	End
+    Begin Script
+        Begin Condition
+            minRacePercentage = .99
+        End
+        Begin Commands
+			CopChatterOff
+		End
+	End
+End
+//----------------------------------------------------------------------
+// UNLOCK SEQUENCE & REWARDS
+//----------------------------------------------------------------------
+Begin Reward
+	Name = Primary Reward pack for Guardian
+	EventID = 201
+	isPrimaryReward = true
+	unlockedEvents = 211
+    unlockedCars = Enforcer
+	unlockedWeapons = RamPlate
+End
+Begin Reward
+	Name = Secondary Reward pack #1 for Enforcer
+	EventID = 200
+	isPrimaryReward = false
+	objectiveCount = 2
+	unlockedSkins = Enforcer.1 Enforcer.2
+End
+Begin Reward
+	Name = Secondary Reward pack #2 for Enforcer~
+	EventID = 200
+	isPrimaryReward = false
+	objectiveCount = 3
+	unlockedSkins = Enforcer.3
+End
+//----------------------------------------------------------------------

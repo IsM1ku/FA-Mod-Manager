@@ -1,0 +1,1987 @@
+#EventScript
+
+//Tutorial Rewards needed. 
+//A color is required for the Semi Auto reward of event 076 -- I recommend the color Irritating Pink. 
+//A skin is required for the Full Auto reward of event 077 -- I recommend a skin for the Jupiter or Hitman.
+
+
+
+
+// Sample reward script
+Reward <Reward1>
+{
+  Icon = "Reward1.dds"
+  //Car( Vulcan )
+  //Car( Wraith )
+  //Colors = [Vulcan Skin0 "Dark Red"; Wraith Skin0 "Red"];
+  //Skins  = [Wraith Skin0];
+  //Tracks = ["fa_t121" "fa_t221" "fa_t613"];
+  //Preset (Assault)
+  //Race (OpposingStarts)
+  //Race (Backwards)
+  //PresetBias (Level1Level3)
+  //PresetBias (Level3Level1)
+}
+
+//------------------------------CORE SERIES REWARDS-  These are Survivor level awards--------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+
+
+
+
+//------------------------------1. C Class Rewards-------------------------------------------------
+//----------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+Reward <E102>
+{
+  Icon = "Reward1.dds"
+  Car (Rampart)
+  Tracks = ["fa_t112"];
+  Description = pitaStringRampart
+}
+
+Reward <E103>
+{
+  Icon = "Reward1.dds"
+  Car (Rambler)
+  Tracks = ["fa_t724"];
+  Description = pitaStringRambler
+}
+
+Reward <E104>
+{
+  Icon = "Reward1.dds"
+  Car (Hitman)
+  Tracks = ["fa_t111"];
+  Description = pitaStringHitman
+}
+
+Reward <E105>
+{
+  Icon = "Reward1.dds"
+  Car (Honcho)
+  Tracks = ["fa_t622"];
+  Description = pitaStringHoncho
+}
+
+Reward <E106>
+{
+  Icon = "Reward1.dds"
+  Car (Guardian)
+  Tracks = ["fa_t113"];
+  Description = pitaStringGuardian
+}
+
+Reward <E107>
+{
+  Icon = "Reward1.dds"
+  Car (Hookzilla)
+  Tracks = ["fa_t721"];
+  Description = pitaStringHookzilla
+}
+
+
+Reward <E108>
+{
+  Icon = "Reward1.dds"
+  Preset (Melee)
+  Description = pitaStringMelee
+}
+
+//------------------------------2. B Class Rewards-------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+Reward <E202>
+{
+  Icon = "Reward1.dds"
+  Car (Ardent)
+  Tracks = ["fa_t215"];
+  Description = pitaStringArdent
+}
+
+Reward <E203>
+{
+  Icon = "Reward1.dds"
+  Car (Opulent)
+  Tracks = ["fa_t512"];
+  Description = pitaStringOpulent
+}
+
+Reward <E204>
+{
+  Icon = "Reward1.dds"
+  Car (Vulcan)
+  Tracks = ["fa_t216"];
+  Description = pitaStringVulcan
+}
+
+Reward <E205>
+{
+  Icon = "Reward1.dds"
+  Car (TEC_S2)
+  Tracks = ["fa_t213"];
+  Description = pitaStringTECS2
+}
+
+Reward <E206>
+{
+  Icon = "Reward1.dds"
+  Car (Magnus)
+  Tracks = ["fa_t722"];
+  Description = pitaStringMagnus
+}
+
+Reward <E207>
+{
+  Icon = "Reward1.dds"
+  Car (Kodiak)
+  Description = pitaStringKodiak
+}
+
+Reward <E208>
+{
+  Icon = "Reward1.dds"
+  Preset (Tactical)
+  Description = pitaStringTactical
+}
+
+//------------------------------3. A Class Rewards-------------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+Reward <E301>
+{
+  Icon = "Reward1.dds"
+  Car (Streamline)
+  Description = pitaStringStreamline
+}
+
+Reward <E302>
+{
+  Icon = "Reward1.dds"
+  Car (Demon)
+  Tracks = ["fa_t611"];
+  Description = pitaStringDemon
+}
+
+Reward <E303>
+{
+  Icon = "Reward1.dds"
+  Car (Phantom)
+  Tracks = ["fa_t615"];
+  Description = pitaStringPhantom
+}
+
+Reward <E304>
+{
+  Icon = "Reward1.dds"
+  Car (Enforcer)
+  Tracks = ["fa_t725"];
+  Description = pitaStringEnforcer
+}
+
+Reward <E305>
+{
+  Icon = "Reward1.dds"
+  Car (Wraith)
+  Tracks = ["fa_t511"];
+  Description = pitaStringWraith
+}
+
+Reward <E306>
+{
+  Icon = "Reward1.dds"
+  Car (Maverick)
+  Description = pitaStringMaverick
+}
+
+Reward <E307>
+{
+  Icon = "Reward1.dds"
+  Tracks = ["fa_t214"];
+  PresetBias (Level1Level3)
+  PresetBias (Level3Level1)	
+  Description = pitaStringTuning
+}
+
+
+
+//------------------------------4. Evade and Pursue Rewards-------------------------------------
+//----------------------------------------------------------------------------------------------
+
+
+Reward <E406>
+{
+  Icon = "Reward1.dds"
+  Preset (Brawler)
+  Description = pitaStringBrawler
+}
+
+//------------------------------5. Time Trial Rewards-------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+
+Reward <E505>
+{
+  Icon = "Reward1.dds"
+  Preset (Buckler)
+  Description = pitaStringBuckler
+}
+
+
+//------------------------------6. Underdogs Rewards--------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+
+Reward <E606>
+{
+  Icon = "Reward1.dds"
+  Preset (Devastator)
+  Description = pitaStringDevastator
+}
+
+
+//------------------------------7. Ambush Rewards-----------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+
+Reward <E704>
+{
+  Icon = "Reward1.dds"
+  Preset (Ravager)
+  Race (Backwards)
+  Description = pitaStringRavager
+}
+
+
+//------------------------------8. Domination Rewards-------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+Reward <E803>
+{
+  Icon = "Reward1.dds"
+  Preset (Annihilator)
+  Description = pitaStringAnnihilator
+}
+
+//------------------------------9. Rampage Rewards----------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+Reward <E905>
+{
+  Icon = "Reward1.dds"
+  Preset (Hunter)
+  Description = pitaStringHunter
+}
+
+//------------------------------10. Overtake Rewards--------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+Reward <E1003>
+{
+  Icon = "Reward1.dds"
+  Preset (Demolisher)
+  Description = pitaStringDemolisher
+}
+
+//------------------------------11. Sudden Death Rewards----------------------------------------
+//----------------------------------------------------------------------------------------------
+
+Reward <E1103>
+{
+  Icon = "Reward1.dds"
+  Preset (Defender)
+  Description = pitaStringDefender
+}
+
+//------------------------------12. Warlord Rewards---------------------------------------------
+//----------------------------------------------------------------------------------------------
+
+Reward <E1203>
+{
+  Icon = "Reward1.dds"
+  Car (Warlord)
+  Description = pitaStringWarlord
+}
+
+//------------------------------SKINS AND COLOUR REWARDS----------------------------------------
+//----------------------------------------------------------------------------------------------
+
+
+
+//-------------------------------1. Demon------------------------------------------------------
+
+Reward <Demon_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Dark Red"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Dark Blue"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Gloss Black"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Darkest Red"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Light_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Light Blue"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Electric_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Electric Green"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Purple_Envy>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Purple Envy"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Flaming_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Flaming Orange"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Putty>
+{
+  Icon = "Reward1.dds"
+  Colors = [Demon Skin0 "Putty"]
+  Description = pitaStringDemonColor
+}
+
+Reward <Demon_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Demon Skin1];
+  Colors = [Demon Skin1 "Ruby Red"; Demon Skin1 "Dark Blue"; Demon Skin1 "Gloss Black" ]
+  Description = pitaStringDemonSkin
+}
+
+Reward <Demon_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Demon Skin2];
+  Colors = [Demon Skin2 "White"; Demon Skin2 "Orange"; Demon Skin2 "Gloss Black" ]
+  Description = pitaStringDemonSkin
+}
+
+
+
+
+//-------------------------------2. Wraith------------------------------------------------------
+
+Reward <Wraith_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "Gloss Black"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_Electric_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "Electric Green"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "Dark Red"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "Blue"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_Candy_Apple_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "Candy Apple Red"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "Titanium"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "BRG"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_Flaming_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Wraith Skin0 "Flaming Orange"]
+  Description = pitaStringWraithColor
+}
+
+Reward <Wraith_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Wraith Skin1];
+  Colors = [Wraith Skin1 "Yellow"; Wraith Skin1 "Indigo"; Wraith Skin1 "Gloss Black"]
+  Description = pitaStringWraithSkin
+}
+
+Reward <Wraith_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Wraith Skin2];
+  Colors = [Wraith Skin2 "Orange"; Wraith Skin2 "Indigo"; Wraith Skin2 "Dark Red" ]
+  Description = pitaStringWraithSkin
+}
+
+
+//-------------------------------3. Maverick------------------------------------------------------
+
+
+Reward <Maverick_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Darkest Red"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Slate_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Slate Blue"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Dark Blue"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Indigo>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Indigo"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Dark_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Dark Green"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "BRG"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Gloss Black"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Blue"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Ferrari_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Maverick Skin0 "Ferrari Red"]
+  Description = pitaStringMaverickColor
+}
+
+Reward <Maverick_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Maverick Skin1];
+  Colors = [Maverick Skin1 "Silver"; Maverick Skin1 "Dark Red"; Maverick Skin1 "Dark Blue" ]
+  Description = pitaStringMaverickSkin
+}
+
+Reward <Maverick_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Maverick Skin2];
+  Colors = [Maverick Skin2 "Dark Grey"; Maverick Skin2 "Dark Red"; Maverick Skin2 "Burnt Orange" ]
+  Description = pitaStringMaverickSkin
+}
+
+//-------------------------------4. Enforcer------------------------------------------------------
+
+
+Reward <Enforcer_Dark_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "Dark Grey"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "Darkest Red"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "BRG"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "Dark Red"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_Matte_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "Matte Black"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_Olive_Drab>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "Olive Drab"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "Blue"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_Yellow>
+{
+  Icon = "Reward1.dds"
+  Colors = [Enforcer Skin0 "Yellow"]
+  Description = pitaStringEnforcerColor
+}
+
+Reward <Enforcer_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Enforcer Skin1];
+  Colors = [Enforcer Skin1 "Base"]
+  Description = pitaStringEnforcerSkin
+}
+
+Reward <Enforcer_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Enforcer Skin2];
+  Colors = [Enforcer Skin2 "Base"]
+  Description = pitaStringEnforcerSkin
+}
+
+
+//-------------------------------5. Phantom------------------------------------------------------
+
+Reward <Phantom_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "Dark Red"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "Dark Blue"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "Gloss Black"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "BRG"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_Champagne>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "Champagne"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_Gold>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "Gold"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_Slate_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "Slate Green"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_Copper>
+{
+  Icon = "Reward1.dds"
+  Colors = [Phantom Skin0 "Copper"]
+  Description = pitaStringPhantomColor
+}
+
+Reward <Phantom_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Phantom Skin1];
+  Colors = [Phantom Skin1 "Base"]
+  Description = pitaStringPhantomSkin
+}
+
+Reward <Phantom_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Phantom Skin2];
+  Colors = [Phantom Skin2 "BRG"; Phantom Skin2 "Light Blue"; Phantom Skin2 "Silver"]
+  Description = pitaStringPhantomSkin
+}
+
+//-------------------------------6. Streamline------------------------------------------------------
+
+
+Reward <Streamline_Ruby_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "Ruby Red"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "Dark Red"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "Dark Blue"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_Dark_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "Dark Green"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "BRG"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "Titanium"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "Gloss Black"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_Mango_Wine>
+{
+  Icon = "Reward1.dds"
+  Colors = [Streamline Skin0 "Mango Wine"]
+  Description = pitaStringStreamlineColor
+}
+
+Reward <Streamline_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Streamline Skin1];
+  Colors = [Streamline Skin1 "Silver"; Streamline Skin1 "Yellow"; Streamline Skin1 "Candy Apple Red"]
+  Description = pitaStringStreamlineSkin
+}
+
+Reward <Streamline_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Streamline Skin2];
+  Colors = [Streamline Skin2 "Yellow"; Streamline Skin2 "Silver"; Streamline Skin2 "Flaming Orange"]
+  Description = pitaStringStreamlineSkin
+}
+
+//-------------------------------7. Vulcan------------------------------------------------------
+
+Reward <Vulcan_Light_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "Light Blue"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "Gloss Black"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "Orange"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "BRG"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_Gold>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "Gold"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_Candy_Apple_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "Candy Apple Red"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_Blue_Steel>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "Blue Steel"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_Flaming_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Vulcan Skin0 "Flaming Orange"]
+  Description = pitaStringVulcanColor
+}
+
+Reward <Vulcan_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Vulcan Skin1];
+  Colors = [Vulcan Skin1 "Base"]
+  Description = pitaStringVulcanSkin
+}
+
+Reward <Vulcan_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Vulcan Skin2];
+  Colors = [Vulcan Skin2 "Yellow"; Vulcan Skin2 "Flaming Orange"; Vulcan Skin2 "Ruby Red"]
+  Description = pitaStringVulcanSkin
+}
+
+
+//-------------------------------8. Opulent------------------------------------------------------
+
+
+Reward <Opulent_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "Dark Blue"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "BRG"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "Titanium"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "Gloss Black"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_Champagne>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "Champagne"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_Candy_Apple_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "Candy Apple Red"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_Copper>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "Copper"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_Mango_Wine>
+{
+  Icon = "Reward1.dds"
+  Colors = [Opulent Skin0 "Mango Wine"]
+  Description = pitaStringOpulentColor
+}
+
+Reward <Opulent_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Opulent Skin1];
+  Colors = [Opulent Skin1 "Dark Red"; Opulent Skin1 "Gloss Black"; Opulent Skin1 "Burnt Orange"]
+  Description = pitaStringOpulentSkin
+}
+
+Reward <Opulent_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Opulent Skin2];
+  Colors = [Opulent Skin2 "Silver"; Opulent Skin2 "Orange"; Opulent Skin2 "Gold"]
+  Description = pitaStringOpulentSkin
+}
+
+
+//-------------------------------9. TEC_S2------------------------------------------------------
+
+
+Reward <TEC_S2_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Titanium"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Dark Red"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Slate_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Slate Blue"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "BRG"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Orange"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Darkest_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Darkest Green"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Gloss Black"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Electric_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Electric Green"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Blue"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Slate_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [TEC_S2 Skin0 "Slate Grey"]
+  Description = pitaStringTEC_S2Color
+}
+
+Reward <TEC_S2_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [TEC_S2 Skin1];
+  Colors = [TEC_S2 Skin1 "Slate Blue"; TEC_S2 Skin1 "Darkest Red"; TEC_S2 Skin1 "Gloss Black"]
+  Description = pitaStringTEC_S2Skin
+}
+
+Reward <TEC_S2_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [TEC_S2 Skin2];
+  Colors = [TEC_S2 Skin2 "Purple Envy"; TEC_S2 Skin2 "Flaming Orange"; TEC_S2 Skin2 "Gloss Black"]
+  Description = pitaStringTEC_S2Skin
+}
+
+//-------------------------------10. Ardent------------------------------------------------------
+
+
+Reward <Ardent_Slate_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "Slate Blue"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "Dark Blue"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_Dark_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "Dark Green"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "Gloss Black"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "Blue"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "BRG"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "Grey"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_Copper>
+{
+  Icon = "Reward1.dds"
+  Colors = [Ardent Skin0 "Copper"]
+  Description = pitaStringArdentColor
+}
+
+Reward <Ardent_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Ardent Skin1];
+  Colors = [Ardent Skin1 "Orange"; Ardent Skin1 "Silver"; Ardent Skin1 "BRG" ]
+  Description = pitaStringArdentSkin
+}
+
+Reward <Ardent_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Ardent Skin2];
+  Colors = [Ardent Skin2 "Light Blue"; Ardent Skin2 "Copper"; Ardent Skin2 "Matte Black"]
+  Description = pitaStringArdentSkin
+}
+
+//-------------------------------11. Magnus------------------------------------------------------
+
+
+Reward <Magnus_Dark_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "Dark Grey"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "Darkest Red"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "Dark Blue"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_White>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "White"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_Lilac>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "Lilac"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "BRG"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "Gloss Black"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_Slate_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Magnus Skin0 "Slate Blue"]
+  Description = pitaStringMagnusColor
+}
+
+Reward <Magnus_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Magnus Skin1];
+  Colors = [Magnus Skin1 "Base"]
+  Description = pitaStringMagnusSkin
+}
+
+Reward <Magnus_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Magnus Skin2];
+  Colors = [Magnus Skin2 "White"; Magnus Skin2 "Matte Black"; Magnus Skin2 "Orange"]
+  Description = pitaStringMagnusSkin
+}
+
+
+//-------------------------------12. Python------------------------------------------------------
+
+
+Reward <Python_Ferrari_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Ferrari Red"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Candy_Apple_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Candy Apple Red"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Dark Red"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Darkest Red"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Mango_Wine>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Mango Wine"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Light_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Light Blue"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Dark Blue"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Grape>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Grape"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Matte_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Python Skin0 "Matte Black"]
+  Description = pitaStringPythonColor
+}
+
+Reward <Python_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Python Skin1];
+  Colors = [Python Skin1 "Base"]
+  Description = pitaStringPythonSkin
+}
+
+Reward <Python_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Python Skin2];
+  Colors = [Python Skin2 "Electric Green"; Python Skin2 "Gold"; Python Skin2 "Copper"]
+  Description = pitaStringPythonSkin
+}
+
+//-------------------------------13. Kodiak------------------------------------------------------
+
+
+Reward <Kodiak_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Dark Red"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Dark Blue"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Darkest_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Darkest Green"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Matte_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Matte Black"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Yellow>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Yellow"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Gold>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Gold"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Gloss Black"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Blue_Steel>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Blue Steel"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Copper>
+{
+  Icon = "Reward1.dds"
+  Colors = [Kodiak Skin0 "Copper"]
+  Description = pitaStringKodiakColor
+}
+
+Reward <Kodiak_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Kodiak Skin1];
+  Colors = [Kodiak Skin1 "Yellow"; Kodiak Skin1 "Olive Drab"; Kodiak Skin1 "Burnt Orange"]
+  Description = pitaStringKodiakSkin
+}
+
+Reward <Kodiak_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Kodiak Skin2];
+  Colors = [Kodiak Skin2 "Base"]
+  Description = pitaStringKodiakSkin
+}
+
+
+//-------------------------------14. Rampart------------------------------------------------------
+
+
+Reward <Rampart_Taxi_Yellow>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Taxi Yellow"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Orange"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Dark Blue"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Darkest_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Darkest Green"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Ferrari_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Ferrari Red"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Tan>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Tan"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Light_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Light Grey"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Putty>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rampart Skin0 "Putty"]
+  Description = pitaStringRampartColor
+}
+
+Reward <Rampart_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Rampart Skin1];
+  Colors = [Rampart Skin1 "Olive Drab"; Rampart Skin1 "Orange"; Rampart Skin1 "Dark Grey"]
+  Description = pitaStringRampartSkin
+}
+
+Reward <Rampart_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Rampart Skin2];
+  Colors = [Rampart Skin2 "Dark Green"; Rampart Skin2 "Gloss Black"; Rampart Skin2 "Dark Blue" ]
+  Description = pitaStringRampartSkin
+}
+
+//-------------------------------15. Jupiter------------------------------------------------------
+
+
+Reward <Jupiter_Slate_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Slate Blue"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Dark Blue"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Darkest Red"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Gloss Black"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Candy_Apple_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Candy Apple Red"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Titanium"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Electric_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Electric Green"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Lilac>
+{
+  Icon = "Reward1.dds"
+  Colors = [Jupiter Skin0 "Lilac"]
+  Description = pitaStringJupiterColor
+}
+
+Reward <Jupiter_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Jupiter Skin1];
+  Colors = [Jupiter Skin1 "Ferrari Red"; Jupiter Skin1 "Blue"; Jupiter Skin1 "Gloss Black"]
+  Description = pitaStringJupiterSkin
+}
+
+Reward <Jupiter_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Jupiter Skin2];
+  Colors = [Jupiter Skin2 "Candy Apple Red"; Jupiter Skin2 "Purple Envy"; Jupiter Skin2 "Gloss Black" ]
+  Description = pitaStringJupiterSkin
+}
+
+
+//-------------------------------16. Rambler------------------------------------------------------
+
+
+Reward <Rambler_Slate_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Slate Blue"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Titanium"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Taxi_Yellow>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Taxi Yellow"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Dark Red"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Dark Blue"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Burnt_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Burnt Orange"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Tan>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Tan"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Presidential_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Presidential Black"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Putty>
+{
+  Icon = "Reward1.dds"
+  Colors = [Rambler Skin0 "Putty"]
+  Description = pitaStringRamblerColor
+}
+
+Reward <Rambler_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Rambler Skin1];
+  Colors = [Rambler Skin1 "Base"; Rambler Skin1 "Olive Drab"; Rambler Skin1 "RC Blue"]
+  Description = pitaStringRamblerSkin
+}
+
+Reward <Rambler_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Rambler Skin2];
+  Colors = [Rambler Skin2 "Yellow"; Rambler Skin2 "Olive Drab"; Rambler Skin2 "Tan"]
+  Description = pitaStringRamblerSkin
+}
+
+//-------------------------------17. Hitman------------------------------------------------------
+
+
+Reward <Hitman_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Dark Blue"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Flaming_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Flaming Orange"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Indigo>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Indigo"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "BRG"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Dark_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Dark Grey"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Matte_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Matte Black"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Gloss Black"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Yellow>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Yellow"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_White>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "White"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Electric_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hitman Skin0 "Electric Green"]
+  Description = pitaStringHitmanColor
+}
+
+Reward <Hitman_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Hitman Skin1];
+  Colors = [Hitman Skin1 "Gloss Black"; Hitman Skin1 "Darkest Red"; Hitman Skin1 "Dark Blue"]
+  Description = pitaStringHitmanSkin
+}
+
+Reward <Hitman_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Hitman Skin2];
+  Colors = [Hitman Skin2 "Gloss Black"; Hitman Skin2 "Dark Red"; Hitman Skin2 "White" ]
+  Description = pitaStringHitmanSkin
+}
+
+//-------------------------------18. Honcho------------------------------------------------------
+
+
+Reward <Honcho_Indigo>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Indigo"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Titanium"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_White>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "White"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Pink>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Pink"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Grape>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Grape"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Candy_Apple_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Candy Apple Red"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Gloss Black"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Electric_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Electric Green"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Flaming_Orange>
+{
+  Icon = "Reward1.dds"
+  Colors = [Honcho Skin0 "Flaming Orange"]
+  Description = pitaStringHonchoColor
+}
+
+Reward <Honcho_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Honcho Skin1];
+  Colors = [Honcho Skin1 "Grape"; Honcho Skin1 "Gloss Black"; Honcho Skin1 "Darkest Red"]
+  Description = pitaStringHonchoSkin
+}
+
+Reward <Honcho_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Honcho Skin2];
+  Colors = [Honcho Skin2 "White"; Honcho Skin2 "Gloss Black"; Honcho Skin2 "Silver"]
+  Description = pitaStringHonchoSkin
+}
+
+//-------------------------------19. Guardian------------------------------------------------------
+
+
+Reward <Guardian_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "Titanium"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_BRG>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "BRG"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_Dark_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "Dark Blue"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_Slate_Blue>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "Slate Blue"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_Slate_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "Slate Green"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_Dark_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "Dark Grey"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "Darkest Red"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_Silver>
+{
+  Icon = "Reward1.dds"
+  Colors = [Guardian Skin0 "Silver"]
+  Description = pitaStringGuardianColor
+}
+
+Reward <Guardian_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Guardian Skin1];
+  Colors = [Guardian Skin1 "Yellow"; Guardian Skin1 "Gloss Black"; Guardian Skin1 "White"]
+  Description = pitaStringGuardianSkin
+}
+
+Reward <Guardian_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Guardian Skin2];
+  Colors = [Guardian Skin2 "Base"]
+  Description = pitaStringGuardianSkin
+}
+
+//-------------------------------20. Hookzilla------------------------------------------------------
+
+
+Reward <Hookzilla_Grey>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Grey"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Gold>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Gold"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Olive_Drab>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Olive Drab"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Darkest_Green>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Darkest Green"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Ferrari_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Ferrari Red"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Taxi_Yellow>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Taxi Yellow"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Presidential_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Presidential Black"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Putty>
+{
+  Icon = "Reward1.dds"
+  Colors = [Hookzilla Skin0 "Putty"]
+  Description = pitaStringHookzillaColor
+}
+
+Reward <Hookzilla_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Hookzilla Skin1];
+  Colors = [Hookzilla Skin1 "Base"]
+  Description = pitaStringHookzillaSkin
+}
+
+Reward <Hookzilla_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Hookzilla Skin2];
+  Colors = [Hookzilla Skin2 "Gloss Black"]
+  Description = pitaStringHookzillaSkin
+}
+
+//-------------------------------21. Warlord------------------------------------------------------
+
+
+Reward <Warlord_Gloss_Black>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Gloss Black"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Darkest_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Darkest Red"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Ferrari_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Ferrari Red"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Blue_Steel>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Blue Steel"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Mango_Wine>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Mango Wine"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Titanium>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Titanium"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Olive_Drab>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Olive Drab"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Dark_Red>
+{
+  Icon = "Reward1.dds"
+  Colors = [Warlord Skin0 "Dark Red"]
+  Description = pitaStringWarlordColor
+}
+
+Reward <Warlord_Skin>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Warlord Skin1];
+  Colors = [Warlord Skin1 "Dark Red"; Warlord Skin1 "Flaming Orange"; Warlord Skin1 "Indigo"]
+  Description = pitaStringWarlordSkin
+}
+
+Reward <Warlord_Skin2>
+{
+  Icon = "Reward1.dds"
+  Skins  = [Warlord Skin2];
+  Colors = [Warlord Skin2 "Base"]
+  Description = pitaStringWarlordSkin
+}
+
+
+

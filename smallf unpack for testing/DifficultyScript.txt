@@ -1,0 +1,2081 @@
+#DifficultyScript
+
+//----PLEASE DO NOT ADD OR REMOVE THE NUMBER OF LINES ABOVE "SAMPLE / DIFFICULTY TEMPLATE" SINCE THAT WILL BREAK THE XLS GRAPHING SYSTEM--------
+
+//Turning off railing: How to: g_carscanrail 0
+//Try turning off railing, then build appropriate behaviour into the driveskill ahead and behind that youwant , then turn on driverailing and try to duplicate. 
+//See your guy rail g_railCheckCamera 0
+//g_pretendplayer (ID number of the car) (0-7)
+//toggleai 0
+/*
+//How to use: Make changes to the script below. 
+//Copy difficultyscript.txt into the PS3 Build folder that you are running with prodg. 
+//In piexec, type  UpdateDDAVals DifficultyScript2.txt 
+
+// The quality of the driving. 1.0 => right at the car's limits. > 1 means the car's top speed is scaled up (although not its acceleration/downforce/drag/friction).
+driveSkill                  = 1.0
+
+//If the AI is driving the same car as the player, but needs better car abilities than the player. 
+//Then this can be used to buff the car. Greater than 1.0f => beyond the actual car's abilities. 
+//If this is more than 1 and your drive skill is less than 1, think about it. 
+carQuality                  = 1.25
+
+// Scales the respawn delay down or up from the default delay
+respawnScale                = 1.0
+
+// scales the rate at which boost power is gained
+powerGain                   = 1.0
+
+
+// The distance ahead at which the ai may rail
+fwdRailDist                 = 80.0
+
+// The driving skill while railing ahead. 1.0 => at the limits of the car. 0.0 => below the limits of the car.
+// Since the railing lets the car always drive at the exact speed it would like the drive at for any particular 
+// moment which nearly instant acceleration, a value of 1.0 is well beyond the abilities of any person to attain.
+fwdRailSkill                = 0.9
+
+// The distance behind at which the ai may rail
+bwdRailDist                 = 64.0
+
+// The driving skill while railing behind.
+bwdRailSkill                = 1.25
+
+// The accuracy of the ai for forward shooting.
+shootSkill                  = 1.0
+
+// Determines how likely the car is to sideswipe and shoot backwards.
+aggression                  = 2.0 //will ram anything that moves. @1 he will try to cut you off, but wont ram on an overtake.
+
+*/
+
+DifficultyScript<Race>
+{
+    DifficultyLevel <1>
+    {
+        shootSkill                    = 0.020
+        aggression                    = 0.40
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.35
+        driveSkill                    = 0.90
+        carQuality                    = 0.30
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.05
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.15
+        respawnScale                  = 3.0
+        powerGain                     = 0.5
+    }
+
+    DifficultyLevel <2>
+    {
+        shootSkill                    = 0.025
+        aggression                    = 0.425
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.375
+        driveSkill                    = 0.90
+        carQuality                    = 0.325
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.20
+        respawnScale                  = 2.9
+        powerGain                     = 0.525
+    }
+
+    DifficultyLevel <3>
+    {
+        shootSkill                    = 0.050
+        aggression                    = 0.45
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.4
+        driveSkill                    = 0.90
+        carQuality                    = 0.35
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.15
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.25
+        respawnScale                  = 2.8
+        powerGain                     = 0.55
+    }
+
+    DifficultyLevel <4>
+    {
+        shootSkill                    = 0.075
+        aggression                    = 0.475
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.425
+        driveSkill                    = 0.90
+        carQuality                    = 0.375
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.20
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.30
+        respawnScale                  = 2.7
+        powerGain                     = 0.575
+    }
+
+    DifficultyLevel <5>
+    {
+        shootSkill                    = 0.10
+        aggression                    = 0.50
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.45
+        driveSkill                    = 0.90
+        carQuality                    = 0.40
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.25
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.35
+        respawnScale                  = 2.6
+        powerGain                     = 0.6
+    }
+
+    DifficultyLevel <6>
+    {
+        shootSkill                    = 0.125
+        aggression                    = 0.525
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.475
+        driveSkill                    = 0.90
+        carQuality                    = 0.425
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.30
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.4
+        respawnScale                  = 2.5
+        powerGain                     = 0.625
+    }
+
+    DifficultyLevel <7>
+    {
+        shootSkill                    = 0.15
+        aggression                    = 0.55
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.5
+        driveSkill                    = 0.90
+        carQuality                    = 0.45
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.35
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.45
+        respawnScale                  = 2.4
+        powerGain                     = 0.65
+    }
+
+    DifficultyLevel <8>
+    {
+        shootSkill                    = 0.175
+        aggression                    = 0.575
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.525
+        driveSkill                    = 0.90
+        carQuality                    = 0.475
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.40
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.5
+        respawnScale                  = 2.3
+        powerGain                     = 0.675
+    }
+
+    DifficultyLevel <9>
+    {
+        shootSkill                    = 0.20
+        aggression                    = 0.60
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.55
+        driveSkill                    = 0.90
+        carQuality                    = 0.50
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.45
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.55
+        respawnScale                  = 2.2
+        powerGain                     = 0.70
+    }
+
+    DifficultyLevel <10>
+    {
+        shootSkill                    = 0.225
+        aggression                    = 0.65
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.575
+        driveSkill                    = 0.90
+        carQuality                    = 0.525
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.50
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.60
+        respawnScale                  = 2.1
+        powerGain                     = 0.725
+    }
+// WARNING: Calling settings lower than 11 in the career scripts may cause AIs to become unable to drive up hills!!!! 
+    DifficultyLevel <11>
+    {
+        shootSkill                    = 0.25
+        aggression                    = 0.70
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.60
+        driveSkill                    = 0.90
+        carQuality                    = 0.55
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.65
+        respawnScale                  = 2.0
+        powerGain                     = 0.75
+    }
+
+    DifficultyLevel <12>
+    {
+        shootSkill                    = 0.275
+        aggression                    = 0.75
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.65
+        driveSkill                    = 0.90
+        carQuality                    = 0.60
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.60
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.70
+        respawnScale                  = 1.9
+        powerGain                     = 0.775
+    }
+
+    DifficultyLevel <13>
+    {
+        shootSkill                    = 0.30
+        aggression                    = 0.80
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.70
+        driveSkill                    = 0.90
+        carQuality                    = 0.65
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.65
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.75
+        respawnScale                  = 1.8
+        powerGain                     = 0.80
+    }
+
+    DifficultyLevel <14> // at medium this is the ai that is ahead of the player. 
+    {
+        shootSkill                    = 0.35 
+        aggression                    = 0.85
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.75
+        driveSkill                    = 0.90
+        carQuality                    = 0.70
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.70
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.80
+        respawnScale                  = 1.7
+        powerGain                     = 0.825
+    }
+
+    DifficultyLevel <15> //at medium this is neck and neck.
+    {
+        shootSkill                    = 0.40
+        aggression                    = 0.90
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  = 0.80
+        driveSkill                    = 0.90
+        carQuality                    = 0.75
+        fwdRailDist                   = 80.0
+       	fwdRailSkill                  = 0.75
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.85
+        respawnScale                  = 1.6
+        powerGain                     = 0.85
+    }
+
+    DifficultyLevel <16> // at medium this is the ai that is behind the player. 
+    {
+        shootSkill                    = 0.45 
+        aggression                    = 0.95
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 0.85
+        driveSkill                    = 0.90
+        carQuality                    = 0.80
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.80
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.90
+        respawnScale                  = 1.5
+        powerGain                     = 0.875
+    }
+
+    DifficultyLevel <17>
+    {
+        shootSkill                    = 0.50
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 0.90
+        driveSkill                    = 0.90
+        carQuality                    = 0.85
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.85
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 1.4
+        powerGain                     = 0.90
+    }
+
+    DifficultyLevel <18>
+    {
+        shootSkill                    = 0.525
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  = 0.95
+        driveSkill                    = 0.90
+        carQuality                    = 0.90
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.90
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.00
+        respawnScale                  = 1.3
+        powerGain                     = 0.925
+    }
+
+    DifficultyLevel <19>
+    {
+        shootSkill                    = 0.55
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  = 1.0
+        driveSkill                    = 0.90
+        carQuality                    = 0.95
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.95
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.05
+        respawnScale                  = 1.2
+        powerGain                     = 0.95
+    }
+
+    DifficultyLevel <20>
+    {
+        shootSkill                    = 0.575
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 1.00
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.10
+        respawnScale                  = 1.10
+        powerGain                     = 0.975
+    }
+    // Note: Can use as many as 31 values. Any of the 31 values not set will default to the average of the values listed.
+    //!Note: if the number of refs in the array is less than the total number of all competitors in the event then when UPDATEDDAVALS is called, it will not update the settings for the excess vehicles.
+    //It is highly advised to use unique numbers per array. This enables the AIs to employ a variety of strategic intelligence about their car and weapon choice -- see DDARanked.xls (John or Chris). The numbers don't have to have a wide gamut, but a "big step" in gamut is recommended FOR DEATHMATCH MODES, so that the player is fighting against a few challenging opponents and a few opponents that suck. This allows the good AIs to score faster so they can keep up with the player. This is not a factor in Race events.
+    // The settings are interstitched so when the player uses less than the maximum opponents, he will recieve the hardest opponents from the list while preserving the gamut. The ranking that does this (including possible 2 player splitscreen) is;
+    // Rank from lowest (1) to highest (8): [ 1, 7, 4, 8, 3, 6, 2, 5]
+
+    Easy    	=  [ 12.7, 13.3, 13.0, 13.4, 12.9, 13.2, 12.8, 13.1]
+    Medium  	=  [ 14.7, 15.3, 15.0, 15.4, 14.9, 15.2, 14.8, 15.1]
+    Hard    	=  [ 16.5, 17.1, 16.8, 17.2, 16.7, 17.0, 16.6, 16.9]
+
+    // These values shift (i.e. add to) the base difficulty level for each class. 
+    // These values are for ai cars only.
+    // There must be 5 values present, which correspond to S,A,B,C,D
+    //eg. ClassDifficulty = [0 0 1 2 3] means that S and A are the values specified, then B, C, and D use tougher AI classes. 
+    ClassDifficulty = [-1 -1 0 -0.5 0]
+
+    // Similar to ClassDifficulty, but these values scale (i.e. multiply) the base DDA values.
+    // There must be 5 values present, which correspond to S,A,B,C,D
+    //eg ClassDDA = [1 1 1.1 1.2 1.35] means that S and A will be equally hard, then B, C and D AIs will get ability bumps to help keep up with the player.
+    ClassDDA        = [1 1 1 1 1]
+
+    ArcadeDDAValueKeys    = [3.0 2.0 0.0 -2.0 -5]
+    ArcadeDDADistanceKeys = [-350 -64.0 -32.0 52.0 80.0 300]
+    // Easy, Medium, Hard Durability. Durability is only applied in arcade mode. Complete control over armor and hitpoint gains exists in career scripts.
+    ArcadeDurability      = [0.66 0.75 1.0]
+    ArcadeWeaponDamageScale = [0.75 0.95 1.0]
+}
+//========================================================================================DM DIFFICULTY STARTS BELOW THIS LINE
+DifficultyScript<Deathmatch>
+{
+    DifficultyLevel <1>
+    {
+        shootSkill                    = 0.005
+        aggression                    = 0.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.15
+        driveSkill                    = 0.90
+        carQuality                    = 0.05
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.7
+        powerGain                     = 0.0
+    }
+
+    DifficultyLevel <2>
+    {
+        shootSkill                    = 0.025
+        aggression                    = 0.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.2
+        driveSkill                    = 0.90
+        carQuality                    = 0.10
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.6
+        powerGain                     = 0.0
+    }
+
+    DifficultyLevel <3>
+    {
+        shootSkill                    = 0.05
+        aggression                    = 0.00
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.25
+        driveSkill                    = 0.90
+        carQuality                    = 0.15
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.5
+        powerGain                     = 0.1
+    }
+
+    DifficultyLevel <4>
+    {
+        shootSkill                    = 0.075
+        aggression                    = 0.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.3
+        driveSkill                    = 0.90
+        carQuality                    = 0.20
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.4
+        powerGain                     = 0.2
+    }
+
+    DifficultyLevel <5>
+    {
+        shootSkill                    = 0.1
+        aggression                    = 0.05
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.35
+        driveSkill                    = 0.90
+        carQuality                    = 0.25
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.3
+        powerGain                     = 0.3
+    }
+
+    DifficultyLevel <6>
+    {
+        shootSkill                    = 0.125
+        aggression                    = 0.10
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.4
+        driveSkill                    = 0.90
+        carQuality                    = 0.30
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.2
+        powerGain                     = 0.4
+    }
+
+    DifficultyLevel <7>
+    {
+        shootSkill                    = 0.15
+        aggression                    = 0.25
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.45
+        driveSkill                    = 0.90
+        carQuality                    = 0.35
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.1
+        powerGain                     = 0.5
+    }
+
+    DifficultyLevel <8>
+    {
+        shootSkill                    = 0.175
+        aggression                    = 0.15
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.5
+        driveSkill                    = 0.90
+        carQuality                    = 0.40
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.0
+        powerGain                     = 0.6
+    }
+
+    DifficultyLevel <9>
+    {
+        shootSkill                    = 0.20
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.55
+        driveSkill                    = 0.90
+        carQuality                    = 0.45
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.9
+        powerGain                     = 0.7
+    }
+
+    DifficultyLevel <10>
+    {
+        shootSkill                    = 0.225
+        aggression                    = 0.25
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.60
+        driveSkill                    = 0.90
+        carQuality                    = 0.50
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.8
+        powerGain                     = 0.775
+    }
+
+// WARNING: Calling settings lower than 10 in the career scripts may cause AIs to become unable to drive up hills!!!!
+    DifficultyLevel <11>
+    {
+        shootSkill                    = 0.25
+        aggression                    = 0.30
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.65
+        driveSkill                    = 0.90
+        carQuality                    = 0.55
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.7
+        powerGain                     = 0.825
+    }
+
+    DifficultyLevel <12>
+    {
+        shootSkill                    = 0.30
+        aggression                    = 0.35
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 0.70
+        driveSkill                    = 0.90
+        carQuality                    = 0.60
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.15
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.55
+        respawnScale                  = 1.6
+        powerGain                     = 0.9
+    }
+
+
+    DifficultyLevel <13>
+    {
+        shootSkill                    = 0.35
+        aggression                    = 0.40
+        frontAggressionGain           = 1.0
+        rearAggressionGain	      	  = 0.75
+        driveSkill                    = 0.90
+        carQuality                    = 0.65
+        fwdRailDist                   = 80.0
+        	fwdRailSkill                  = 0.20
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.60
+        respawnScale                  = 1.45
+        powerGain                     = 1.0
+    }
+
+    DifficultyLevel <14>
+    {
+        shootSkill                    = 0.40
+        aggression                    = 0.45
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.80
+        driveSkill                    = 0.90
+        carQuality                    = 0.70
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.25
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.65
+        respawnScale                  = 1.3
+        powerGain                     = 1.1
+    }
+
+    DifficultyLevel <15>
+    {
+        shootSkill                    = 0.45
+        aggression                    = 0.5
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.85
+        driveSkill                    = 0.90
+        carQuality                    = 0.75
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.30
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.70
+        respawnScale                  = 1.1
+        powerGain                     = 1.2
+    }
+
+    DifficultyLevel <16> // at medium this is the ai that is ahead of the player. 
+    {
+        shootSkill                    = 0.50 
+        aggression                    = 0.55
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.90
+        driveSkill                    = 0.90
+        carQuality                    = 0.80
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.35
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.75
+        respawnScale                  = 0.9
+        powerGain                     = 1.3
+    }
+
+    DifficultyLevel <17> //at medium this is neck and neck.
+    {
+        shootSkill                    = 0.550
+        aggression                    = 0.60
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	   = 0.95
+        driveSkill                    = 0.90
+        carQuality                    = 0.85
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.40
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.80
+        respawnScale                  = 0.7
+        powerGain                     = 1.4
+    }
+
+    DifficultyLevel <18> // at medium this is the ai that is behind the player. 
+    {
+        shootSkill                    = 0.60 
+        aggression                    = 0.65
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1.00
+        driveSkill                    = 0.90
+        carQuality                    = 0.90
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.45
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.85
+        respawnScale                  = 0.60
+        powerGain                     = 1.5
+    }
+
+    DifficultyLevel <19>
+    {
+        shootSkill                    = 0.65
+        aggression                    = 0.70
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1.00
+        driveSkill                    = 0.90
+        carQuality                    = 0.95
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.50
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.90
+        respawnScale                  = 0.55
+        powerGain                     = 1.6
+    }
+
+    DifficultyLevel <20>
+    {
+        shootSkill                    = 0.70
+        aggression                    = 0.75
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 0.95
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 0.5
+        powerGain                     = 1.7
+    }
+
+    DifficultyLevel <21>
+    {
+        shootSkill                    = 0.75
+        aggression                    = 0.775
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.0
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.60
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.00
+        respawnScale                  = 0.5
+        powerGain                     = 1.8
+    }
+    DifficultyLevel <22>
+    {
+        shootSkill                    = 0.80
+        aggression                    = 0.8
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.65
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.05
+        respawnScale                  = 0.5
+        powerGain                     = 1.9
+    }
+    DifficultyLevel <23>
+    {
+        shootSkill                    = 0.85
+        aggression                    = 0.825
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.70
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.10
+        respawnScale                  = 0.5
+        powerGain                     = 2.0
+    }
+    DifficultyLevel <24>
+    {
+        shootSkill                    = 0.90
+        aggression                    = 0.85
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 0.5
+        powerGain                     = 2.1
+    }
+
+    // Note: Can use as many as 31 values. Any of the 31 values not set will default to the average of the values listed.
+    //!Note: if the number of refs in the array is less than the total number of all competitors in the event then when UPDATEDDAVALS is called, it will not update the last AI. 
+    // This is configured to use the peak difficulty value for D class Hard, then the lighter weaker cars use much easier difficulties. 
+    //It is highly advised to use unique numbers per array. This enables the AIs to employ a variety of strategic intelligence about their car and weapon choice -- see DDARanked.xls (John or Chris). The numbers don't have to have a wide gamut, but a "big step" in gamut is recommended FOR DEATHMATCH MODES, so that the player is fighting against a few challenging opponents and a few opponents that suck. This allows the good AIs to score faster so they can keep up with the player. This is not a factor in Race events.
+    // Correct sorting of array from weakest (1) to strongest (8): 
+	//	   [ 1,    7,    4,    8,    3,    6,    2,    5]
+
+    Easy    	=  [ 12.0, 15.3, 12.3  16.4, 12.2, 15.2, 12.1, 15.1] 
+    Medium  	=  [ 15.0, 17.3, 15.3, 18.4, 15.2, 17.2, 15.1, 17.1] 
+    Hard    	=  [ 17.0, 19.3, 17.3, 20.4, 17.2, 19.2, 17.1, 19.1]
+
+
+    // These values shift (i.e. add to) the base difficulty level for each class. 
+    // These values are for ai cars only.
+    // There must be 5 values present, which correspond to S,A,B,C,D
+    //eg. ClassDifficulty = [-2 -3 -4 -1 0] means that S, A, B, use considerably easier difficulty for DM than C and D. 
+    ClassDifficulty = [-2 -2 -3 -1 0]
+
+//JH: 2006-09-05: I do not plan to use this handle. 
+    // Similar to ClassDifficulty, but these values scale (i.e. multiply) the base DDA values.
+    // There must be 5 values present, which correspond to S,A,B,C,D
+    //eg ClassDDA = [1 1 1.1 1.2 1.35] means that S and A will be equally hard, then B, C and D AIs will get ability bumps to help keep up with the player.
+    ClassDDA        = [1 1 1 1 1]
+
+//in DM the distance keys are interpreted as relative score.
+    ArcadeDDAValueKeys    = [3 2.0 0.0 -2.0 -3]
+    ArcadeDDADistanceKeys = [-10 -6.0 -4.0 10.0 12.0 14.0]
+    // Easy, Medium, Hard Durability. Durability is only applied in arcade mode. Complete control over armor and hitpoint gains exists in career scripts.
+    ArcadeDurability      = [0.66 0.75 1.0]
+    ArcadeWeaponDamageScale = [0.75 0.95 1.0]
+}
+
+
+DifficultyScript<SlowShooter>
+{
+    DifficultyLevel <1>
+    {
+        shootSkill                  = 1.00
+        aggression                  = 0.50
+        frontAggressionGain           = 1.0
+        rearAggressionGain          = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 0.7
+        fwdRailDist                   = 9999.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 9999.0
+        bwdRailSkill                  = 0.65
+        respawnScale                  = 2.0
+        powerGain                     = 0.00
+    }
+}
+
+
+DifficultyScript<Sharpshooter>
+{
+    DifficultyLevel <1>
+    {
+        shootSkill                    = 0.525
+        aggression                    = 0.40
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.30
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.05
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.15
+        respawnScale                  = 3.0
+        powerGain                     = 0.5
+    }
+
+    DifficultyLevel <2>
+    {
+        shootSkill                    = 0.55
+        aggression                    = 0.425
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.325
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.20
+        respawnScale                  = 2.9
+        powerGain                     = 0.525
+    }
+
+    DifficultyLevel <3>
+    {
+        shootSkill                    = 0.575
+        aggression                    = 0.45
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.35
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.15
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.25
+        respawnScale                  = 2.8
+        powerGain                     = 0.55
+    }
+
+    DifficultyLevel <4>
+    {
+        shootSkill                    = 0.6
+        aggression                    = 0.475
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.375
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.20
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.30
+        respawnScale                  = 2.7
+        powerGain                     = 0.575
+    }
+
+    DifficultyLevel <5>
+    {
+        shootSkill                    = 0.625
+        aggression                    = 0.50
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.40
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.25
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.35
+        respawnScale                  = 2.6
+        powerGain                     = 0.6
+    }
+
+    DifficultyLevel <6>
+    {
+        shootSkill                    = 0.65
+        aggression                    = 0.525
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.425
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.30
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.4
+        respawnScale                  = 2.5
+        powerGain                     = 0.625
+    }
+
+    DifficultyLevel <7>
+    {
+        shootSkill                    = 0.675
+        aggression                    = 0.55
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.45
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.35
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.45
+        respawnScale                  = 2.4
+        powerGain                     = 0.65
+    }
+
+    DifficultyLevel <8>
+    {
+        shootSkill                    = 0.7
+        aggression                    = 0.575
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.475
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.40
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.5
+        respawnScale                  = 2.3
+        powerGain                     = 0.675
+    }
+
+    DifficultyLevel <9>
+    {
+        shootSkill                    = 0.7250
+        aggression                    = 0.60
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.50
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.45
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.55
+        respawnScale                  = 2.2
+        powerGain                     = 0.70
+    }
+
+    DifficultyLevel <10>
+    {
+        shootSkill                    = 0.75
+        aggression                    = 0.65
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.525
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.50
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.60
+        respawnScale                  = 2.1
+        powerGain                     = 0.725
+    }
+// WARNING: Calling settings lower than 11 in the career scripts may cause AIs to become unable to drive up hills!!!! 
+    DifficultyLevel <11>
+    {
+        shootSkill                    = 0.775
+        aggression                    = 0.70
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.55
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.65
+        respawnScale                  = 2.0
+        powerGain                     = 0.75
+    }
+
+    DifficultyLevel <12>
+    {
+        shootSkill                    = 0.8
+        aggression                    = 0.75
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.60
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.60
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.70
+        respawnScale                  = 1.9
+        powerGain                     = 0.775
+    }
+
+    DifficultyLevel <13>
+    {
+        shootSkill                    = 0.825
+        aggression                    = 0.80
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.65
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.65
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.75
+        respawnScale                  = 1.8
+        powerGain                     = 0.80
+    }
+
+    DifficultyLevel <14> // at medium this is the ai that is ahead of the player. 
+    {
+        shootSkill                    = 0.85 
+        aggression                    = 0.85
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.70
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.70
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.80
+        respawnScale                  = 1.7
+        powerGain                     = 0.825
+    }
+
+    DifficultyLevel <15> //at medium this is neck and neck.
+    {
+        shootSkill                    = 0.875
+        aggression                    = 0.90
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.75
+        fwdRailDist                   = 80.0
+       	fwdRailSkill                  = 0.75
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.85
+        respawnScale                  = 1.6
+        powerGain                     = 0.85
+    }
+
+    DifficultyLevel <16> // at medium this is the ai that is behind the player. 
+    {
+        shootSkill                    = 0.9 
+        aggression                    = 0.95
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.80
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.80
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.90
+        respawnScale                  = 1.5
+        powerGain                     = 0.875
+    }
+
+    DifficultyLevel <17>
+    {
+        shootSkill                    = 0.9250
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.85
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.85
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 1.4
+        powerGain                     = 0.90
+    }
+
+    DifficultyLevel <18>
+    {
+        shootSkill                    = 0.95
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 0.90
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.90
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.00
+        respawnScale                  = 1.3
+        powerGain                     = 0.925
+    }
+
+    DifficultyLevel <19>
+    {
+        shootSkill                    = 0.975
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  = 1.0
+        driveSkill                    = 0.90
+        carQuality                    = 0.95
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.95
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.05
+        respawnScale                  = 1.2
+        powerGain                     = 0.95
+    }
+
+    DifficultyLevel <20>
+    {
+        shootSkill                    = 1.0
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1
+        driveSkill                    = 0.90
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 1.00
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.10
+        respawnScale                  = 1.10
+        powerGain                     = 0.975
+    }
+
+}
+
+DifficultyScript<NoRamDM>
+{
+    DifficultyLevel <1>
+    {
+        shootSkill                    = 0.005
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.15
+        driveSkill                    = 0.90
+        carQuality                    = 0.05
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.7
+        powerGain                     = 0.0
+    }
+
+    DifficultyLevel <2>
+    {
+        shootSkill                    = 0.025
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.2
+        driveSkill                    = 0.90
+        carQuality                    = 0.10
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.6
+        powerGain                     = 0.0
+    }
+
+    DifficultyLevel <3>
+    {
+        shootSkill                    = 0.05
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.25
+        driveSkill                    = 0.90
+        carQuality                    = 0.15
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.5
+        powerGain                     = 0.1
+    }
+
+    DifficultyLevel <4>
+    {
+        shootSkill                    = 0.075
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.3
+        driveSkill                    = 0.90
+        carQuality                    = 0.20
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.4
+        powerGain                     = 0.2
+    }
+
+    DifficultyLevel <5>
+    {
+        shootSkill                    = 0.1
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.35
+        driveSkill                    = 0.90
+        carQuality                    = 0.25
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.3
+        powerGain                     = 0.3
+    }
+
+    DifficultyLevel <6>
+    {
+        shootSkill                    = 0.125
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.4
+        driveSkill                    = 0.90
+        carQuality                    = 0.30
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.2
+        powerGain                     = 0.4
+    }
+
+    DifficultyLevel <7>
+    {
+        shootSkill                    = 0.15
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.45
+        driveSkill                    = 0.90
+        carQuality                    = 0.35
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.1
+        powerGain                     = 0.5
+    }
+
+    DifficultyLevel <8>
+    {
+        shootSkill                    = 0.175
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.5
+        driveSkill                    = 0.90
+        carQuality                    = 0.40
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.0
+        powerGain                     = 0.6
+    }
+
+    DifficultyLevel <9>
+    {
+        shootSkill                    = 0.20
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.55
+        driveSkill                    = 0.90
+        carQuality                    = 0.45
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.9
+        powerGain                     = 0.7
+    }
+
+    DifficultyLevel <10>
+    {
+        shootSkill                    = 0.225
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.60
+        driveSkill                    = 0.90
+        carQuality                    = 0.50
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.8
+        powerGain                     = 0.775
+    }
+
+// WARNING: Calling settings lower than 10 in the career scripts may cause AIs to become unable to drive up hills!!!!
+    DifficultyLevel <11>
+    {
+        shootSkill                    = 0.25
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.65
+        driveSkill                    = 0.90
+        carQuality                    = 0.55
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.7
+        powerGain                     = 0.825
+    }
+
+    DifficultyLevel <12>
+    {
+        shootSkill                    = 0.30
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 0.70
+        driveSkill                    = 0.90
+        carQuality                    = 0.60
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.15
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.55
+        respawnScale                  = 1.6
+        powerGain                     = 0.9
+    }
+
+
+    DifficultyLevel <13>
+    {
+        shootSkill                    = 0.35
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain	      	  = 0.75
+        driveSkill                    = 0.90
+        carQuality                    = 0.65
+        fwdRailDist                   = 80.0
+        	fwdRailSkill                  = 0.20
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.60
+        respawnScale                  = 1.45
+        powerGain                     = 1.0
+    }
+
+    DifficultyLevel <14>
+    {
+        shootSkill                    = 0.40
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.80
+        driveSkill                    = 0.90
+        carQuality                    = 0.70
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.25
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.65
+        respawnScale                  = 1.3
+        powerGain                     = 1.1
+    }
+
+    DifficultyLevel <15>
+    {
+        shootSkill                    = 0.45
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.85
+        driveSkill                    = 0.90
+        carQuality                    = 0.75
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.30
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.70
+        respawnScale                  = 1.1
+        powerGain                     = 1.2
+    }
+
+    DifficultyLevel <16> // at medium this is the ai that is ahead of the player. 
+    {
+        shootSkill                    = 0.50 
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.90
+        driveSkill                    = 0.90
+        carQuality                    = 0.80
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.35
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.75
+        respawnScale                  = 0.9
+        powerGain                     = 1.3
+    }
+
+    DifficultyLevel <17> //at medium this is neck and neck.
+    {
+        shootSkill                    = 0.550
+        aggression                    = 0.200
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	   = 0.95
+        driveSkill                    = 0.90
+        carQuality                    = 0.85
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.40
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.80
+        respawnScale                  = 0.7
+        powerGain                     = 1.4
+    }
+
+    DifficultyLevel <18> // at medium this is the ai that is behind the player. 
+    {
+        shootSkill                    = 0.60 
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1.00
+        driveSkill                    = 0.90
+        carQuality                    = 0.90
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.45
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.85
+        respawnScale                  = 0.60
+        powerGain                     = 1.5
+    }
+
+    DifficultyLevel <19>
+    {
+        shootSkill                    = 0.65
+        aggression                    = 0.2
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1.00
+        driveSkill                    = 0.90
+        carQuality                    = 0.95
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.50
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.90
+        respawnScale                  = 0.55
+        powerGain                     = 1.6
+    }
+
+    DifficultyLevel <20>
+    {
+        shootSkill                    = 0.70
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 0.95
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 0.5
+        powerGain                     = 1.7
+    }
+
+    DifficultyLevel <21>
+    {
+        shootSkill                    = 0.75
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.0
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.60
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.00
+        respawnScale                  = 0.5
+        powerGain                     = 1.8
+    }
+    DifficultyLevel <22>
+    {
+        shootSkill                    = 0.80
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.65
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.05
+        respawnScale                  = 0.5
+        powerGain                     = 1.9
+    }
+    DifficultyLevel <23>
+    {
+        shootSkill                    = 0.85
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.70
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.10
+        respawnScale                  = 0.5
+        powerGain                     = 2.0
+    }
+    DifficultyLevel <24>
+    {
+        shootSkill                    = 0.90
+        aggression                    = 0.20
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 0.5
+        powerGain                     = 2.1
+    }
+}
+
+//------------------------SAGE------------------------------------------------------------------------------------------------
+DifficultyScript<SAGEDM>
+{
+    DifficultyLevel <1>
+    {
+        shootSkill                    = 0.005
+        aggression                    = 0.30
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.15
+        driveSkill                    = 0.90
+        carQuality                    = 0.05
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.7
+        powerGain                     = 0.0
+    }
+
+    DifficultyLevel <2>
+    {
+        shootSkill                    = 0.025
+        aggression                    = 0.350
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.2
+        driveSkill                    = 0.90
+        carQuality                    = 0.10
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.6
+        powerGain                     = 0.0
+    }
+
+    DifficultyLevel <3>
+    {
+        shootSkill                    = 0.05
+        aggression                    = 0.40
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.25
+        driveSkill                    = 0.90
+        carQuality                    = 0.15
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.5
+        powerGain                     = 0.1
+    }
+
+    DifficultyLevel <4>
+    {
+        shootSkill                    = 0.075
+        aggression                    = 0.45
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.3
+        driveSkill                    = 0.90
+        carQuality                    = 0.20
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.4
+        powerGain                     = 0.2
+    }
+
+    DifficultyLevel <5>
+    {
+        shootSkill                    = 0.1
+        aggression                    = 0.5
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.35
+        driveSkill                    = 0.90
+        carQuality                    = 0.25
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.3
+        powerGain                     = 0.3
+    }
+
+    DifficultyLevel <6>
+    {
+        shootSkill                    = 0.15
+        aggression                    = 0.55
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.4
+        driveSkill                    = 0.90
+        carQuality                    = 0.30
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.2
+        powerGain                     = 0.4
+    }
+
+    DifficultyLevel <7>
+    {
+        shootSkill                    = 0.20
+        aggression                    = 0.60
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.45
+        driveSkill                    = 0.90
+        carQuality                    = 0.35
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.1
+        powerGain                     = 0.5
+    }
+
+    DifficultyLevel <8>
+    {
+        shootSkill                    = 0.25
+        aggression                    = 0.65
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.5
+        driveSkill                    = 0.90
+        carQuality                    = 0.40
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 2.0
+        powerGain                     = 0.6
+    }
+
+    DifficultyLevel <9>
+    {
+        shootSkill                    = 0.30
+        aggression                    = 0.70
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.55
+        driveSkill                    = 0.90
+        carQuality                    = 0.45
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.9
+        powerGain                     = 0.7
+    }
+
+    DifficultyLevel <10>
+    {
+        shootSkill                    = 0.35
+        aggression                    = 0.75
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.60
+        driveSkill                    = 0.90
+        carQuality                    = 0.50
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.8
+        powerGain                     = 0.775
+    }
+
+// WARNING: Calling settings lower than 10 in the career scripts may cause AIs to become unable to drive up hills!!!!
+    DifficultyLevel <11>
+    {
+        shootSkill                    = 0.40
+        aggression                    = 0.80
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 0.65
+        driveSkill                    = 0.90
+        carQuality                    = 0.55
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.10
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.50
+        respawnScale                  = 1.7
+        powerGain                     = 0.825
+    }
+
+    DifficultyLevel <12>
+    {
+        shootSkill                    = 0.45
+        aggression                    = 0.85
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 0.70
+        driveSkill                    = 0.90
+        carQuality                    = 0.60
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.15
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.55
+        respawnScale                  = 1.6
+        powerGain                     = 0.9
+    }
+
+
+    DifficultyLevel <13>
+    {
+        shootSkill                    = 0.5
+        aggression                    = 0.90
+        frontAggressionGain           = 1.0
+        rearAggressionGain	      	  = 0.75
+        driveSkill                    = 0.90
+        carQuality                    = 0.65
+        fwdRailDist                   = 80.0
+        	fwdRailSkill                  = 0.20
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.60
+        respawnScale                  = 1.45
+        powerGain                     = 1.0
+    }
+
+    DifficultyLevel <14>
+    {
+        shootSkill                    = 0.55
+        aggression                    = 0.95
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.80
+        driveSkill                    = 0.90
+        carQuality                    = 0.70
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.25
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.65
+        respawnScale                  = 1.3
+        powerGain                     = 1.1
+    }
+
+    DifficultyLevel <15>
+    {
+        shootSkill                    = 0.6
+        aggression                    = 1.0
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.85
+        driveSkill                    = 0.90
+        carQuality                    = 0.75
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.30
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.70
+        respawnScale                  = 1.1
+        powerGain                     = 1.2
+    }
+
+    DifficultyLevel <16> // at medium this is the ai that is ahead of the player. 
+    {
+        shootSkill                    = 0.650 
+        aggression                    = 1.1
+        frontAggressionGain           = 1.0
+        rearAggressionGain		  = 0.90
+        driveSkill                    = 0.90
+        carQuality                    = 0.80
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.35
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.75
+        respawnScale                  = 0.9
+        powerGain                     = 1.3
+    }
+
+    DifficultyLevel <17> //at medium this is neck and neck.
+    {
+        shootSkill                    = 0.700
+        aggression                    = 1.15
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	   = 0.95
+        driveSkill                    = 0.90
+        carQuality                    = 0.85
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.40
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.80
+        respawnScale                  = 0.7
+        powerGain                     = 1.4
+    }
+
+    DifficultyLevel <18> // at medium this is the ai that is behind the player. 
+    {
+        shootSkill                    = 0.75 
+        aggression                    = 1.2
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1.00
+        driveSkill                    = 0.90
+        carQuality                    = 0.90
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.45
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.85
+        respawnScale                  = 0.60
+        powerGain                     = 1.5
+    }
+
+    DifficultyLevel <19>
+    {
+        shootSkill                    = 0.80
+        aggression                    = 1.25
+        frontAggressionGain           = 1.0
+        rearAggressionGain 		  = 1.00
+        driveSkill                    = 0.90
+        carQuality                    = 0.95
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.50
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.90
+        respawnScale                  = 0.55
+        powerGain                     = 1.6
+    }
+
+    DifficultyLevel <20>
+    {
+        shootSkill                    = 0.85
+        aggression                    = 1.3
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 0.95
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 0.5
+        powerGain                     = 1.7
+    }
+
+    DifficultyLevel <21>
+    {
+        shootSkill                    = 0.90
+        aggression                    = 1.35
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.0
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.60
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.00
+        respawnScale                  = 0.5
+        powerGain                     = 1.8
+    }
+    DifficultyLevel <22>
+    {
+        shootSkill                    = 0.95
+        aggression                    = 1.4
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.65
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.05
+        respawnScale                  = 0.5
+        powerGain                     = 1.9
+    }
+    DifficultyLevel <23>
+    {
+        shootSkill                    = 1
+        aggression                    = 1.45
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.70
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 1.10
+        respawnScale                  = 0.5
+        powerGain                     = 2.0
+    }
+    DifficultyLevel <24>
+    {
+        shootSkill                    = 1
+        aggression                    = 1.5
+        frontAggressionGain           = 1.0
+        rearAggressionGain  	  	  = 1.00
+        driveSkill                    = 1.00
+        carQuality                    = 1.00
+        fwdRailDist                   = 80.0
+        fwdRailSkill                  = 0.55
+        bwdRailDist                   = 64.0
+        bwdRailSkill                  = 0.95
+        respawnScale                  = 0.5
+        powerGain                     = 2.1
+    }
+}
+
+
+//------------------------SAGE----END------------------------------------------
+
+//-----------------------------------------------------------------------------
+
+// DDA values for online race play.
+OnlineDDAValueKeys    = [1.1, 	  1,   0.95]
+OnlineDDADistanceKeys = [-64, -32, 48, 80]
+
+//-----------------------------------------------------------------------------
+
+// See DDARanked.xls for matrix meanings
+DMWeaponWeights =
+[																							
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	189	250	152	341	0	189	854	250	468	341	637	250	468	637	854	468	341	0	0	0	0	0
+0	189	0	189	91	280	0	128	793	189	407	280	576	189	407	576	793	407	280	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	341	280	341	243	0	0	280	945	341	559	432	728	341	559	728	945	559	432	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	854	793	854	756	945	0	793	0	854	1072	945	1241	854	1072	1241	1458	1072	945	0	0	0	0	0
+0	250	189	250	152	341	0	189	854	0	468	341	637	250	468	637	854	468	341	0	0	0	0	0
+0	468	407	468	370	559	0	407	1072	468	0	559	855	468	686	855	1072	686	559	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	637	576	637	539	728	0	576	1241	637	855	728	0	637	855	1024	1241	855	728	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	468	407	468	370	559	0	407	1072	468	686	559	855	468	0	855	1072	686	559	0	0	0	0	0
+0	637	576	637	539	728	0	576	1241	637	855	728	1024	637	855	0	1241	855	728	0	0	0	0	0
+0	854	793	854	756	945	0	793	1458	854	1072	945	1241	854	1072	1241	0	1072	945	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	341	280	341	243	432	0	280	945	341	559	432	728	341	559	728	945	559	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+]																							
+																							
+																						
+																					
+																							
+
+// See DDARanked.xls for matrix meanings
+DMCarWeights =
+[
+0
+729
+3
+8
+1728
+1000
+1
+614
+729
+1331
+1521
+27
+614
+857
+729
+614
+1521
+1331
+3
+1331
+43
+2460
+1158
+16
+3724
+27
+64
+1000
+]
+
+
+
+// See DDARanked.xls for matrix meanings
+RaceWeaponWeights =
+[																							
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	16	16	0	16	0	16	16	16	16	16	16	16	16	16	16	16	16	0	0	0	0	0
+0	16	0	16	0	16	0	16	16	16	16	16	16	16	16	16	16	16	16	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	16	16	16	16	0	0	16	16	16	16	16	16	16	16	16	16	16	16	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	16	16	16	0	16	0	16	0	16	16	16	16	16	16	16	16	16	16	0	0	0	0	0
+0	16	16	16	16	16	0	16	16	0	16	16	16	16	16	16	16	16	16	0	0	0	0	0
+0	16	16	16	16	16	0	16	16	16	0	16	16	16	16	16	16	16	16	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	16	16	16	16	16	0	16	16	16	16	16	0	16	16	16	16	16	16	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	16	16	16	16	16	0	16	16	16	16	16	16	16	0	16	16	16	16	0	0	0	0	0
+0	16	16	16	0	16	0	16	16	16	16	16	16	16	16	0	16	16	16	0	0	0	0	0
+0	16	16	16	16	16	0	16	16	16	16	16	16	16	16	16	0	16	16	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	16	16	16	16	16	0	16	16	16	16	16	16	16	16	16	16	16	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+]																							
+																					
+																					
+		
+// See DDARanked.xls for matrix meanings
+RaceCarWeights = 
+[
+0
+30841
+9474
+139314
+64
+729
+98867
+3
+30841
+5489
+191
+225200
+4096
+19771
+24795
+46656
+7256
+1
+1126162
+1074
+82654
+606355
+262144
+1000000
+885842
+262144
+689870
+38069
+]
+
+
+
+//-----------------------------------------------------------------------------

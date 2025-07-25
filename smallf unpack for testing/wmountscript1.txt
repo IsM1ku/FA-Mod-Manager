@@ -1,0 +1,2077 @@
+# WMountScript
+
+// -- Car info
+
+/*
+   WeaponPreset
+   {
+     UIName    = "<Verbose Interface Description>"
+     Primary   = <First Weapon ID -- see MorphingWeapon.psc>
+     Secondary = <Secondary Weapon ID>
+     <GotoCustomWeapons>
+   }
+*/
+
+/*
+   Format:
+   Car <CarId>
+   {
+     Batch       = "<Batch Name>"
+     Name        = "<Verbose Interface Name>"
+     Speed       = <Number in [0,1]>
+     Handling    = <Number in [0,1]>
+     Armor       = <Number in [0,1]>
+     Presets
+     {
+       <Preset Id 1>
+       <Preset Id 2>
+       ...
+     }
+     Colors
+     {
+       "<Color Name>"
+       "<Color Name>"
+       ...
+     }
+     Class = [A,B,C,D,S]
+     IsDebugCar
+   }
+*/
+
+// Setting up presets for cars. 
+//IMPORTANT: To use PRESETS in the game: add 'g_useWMountPresets 1' to your pitalocal.psc to activate it.
+//Otherwise only the manual loadout system is used.
+//Note: Presets automatically OVERRIDE the mount conditionals. So you can make a preset that is not by design. 
+
+/*
+Primary means the weapon will be fired with R3 and will be aimable if the weapon supports it. 
+Secondary means the weapons will be fired with A and will not be aimable ever. 
+Secondary can be a front weapon, and Primary can be a rear weapon. (Not a bug).
+MGs, Flamer, Smoke or any weapon that requires a HOLD to fire should only be put in Secondary --> since HOLDING R3 is non ergonomic.
+*/
+
+/* List of valid weapons for the weapon presets
+The names are Case senstitive!!!
+Remember the code names are -1 of actual ingame weapon rank!!: 
+(0 == level 1, 1 == level 2, 2 == level 3)
+There is no Missiles <---- this will crash the build!!!
+
+Cannon
+Missiles
+MachineGuns
+Rockets
+ScatterGun
+Grenadier
+EmptyWeapon
+
+Minelayer
+ReverseScatterGun
+ReverseGrenadier
+ECMSmoker
+EmptyWeapon
+*/
+
+// Tutorial Presets
+
+WeaponPreset <Vacancy>
+{
+  UIName    = "Vacancy"
+  Primary   = EmptyWeapon
+  Secondary = EmptyWeapon
+  Icon      = "weaponset_vacancy.dds"
+}
+
+WeaponPreset <Peacock>
+{
+  UIName    = "Peacock"
+  Primary   = EmptyWeapon
+  Secondary = ReverseGrenadier
+  Icon      = "weaponset_peacock.dds"
+}
+
+WeaponPreset <Stud>
+{
+  UIName    = "Stud"
+  Primary   = EmptyWeapon
+  Secondary = Minelayer
+  Icon      = "weaponset_stud.dds"
+}
+
+WeaponPreset <Porcupine>
+{
+  UIName    = "Porcupine"
+  Primary   = EmptyWeapon
+  Secondary = ReverseScatterGun
+  Icon      = "weaponset_porcupine.dds"
+}
+ 
+WeaponPreset <Fountain>
+{
+  UIName    = "Fountain"
+  Primary   = Rockets
+  Secondary = Grenadier
+  Icon      = "weaponset_fountain.dds"
+}
+
+WeaponPreset <Spiker>
+{
+  UIName    = "Spiker"
+  Primary   = ScatterGun
+  Secondary = EmptyWeapon
+  Icon      = "weaponset_spiker.dds"
+}
+
+WeaponPreset <Nettles>
+{
+  UIName    = "Nettles"
+  Primary   = ScatterGun
+  Secondary = MachineGuns
+  Icon      = "weaponset_nettles.dds"
+}
+
+WeaponPreset <Ripper>
+{
+  UIName    = "Ripper"
+  Primary   = MachineGuns
+  Secondary = EmptyWeapon
+  Icon      = "weaponset_ripper.dds"
+}
+
+WeaponPreset <Sniper>
+{
+  UIName    = "Sniper"
+  Primary   = Cannon
+  Secondary = EmptyWeapon
+  Icon      = "weaponset_sniper.dds"
+}
+
+WeaponPreset <Banger>
+{
+  UIName    = "Banger"
+  Primary   = Missiles
+  Secondary = EmptyWeapon
+  Icon      = "weaponset_banger.dds"
+}
+
+WeaponPreset <Serenade>
+{
+  UIName    = "Serenade"
+  Primary   = Rockets
+  Secondary = EmptyWeapon
+  Icon      = "weaponset_serenade.dds"
+}
+
+// GLOBAL WEAPON PRESETS
+// The following three presets are available in all car classes.
+//
+
+WeaponPreset <Assault>
+{
+  UIName    = "Assault"
+  Primary   = MachineGuns
+  Secondary = Minelayer
+  Icon      = "weaponset_assault.dds"
+}
+WeaponPreset <Tactical>
+{
+  UIName    = "Tactical"
+  Primary   = Missiles
+  Secondary = ECMSmoker
+  Icon      = "weaponset_tactical.dds"
+}
+WeaponPreset <Melee>
+{
+  UIName    = "Melee"
+  Primary   = ScatterGun
+  Secondary = ReverseGrenadier
+  Icon      = "weaponset_melee.dds"
+} 
+WeaponPreset <Lancer>
+{
+  UIName    = "Lancer"
+  Primary   = TwinRifle
+  Secondary = Flamethrower
+  Icon      = "weaponset_lancer.dds"
+} 
+
+// CLASS S WEAPON PRESETS
+// These two presets are intended for the Warlord only.
+//
+
+WeaponPreset <Demolisher>
+{
+  UIName    = "Demolisher"
+  Primary   = Missiles
+  Secondary = Rockets
+  Icon      = "weaponset_demolisher.dds"
+}
+WeaponPreset <Defender>
+{
+  UIName    = "Defender"
+  Primary   = Cannon
+  Secondary = Minelayer
+  Icon      = "weaponset_defender.dds"
+}
+
+// CLASS C WEAPON PRESETS
+// These two presets are intended for the Rampart, Honcho, Guardian, Rambler, Hitman, and Jupiter only.
+//
+
+WeaponPreset <Annihilator>
+{
+  UIName    = "Annihilator"
+  Primary   = Cannon
+  Secondary = Grenadier
+  Icon      = "weaponset_annihilator.dds"
+}
+WeaponPreset <Devastator>
+{
+  UIName    = "Devastator"
+  Primary   = Missiles
+  Secondary = ReverseGrenadier
+  Icon      = "weaponset_devastator.dds"
+}
+WeaponPreset <Hammer>
+{
+  UIName    = "Hammer"
+  Primary   = TwinRifle
+  Secondary = TwinRifle
+  Icon      = "weaponset_hammer.dds"
+}
+
+// CLASS B WEAPON PRESETS
+// These two presets are intended for the Magnus, TEC, Vulcan, Opulent, Ardent, and Python only.
+//
+
+WeaponPreset <Hunter>
+{
+  UIName    = "Hunter"
+  Primary   = Missiles
+  Secondary = MachineGuns
+  Icon      = "weaponset_hunter.dds"
+}
+WeaponPreset <Buckler>
+{
+  UIName    = "Buckler"
+  Primary   = Cannon
+  Secondary = ReverseScatterGun
+  Icon      = "weaponset_buckler.dds"
+}
+WeaponPreset <Firebrand>
+{
+  UIName    = "Firebrand"
+  Primary   = Rockets
+  Secondary = Flamethrower
+  Icon      = "weaponset_firebrand.dds"
+}
+// CLASS A WEAPON PRESETS
+// These two presets are intended for the Wraith, Enforcer, Streamline, Demon, Maverick, and Phantom only.
+//
+
+WeaponPreset <Ravager>
+{
+  UIName    = "Ravager"
+  Primary   = Rockets
+  Secondary = Minelayer
+  Icon      = "weaponset_ravager.dds"
+}
+WeaponPreset <Brawler>
+{
+  UIName    = "Brawler"
+  Primary   = Grenadier
+  Secondary = MachineGuns
+  Icon      = "weaponset_brawler.dds"
+}
+WeaponPreset <Renegade>
+{
+  UIName    = "Renegade"
+  Primary   = MachineGuns
+  Secondary = Flamethrower
+  Icon      = "weaponset_ravager.dds"
+}
+// OTHER WEAPON PRESETS
+//
+WeaponPreset <Cordinator>
+{
+  UIName    = "Cordinator"
+  Primary   = MachineGuns
+  Secondary = Missiles
+  Icon      = "weaponset_cordinator.dds"
+}
+
+WeaponPreset <JulyDemo1>
+{
+  UIName    = "Missiles/Guns"
+  Primary   = Missiles
+  Secondary = MachineGuns
+}
+
+WeaponPreset <JulyDemo2>
+{
+  UIName    = "Shotgun/Grenades"
+  Primary   = ScatterGun
+  Secondary = ReverseGrenadier
+}
+
+WeaponPreset <JulyDemo3>
+{
+  UIName    = "Rockets/Guns"
+  Primary   = Rockets
+  Secondary = MachineGuns
+}
+
+WeaponPreset <Empty>
+{
+  UIName    = "No Weapons"
+  Primary   = EmptyWeapon
+  Secondary = EmptyWeapon
+  Icon      = "weaponset_vacancy.dds"
+}
+
+// Class S Cars
+
+Car <Warlord>
+{
+  Batch       = "fa_warlord"
+  UIName      = "Warlord"
+  Speed        = 1.0
+  Handling     = 0.8
+  Armor        = 1.0
+  Colors <Skin0>
+  {
+	"Dark Grey"
+	"Slate Grey"
+	"Matte Black"
+	"Gloss Black"
+	"Blue Steel"
+	"Darkest Red"
+	"Ferrari Red"
+	"Mango Wine"
+	"Titanium"
+	"Olive Drab"
+	"Dark Red"
+	
+
+  }
+  Colors <Skin1>
+  {
+	"Dark Red"
+	"Flaming Orange"
+	"Indigo"
+  }
+
+  Colors <Skin2>
+  {
+	"Base"
+  }
+  Class = S
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Defender
+    Demolisher
+  }
+  //isdebugcar
+}
+
+Car <Executioner>
+{
+  Batch       = "fa_executioner"
+  UIName      = "Executioner"
+  Speed        = 1.0
+  Handling     = 0.8
+  Armor        = 1.0
+  Colors <Skin0>
+  {
+	"Dark Grey"
+	"Slate Grey"
+	"Matte Black"
+	"Gloss Black"
+	"Blue Steel"
+	"Darkest Red"
+	"Ferrari Red"
+	"Mango Wine"
+	"Titanium"
+	"Olive Drab"
+	"Dark Red"
+  }
+
+  Class = S
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Defender
+    Demolisher
+  }
+  //isdebugcar
+}
+
+// Class A Cars
+
+Car <Outlaw>
+{
+  Batch       = "fa_maverick"
+  UIName      = "Outlaw"
+  Speed       = 1.00
+  Handling    = 0.85
+  Armor       = 0.05
+  Colors <Skin0>
+  {
+	"Yellow"
+	"Orange"
+	"Dark Red"
+	"Darkest Red"  
+	"Slate Blue"
+	"Dark Blue"
+	"Dark Green"
+	"BRG"
+	"Gloss Black"
+	"Blue"
+	"Ferrari Red"
+	"Indigo"
+
+  }
+  Colors <Skin1>
+  {
+	"Silver"
+	"Dark Red"
+	"Dark Blue"
+
+  }
+  Colors <Skin2>
+  {
+	"Dark Grey"
+	"Dark Red"
+	"Burnt Orange"
+
+  }
+  Class = A
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+  // IsDebugCar
+}
+
+Car <HSK75>
+{
+  Batch       = "fa_hsk"
+  UIName      = "HSK-75"
+  Speed       = 0.95
+  Handling    = 0.65
+  Armor       = 0.10
+  Colors <Skin0>
+  {
+   	"Yellow"
+	"Ferrari Red"
+	"Indigo"
+	"Gloss Black"
+	"Electric Green"
+	"Candy Apple Red"
+	"Titanium"
+	"BRG"
+	"Flaming Orange"
+	"Dark Red"
+	"Blue"
+
+	
+  }
+  Class = A
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+}
+
+Car <Sceptre>
+{
+  Batch       = "fa_Sceptre"
+  UIName      = "Sceptre"
+  Speed       = 0.90
+  Handling    = 0.70
+  Armor       = 0.15
+  Colors <Skin0>
+  {
+   	"Yellow"
+	"Ferrari Red"
+	"Indigo"
+	"Gloss Black"
+	"Electric Green"
+	"Candy Apple Red"
+	"Titanium"
+	"BRG"
+	"Flaming Orange"
+	"Dark Red"
+	"Blue"
+	
+  }
+  Class = A
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+}
+
+//Class B Cars
+
+Car <Demon>
+{
+  Batch       = "fa_demon"
+  UIName      = "Demon"
+  Speed        = 0.85
+  Handling     = 0.40
+  Armor        = 0.10
+  Colors <Skin0>
+  {
+	"Matte Black"
+	"Dark Grey"  
+	"Yellow" 
+	"Dark Red" 
+	"Dark Blue"
+	"Gloss Black"
+	"Purple Envy"
+	"Flaming Orange"
+	"Putty"
+	"Darkest Red"
+	"Light Blue"
+	"Electric Green"
+  }
+  Colors <Skin1>
+  {
+	"Ruby Red" 
+	"Dark Blue"
+	"Gloss Black"
+  }
+
+  Colors <Skin2>
+  {
+	"White" 
+	"Orange"
+	"Gloss Black"
+  }
+  Class = B
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+  //IsDebugCar
+}
+
+Car <Wraith>
+{
+  Batch       = "fa_Wraith"
+  UIName      = "Wraith"
+  Speed       = 0.80
+  Handling    = 0.60
+  Armor       = 0.10
+  Colors <Skin0>
+  {
+   	"Yellow"
+	"Ferrari Red"
+	"Indigo"
+	"Gloss Black"
+	"Electric Green"
+	"Candy Apple Red"
+	"Titanium"
+	"BRG"
+	"Flaming Orange"
+	"Dark Red"
+	"Blue"
+
+	
+  }
+  Colors <Skin1>
+  {
+	"Yellow"
+	"Indigo"
+	"Gloss Black"
+  }
+
+  Colors <Skin2>
+  {
+	"Orange"
+	"Indigo"
+	"Dark Red"
+  }
+  Class = B
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+}
+
+Car <Kinetik>
+{
+  Batch       = "fa_kinetik"
+  UIName      = "Kinetik"
+  Speed       = 0.78
+  Handling    = 0.65
+  Armor       = 0.10
+  Colors <Skin0>
+  {
+   	"Yellow"
+	"Ferrari Red"
+	"Indigo"
+	"Gloss Black"
+	"Electric Green"
+	"Candy Apple Red"
+	"Titanium"
+	"BRG"
+	"Flaming Orange"
+	"Dark Red"
+	"Blue"
+
+	
+  }
+  Colors <Skin1>
+  {
+	"Yellow"
+	"Indigo"
+	"Gloss Black"
+  }
+  Class = B
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+}
+
+
+Car <Streamline>
+{
+  Batch       = "fa_streamline"
+  UIName      = "Streamline"
+  Speed        = 0.75
+  Handling     = 1.00
+  Armor        = 0.15
+  Colors <Skin0>
+  {
+
+	"Slate Blue"
+	"Silver"
+	"Dark Grey"  
+	"Ruby Red" 
+	"Dark Red"
+	"Dark Blue"
+	"Dark Green"
+	"BRG"
+	"Titanium"
+	"Gloss Black"
+	"Mango Wine"
+
+
+  }
+  Colors <Skin1>
+  {
+	"Silver"
+	"Yellow"
+	"Candy Apple Red"
+  }
+  Colors <Skin2>
+  {
+	"Yellow"
+	"Silver"
+	"Flaming Orange"
+  }
+
+  Class = B
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+  //IsDebugCar
+}
+
+Car <Inferno>
+{
+  Batch       = "fa_inferno"
+  UIName      = "Inferno"
+  Speed        = 0.70
+  Handling     = 0.45
+  Armor        = 0.45
+  Colors <Skin0>
+  {
+	"Dark Blue"
+	"Dark Grey"  
+    	"Silver"
+	"Titanium"
+	"Dark Red"
+	"Slate Blue"
+	"Darkest Green"
+	"Gloss Black"
+	"Electric Green"
+	"Blue"
+	"Slate Grey"
+	"BRG"
+	"Orange"
+  }
+  Class = B
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  //isdebugcar
+}
+
+//Class C cars
+
+Car <Phantom>
+{
+  Batch       = "fa_Phantom"
+  UIName      = "Phantom"
+  Speed        = 0.65
+  Handling     = 0.45
+  Armor        = 0.30
+  Colors <Skin0>
+  {
+	"Dark Green"
+	"Dark Grey"  
+	"Titanium"
+	"Dark Red"
+	"Dark Blue"
+	"BRG"
+	"Champagne"
+	"Gold"
+	"Slate Green"
+	"Copper"
+	"Gloss Black"
+  }
+  Colors <Skin1>
+  {
+	"Base"
+  }
+
+  Colors <Skin2>
+  {
+	"BRG"
+	"Light Blue"
+	"Silver"
+  }
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  // IsDebugCar
+}
+
+Car <Ardent>
+{
+  Batch       = "fa_ardent"
+  UIName      = "Ardent"
+  Speed        = 0.60
+  Handling     = 0.70
+  Armor        = 0.40
+  Colors <Skin0>
+  {
+	"Silver"
+   	"Titanium"
+	"Ferrari Red" 
+	"Slate Blue"
+	"Dark Blue"
+	"Dark Green"
+	"Gloss Black"
+	"Grey"
+	"Copper"
+	"Blue"
+	"BRG"
+  }
+  Colors <Skin1>
+  {
+	"Orange"
+	"Silver"
+	"BRG"
+  }
+
+  Colors <Skin2>
+  {
+	"Light Blue"
+	"Copper"
+	"Matte Black"
+
+  }
+
+
+  Class = C
+  Presets
+  {
+   Assault
+    Tactical
+    Melee
+    Ravager
+    Brawler
+  }
+  //isdebugcar
+}
+
+
+Car <Enforcer>
+{
+  Batch        = "fa_enforcer"
+  UIName       = "Enforcer"
+  Speed        = 0.55
+  Handling     = 0.90
+  Armor        = 0.25
+  Colors <Skin0>
+  {
+	"Dark Blue"
+	"Blue Steel"
+	"Gloss Black"
+	"Dark Grey"
+	"Olive Drab"
+	"Blue"
+	"Yellow"
+	"Dark Red"
+	"BRG"
+	"Darkest Red"
+	"Matte Black"
+
+  }
+  Colors <Skin1>
+  {
+	"Base"
+  }
+
+Colors <Skin2>
+  {
+	"Base"
+  }
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  // IsDebugCar
+}
+
+Car <Thunderhawk>
+{
+  Batch        = "fa_thunderhawk"
+  UIName       = "Thunderhawk"
+  Speed        = 0.50
+  Handling     = 0.55
+  Armor        = 0.45
+  Colors <Skin0>
+  {
+	"Dark Red"
+  }
+  Colors <Skin1>
+  {
+	"Base"
+  }
+  Colors <Skin2>
+  {
+	"Dark Blue"
+	"Dark Grey"  
+    	"Silver"
+	"Titanium"
+	"Dark Red"
+	"Slate Blue"
+	"Darkest Green"
+	"Gloss Black"
+	"Electric Green"
+	"Blue"
+	"Slate Grey"
+	"BRG"
+	"Orange"
+  }
+
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  //isdebugcar
+}
+
+Car <Vulcan>
+{
+  Batch        = "fa_Vulcan"
+  UIName       = "Vulcan"
+  Speed        = 0.45
+  Handling     = 0.65
+  Armor        = 0.40
+  Colors <Skin0>
+  {
+	"Dark Red"
+  }
+  Colors <Skin1>
+  {
+	"Base"
+  }
+  Colors <Skin2>
+  {
+	"Dark Red"
+  }
+
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  //isdebugcar
+}
+
+
+Car <TEC_S2>
+{
+  Batch       = "fa_tecs2"
+  UIName      = "TEC S2"
+  Speed        = 0.40
+  Handling     = 0.55
+  Armor        = 0.40
+  Colors <Skin0>
+  {
+	"Dark Blue"
+	"Dark Grey"  
+    	"Silver"
+	"Titanium"
+	"Dark Red"
+	"Slate Blue"
+	"Darkest Green"
+	"Gloss Black"
+	"Electric Green"
+	"Blue"
+	"Slate Grey"
+	"BRG"
+	"Orange"
+  }
+  Colors <Skin1>
+  {
+  	"Slate Blue"
+	"Darkest Red"
+	"Gloss Black"
+
+  }
+
+Colors <Skin2>
+  {
+  	"Purple Envy"
+	"Flaming Orange"
+	"Gloss Black"
+
+  }
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  //isdebugcar
+}
+
+
+
+Car <Opulent>
+{
+  Batch        = "fa_opulent"
+  UIName       = "Opulent"
+  Speed        = 0.35
+  Handling     = 0.65
+  Armor        = 0.55
+  Colors <Skin0>
+  {
+	"Dark Grey"  
+	"Silver"
+	"Grey"
+	"Dark Blue"
+	"BRG"
+	"Titanium"
+	"Gloss Black"
+	"Champagne"
+	"Candy Apple Red"
+	"Copper"
+	"Mango Wine"
+
+  }
+  Colors <Skin1>
+  {
+	"Dark Red"
+	"Gloss Black"
+	"Burnt Orange"
+  }
+
+  Colors <Skin2>
+  {
+	"Silver"
+	"Orange"
+	"Gold"
+  }
+
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  //isdebugcar
+}
+
+Car <Python>
+{
+  Batch       = "fa_Python"
+  UIName      = "Python"
+  Speed        = 0.30
+  Handling     = 0.35
+  Armor        = 0.45
+  Colors <Skin0>
+  {
+	"Gold"
+	"Yellow" 
+	"Flaming Orange"
+	"Ferrari Red" 
+	"Candy Apple Red" 
+	"Dark Red"
+	"Darkest Red"  
+	"Light Blue" 
+	"Dark Blue"
+	"Grape" 
+	"Matte Black"
+	"Mango Wine"
+  }
+  Colors <Skin1>
+  {
+	"Base"
+  }
+
+  Colors <Skin2>
+  {
+	"Electric Green"
+	"Gold"
+	"Copper"
+  }
+
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+    OXMDemo
+  }
+  //isdebugcar
+}
+
+
+Car <Hitman>
+{
+  Batch       = "fa_hitman"
+  UIName      = "Hitman"
+  Speed        = 0.30
+  Handling     = 0.35
+  Armor        = 0.90
+  Colors <Skin0>
+  {
+	"Darkest Red"  
+	"Silver"
+	"Titanium"
+	"Dark Blue"
+	"BRG"
+	"Dark Grey"
+	"Matte Black"  
+	"Gloss Black"
+	"Yellow"
+	"Electric Green"
+	"Flaming Orange"
+	"Indigo"
+	"White"
+  }
+  Colors <Skin1>
+  {
+	"Gloss Black" 
+	"Darkest Red"
+	"Dark Blue"
+  }
+
+Colors <Skin2>
+  {
+	"Gloss Black" 
+	"Dark Red"
+	"White"
+  }
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Annihilator
+    Devastator
+  }
+  //isdebugcar
+}
+
+Car <Magnus>
+{
+  Batch       = "fa_Magnus"
+  UIName      = "Magnus"
+  Speed        = 0.25
+  Handling     = 0.45
+  Armor        = 0.60
+  Colors <Skin0>
+  {
+	"Champagne"
+	"Silver"
+	"Titanium"
+	"Dark Grey"  
+	"Darkest Red"  
+	"Dark Blue"
+	"BRG"
+	"Gloss Black"
+	"Slate Blue"
+	"White"
+	"Lilac"
+  }
+  Colors <Skin1>
+  {
+	"Base"
+  }
+  Colors <Skin2>
+  {
+	"White"
+	"Matte Black"
+	"Orange"
+  }
+  Class = C
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Annihilator
+    Devastator
+  }  
+  //isdebugcar
+}
+
+
+// Class D cars
+
+Car <Jupiter>
+{
+  Batch       = "fa_jupiter"
+  UIName      = "Jupiter"
+  Speed        = 0.20
+  Handling     = 0.30
+  Armor        = 0.75
+  Colors <Skin0>
+  {
+	"Light Blue"
+	"Taxi Yellow" 
+	"Pink"
+	"Slate Blue"
+	"Dark Blue"
+	"Darkest Red"
+	"Gloss Black"
+	"Electric Green"
+	"Lilac"
+	"Candy Apple Red"
+	"Titanium"
+  }
+  Colors <Skin1>
+  {
+	"Ferrari Red" 
+	"Blue"
+	"Gloss Black"
+  }
+  Colors <Skin2>
+  {
+	"Candy Apple Red" 
+	"Purple Envy"
+	"Gloss Black"
+  }
+
+  Class = D
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Hunter
+    Buckler
+  }
+  //isdebugcar
+}
+
+Car <Roughneck>
+{
+  Batch       = "fa_rambler"
+  UIName      = "Roughneck"
+  Speed        = 0.20
+  Handling     = 0.45
+  Armor        = 0.85
+  Colors <Skin0>
+  {
+	"Olive Drab"
+	"Dark Green"
+	"Dark Grey" 
+	"Titanium"
+	"Taxi Yellow" 
+	"Dark Red"
+	"Dark Blue"
+	"Burnt Orange"
+	"Tan"
+	"Presidential Black"
+	"Putty"
+  }
+  Colors <Skin1>
+  {
+	"Base"
+	"Olive Drab"
+	"RC Blue"
+  }
+
+  Colors <Skin2>
+  {
+	"Yellow"
+	"Olive Drab"
+	"Tan"
+  }
+  Class = D
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Annihilator
+    Devastator
+  }
+  //isdebugcar
+}
+
+Car <Rampart>
+{
+  Batch       = "fa_rampart"
+  UIName      = "Rampart"
+  Speed        = 0.15
+  Handling     = 0.40
+  Armor        = 0.85
+  Colors <Skin0>
+  {
+	"Grey"	
+	"Dark Grey"
+	"Titanium"
+	"Taxi Yellow"   
+	"Orange"
+	"Dark Blue"
+	"Darkest Green"
+	"Ferrari Red"
+	"Tan"
+	"Light Grey"
+	"Putty"
+  }
+  Colors <Skin1>
+  {
+	"Dark Grey"
+	"Orange"
+	"Olive Drab"	
+  }
+  Colors <Skin2>
+  {
+	"Gloss Black"
+	"Dark Green"
+	"Dark Blue"	
+  }
+
+  Class = D
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Annihilator
+    Devastator
+  }
+  //isdebugcar
+}
+
+Car <Guardian>
+{
+  Batch       = "fa_guardian"
+  UIName      = "Guardian"
+  Speed        = 0.15
+  Handling     = 0.35
+  Armor        = 1.00
+  Colors <Skin0>
+  {
+	"Presidential Black"
+	"White"
+	"Grey"
+	"Titanium"
+	"BRG"
+	"Dark Blue" 
+	"Slate Blue"
+	"Dark Grey"
+	"Slate Green"
+	"Darkest Red"
+	"Silver"
+
+  }
+  Colors <Skin1>
+  {
+	"Yellow"
+	"Gloss Black"
+	"White"
+  }
+
+Colors <Skin2>
+  {
+	"Base"
+  }
+
+  Class = D
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Annihilator
+    Devastator
+  }
+  //isdebugcar
+}
+
+Car <Honcho>
+{
+  Batch       = "fa_big_dawg"
+  UIName      = "Honcho"
+  Speed        = 0.10
+  Handling     = 0.30
+  Armor        = 0.85
+  Colors <Skin0>
+  {
+	"Gold"
+	"Dark Blue"
+	"Yellow"
+	"Indigo"
+	"Titanium"
+	"White"
+	"Pink"
+	"Candy Apple Red"
+	"Gloss Black"
+	"Electric Green"
+	"Flaming Orange"
+	"Grape"
+  }
+  Colors <Skin1>
+  {
+	"Grape"
+	"Gloss Black"
+	"Darkest Red"
+  }
+
+Colors <Skin2>
+  {
+	"White"
+	"Gloss Black"
+	"Silver"
+  }
+  Class = D
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Annihilator
+    Devastator
+  }
+  //isdebugcar
+}
+
+Car <Kodiak>
+{
+  Batch       = "fa_kodiak"
+  UIName      = "Kodiak"
+  Speed        = 0.05
+  Handling     = 0.45
+  Armor        = 0.55
+  Colors <Skin0>
+  {
+	"Burnt Orange"
+	"Silver"
+	"Ferrari Red" 
+	"Dark Red"
+	"Dark Blue"
+	"Darkest Green"
+	"Matte Black"
+	"Gold"
+	"Gloss Black"
+	"Blue Steel"
+	"Copper"
+	"Yellow"
+  }
+  Colors <Skin1>
+  {
+	"Yellow"
+	"Olive Drab"
+	"Burnt Orange"
+  }
+  Colors <Skin2>
+  {
+	"Base"
+	
+  }
+  Class = D
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Annihilator
+    Devastator
+  }
+  //isdebugcar
+}
+
+Car <Hookzilla>
+{
+  Batch       = "fa_hookzilla"
+  UIName      = "Hookzilla"
+  Speed        = 0.05
+  Handling     = 0.30
+  Armor        = 1.00
+  Colors <Skin0>
+  {
+	"Dark Blue"
+	"Titanium"
+	"Silver"
+	"Grey"
+	"Darkest Green"
+	"Ferrari Red"
+	"Taxi Yellow"
+	"Presidential Black"
+	"Putty"
+	"Gold"
+	"Olive Drab"
+
+
+
+  }
+  Colors <Skin1>
+  {
+	"Base"
+  }
+
+  Colors <Skin2>
+  {
+	"Gloss Black"
+  }
+  Class = D
+  Presets
+  {
+    Assault
+    Tactical
+    Melee
+    Defender
+    Demolisher
+  }
+  //isdebugcar
+}
+
+
+
+// -- Weapon Info
+
+/*
+   Format: 
+   WeaponClass <ClassName>
+   {
+     Size  = <Number greater than zero>
+     Mount = <Front | Rear | Flex>
+   }
+   <ClassName> ::= MachineGuns | Rockets | Missiles | Cannon | Smoke | Oil | Mines | 
+                   Flamer      | Shotgun | Grenade
+*/
+
+// Front mounted
+WeaponClass <MachineGuns>
+{
+  UIName = "MACHINE GUNS"
+  Size  = 1
+  Mount = Front
+  TypeInfo    = "Forward"
+  RangeInfo   = "Medium"
+  SpecialInfo = "Rapid Fire"
+}
+
+WeaponClass <Rockets>
+{
+  UIName = "ROCKETS"
+  Size  = 2
+  Mount = Front
+  TypeInfo    = "Forward"
+  RangeInfo   = "Medium"
+  SpecialInfo = "Salvo"
+}
+
+WeaponClass <Missiles>
+{
+  UIName = "MISSILES"
+  Size  = 3
+  Mount = Front
+  TypeInfo    = "Forward"
+  RangeInfo   = "Long"
+  SpecialInfo = "Explosive"
+}
+
+WeaponClass <Cannon>
+{
+  UIName = "CANNON"
+  Size  = 4
+  Mount = Front
+  TypeInfo    = "Forward"
+  RangeInfo   = "Long"
+  SpecialInfo = "Armor Piercing"
+}
+
+// Rear Mounted
+WeaponClass <Smoke>
+{
+  UIName = "SMOKESCREEN"
+  Size  = 1
+  Mount = Rear
+  TypeInfo    = "Rear"
+  RangeInfo   = "Dropped"
+  SpecialInfo = "Blinding"
+}
+
+WeaponClass <Oil>
+{
+  UIName = "OIL SLICK"
+  Size  = 2
+  Mount = Rear
+  TypeInfo    = "Rear"
+  RangeInfo   = "Dropped"
+  SpecialInfo = "Road Hazard"
+}
+
+WeaponClass <Mines>
+{
+  UIName = "MINES"
+  Size  = 3
+  Mount = Rear
+  TypeInfo    = "Rear"
+  RangeInfo   = "Dropped"
+  SpecialInfo = "Road Hazard"
+}
+
+WeaponClass <Flamer>
+{
+  UIName = "FLAME THROWER"
+  Size  = 4
+  Mount = Flex
+  TypeInfo    = "Forward/Rear"
+  RangeInfo   = "Short"
+  SpecialInfo = "Immolation"
+}
+
+// Flex Mounted
+WeaponClass <Shotgun>
+{
+  UIName = "SHOTGUN"
+  Size  = 2
+  Mount = Flex
+  TypeInfo    = "Forward/Rear"
+  RangeInfo   = "Short"
+  SpecialInfo = "Blast Force"
+}
+
+WeaponClass <Grenades>
+{
+  UIName = "GRENADES"
+  Size  = 2
+  Mount = Flex
+  TypeInfo    = "Forward/Rear"
+  RangeInfo   = "Medium"
+  SpecialInfo = "Cluster bombs"
+}
+
+WeaponClass <Empty>
+{
+  UIName = "EMPTY"
+  Size   = 0
+  Mount  = None
+}
+
+// -- Color Info
+
+/*
+   Format: 
+   Color
+   {
+     Name          = <String>
+     Emissive      = <[r g b]>
+     Diffuse       = <[r g b]>
+     Specular      = <[r g b]>
+     SpecularPower = <Number>
+   }
+*/
+
+
+// -- Color Info
+
+/*
+   Format: 
+   Color
+   {
+     Name          = <String>
+     Emissive      = <[r g b]>
+     Diffuse       = <[r g b]>
+     Specular      = <[r g b]>
+     SpecularPower = <Number>
+   }
+*/
+
+
+Color
+{
+  Name = "Yellow"     
+  Emissive = [0.97 0.82 0.02]
+  Diffuse  = [1.00 0.55 0.00]
+  Specular = [0.50 0.38 0.00]
+  SpecularPower = 24.00
+}
+
+Color
+{
+  Name = "Gold"   
+  Emissive = [0.51 0.39 0.18]
+  Diffuse  = [0.63 0.51 0.20]
+  Specular = [0.62 0.42 0.09]
+  SpecularPower = 24
+}
+Color
+{
+  Name = "Dark Green"  
+  Emissive = [0.00 0.15 0.09]
+  Diffuse  = [0.00 0.30 0.09]
+  Specular = [0.08 0.18 0.18]
+  SpecularPower = 12
+}
+
+Color
+{
+  Name = "BRG"  
+  Emissive = [0.00 0.11 0.17]
+  Diffuse  = [0.00 0.09 0.00]
+  Specular = [0.00 0.05 0.05]
+  SpecularPower = 2.00
+}
+Color
+{
+  Name = "Light Blue" 
+  Emissive = [0.28 0.64 0.77]
+  Diffuse  = [0.09 0.17 0.27]
+  Specular = [0.26 0.35 0.30]
+  SpecularPower = 64
+}
+Color
+{
+  Name = "Titanium"    
+  Emissive = [0.33 0.29 0.18]
+  Diffuse  = [0.38 0.36 0.40]
+  Specular = [0.19 0.20 0.20]
+  SpecularPower = 6
+}
+Color
+{
+  Name = "Ruby Red"    
+  Emissive = [0.59 0.00 0.00]
+  Diffuse  = [0.35 0.00 0.00]
+  Specular = [0.30 0.05 0.00]
+  SpecularPower = 32
+}
+Color
+{
+  Name = "Darkest Red" 
+  Emissive = [0.13 0.02 0.00]
+  Diffuse  = [0.11 0.00 0.00]
+  Specular = [0.10 0.00 0.00]
+  SpecularPower = 20
+}
+Color
+{
+  Name = "Dark Red"   
+  Emissive = [0.30 0.04  0.00] 
+  Diffuse  = [0.30 0.00  0.00]
+  Specular = [0.29 0.00  0.00]
+  SpecularPower = 20
+}
+Color
+{
+  Name = "Candy Apple Red" 
+  Emissive = [0.22 0.00 0.24]
+  Diffuse  = [0.65 0.07 0.00]
+  Specular = [0.89 0.00 0.11]
+  SpecularPower = 128
+}
+Color
+{
+  Name = "Indigo" 
+  Emissive = [0.13 0.12 0.33]
+  Diffuse  = [0.10 0.11 0.31]
+  Specular = [0.14 0.10 0.40]
+  SpecularPower = 32
+}
+
+Color
+{
+  Name = "Grape"   
+  Emissive = [0.06 0.00 0.07]
+  Diffuse  = [0.04 0.00 0.07]
+  Specular = [0.20 0.00 0.40]
+  SpecularPower = 5
+}
+
+Color
+{
+  Name = "White" 
+  Emissive = [1.00 1.00 1.00]
+  Diffuse  = [1.00 1.00 1.00]
+  Specular = [0.20 0.20 0.20]
+  SpecularPower = 20
+}
+Color
+{
+  Name = "Grey" 
+  Emissive = [0.38 0.38 0.40]
+  Diffuse  = [0.38 0.36 0.36]
+  Specular = [0.00 0.00 0.00]
+  SpecularPower = 24
+}
+Color
+{
+  Name = "Dark Grey"  
+  Emissive = [0.15 0.16 0.17]
+  Diffuse  = [0.24 0.25 0.27]
+  Specular = [0.32 0.32 0.32]
+  SpecularPower = 30
+}
+Color
+{
+  Name = "Matte Black" 
+  Emissive = [0.02 0.04 0.04]
+  Diffuse  = [0.06 0.04 0.07]
+  Specular = [0.10 0.08 0.10]
+  SpecularPower = 4
+}
+Color
+{
+  Name = "Gloss Black"
+  Emissive = [0.00 0.00 0.03]
+  Diffuse  = [0.00 0.01 0.00]
+  Specular = [0.10 0.10 0.10]
+  SpecularPower = 64
+}
+
+Color
+{
+  Name = "Silver"
+  Emissive = [0.41 0.44 0.45]
+  Diffuse  = [0.30 0.35 0.40]
+  Specular = [0.29 0.30 0.30]
+  SpecularPower = 2
+}
+Color
+{
+  Name = "Orange"
+  Emissive = [0.74 0.30 0.06]
+  Diffuse  = [0.99 0.54 0.03]
+  Specular = [0.59 0.28 0.00]
+  SpecularPower = 64
+}
+Color
+{
+  Name = "Dark Blue"
+  Emissive = [0.05 0.07 0.14]
+  Diffuse  = [0.07 0.10 0.15]
+  Specular = [0.12 0.15 0.20]
+  SpecularPower = 32
+}
+Color
+{
+  Name = "Slate Blue"
+  Emissive = [0.30 0.35 0.48]
+  Diffuse  = [0.29 0.35 0.45]
+  Specular = [0.29 0.35 0.45]
+  SpecularPower = 20
+}
+
+Color
+{
+  Name = "Pink"
+  Emissive = [0.95 0.40 0.56]
+  Diffuse  = [0.54 0.36 0.36]
+  Specular = [0.26 0.13 0.05]
+  SpecularPower = 64
+}
+
+Color
+{
+  Name = "Slate Green"
+  Emissive = [0.14 0.18 0.24]
+  Diffuse  = [0.14 0.21 0.22]
+  Specular = [0.31 0.41 0.55]
+  SpecularPower = 30
+}
+Color
+{
+  Name = "Purple Envy"
+  Emissive = [0.20 0.00 0.00]
+  Diffuse  = [0.16 0.00 0.29]
+  Specular = [0.27 0.25 1.00]
+  SpecularPower = 8
+}
+
+Color
+{
+  Name = "Burnt Orange"
+  Emissive = [0.50 0.15 0.06]
+  Diffuse  = [0.61 0.32 0.02]
+  Specular = [0.65 0.42 0.14]
+  SpecularPower =64
+}
+
+Color
+{
+  Name = "Champagne"
+  Emissive = [0.47 0.44 0.40]
+  Diffuse  = [0.36 0.31 0.32]
+  Specular = [0.48 0.42 0.26]
+  SpecularPower = 3
+}
+
+
+
+Color
+{
+  Name = "Olive Drab"
+  Emissive = [0.23 0.24 0.11]
+  Diffuse  = [0.20 0.23 0.14]
+  Specular = [0.05 0.05 0.04]
+  SpecularPower = 2
+}
+
+
+Color
+{
+  Name = "Electric Green"
+  Emissive = [0.00 0.20 0.22]
+  Diffuse  = [0.00 0.13 0.11]
+  Specular = [0.31 0.54 0.00]
+  SpecularPower = 10
+}
+
+Color
+{
+  Name = "Mango Wine"
+  Emissive = [0.20 0.00 0.06]
+  Diffuse  = [0.21 0.00 0.00]
+  Specular = [0.54 0.29 0.11]
+  SpecularPower =5
+}
+
+Color
+{
+  Name = "Blue"
+  Emissive = [0.05 0.09 0.28]
+  Diffuse  = [0.08 0.22 0.56]
+  Specular = [0.26 0.35 0.30]
+  SpecularPower = 64
+}
+
+
+
+Color
+{
+  Name = "Slate Grey"
+  Emissive = [0.15 0.18 0.22]
+  Diffuse  = [0.18 0.18 0.18]
+  Specular = [0.09 0.08 0.11]
+  SpecularPower = 0.5
+}
+
+
+Color
+{
+  Name = "Blue Steel"
+  Emissive = [0.23 0.25 0.29]
+  Diffuse  = [0.21 0.23 0.31]
+  Specular = [0.09 0.16 0.20]
+  SpecularPower = 32
+}
+
+Color
+{
+  Name = "Lilac"
+  Emissive = [0.13 0.09 0.13]
+  Diffuse  = [0.31 0.29 0.41]
+  Specular = [0.02 0.02 0.02]
+  SpecularPower = 64
+}
+
+Color
+{
+  Name = "Darkest Green"
+  Emissive = [0.00 0.09 0.03]
+  Diffuse  = [0.00 0.10 0.02]
+  Specular = [0.00 0.09 0.03]
+  SpecularPower = 5
+}
+
+
+
+Color
+{
+  Name = "Ferrari Red"
+  Emissive = [0.64 0.04 0.04]
+  Diffuse  = [0.63 0.04 0.04]
+  Specular = [0.23 0.09 0.09]
+  SpecularPower = 30
+}
+
+Color
+{
+  Name = "Light Grey"
+  Emissive = [0.53 0.53 0.55]
+  Diffuse  = [0.53 0.53 0.53]
+  Specular = [0.05 0.05 0.05]
+  SpecularPower = 30
+}
+
+Color
+{
+  Name = "Putty"
+  Emissive = [0.43 0.44 0.41]
+  Diffuse  = [0.44 0.43 0.38]
+  Specular = [0.00 0.00 0.00]
+  SpecularPower = 32
+}
+
+
+
+Color
+{
+  Name = "Tan"
+  Emissive = [0.60  0.52  0.44]
+  Diffuse  = [0.38  0.34  0.28]
+  Specular = [0.69  0.66  0.61]
+  SpecularPower = 8
+}
+
+
+Color
+{
+  Name = "Copper"
+  Emissive = [0.55 0.18 0.11]
+  Diffuse  = [0.50 0.25 0.14]
+  Specular = [0.86 0.48 0.19]
+  SpecularPower = 4
+}
+
+Color
+{
+  Name = "Taxi Yellow"
+  Emissive = [ 1.00 0.76 0.05]
+  Diffuse  = [ 1.00 0.76 0.05]
+  Specular = [ 0.00 0.00 0.00]
+  SpecularPower = 32
+}
+
+Color
+{
+  Name = "Presidential Black"
+
+  Emissive = [0.02 0.02 0.02]
+  Diffuse  = [0.01 0.01 0.02]
+  Specular = [0.10 0.10 0.10]
+  SpecularPower = 2.00
+}
+
+Color
+{
+  Name = "Flaming Orange"
+  Emissive = [0.86 0.23 0.00]
+  Diffuse  = [0.71 0.11 0.00]
+  Specular = [0.50 0.16 0.00]
+  SpecularPower = 20
+}
+
+
+Color
+{
+  Name = "Base"
+  Emissive = [1.00 1.00 1.00]
+  Diffuse  = [1.00 1.00 1.00]
+  Specular = [0.20 0.20 0.20]
+  SpecularPower = 24
+}
+
+Color
+{
+  Name = "RC Blue"
+  Emissive = [0.14 0.17 0.34]
+  Diffuse  = [0.13 0.24 0.36]
+  Specular = [0.00 0.00 0.82]
+  SpecularPower = 24
+}

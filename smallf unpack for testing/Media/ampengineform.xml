@@ -1,0 +1,1121 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <CarEngine>
+    <strRefName>Ardent</strRefName>
+    <rgfSteadyEnv00>0. 1. 1861.702026 1. 2446.80835 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>691.489319 0. 1170.212769 1. 3031.914795 1. 3882.978516 0.32 6702.127441 0.32 7500. 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>2074.468018 0. 2606.382812 1. 4574.467773 1. 5319.148926 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>3297.872314 0. 3829.787109 1. 5053.191406 1. 5957.446777 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3297.872314 0. 4202.127441 1. 5585.106445 1. 6702.127441 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>4148.936035 0. 5000. 1. 6063.82959 1. 7021.276367 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4255.318848 0. 5212.765625 1. 6542.553223 1. 7180.851074 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5106.382812 0. 5851.063477 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_3500rpm.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_4000rpm.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\FXed_relooped\Ard_3_4500rpm.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_5000rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_5500rpm.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_6000rpm.wav</strSteadyPath07>
+    <u16SampleRPM00>2219</u16SampleRPM00>
+    <u16SampleRPM01>6000</u16SampleRPM01>
+    <u16SampleRPM02>3500</u16SampleRPM02>
+    <u16SampleRPM03>4000</u16SampleRPM03>
+    <u16SampleRPM04>4500</u16SampleRPM04>
+    <u16SampleRPM05>5000</u16SampleRPM05>
+    <u16SampleRPM06>5500</u16SampleRPM06>
+    <u16SampleRPM07>6000</u16SampleRPM07>
+    <strName>Wraith</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>2</strRefID>
+    <fVolume>1.</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Demon</strRefName>
+    <rgfSteadyEnv00>851.063782 0. 1755.319092 0.88 2712.765869 0.84 3191.489258 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>1436.170166 0. 1702.127563 0.76 2340.425537 0.68 2606.382812 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1861.702026 0. 2287.233887 1. 3085.106201 1. 3457.446777 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2393.616943 0.04 2925.531738 0.88 3882.978516 0.92 4414.893555 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>1861.702026 0. 2287.233887 0.92 3829.787109 0.88 4414.893555 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3457.446777 0. 3882.978516 0.96 5159.574219 0.84 6117.020996 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>2925.531738 0. 3457.446777 0.68 4255.318848 0.76 5053.191406 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>0. 0.6 797.872314 1. 1648.936157 1. 2074.468018 0.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Nova_FX loops\Nova_newIdleLooped.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Por3FX\Por3_1750FX.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_2770.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_3784.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Nova_FX loops\Nova_2620.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Nova_FX loops\Nova_5205_2602.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Streamline_Saltydog\Exh0_02835.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_1_952.wav</strSteadyPath07>
+    <u16SampleRPM00>2000</u16SampleRPM00>
+    <u16SampleRPM01>2000</u16SampleRPM01>
+    <u16SampleRPM02>2500</u16SampleRPM02>
+    <u16SampleRPM03>3784</u16SampleRPM03>
+    <u16SampleRPM04>2620</u16SampleRPM04>
+    <u16SampleRPM05>5200</u16SampleRPM05>
+    <u16SampleRPM06>2835</u16SampleRPM06>
+    <u16SampleRPM07>2006</u16SampleRPM07>
+    <strName>Demon</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>6</strRefID>
+    <fVolume>1.33</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Enforcer</strRefName>
+    <rgfSteadyEnv00>0. 0.88 1808.51062 1. 2127.659424 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>957.446777 0. 1542.553101 0.64 2180.851074 0.8 2925.531738 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1808.51062 0.04 2340.425537 0.92 2872.340332 0.84 3510.638184 0.04</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2393.616943 0. 2925.531738 1. 3617.02124 1. 4308.510742 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2712.765869 0. 3457.446777 1. 4148.936035 1. 4734.04248 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3510.638184 0. 4095.744629 0.72 4893.616699 0.76 5744.680664 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4042.552979 0.04 4680.851074 1. 6914.893555 0.92 7765.957031 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>2819.148926 0. 3882.978516 0.56 6117.020996 0.96 7712.765625 0.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\idles\Cobra2_idle.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Chevy_Alt3_Takes\ChevyA_1892.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\ChevyOctave_October\Chevy_2928.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_7_3758.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_4691.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_12_5500.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Bass Loops\BsssGruff tone_nose_01.wav</strSteadyPath07>
+    <u16SampleRPM00>1616</u16SampleRPM00>
+    <u16SampleRPM01>1892</u16SampleRPM01>
+    <u16SampleRPM02>2928</u16SampleRPM02>
+    <u16SampleRPM03>3340</u16SampleRPM03>
+    <u16SampleRPM04>3758</u16SampleRPM04>
+    <u16SampleRPM05>4691</u16SampleRPM05>
+    <u16SampleRPM06>5500</u16SampleRPM06>
+    <u16SampleRPM07>5646</u16SampleRPM07>
+    <strName>Enforcer</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>15</strRefID>
+    <fVolume>1.5</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Executioner</strRefName>
+    <rgfSteadyEnv00>1329.787231 0. 3829.787109 0.44 10000. 0.56</rgfSteadyEnv00>
+    <rgfSteadyEnv01>0. 0. 3936.170166 0. 5372.340332 1. 9946.808594 1.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>0. 0. 1648.936157 0. 2659.574463 1. 4255.318848 1. 4627.659668 0. 9840.424805 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>0. 0.08 478.723389 1. 2553.191406 1. 4042.552979 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3297.872314 0. 3989.361572 1. 5159.574219 1. 5638.297852 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>0. 0. 2978.723389 0. 3829.787109 0.96 5212.765625 1. 5851.063477 0. 10000. 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>0. 0. 4521.276367 0. 4734.04248 0.8 10000. 1.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4468.084961 0. 4787.233887 0.72 8138.297852 0.72 8829.787109 0. 9893.617188 0.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Warlord\warlord_jetTone.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Bass Loops\BassGruff ToNoRev_03.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_2867.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_1_952.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_3550b.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_4691.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_5063b.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_12_5500.wav</strSteadyPath07>
+    <u16SampleRPM00>6000</u16SampleRPM00>
+    <u16SampleRPM01>6426</u16SampleRPM01>
+    <u16SampleRPM02>2864</u16SampleRPM02>
+    <u16SampleRPM03>3063</u16SampleRPM03>
+    <u16SampleRPM04>3500</u16SampleRPM04>
+    <u16SampleRPM05>4563</u16SampleRPM05>
+    <u16SampleRPM06>5063</u16SampleRPM06>
+    <u16SampleRPM07>5500</u16SampleRPM07>
+    <strName>Executioner</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>24</strRefID>
+    <fVolume>1.05</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Guardian</strRefName>
+    <rgfSteadyEnv00>0. 1. 1648.936157 1. 2021.276489 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>372.340424 0. 797.872314 1. 1808.51062 1. 2340.425537 0.08</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1489.361694 0. 2287.233887 0.92 3723.404053 1. 4468.084961 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>1755.319092 0. 2234.04248 1. 3297.872314 1. 3723.404053 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2074.468018 0. 2659.574463 0.88 3244.680664 1. 3989.361572 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>0. 0. 3617.02124 0. 4414.893555 0.96 5212.765625 1. 6223.404297 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>3510.638184 0. 3829.787109 0.92 4787.233887 1. 5372.340332 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>1063.829712 0. 4468.084961 0. 4893.616699 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_1658.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\NovaOpulent_fxed\Nova_opulent_1879.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_3655.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_2867.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_4691.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3890.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_12_5500.wav</strSteadyPath07>
+    <u16SampleRPM00>1842</u16SampleRPM00>
+    <u16SampleRPM01>1829</u16SampleRPM01>
+    <u16SampleRPM02>3655</u16SampleRPM02>
+    <u16SampleRPM03>2827</u16SampleRPM03>
+    <u16SampleRPM04>3340</u16SampleRPM04>
+    <u16SampleRPM05>4915</u16SampleRPM05>
+    <u16SampleRPM06>4462</u16SampleRPM06>
+    <u16SampleRPM07>5500</u16SampleRPM07>
+    <strName>Guardian</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>17</strRefID>
+    <fVolume>1.41</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Hitman</strRefName>
+    <rgfSteadyEnv00>0. 1. 2127.659424 0.84 2765.957275 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>1170.212769 0. 1755.319092 0.72 2712.765869 0.92 3670.212646 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>0. 0. 2234.04248 0.04 2553.191406 0.84 3510.638184 0.76 3989.361572 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>1914.893555 0. 2500. 0.76 3510.638184 0.92 4255.318848 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2074.468018 0. 2553.191406 0.84 3297.872314 0.76 4202.127441 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>0. 0. 3297.872314 0. 3723.404053 0.76 5425.531738 0.84 6648.936035 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>2819.148926 0. 3404.255127 0.88 4680.851074 0.92 5319.148926 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>1063.829712 0. 4521.276367 0. 5053.191406 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan_ChevyNova\Vulcan_Nova_03_2411.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan_ChevyNova\Vulcan_Nova_02_2928.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan_ChevyNova\Vulcan_rpm_08_4000.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3890.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan_ChevyNova\Vulcan_Nova_04_5240.wav</strSteadyPath07>
+    <u16SampleRPM00>2219</u16SampleRPM00>
+    <u16SampleRPM01>2411</u16SampleRPM01>
+    <u16SampleRPM02>3340</u16SampleRPM02>
+    <u16SampleRPM03>2770</u16SampleRPM03>
+    <u16SampleRPM04>2990</u16SampleRPM04>
+    <u16SampleRPM05>4000</u16SampleRPM05>
+    <u16SampleRPM06>3887</u16SampleRPM06>
+    <u16SampleRPM07>5240</u16SampleRPM07>
+    <strName>Hitman</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>17</strRefID>
+    <fVolume>1.1</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Honcho</strRefName>
+    <rgfSteadyEnv00>106.382973 0.56 1117.02124 0.52 1968.085083 0</rgfSteadyEnv00>
+    <rgfSteadyEnv01>1329.787231 0 1861.702026 0.48 2606.382812 0.48 3244.680664 0</rgfSteadyEnv01>
+    <rgfSteadyEnv02>2074.468018 0 2606.382812 0.64 3191.489258 0.6 3457.446777 0</rgfSteadyEnv02>
+    <rgfSteadyEnv03>3031.914795 0 3457.446777 0.56 4095.744629 0.4 4414.893555 0</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3297.872314 0 3617.02124 0.4 4202.127441 0.56 4627.659668 0</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3882.978516 0 4468.084961 0.56 4946.808594 0.64 5425.531738 0</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4840.425293 0 5319.148926 0.6 5797.87207 0.6 6117.020996 0</rgfSteadyEnv06>
+    <rgfSteadyEnv07>3936.170166 0.04 4787.233887 0.48 6010.638184 0.48 6436.17 0</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\VegaFX_Looped\Vega_1248.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\treated\PorscheGT3_2360x.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_2770.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_3784.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_4500.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_5028.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\Jeep_rpm_5426.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Warlord\GasFireLoopFX_00.wav</strSteadyPath07>
+    <u16SampleRPM00>1248</u16SampleRPM00>
+    <u16SampleRPM01>2360</u16SampleRPM01>
+    <u16SampleRPM02>2770</u16SampleRPM02>
+    <u16SampleRPM03>3784</u16SampleRPM03>
+    <u16SampleRPM04>4500</u16SampleRPM04>
+    <u16SampleRPM05>4723</u16SampleRPM05>
+    <u16SampleRPM06>5426</u16SampleRPM06>
+    <u16SampleRPM07>4651</u16SampleRPM07>
+    <strName>Honcho</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>10</strRefID>
+    <fVolume>3.5</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Hookzilla</strRefName>
+    <rgfSteadyEnv00>0. 1. 904.25531 0.64 1010.638245 0.64 1329.787231 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>851.063782 0. 1117.02124 0.84 2180.851074 1. 2872.340332 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>0. 0. 1010.638245 0. 1808.51062 0.84 3404.255127 1. 3776.595703 0.08</rgfSteadyEnv02>
+    <rgfSteadyEnv03>1914.893555 0. 2553.191406 1. 3617.02124 1. 4255.318848 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2074.468018 0. 2659.574463 0.88 3244.680664 1. 3989.361572 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>0. 0. 1063.829712 0.44 3404.255127 0.72 5691.489258 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>2819.148926 0. 3457.446777 1. 4787.233887 1. 5319.148926 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>1063.829712 0. 4095.744629 0. 4680.851074 0.92 5478.723145 1. 10000. 0.88</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\idles\Diesel_idle_00.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_1_952.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Nova_FX loops\Nova_1972_3944.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3890.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_12_5500.wav</strSteadyPath07>
+    <u16SampleRPM00>1402</u16SampleRPM00>
+    <u16SampleRPM01>2116</u16SampleRPM01>
+    <u16SampleRPM02>2219</u16SampleRPM02>
+    <u16SampleRPM03>2770</u16SampleRPM03>
+    <u16SampleRPM04>3340</u16SampleRPM04>
+    <u16SampleRPM05>4915</u16SampleRPM05>
+    <u16SampleRPM06>3887</u16SampleRPM06>
+    <u16SampleRPM07>5500</u16SampleRPM07>
+    <strName>Hookzilla</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>17</strRefID>
+    <fVolume>1.35</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>HSK</strRefName>
+    <rgfSteadyEnv00>0. 1. 1808.51062 1. 2234.04248 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>106.382973 0. 1436.170166 1. 3244.680664 1. 3723.404053 0. 8563.829102 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>0. 0. 1702.127563 0.04 2287.233887 1. 3617.02124 1. 4361.702148 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2393.616943 0. 2978.723389 0.68 4361.702148 0.88 4946.808594 0. 10000. 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2287.233887 0. 4680.851074 0. 5106.382812 1. 7021.276367 1. 7393.616699 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>2872.340332 0. 3989.361572 0.88 5000. 0.92 5904.255371 0. 10000. 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>3404.255127 0. 4308.510742 0.96 5319.148926 1. 6063.82959 0. 10000. 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5212.765625 0. 5957.446777 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\NovaOpulent_fxed\Nova_opulent_1879.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\treated\PorscheGT3RS_2000x.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\treated\PorscheGT3_2360x.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\NovaOpulent_fxed\Nova_opulent_3655.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5500rpm.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5000rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_4500rpm.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_6000rpm.wav</strSteadyPath07>
+    <u16SampleRPM00>1896</u16SampleRPM00>
+    <u16SampleRPM01>2686</u16SampleRPM01>
+    <u16SampleRPM02>3000</u16SampleRPM02>
+    <u16SampleRPM03>3500</u16SampleRPM03>
+    <u16SampleRPM04>5500</u16SampleRPM04>
+    <u16SampleRPM05>5000</u16SampleRPM05>
+    <u16SampleRPM06>4500</u16SampleRPM06>
+    <u16SampleRPM07>6001</u16SampleRPM07>
+    <strName>hsk</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>1</strRefID>
+    <fVolume>1.4</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>HSK75</strRefName>
+    <rgfSteadyEnv00>0. 1. 1808.51062 1. 2234.04248 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>106.382973 0. 1436.170166 1. 3244.680664 1. 3723.404053 0. 8563.829102 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>0. 0. 1702.127563 0.04 2287.233887 1. 3617.02124 1. 4361.702148 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2393.616943 0. 2978.723389 0.68 4361.702148 0.88 4946.808594 0. 10000. 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2287.233887 0. 4680.851074 0. 5106.382812 1. 7021.276367 1. 7393.616699 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>2872.340332 0. 3989.361572 0.88 5000. 0.92 5904.255371 0. 10000. 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>3404.255127 0. 4308.510742 0.96 5319.148926 1. 6063.82959 0. 10000. 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5212.765625 0. 5957.446777 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\NovaOpulent_fxed\Nova_opulent_1879.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\treated\PorscheGT3RS_2000x.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\treated\PorscheGT3_2360x.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\NovaOpulent_fxed\Nova_opulent_3655.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5500rpm.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5000rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_4500rpm.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_6000rpm.wav</strSteadyPath07>
+    <u16SampleRPM00>1896</u16SampleRPM00>
+    <u16SampleRPM01>2686</u16SampleRPM01>
+    <u16SampleRPM02>3000</u16SampleRPM02>
+    <u16SampleRPM03>3500</u16SampleRPM03>
+    <u16SampleRPM04>5500</u16SampleRPM04>
+    <u16SampleRPM05>5000</u16SampleRPM05>
+    <u16SampleRPM06>4500</u16SampleRPM06>
+    <u16SampleRPM07>6001</u16SampleRPM07>
+    <strName>hsk</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>1</strRefID>
+    <fVolume>1.4</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Inferno</strRefName>
+    <rgfSteadyEnv00>0. 0. 159.574463 0.64 1861.702026 0.84 2446.80835 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>106.382973 0. 1489.361694 0.76 2925.531738 1. 3723.404053 0. 8563.829102 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1063.829712 0. 1968.085083 1. 4680.851074 1. 5425.531738 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2234.04248 0. 2606.382812 0.76 3776.595703 1. 4414.893555 0. 10000. 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2287.233887 0. 2712.765869 0.88 3829.787109 0.92 4680.851074 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3244.680664 0. 3723.404053 1. 4840.425293 1. 5531.914551 0. 10000. 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4202.127441 0. 4946.808594 1. 6276.595703 1. 7287.233887 0. 10000. 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4414.893555 0. 5425.531738 0.88 10000. 0.88</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Nova_FX loops\Nova_933_1866.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_2620.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_3655.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Inferno-vulcan treated\Vulcan_3_3010_In.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_4_3482.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Inferno-vulcan treated\Vulcan_5_4027_In.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Inferno-vulcan treated\Vulcan_6_5241_In.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_5900.wav</strSteadyPath07>
+    <u16SampleRPM00>2000</u16SampleRPM00>
+    <u16SampleRPM01>2620</u16SampleRPM01>
+    <u16SampleRPM02>4501</u16SampleRPM02>
+    <u16SampleRPM03>3010</u16SampleRPM03>
+    <u16SampleRPM04>3482</u16SampleRPM04>
+    <u16SampleRPM05>4027</u16SampleRPM05>
+    <u16SampleRPM06>5241</u16SampleRPM06>
+    <u16SampleRPM07>5900</u16SampleRPM07>
+    <strName>infereno</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>1</strRefID>
+    <fVolume>1.5</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Jupiter</strRefName>
+    <rgfSteadyEnv00>372.340424 0 638.297852 1 1010.638245 1 1489.361694 0 10000 0</rgfSteadyEnv00>
+    <rgfSteadyEnv01>851.063782 0 1436.170166 1 2127.659424 1 2712.765869 0</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1595.744629 0 2180.851074 1 2819.148926 1 3563.82959 0 10000 0</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2074.468018 0 2606.382812 1 3989.361572 1 4893.616699 0</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2500 0 3510.638184 1 4787.233887 1 6382.978516 0</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3457.446777 0 4308.510742 1 5425.531738 1 6489.361328 0</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4574.467773 0 5425.531738 1 6382.978516 1 7606.382812 0</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5000 0 5585.106445 1 10000 1</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\V8_BelAir\belAir with rpm reference\Bel_idle_rpm_0.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\V8_BelAir\belAir with rpm reference\Bel_rpm_1.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\V8_BelAir\Bel_rpm_2.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\V8_BelAir\Bel_rpm_3.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\V8_BelAir\belAir with rpm reference\Bel_loop_rpm5b.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\V8_BelAir\Bel_rpm_6.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\V8_BelAir\Bel_rpm_7.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\New Wraith_Nova_Mono\Nova 2nd Round\NOVA_rpm_06_5670.wav</strSteadyPath07>
+    <u16SampleRPM00>897</u16SampleRPM00>
+    <u16SampleRPM01>1580</u16SampleRPM01>
+    <u16SampleRPM02>2281</u16SampleRPM02>
+    <u16SampleRPM03>3580</u16SampleRPM03>
+    <u16SampleRPM04>3700</u16SampleRPM04>
+    <u16SampleRPM05>4856</u16SampleRPM05>
+    <u16SampleRPM06>5464</u16SampleRPM06>
+    <u16SampleRPM07>5670</u16SampleRPM07>
+    <strName>Jupiter</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>12</strRefID>
+    <fVolume>1.4</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Kinetik</strRefName>
+    <rgfSteadyEnv00>0. 1. 797.872314 1. 2021.276489 0.96 2712.765869 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>1542.553101 0. 2234.04248 1. 3244.680664 0.8 3776.595703 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>2500. 0. 3085.106201 1. 4095.744629 0.84 5106.382812 0. 9734.041992 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2925.531738 0. 3936.170166 0.84 4840.425293 1. 5691.489258 0. 10000. 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>4042.552979 0. 4095.744629 0.84 5106.382812 1. 5744.680664 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>4840.425293 0. 5372.340332 1. 6010.638184 1. 6648.936035 0. 10000. 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>0. 0.92 904.25531 0.92 2765.957275 0.52 4202.127441 0.64 5957.446777 0.64 7074.467773 0. 10000. 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5638.297852 0. 6170.212402 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_3500rpm.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_4000rpm.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5000rpm.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5500rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\specials\bassHum_00.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_6364.wav</strSteadyPath07>
+    <u16SampleRPM00>2000</u16SampleRPM00>
+    <u16SampleRPM01>2500</u16SampleRPM01>
+    <u16SampleRPM02>3500</u16SampleRPM02>
+    <u16SampleRPM03>4000</u16SampleRPM03>
+    <u16SampleRPM04>5000</u16SampleRPM04>
+    <u16SampleRPM05>5500</u16SampleRPM05>
+    <u16SampleRPM06>6000</u16SampleRPM06>
+    <u16SampleRPM07>6364</u16SampleRPM07>
+    <strName>Kinetik</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>3</strRefID>
+    <fVolume>1.2</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Kodiak</strRefName>
+    <rgfSteadyEnv00>0. 1. 1648.936157 0.92 2021.276489 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>372.340424 0. 1010.638245 0.8 2127.659424 0.84 2872.340332 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>585.106384 0. 1436.170166 0.92 3351.063721 0.92 3989.361572 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>1914.893555 0. 2553.191406 1. 3617.02124 1. 4255.318848 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2074.468018 0. 2659.574463 0.88 3244.680664 1. 3989.361572 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>0. 0. 2978.723389 0. 3936.170166 1. 4787.233887 1. 5691.489258 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>2819.148926 0. 3936.170166 1. 4787.233887 1. 5319.148926 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>1063.829712 0. 4095.744629 0. 4627.659668 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_1_952.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_2620.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_4691.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3890.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_12_5500.wav</strSteadyPath07>
+    <u16SampleRPM00>1934</u16SampleRPM00>
+    <u16SampleRPM01>2620</u16SampleRPM01>
+    <u16SampleRPM02>2219</u16SampleRPM02>
+    <u16SampleRPM03>2770</u16SampleRPM03>
+    <u16SampleRPM04>3340</u16SampleRPM04>
+    <u16SampleRPM05>4915</u16SampleRPM05>
+    <u16SampleRPM06>4462</u16SampleRPM06>
+    <u16SampleRPM07>5500</u16SampleRPM07>
+    <strName>Kodiak-2</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>17</strRefID>
+    <fVolume>1.35</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Magnus</strRefName>
+    <rgfSteadyEnv00>585.106384 0. 744.680847 1. 1808.51062 1. 2393.616943 0.04</rgfSteadyEnv00>
+    <rgfSteadyEnv01>0. 1. 2127.659424 1. 2872.340332 0.04</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1436.170166 0. 2127.659424 1. 2978.723389 1. 3723.404053 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>1968.085083 0. 2712.765869 1. 3829.787109 1. 4521.276367 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2500. 0. 3191.489258 1. 4095.744629 1. 5000. 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>2765.957275 0. 3297.872314 1. 4893.616699 1. 5425.531738 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>2659.574463 0. 3138.297852 1. 4042.552979 1. 4787.233887 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4361.702148 0. 5531.914551 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_1658.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\ChevyOctave_October\Chevy_1741_octav.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_2620.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_3655.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_4691.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Truck\truck_5900.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_12_5500.wav</strSteadyPath07>
+    <u16SampleRPM00>1800</u16SampleRPM00>
+    <u16SampleRPM01>1960</u16SampleRPM01>
+    <u16SampleRPM02>2620</u16SampleRPM02>
+    <u16SampleRPM03>3665</u16SampleRPM03>
+    <u16SampleRPM04>4691</u16SampleRPM04>
+    <u16SampleRPM05>5900</u16SampleRPM05>
+    <u16SampleRPM06>3340</u16SampleRPM06>
+    <u16SampleRPM07>5500</u16SampleRPM07>
+    <strName>Magnus</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>16</strRefID>
+    <fVolume>1.5</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Opulent</strRefName>
+    <rgfSteadyEnv00>0. 0.96 2021.276489 1. 2553.191406 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>1170.212769 0. 1808.51062 0.96 3563.82959 1. 4042.552979 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1861.702026 0. 2553.191406 1. 3989.361572 0.96 4787.233887 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>3031.914795 0. 3617.02124 1. 4787.233887 1. 5478.723145 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3723.404053 0. 4414.893555 0.72 5319.148926 0.88 6276.595703 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3989.361572 0 4414.893555 0.92 5372.340332 0.88 6010.638184 0</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4680.851074 0.04 5265.95752 0.96 5797.87207 1 6436.17 0</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4893.616699 0 5797.87207 1 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_3500rpm.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_4000rpm.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\VW\VW_4027.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_4500rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5500rpm.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_6000rpm.wav</strSteadyPath07>
+    <u16SampleRPM00>2700</u16SampleRPM00>
+    <u16SampleRPM01>2671</u16SampleRPM01>
+    <u16SampleRPM02>3500</u16SampleRPM02>
+    <u16SampleRPM03>4000</u16SampleRPM03>
+    <u16SampleRPM04>4027</u16SampleRPM04>
+    <u16SampleRPM05>4500</u16SampleRPM05>
+    <u16SampleRPM06>5500</u16SampleRPM06>
+    <u16SampleRPM07>6000</u16SampleRPM07>
+    <strName>Opulent</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>4000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>14</strRefID>
+    <fVolume>1.</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Outlaw</strRefName>
+    <rgfSteadyEnv00>0 1 1223.40417480468 1 1968.08508300781 0.639999985694885 2340.42553710937 0</rgfSteadyEnv00>
+    <rgfSteadyEnv01>1276.595703125 0 1648.93615722656 1 2606.3828125 1 3138.2978515625 0.759999990463256 3617.02124023437 0</rgfSteadyEnv01>
+    <rgfSteadyEnv02>2553.19140625 0 3138.2978515625 0.759999990463256 3882.978515625 0.879999995231628 4308.5107421875 0.0399999991059303</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2659.57446289062 0 3351.06372070312 0.879999995231628 4202.12744140625 0.959999978542327 4574.4677734375 0</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3670.21264648437 0 4308.5107421875 1 4946.80859375 0.959999978542327 5319.14892578125 0</rgfSteadyEnv04>
+    <rgfSteadyEnv05>4468.0849609375 0 4734.04248046875 0.919999957084655 5425.53173828125 1 6063.82958984375 0</rgfSteadyEnv05>
+    <rgfSteadyEnv06>5000 0 5478.72314453125 0.919999957084655 5851.0634765625 1 6382.978515625 0</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5531.91455078125 0 5851.0634765625 1 10000 1</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3RS_2000.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_2660.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_GT3Porsche\Ard_3_3500rpm.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_GT3Porsche\Ard_3_4000rpm.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_GT3Porsche\Ard_3_4500rpm.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_GT3Porsche\Ard_3_5000rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_GT3Porsche\Ard_3_5500rpm.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_GT3Porsche\Ard_3_6000rpm.wav</strSteadyPath07>
+    <u16SampleRPM00>2000</u16SampleRPM00>
+    <u16SampleRPM01>2500</u16SampleRPM01>
+    <u16SampleRPM02>3500</u16SampleRPM02>
+    <u16SampleRPM03>4000</u16SampleRPM03>
+    <u16SampleRPM04>4500</u16SampleRPM04>
+    <u16SampleRPM05>5000</u16SampleRPM05>
+    <u16SampleRPM06>5500</u16SampleRPM06>
+    <u16SampleRPM07>6000</u16SampleRPM07>
+    <strName>Outlaw</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>18</strRefID>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Phantom</strRefName>
+    <rgfSteadyEnv00>0. 0.8 1276.595703 1. 1755.319092 0. 2819.148926 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>319.148926 0. 797.872314 0.88 2021.276489 1. 2978.723389 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>0. 0. 585.106384 0.52 6223.404297 0.52 8404.254883 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>1861.702026 0. 2287.233887 1. 3244.680664 1. 3723.404053 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2659.574463 0. 3031.914795 1. 3776.595703 1. 4468.084961 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3085.106201 0. 3723.404053 1. 4414.893555 1. 5106.382812 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>3989.361572 0. 4308.510742 1. 5425.531738 1. 6063.82959 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4521.276367 0. 4893.616699 1. 9946.808594 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_1_952.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\specials\midPitchHum_00.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_3500rpm.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_4000rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_4500rpm.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Ardent_5th down\Ard_3_5000rpm.wav</strSteadyPath07>
+    <u16SampleRPM00>1107</u16SampleRPM00>
+    <u16SampleRPM01>2044</u16SampleRPM01>
+    <u16SampleRPM02>5000</u16SampleRPM02>
+    <u16SampleRPM03>2790</u16SampleRPM03>
+    <u16SampleRPM04>3500</u16SampleRPM04>
+    <u16SampleRPM05>4000</u16SampleRPM05>
+    <u16SampleRPM06>4500</u16SampleRPM06>
+    <u16SampleRPM07>5000</u16SampleRPM07>
+    <strName>Phantom</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>20</strRefID>
+    <fVolume>1.</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Python</strRefName>
+    <rgfSteadyEnv00>53.191486 1. 1010.638245 0.96 1648.936157 0.6 1702.127563 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>159.574463 0. 1382.978638 0.44 2234.04248 0.88 3191.489258 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1542.553101 0. 2287.233887 0.72 3297.872314 0.96 3829.787109 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2393.616943 0. 2978.723389 0.84 4414.893555 0.8 5372.340332 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3297.872314 0. 3457.446777 0.84 5159.574219 0.96 5638.297852 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3989.361572 0.08 4627.659668 1. 5531.914551 1. 6276.595703 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4574.467773 0. 5159.574219 1. 6170.212402 1. 7127.65918 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4521.276367 0. 5265.95752 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\VegaFX_Looped\Vega_1248.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\ChevyOctave_October\Chevy_3204.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_4_3482.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_5_4027.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_6_5241.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\NOva_looped\Nova_5670.wav</strSteadyPath07>
+    <u16SampleRPM00>1500</u16SampleRPM00>
+    <u16SampleRPM01>2219</u16SampleRPM01>
+    <u16SampleRPM02>2700</u16SampleRPM02>
+    <u16SampleRPM03>3000</u16SampleRPM03>
+    <u16SampleRPM04>3482</u16SampleRPM04>
+    <u16SampleRPM05>4000</u16SampleRPM05>
+    <u16SampleRPM06>5240</u16SampleRPM06>
+    <u16SampleRPM07>5670</u16SampleRPM07>
+    <strName>Python</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>24</strRefID>
+    <fVolume>1.</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Rampart</strRefName>
+    <rgfSteadyEnv00>0. 0.8 1436.170166 0.64 2180.851074 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>425.531891 0. 1968.085083 0.72 2765.957275 0.72 3351.063721 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>2393.616943 0. 2606.382812 0.76 3297.872314 0.76 4042.552979 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>159.574463 0. 2925.531738 0. 3351.063721 0.88 3989.361572 0.8 4468.084961 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3404.255127 0. 4148.936035 0.84 4734.04248 0.92 5478.723145 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>2500. 0. 3244.680664 0.6 4361.702148 0.72 5319.148926 0.4 6223.404297 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4521.276367 0. 5265.95752 0.6 6755.318848 0.6 7606.382812 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>3723.404053 0. 6329.787109 0.6 9893.617188 0.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\idles\Nova_idle.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Chevy_Alt3_Takes\ChevyA_1892.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\ChevyOctave_October\Chevy_3204.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_3784.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_4500.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Bass Loops\gruff_under_00.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_9_5600.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep Octave Down\jeep_rpm_6868.wav</strSteadyPath07>
+    <u16SampleRPM00>1825</u16SampleRPM00>
+    <u16SampleRPM01>2265</u16SampleRPM01>
+    <u16SampleRPM02>3031</u16SampleRPM02>
+    <u16SampleRPM03>3784</u16SampleRPM03>
+    <u16SampleRPM04>4500</u16SampleRPM04>
+    <u16SampleRPM05>5000</u16SampleRPM05>
+    <u16SampleRPM06>5600</u16SampleRPM06>
+    <u16SampleRPM07>6868</u16SampleRPM07>
+    <strName>Rampart</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>7</strRefID>
+    <fVolume>2.</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Roughneck</strRefName>
+    <rgfSteadyEnv00>0. 0. 744.680847 0.96 1755.319092 0.96 2553.191406 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>53.191486 1. 1542.553101 0.96 1968.085083 0. 3244.680664 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1702.127563 0. 2180.851074 1. 3404.255127 1. 3829.787109 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2393.616943 0. 2712.765869 0.96 3882.978516 1. 4521.276367 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2500. 0.08 2925.531738 0.92 3829.787109 0.88 4521.276367 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3085.106201 0. 3563.82959 0.6 4361.702148 1. 5265.95752 1. 6117.020996 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4574.467773 0.04 5000. 1. 5744.680664 1. 6329.787109 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>3457.446777 0. 3882.978516 0.96 4521.276367 0.96 5053.191406 0.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Streamline_Saltydog\Exh0_01875.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Inferno-vulcan treated\Vulcan_00_1049.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Inferno-vulcan treated\Vulcan_3_3010_In.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\SaltyDog\Salty Waves\Exh0-EFRN_3975.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Inferno-vulcan treated\Vulcan_6_5241_In.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Inferno-vulcan treated\Vulcan_5_4027_In.wav</strSteadyPath07>
+    <u16SampleRPM00>1926</u16SampleRPM00>
+    <u16SampleRPM01>1299</u16SampleRPM01>
+    <u16SampleRPM02>2770</u16SampleRPM02>
+    <u16SampleRPM03>3010</u16SampleRPM03>
+    <u16SampleRPM04>3339</u16SampleRPM04>
+    <u16SampleRPM05>3975</u16SampleRPM05>
+    <u16SampleRPM06>5241</u16SampleRPM06>
+    <u16SampleRPM07>4027</u16SampleRPM07>
+    <strName>Roughneck</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>19</strRefID>
+    <fVolume>1.1</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Sceptre</strRefName>
+    <rgfSteadyEnv00>0. 0.72 3723.404053 0.88 10000. 0.68</rgfSteadyEnv00>
+    <rgfSteadyEnv01>691.489319 0. 957.446777 0.92 2180.851074 1. 2659.574463 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>2021.276489 0. 2180.851074 0.92 3191.489258 1. 3351.063721 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2765.957275 0. 3138.297852 1. 3989.361572 1. 4361.702148 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3404.255127 0. 3829.787109 1. 4680.851074 1. 5000. 0.04</rgfSteadyEnv04>
+    <rgfSteadyEnv05>2553.191406 0. 3723.404053 0. 4255.318848 1. 5372.340332 0.96 6010.638184 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4521.276367 0 5265.95752 0.88 10000 0.88</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5531.914551 0 5904.255371 0.8 7127.65918 1 8457.446289 0</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Warlord\QuakeFireLoop.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3RS_2000.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_2660.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_3230.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_4000.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_4660.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_5314.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\GT3_RS\PorscheGT3_6364.wav</strSteadyPath07>
+    <u16SampleRPM00>5000</u16SampleRPM00>
+    <u16SampleRPM01>2000</u16SampleRPM01>
+    <u16SampleRPM02>2660</u16SampleRPM02>
+    <u16SampleRPM03>3230</u16SampleRPM03>
+    <u16SampleRPM04>4000</u16SampleRPM04>
+    <u16SampleRPM05>4660</u16SampleRPM05>
+    <u16SampleRPM06>5314</u16SampleRPM06>
+    <u16SampleRPM07>6364</u16SampleRPM07>
+    <strName>Sceptre</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>26</strRefID>
+    <fVolume>1.5</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Streamline</strRefName>
+    <rgfSteadyEnv00>0. 0. 797.872314 0.76 1276.595703 0.72 1755.319092 0.4 3031.914795 0. 6808.510254 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>0. 0. 1170.212769 0.4 1755.319092 0.64 5904.255371 0.6 7234.04248 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>0. 0. 1595.744629 0.16 2180.851074 0.76 3244.680664 0.8 3882.978516 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2074.468018 0. 2500. 0.64 3191.489258 0.76 4095.744629 0.64 4787.233887 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>0. 0. 744.680847 0.64 2978.723389 0.64 3776.595703 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>4042.552979 0. 4414.893555 1. 5319.148926 0.96 6010.638184 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>6436.17 0. 7021.276367 1. 7819.148926 1. 10000. 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5212.765625 0. 5531.914551 1. 6702.127441 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\idles\Nova_idle.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\specials\midPitchHum_00.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep_5thDown\jeep_rpm_2496.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep_5thDown\jeep_rpm_3784.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep_5thDown\jeep_rpm_2496.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep_5thDown\jeep_rpm_5241.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep_5thDown\jeep_rpm_6773.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Jeep_5thDown\Jeep_rpm_6062.wav</strSteadyPath07>
+    <u16SampleRPM00>1603</u16SampleRPM00>
+    <u16SampleRPM01>4500</u16SampleRPM01>
+    <u16SampleRPM02>2496</u16SampleRPM02>
+    <u16SampleRPM03>3784</u16SampleRPM03>
+    <u16SampleRPM04>2453</u16SampleRPM04>
+    <u16SampleRPM05>5214</u16SampleRPM05>
+    <u16SampleRPM06>6700</u16SampleRPM06>
+    <u16SampleRPM07>6000</u16SampleRPM07>
+    <strName>streamline</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>15</strRefID>
+    <fVolume>1.8</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>TEC</strRefName>
+    <rgfSteadyEnv00>0. 1. 1382.978638 1. 1595.744629 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>744.680847 0. 1117.02124 0.64 1914.893555 0.96 2500. 1. 3138.297852 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>2340.425537 0.04 2872.340332 1. 3297.872314 1. 3723.404053 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2712.765869 0. 3244.680664 1. 4202.127441 1. 4734.04248 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3617.02124 0. 4361.702148 1. 4787.233887 1. 5425.531738 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>106.382973 0. 3457.446777 0.04 4148.936035 0.8 5159.574219 0.8 5691.489258 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4202.127441 0. 4627.659668 0.72 6382.978516 0.8 7287.233887 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5265.95752 0. 5797.87207 0.8 7340.425293 0.88 8297.87207 0.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\idles\grand am idle.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_7_3758.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_4563.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_5063b.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\corvette\corvette_6062b.wav</strSteadyPath07>
+    <u16SampleRPM00>1300</u16SampleRPM00>
+    <u16SampleRPM01>2219</u16SampleRPM01>
+    <u16SampleRPM02>2700</u16SampleRPM02>
+    <u16SampleRPM03>3700</u16SampleRPM03>
+    <u16SampleRPM04>3700</u16SampleRPM04>
+    <u16SampleRPM05>4500</u16SampleRPM05>
+    <u16SampleRPM06>5063</u16SampleRPM06>
+    <u16SampleRPM07>6062</u16SampleRPM07>
+    <strName>TecS2</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>8</strRefID>
+    <fVolume>1.</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Thunderhawk</strRefName>
+    <rgfSteadyEnv00>0. 0. 319.148926 0.92 1276.595703 0.92 1808.51062 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>797.872314 0. 1542.553101 1. 2127.659424 0.96 2925.531738 0. 8563.829102 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1648.936157 0. 2446.80835 1. 3031.914795 0.8 3670.212646 0. 9734.041992 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>1968.085083 0. 2978.723389 1. 4095.744629 0.88 4734.04248 0. 10000. 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2287.233887 0. 2765.957275 0.68 3723.404053 0.92 4680.851074 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3244.680664 0. 3882.978516 0.88 4787.233887 0.84 5531.914551 0. 10000. 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4202.127441 0. 4734.04248 0.88 5425.531738 1. 6010.638184 0. 10000. 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4468.084961 0. 5265.95752 0.72 10000. 0.84</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_1_952.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_3_2219.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_4_2770.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\FA2_NewCarContent\Pantera\pantera_5_3340.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_4_3482.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_5_4027.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_6_5241.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_7_5578.wav</strSteadyPath07>
+    <u16SampleRPM00>1578</u16SampleRPM00>
+    <u16SampleRPM01>1886</u16SampleRPM01>
+    <u16SampleRPM02>2770</u16SampleRPM02>
+    <u16SampleRPM03>3310</u16SampleRPM03>
+    <u16SampleRPM04>3482</u16SampleRPM04>
+    <u16SampleRPM05>4027</u16SampleRPM05>
+    <u16SampleRPM06>5241</u16SampleRPM06>
+    <u16SampleRPM07>5578</u16SampleRPM07>
+    <strName>Thurnderhawk</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>1</strRefID>
+    <fVolume>1.5</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Vulcan</strRefName>
+    <rgfSteadyEnv00>0. 0. 265.957428 1. 1170.212769 1. 1808.51062 0.</rgfSteadyEnv00>
+    <rgfSteadyEnv01>904.25531 0. 1648.936157 1. 2393.616943 1. 2925.531738 0. 8563.829102 0.</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1329.787231 0. 1914.893555 1. 2872.340332 1. 3670.212646 0. 9734.041992 0.</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2393.616943 0. 2872.340332 1. 3723.404053 1. 4414.893555 0. 10000. 0.</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2287.233887 0. 2659.574463 1. 4042.552979 1. 4680.851074 0.</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3244.680664 0. 3617.02124 1. 4734.04248 1. 5531.914551 0. 10000. 0.</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4202.127441 0. 4414.893555 1. 5638.297852 1. 6648.936035 0. 10000. 0.</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4414.893555 0. 5478.723145 1. 10000. 1.</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_01_1886.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_01_1886.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_2_2000.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_3_3010.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_4_3482.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_5_4027.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_6_5241.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Vulcan reorder\Vulcan_7_5578.wav</strSteadyPath07>
+    <u16SampleRPM00>1291</u16SampleRPM00>
+    <u16SampleRPM01>1886</u16SampleRPM01>
+    <u16SampleRPM02>2000</u16SampleRPM02>
+    <u16SampleRPM03>3010</u16SampleRPM03>
+    <u16SampleRPM04>3482</u16SampleRPM04>
+    <u16SampleRPM05>4027</u16SampleRPM05>
+    <u16SampleRPM06>5241</u16SampleRPM06>
+    <u16SampleRPM07>5578</u16SampleRPM07>
+    <strName>Vulcan</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>1</strRefID>
+    <fVolume>1.15</fVolume>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Warlord</strRefName>
+    <rgfSteadyEnv00>53.191486 1 1861.702026 1 2872.340332 0</rgfSteadyEnv00>
+    <rgfSteadyEnv01>2180.851074 0 4308.510742 0.44 5053.191406 0.8 10000 0.76</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1276.595703 0 4308.510742 0.88 7340.425293 0.88 9734.041992 0</rgfSteadyEnv02>
+    <rgfSteadyEnv03>797.872314 0 1914.893555 0.88 3244.680664 0.92 4042.552979 0</rgfSteadyEnv03>
+    <rgfSteadyEnv04>3297.872314 0 3989.361572 1 5159.574219 1 5638.297852 0</rgfSteadyEnv04>
+    <rgfSteadyEnv05>4095.744629 0 4893.616699 0.72 5585.106445 0.88 6276.595703 0</rgfSteadyEnv05>
+    <rgfSteadyEnv06>5212.765625 0 6170.212402 0.44 6648.936035 0.64 10000 0.84</rgfSteadyEnv06>
+    <rgfSteadyEnv07>4680.851074 0 5531.914551 1 10000 1</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\VegaFX_Looped\Vega_1248.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Warlord\warlord_jetTone.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Warlord\Quake loop2.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\VegaFX_Looped\Vega_902.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\New Wraith_Nova_Mono\New Vulcan\Vulcan_rpm_11_4823.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Warlord\EngB_05505_c.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Car content to test\Warlord\EngB_06000_c.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\New Wraith_Nova_Mono\NOVA_rpm_06 C4_5670.wav</strSteadyPath07>
+    <u16SampleRPM00>1500</u16SampleRPM00>
+    <u16SampleRPM01>8000</u16SampleRPM01>
+    <u16SampleRPM02>5000</u16SampleRPM02>
+    <u16SampleRPM03>2616</u16SampleRPM03>
+    <u16SampleRPM04>4823</u16SampleRPM04>
+    <u16SampleRPM05>5505</u16SampleRPM05>
+    <u16SampleRPM06>8000</u16SampleRPM06>
+    <u16SampleRPM07>5670</u16SampleRPM07>
+    <strName>Warlord</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>24</strRefID>
+  </CarEngine>
+  <CarEngine>
+    <strRefName>Wraith</strRefName>
+    <rgfSteadyEnv00>691.489319 0 957.446777 1 1489.361694 1 1968.085083 0</rgfSteadyEnv00>
+    <rgfSteadyEnv01>1170.212769 0 2021.276489 1 3191.489258 1 4414.893555 0</rgfSteadyEnv01>
+    <rgfSteadyEnv02>1808.51062 0 2765.957275 1 4574.467773 1 5319.148926 0</rgfSteadyEnv02>
+    <rgfSteadyEnv03>2872.340332 0 3989.361572 1 5478.723145 1 7234.04248 0</rgfSteadyEnv03>
+    <rgfSteadyEnv04>2819.148926 0 4734.04248 1 6117.020996 1 9308.510742 0</rgfSteadyEnv04>
+    <rgfSteadyEnv05>3723.404053 0 5000 1 7021.276367 1 8936.17 0</rgfSteadyEnv05>
+    <rgfSteadyEnv06>4202.127441 0 5425.531738 1 6861.702148 1 8244.680664 0</rgfSteadyEnv06>
+    <rgfSteadyEnv07>5531.914551 0 6808.510254 1 10000 1</rgfSteadyEnv07>
+    <strSteadyPath00>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_2000rpm.wav</strSteadyPath00>
+    <strSteadyPath01>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_2500rpm.wav</strSteadyPath01>
+    <strSteadyPath02>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_3500rpm.wav</strSteadyPath02>
+    <strSteadyPath03>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_4000rpm.wav</strSteadyPath03>
+    <strSteadyPath04>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\FXed_relooped\Ard_3_4500rpm.wav</strSteadyPath04>
+    <strSteadyPath05>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_5000rpm.wav</strSteadyPath05>
+    <strSteadyPath06>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_5500rpm.wav</strSteadyPath06>
+    <strSteadyPath07>s:\DEV\FA\Media\sounds\XACTMe\MaxPatches\Ardent\Por_3_6000rpm.wav</strSteadyPath07>
+    <u16SampleRPM00>1200</u16SampleRPM00>
+    <u16SampleRPM01>2500</u16SampleRPM01>
+    <u16SampleRPM02>3500</u16SampleRPM02>
+    <u16SampleRPM03>4000</u16SampleRPM03>
+    <u16SampleRPM04>4500</u16SampleRPM04>
+    <u16SampleRPM05>5000</u16SampleRPM05>
+    <u16SampleRPM06>5500</u16SampleRPM06>
+    <u16SampleRPM07>6000</u16SampleRPM07>
+    <strName>Ardent</strName>
+    <u16FilterHigh>2000.</u16FilterHigh>
+    <u16FilterLow>10000.</u16FilterLow>
+    <bLoadGain00>0</bLoadGain00>
+    <bLoadGain01>0</bLoadGain01>
+    <bLoadGain02>0</bLoadGain02>
+    <bLoadGain03>0</bLoadGain03>
+    <bLoadGain04>0</bLoadGain04>
+    <bLoadGain05>0</bLoadGain05>
+    <bLoadGain06>0</bLoadGain06>
+    <bLoadGain07>0</bLoadGain07>
+    <strRefID>2</strRefID>
+    <fVolume>1.15</fVolume>
+  </CarEngine>
+</NewDataSet>

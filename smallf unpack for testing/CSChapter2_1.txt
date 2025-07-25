@@ -1,0 +1,1200 @@
+//----------------------------------------------------------------------
+// ROUGHNECK
+//----------------------------------------------------------------------
+// EVENT 211
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+You've snuck into the Roughneck's facilities inside of a shipping container. Cause major damage and kill his Lieutenant to attract his attention.
+
+Player must fights several Jupiter minions in order to attract the Lieutenant who is the real target.
+
+Primary Objective:
+-Kill the Roughneck's Lieutenant within 4 minutes.
+
+Secondary Objectives:
+-Destroy 5 weapons crates.
+-Leave no survivors.
+-Don't die.
+
+Event play by play:
+-Player spawns inside of cargo container
+-Must kill all minions to spawn the Lieutenant and his two protectors.
+*/
+Begin Event
+    Name = 211 (Roughneck): Infiltrator
+    EventID = 211
+    TrackID = Track_242
+    Mode = Deathmatch
+    Theme = Forwards
+    maxTime = 270
+    validPopulationGroups = 0
+    validTargetGroups = 10
+    endOnSuccess = true
+    
+    Begin Player
+        spawnPointOverride = 8
+        lives = 4
+    End
+
+    Begin Objective
+		Name = Primary
+        Begin Condition
+            MinRivalTakedowns = 1
+			maxDeaths = 3
+			eventIsComplete = true
+	    //MinTakedowns = 7
+        End 
+		Begin Description
+			textId = 25
+                       
+			criterion = MinRivalTakedowns
+		End
+		Begin Description
+			textId = 26
+                                 
+			criterion = maxDeaths eventIsComplete
+		End
+    End
+    Begin Objective
+        Name = Secondary1
+        Begin Condition
+            Destroyed = 10
+        End
+        Begin Description
+            textId = 27
+                          
+            criterion = Destroyed
+        End
+    End
+    Begin Objective
+		Name = Secondary2
+        Begin Condition
+            killed = 1 2 3 4 5 6 7 8 9 10
+        End 
+		Begin Description
+			textId = 28
+              
+			criterion = killed
+		End
+    End
+    Begin Objective
+		Name = Secondary3
+        Begin Condition
+            		MaxDeaths = 0
+	    		MinRivalTakedowns = 1
+			eventIsComplete = true
+        End 
+		Begin Description
+			textId = 5
+                            
+			criterion = MaxDeaths MinRivalTakedowns eventIsComplete
+		End
+    End
+   
+    Begin Opponent
+		name = Jupiter Minion 1
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = ScatterGun
+        Lives = 1
+        onlyCountPlayerKills = true
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .25
+        TeamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 2
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = ScatterGun
+        Lives = 1
+        onlyCountPlayerKills = true
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .25
+        TeamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 3
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = ScatterGun
+        Lives = 1
+        onlyCountPlayerKills = true
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .25
+        TeamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 4
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+        Lives = 1
+        onlyCountPlayerKills = true
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .25
+        TeamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 5
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+        Lives = 1
+        onlyCountPlayerKills = true
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .25
+        TeamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 6
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .25
+        lives = 1
+        onlyCountPlayerKills = true
+        TeamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        Endd
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 7
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = ScatterGun
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .25
+        lives = 1
+        onlyCountPlayerKills = true
+        TeamID = 2
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 8
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = Yellow
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = ScatterGun
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .5
+        triggeredSpawn = true
+        lives = 1
+        onlyCountPlayerKills = true
+        TeamID = 2
+        Begin Goal
+            type = Protect
+            targetID = 10
+        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 9
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = Yellow
+        difficulty = 13
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = ScatterGun
+        armorGains = .5, .5, .5, .5
+        hitpointGain = .5
+        triggeredSpawn = true
+        lives = 1
+        onlyCountPlayerKills = true
+        TeamID = 2
+        Begin Goal
+            type = Protect
+            targetID = 10
+        End
+    End
+    
+    Begin Opponent
+		name = Jupiter Lt.
+		displayName = true
+		type = Lieutenant
+        CarID = Jupiter
+        skinNumber = 1
+        ColorID = CherryRed
+        difficulty = 16
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = HeavyStubber
+        armorGains = 1.5, 1.5, 1.5, 1.5
+        hitpointGain = 1.5
+		smarts = 1
+        TeamID = 2
+        isRival = true
+        lives = 1
+        onlyCountPlayerKills = true
+//        Begin Goal
+//            type = Pursue
+//            targetID = -1
+//        End
+        triggeredSpawn = true
+    End
+    
+    Begin Script
+        delay = 3.0
+        Begin Condition
+            killed = 1 2 3 4 5 6 7
+        End
+        Begin Commands
+            SpawnOpponent "10 SpawnPoint 9 speed 50"
+            SpawnOpponent "8 SpawnPoint 8 speed 45"
+            SpawnOpponent "9 SpawnPoint 1 speed 45"
+            Message 36
+                               
+            StartCamera "T242_E211_Rival1 10 10 .75" // camera
+        End
+    End
+    
+    Begin Script
+	    Begin Commands
+	        weaponsSafetyTime 5
+	    End
+	End
+
+//let player know they need to kill minions		
+	Begin Script
+		Begin Condition
+			minTime = 6
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 37
+                             
+		End
+	End
+
+//let player know how many enemies remaining	
+	Begin Script
+		Begin Condition
+			minTakedowns = 1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 38
+                           
+		End
+	End
+
+	Begin Script
+		Begin Condition
+			minTakedowns = 2
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 39
+                            
+		End
+	End
+
+	Begin Script
+		Begin Condition
+			minTakedowns = 3
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 40
+                            
+		End
+	End
+
+	Begin Script
+		Begin Condition
+			minTakedowns = 4
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 41
+                             
+		End
+	End
+
+	Begin Script
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 42
+                           
+		End
+	End
+	
+	Begin Script
+		Begin Condition
+			minTakedowns = 6
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 43
+                          
+		End
+	End
+
+//let player know time remaining
+	Begin Script
+		begin condition
+			   minTime = 240
+		End
+		begin commands
+			ClearCustomMessages
+			Message 11
+                   
+		End
+	End
+ 
+//Win Event if all attack waves and Rival killed
+	Begin Script
+		begin condition
+			killed = "1 2 3 4 5 6 7 8 9 10"
+		End
+		begin commands
+			ClearCustomMessages
+			Message 44
+                           
+		End
+	End
+	Begin Script
+		Delay = 3.0
+		begin condition
+			killed = "1 2 3 4 5 6 7 8 9 10"
+		End
+		begin commands
+			WinEvent
+		End
+	End  
+End
+//----------------------------------------------------------------------
+// EVENT 212
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+The Roughneck regularly races his minions to choose his Lieutenants. Crash the race and show him you are better than them all.
+
+Player must come in first place or kill all competitors in this race.
+
+Primary Objective:
+-Come in first or kill everyone.
+
+Secondary Objectives:
+-Leave no survivors.
+-Destroy 5 weapons crates.
+-Finish within 5m
+
+Event play by play:
+-Player spawns on top a cargo ship watching the race start.
+-Player jumps down and races and/or fights all the competitors.
+*/
+Begin Event
+    Name = 212 (Roughneck): Party Crasher
+    EventID = 212
+    TrackID = Track_218
+    Mode = Race
+    LapCount = 4
+    Theme = Forwards
+    validPopulationGroups = 0
+    validTargetGroups = 10
+    
+    Begin Player
+        lives = 4
+        spawnPointOverride = 8
+    End
+    
+    Begin Script
+        Begin Condition
+            minTime = 0.01
+        End
+        Begin Commands
+            SetForceStop "-1 false"
+        End
+    End
+
+	Begin Objective
+		Name = Primary
+        Begin Condition
+			MinPosition = 1
+			eventIsComplete = true
+        End 
+		Begin Description
+			textId = 29
+        
+			criterion = MinPosition eventIsComplete
+		End
+    End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			killed = 1 2 3 4 5 6 7 8
+		End 
+		Begin Description
+			textId = 30
+                    
+			criterion = killed
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			Destroyed = 10
+        End 
+		Begin Description
+            textId = 31
+                          
+            criterion = Destroyed
+		End
+    End
+    Begin Objective
+		Name = Secondary3
+		Begin Condition
+			minPosition = 1
+			survived = 1
+			survived = 2
+			survived = 3
+			survived = 4
+			survived = 5
+			survived = 6
+			survived = 7
+			survived = 8
+			eventIsComplete = true
+        End 
+		Begin Description
+            		textId = 32
+                        
+            		criterion = survived minPosition eventIsComplete
+		End
+    End
+    
+	Begin Opponent
+		name = Jupiter Lt.
+		displayName = true
+		type = Lieutenant
+		CarID = Jupiter
+		skinNumber = 2
+		ColorID = Base 
+        difficulty = 14
+		lives = 1
+		isRival = true
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = ReverseGrenadier
+        armorGains = 1.5, 1.5, 1.5, 1.5
+        hitpointGain = 1.5
+        teamID = 2
+        onlyCountPlayerKills = true
+	End
+	
+    Begin Opponent
+		name = Jupiter Minion 1
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = RubyRed 
+        difficulty = 13
+        lives = 1
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = EmptyWeapon
+        armorGains = .75, .75, .75, .75
+        hitpointGain = .75
+        teamID = 2
+        onlyCountPlayerKills = true
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 2
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = RubyRed 
+        difficulty = 12
+        lives = 1
+        PrimaryWeaponId = RamPlate
+        SecondaryWeaponId = MachineGuns
+        armorGains = .75, .75, .75, .75
+        hitpointGain = .75
+        teamID = 2
+        onlyCountPlayerKills = true
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 3
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = RubyRed 
+        difficulty = 13
+        lives = 1
+        PrimaryWeaponId = RamPlate
+        SecondaryWeaponId = MachineGuns
+        armorGains = .75, .75, .75, .75
+        hitpointGain = .75
+        teamID = 2
+        onlyCountPlayerKills = true
+	End
+	
+    Begin Opponent
+		name = Jupiter Minion 4
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = RubyRed 
+        difficulty = 13
+        lives = 1
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+        armorGains = .75, .75, .75, .75
+        hitpointGain = .75
+        teamID = 2
+        onlyCountPlayerKills = true
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 5
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = RubyRed 
+        difficulty = 13
+        lives = 1
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = EmptyWeapon
+        armorGains = .75, .75, .75, .75
+        hitpointGain = .75
+        teamID = 2
+        onlyCountPlayerKills = true
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 6
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = RubyRed 
+        difficulty = 13
+        lives = 1
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+        armorGains = .75, .75, .75, .75
+        hitpointGain = .75
+        teamID = 2
+        onlyCountPlayerKills = true
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 7
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = RubyRed 
+        difficulty = 14
+        lives = 1
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+        armorGains = .75, .75, .75, .75
+        hitpointGain = .75
+        teamID = 2
+        onlyCountPlayerKills = true
+    End
+
+    Begin Script
+        Begin Condition
+            minTakedowns = 1
+        End
+        Begin Commands
+            ClearCustomMessages
+            Message 45
+                             
+		failObjective 4
+        End
+    End 
+   
+    Begin Script
+        Begin Condition
+            minTakedowns = 2
+        End
+        Begin Commands
+	    ClearCustomMessages
+            Message 38
+                           
+        End
+    End
+    
+    Begin Script
+        Begin Condition
+            minTakedowns = 3
+        End
+        Begin Commands
+  	    ClearCustomMessages
+            Message 39
+                            
+        End
+    End
+    
+    Begin Script
+        Begin Condition
+            minTakedowns = 4
+        End
+        Begin Commands
+  	    ClearCustomMessages
+            Message 40
+                            
+        End
+    End
+    
+    Begin Script
+        Begin Condition
+            minTakedowns = 5
+        End
+        Begin Commands
+  	    ClearCustomMessages
+            Message 41
+                             
+        End
+    End
+    
+    Begin Script
+        Begin Condition
+            minTakedowns = 6
+        End
+        Begin Commands
+  	    ClearCustomMessages
+            Message 42
+                           
+        End
+    End
+    
+    Begin Script
+        Begin Condition
+            minTakedowns = 7
+        End
+        Begin Commands
+  	    ClearCustomMessages
+            Message 43
+                          
+        End
+    End   
+    
+    Begin Script
+        Begin Condition
+            killed = 1 2 3 4 5 6 7 8
+        End
+        Begin Commands
+            WinObjective 2
+        End
+    End
+    
+    Begin Script
+        Begin Condition
+            killed = 1 2 3 4 5 6 7 8
+        End
+        Begin Commands
+            ClearCustomMessages
+            Message 44
+                           
+        End
+    End
+
+    Begin Script
+        delay = 3
+        Begin Condition
+            killed = 1 2 3 4 5 6 7 8
+        End
+        Begin Commands
+            WinEvent
+        End
+    End
+
+    Begin Script
+	    Begin Commands
+	        weaponsSafetyTime 5
+	    End
+	End
+End
+//----------------------------------------------------------------------
+// EVENT 213
+//----------------------------------------------------------------------
+/*
+>>Event Overview<<
+You've attracted the Roughneck's attention and he has challenged you to a one-on-one duel.
+
+Player must fight the Roughneck. When the Roughneck is hurt badly enough his minions will jump in from hiding places and join the fray.
+
+Primary Objective:
+-Kill the Roughneck.
+
+Secondary Objectives:
+-Kill 12 opponents.
+
+Event play by play:
+-Player spawns facing the Roughneck.
+-When the Roughneck is at half health a bunch of minions ambush you.
+-When the Roughneck is at 25% health a bunch more minions ambush you.
+*/
+Begin Event
+    Name = 213 Showdown
+    EventID = 213
+    TrackID = Track_241
+    Mode = Deathmatch
+    Theme = Forwards
+    validPopulationGroups = 0
+//    endOnSuccess = true
+    		
+	Begin Player
+	    spawnPointOverride = 8
+	    lives = 4
+	End
+
+    Begin Objective
+		Name = Primary
+        Begin Condition
+            MinRivalTakedowns = 3
+//		maxDeaths = 5
+        End
+		Begin Description
+			textId = 33
+                               
+			criterion = MinRivalTakedowns
+		End
+    End
+    
+    Begin Objective
+		Name = Secondary1
+        Begin Condition
+            MinTakedowns = 12
+        End 
+		Begin Description
+			textId = 34
+                 
+			criterion = MinTakedowns
+		End
+    End
+    
+    Begin Objective
+		Name = Secondary2
+        Begin Condition
+		maxDeaths = 0            
+		MinRivalTakedowns = 3
+		eventIsComplete = true
+        End
+		Begin Description
+			textId = 12
+                          
+			criterion = maxDeaths MinRivalTakedowns eventIsComplete
+		End
+    End
+
+  Begin Objective
+		Name = Secondary3
+        Begin Condition
+               	maxTime = 240
+		MinRivalTakedowns = 3
+		eventIsComplete = true
+        End 
+		Begin Description
+			textId = 35
+                  
+			criterion = maxTime MinRivalTakedowns eventIsComplete
+		End
+    End
+
+    Begin Opponent
+		name = Roughneck Rival
+		type = Rival
+		displayName = true
+        CarID = Roughneck
+        skinNumber = 3
+        ColorID = DarkRed 
+        difficulty = 16
+		difficultysetup = NoRamDM
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = TwinRifle
+        spawnPointOverride = 9
+		armorGains = .2, .2, .2, .2
+		hitpointGain = 8
+		teamID = 2
+		onlyCountPlayerKills = 1
+	End
+   
+    Begin Opponent
+		name = Jupiter Minion 1
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+	difficultysetup = NoRamDM
+	smarts = 0
+        PrimaryWeaponId = MachineGuns
+        SecondaryWeaponId = EmptyWeapon
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 2
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+		difficultysetup = NoRamDM
+		smarts = 0
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = RearScatterGun
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 3
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue 
+        difficulty = 13
+		difficultysetup = NoRamDM
+		smarts = 0
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = ReverseGrenadier
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 4
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = LightBlue
+        difficulty = 13
+		difficultysetup = NoRamDM
+		smarts = 0
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = EmptyWeapon
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 5
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = DarkGreen
+        difficulty = 15
+		difficultysetup = NoRamDM
+		smarts = 0
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 6
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = DarkGreen
+        difficulty = 15
+		difficultysetup = NoRamDM
+		smarts = 0
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 7
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = DarkGreen
+        difficulty = 15
+	difficultysetup = NoRamDM
+	smarts = 0
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    Begin Opponent
+		name = Jupiter Minion 8
+        CarID = Jupiter
+        skinNumber = 0
+        ColorID = DarkGreen 
+        difficulty = 15
+		difficultysetup = NoRamDM
+		smarts = 0
+        PrimaryWeaponId = ScatterGun
+        SecondaryWeaponId = MachineGuns
+        armorGains = .25, .25, .25, .25
+        hitpointGain = .25
+        triggeredSpawn = true
+        teamID = 2
+        canParticipate = false
+    End
+    
+    // wave 1 - spawns when rival is damaged
+    Begin Script
+        opponentID = 1
+        begin condition
+			MinDamage = 0.5
+        end
+        begin commands
+		ClearCustomMessages
+            Message 26
+            
+            spawnOpponent "2 spawnPoint 10 speed 60" // 2 = -2042.534667969  511.938720703  14.020385742
+			StartCamera "T241_E213_Rival1 3 3 .9"
+        end
+    End
+    Begin Script
+        opponentID = 1
+		Delay = 1.2
+        begin condition
+			MinDamage = 0.5
+        end
+        begin commands
+			spawnOpponent "3 spawnPoint 11 speed 60" // 3 = -2073.889892578  256.395874023  13.999940872
+        end
+    End
+    // wave 2 - spawns when rival taken down
+    Begin Script
+        opponentID = -1
+	Delay = 3
+        begin condition
+			MinRivalTakedowns = 1
+        end
+        begin commands
+		ClearCustomMessages
+            Message 26
+            
+			spawnOpponent "4 spawnPoint 12 speed 60" // 4 = -2192.126464844  464.804077148  10.000008583
+			StartCamera "T241_E213_Rival2 6 6 .9"
+        end
+    End
+    Begin Script
+        opponentID = -1
+	Delay = 4.2
+        begin condition
+			MinRivalTakedowns = 1
+        end
+        begin commands
+			spawnOpponent "5 spawnPoint 13 speed 60" // 5 = -1969.158935547  305.013397217  11.823522568
+        end
+    End
+    Begin Script
+        opponentID = -1
+	Delay = 5.4
+        begin condition
+			MinRivalTakedowns = 1
+        end
+        begin commands
+		spawnOpponent "6 spawnPoint 14 speed 60" // 6 = -1905.212280273  240.550506592  17.253051758
+        end
+    End
+    
+  // wave 3 - spawns when rival killed twice
+    Begin Script
+        opponentID = -1
+		Delay = 3
+        begin condition
+			MinRivalTakedowns = 2
+        end
+        begin commands
+		ClearCustomMessages
+            Message 26
+            
+			spawnOpponent "7 spawnPoint 15 speed 60" // 7 = -1985.858886719  262.626556396  17.999954224
+			StartCamera "T241_E213_Rival3 9 9 .9"
+		end
+    End
+     Begin Script
+        opponentID = -1
+	Delay = 4.2
+        begin condition
+			MinRivalTakedowns = 2
+        end
+        begin commands
+			spawnOpponent "8 spawnPoint 16 speed 60" // 8 = -1976.224609375  345.560974121  17.986972809
+        end
+    End
+    Begin Script
+        opponentID = -1
+		Delay = 5.4
+        begin condition
+			MinRivalTakedowns = 2
+        end
+        begin commands
+			spawnOpponent "9 spawnPoint 17 speed 60" // 9 = -2065.987792969  499.848999023  13.987792969
+        end
+    End
+   
+    Begin Script
+	    Begin Commands
+	        weaponsSafetyTime 3
+	    End
+	End
+
+//let player know rival lives remaining
+
+	Begin Script
+		begin condition
+			MinRivalTakedowns = 1
+		End
+		begin commands
+		ClearCustomMessages
+			Message 46
+                             
+		End
+	End
+	Begin Script
+		begin condition
+			MinRivalTakedowns = 2
+		End
+		begin commands
+		ClearCustomMessages
+			Message 47
+                            
+		End
+	End
+
+/*	Begin Script
+		Delay = 4
+		begin condition
+			MinRivalTakedowns = 3
+			maxTime = 240
+		End
+		begin commands
+		ClearCustomMessages
+			custommessage "That was fast!"
+			winobjective 4
+		End
+	End
+*/
+
+//winning the event
+	Begin Script
+		Delay = 2
+		Begin Condition
+			MinRivalTakedowns = 3
+		End
+		Begin Commands
+			winevent
+		End
+	End
+
+End
+// 11 = -1960.300781250  359.624389648  17.986972809
+//----------------------------------------------------------------------
+// UNLOCK SEQUENCE & REWARDS
+//----------------------------------------------------------------------
+Begin Reward
+	Name = Event 211 Complete
+	EventID = 211
+	isPrimaryReward = true
+	unlockedEvents = 212
+End
+Begin Reward
+	Name = Event 212 Complete
+	EventID = 212
+	isPrimaryReward = true
+	unlockedEvents = 213
+End
+Begin Reward
+	Name = Primary Reward pack for Roughneck
+	EventID = 213
+	isPrimaryReward = true
+	unlockedEvents = 301
+    unlockedCars = Roughneck
+End
+Begin Reward
+	Name = Secondary Reward pack #1 for Roughneck
+	EventID = 210
+	isPrimaryReward = false
+	objectiveCount = 3
+	unlockedWeapons = TwinRifle
+	unlockedSkins = Roughneck.1
+End
+Begin Reward
+	Name = Secondary Reward pack #2 for Roughneck
+	EventID = 210
+	isPrimaryReward = false
+	objectiveCount = 6
+    unlockedCars = Jupiter
+	unlockedSkins = Roughneck.2
+End
+Begin Reward
+	Name = Secondary Reward pack #3 for Roughneck
+	EventID = 210
+	isPrimaryReward = false
+	objectiveCount = 8
+	unlockedSkins = Jupiter.1 Jupiter.2 Roughneck.3
+End
+//----------------------------------------------------------------------

@@ -1,0 +1,3291 @@
+#EventScript
+/*
+Usage:
+
+  - There are three kinds of data: id's, strings, and numbers.
+    1. Strings are any text contained in quotes (ex: "string")
+    2. Id's are text outside of quotes, that begin with a letter, and contain no spaces.
+       (ex: Id, ID_1234. But *NOT* 89id, id 1234, "id7231")
+    3. Numbers are a set of digits, with the option for decimal values
+       (ex: 3, .9, 3.14)
+	
+  - In the description below, values that can be set by the script writer are contained in < >. The
+    type of the data and a simple description of it is provided within the < >.
+  - Where there is a set of optional values they are contained in [ ].
+  - Where '{' follows directly after some text, this brace and a closing brace '}' is required, 
+    and indicates the start of a bunch of information associated with the preceeding text. 
+    (ex: Event t121 { ... }. Everything in the braces is information specific to event t121.
+  - The example script below only describes the currently commonly used values. You may notice other
+    values in existing scripts -- the use of these values is not yet completely decided. Documentation
+    on them will be added when the policy on using them is complete.
+
+  Event <id: eventId>
+  {
+    EventName = <id: event name Id>
+    EventType = <id: event type> Race, DownandBack, Rampage, LapKnockout, TimeTrial
+    Description = <id: description id>
+    DebugText = <string: a debug title for the event>
+    TrackName = <id: the track batch name>
+    NumLaps   = <number: the number of laps to use>
+    Direction = <id: [Forward, Reverse, OpposingForward, OpposingReverse]>
+    TimeOfDay = <id: the time of day>
+    
+    // Vehicles available to the player
+    Vehicles
+    {
+      // Available car
+      Car <id: car id -- see wmountscript1.txt>
+      {
+        // Info on what options the car has -- todo
+      }
+    }
+
+    // Presets available to the player
+    Presets
+    {
+      // Any number of these
+      <id: weapon id -- see wmountscript1.txt>
+    }
+
+    // The list of opponents in the race
+    Opponents
+    { 
+      // Describes a single AI
+      AI
+      {
+        Car        = <id: car id -- see wmountscript1.txt>
+        Color      = <string: color of the car -- see CarColors.psc>
+        Primary    = <id: weapon id -- see wmountscript1.txt>
+        Secondary  = <id: weapon id -- see wmountscript1.txt>
+        Bounty     = <number: the bounty value for the car. Optional>
+      }
+      // More AI { ... } may appear
+    }
+
+    // Goal conditions for gold status
+    GoldGoal
+    {
+      FinishPosition = <number: The minimum position the player must attain. Optional>
+      TakedownTotal  = <number: The minimum takedown count the player must attain. Optional>
+      TimeLimit      = <number: The time limit (in seconds) the player must attain. Optional>
+      DamageTotal    = <number: The minimum wreck total the player must attain. Optional>
+    }
+    GoldGoal = RewardName
+    SilverGoal
+    {
+      // Same as GoldGoal
+    }
+    SilverGoal = RewardName
+    BronzeGoal
+    {
+      // Same as GoldGoal
+    }
+    BronzeGoal = RewardName
+  }
+*/
+
+
+/*
+WeaponTypes:
+
+MachineGuns0
+Cannon0
+Missiles0
+Shotgun0
+Rockets0
+Grenade0
+
+Mines0
+GrenadeRear0
+ShotgunRear0
+Smoke0
+*/
+
+
+
+//
+//
+//   SERIES 0: TUTORIAL AND TEST EVENTS
+//   NO UNLOCKS
+//
+//
+Event <E060>
+  { Chapter = 0
+    EventName	= Event_E060
+    Description = Desc_E060
+    EventType	= TimeTrial
+    DebugText	= "< Road Test >"
+    TrackName	= fa_T113
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan>{ } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 75 }
+    SilverGoal	{ TimeLimit = 90 }
+    BronzeGoal  { TimeLimit = 180 }
+    GoldReward = Jupiter_Titanium
+    SilverReward = Guardian_Slate_Blue
+    PlayersCantBoost
+    PlayersCantUnwind
+  }
+
+
+Event <E061>
+  { Chapter = 0
+	Prerequisite { E060 }
+    EventName	= Event_E061
+    Description = Desc_E061
+    EventType	= TimeTrial
+    DebugText	= "< Teach them how to do damage >"
+    TrackName	= fa_T112
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Guardian>{ } }
+    Presets	{ Banger }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal  { TimeLimit = 75; DamageTotal = 40000 }
+    SilverGoal  { TimeLimit = 90; DamageTotal = 20000 }
+    BronzeGoal  { TimeLimit = 180; DamageTotal = 5000 }
+    GoldReward = Guardian_Silver
+    SilverReward = Magnus_White
+    PlayersCantBoost
+    PlayersCantUnwind
+    RampageWeaponMode	
+  }
+
+Event <E062>
+  { Chapter = 0
+	Prerequisite { E061 }
+    EventName	= Event_E062
+    Description = Desc_E062
+    EventType	= TimeTrial
+    DebugText	= "< Teach them how to use Rewind >"
+    TrackName	= fa_T113
+    NumLaps	= 2
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hitman>{ } }
+    Presets	{ Ripper }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal  { TimeLimit = 85; minUnwindUsed = 1}
+    SilverGoal  { TimeLimit = 100; minUnwindUsed = 1}
+    BronzeGoal  { TimeLimit = 180; minUnwindUsed = 1}
+    GoldReward = Demon_Light_Blue
+    SilverReward = Guardian_Dark_Grey
+    PlayersCantBoost
+    UseTips
+  }
+
+Event <E063>
+  { Chapter = 0
+	Prerequisite { E062 }
+    EventName	= Event_E063
+    Description = Desc_E063
+    EventType	= TimeTrial
+    DebugText	= "< Teach them how to use Turbo >"
+    TrackName	= fa_T622
+    NumLaps	= 1
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Tec_S2> { } }
+    Presets	{ Banger ; Ripper }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal    { TimeLimit = 105; minBoostUsed = 1}
+    SilverGoal  { TimeLimit = 115; minBoostUsed = 1}
+    BronzeGoal  { TimeLimit = 180; minBoostUsed = 1}
+    GoldReward = Warlord_Titanium
+    SilverReward = Magnus_Darkest_Red
+    UseTips
+  }
+
+
+Event <E064>
+  { Chapter = 0
+  	Prerequisite { E062 }
+    EventName	= Event_E064
+    Description = Desc_E064
+    EventType	= TimeTrial
+    DebugText	= "< Teach them how to do damage with dual weapons >"
+    TrackName	= fa_T112
+    NumLaps	= 2
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Honcho> { } }
+    Presets	{ Annihilator }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal  { TimeLimit = 180; DamageTotal = 70000 }
+    SilverGoal  { TimeLimit = 180; DamageTotal = 40000 }
+    BronzeGoal  { TimeLimit = 180; DamageTotal = 20000 }
+    GoldReward = Magnus_Dark_Grey
+    SilverReward = Guardian_Dark_Blue
+    RampageWeaponMode
+  }
+
+Event <E065>
+  { Chapter = 0
+  	Prerequisite { E062 }
+    EventName	= Event_E065
+    Description = Desc_E065
+    EventType	= Rampage
+    DebugText	= "< Teach them how to Rampage, do front damage damage part 2 >"
+    TrackName	= fa_T121
+    NumLaps	= 1
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Guardian> { } ; Car <Hitman> { } }
+    Presets	{ Hunter } 
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal  { TimeLimit = 195; TakedownTotal = 45 }
+    SilverGoal  { TimeLimit = 200; TakedownTotal = 35 }
+    BronzeGoal  { TimeLimit = 230; TakedownTotal = 30 }
+    GoldReward = Demon_Darkest_Red
+    SilverReward = Guardian_Slate_Green
+  }
+
+Event <E066>
+  { 
+    Chapter = 0
+   	Prerequisite { E062 }
+    EventName	= Event_E066
+    Description = Desc_E066
+    EventType	= TimeTrial
+    DebugText	= "< Teach players to kill Rivals for points. Catch up to Rivals and eliminate them >"
+    TrackName	= fa_t121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Opulent> { } ; Car <Magnus> { } }
+    Presets	{ Hunter } 
+    DDAValueKeys = [.95 .98 1.1] 
+    DDADistanceKeys = [-50 -0 32 158]
+    Opponents
+    { 
+      AI { Car = Demon;		Color = "Silver";		Primary = EmptyWeapon;	Secondary = MachineGuns0; CanBoost = false ; DifficultyLevel = 3; TeamID = 2 ; canRespawn = false; SpawnOffset = .02 ;  canRace = false  }
+      AI { Car = Demon;		Color = "Silver";		Primary = EmptyWeapon;	Secondary = MachineGuns0; CanBoost = false ; DifficultyLevel = 3; TeamID = 2 ; canRespawn = false; SpawnOffset = .05 ;  canRace = false }
+      AI { Car = Magnus;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = MachineGuns0; CanBoost = false ; DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .09; SpawnOffset = .12 ;  canRace = false }
+      AI { Car = Magnus;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = MachineGuns0; CanBoost = false ; DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .29; SpawnOffset = .32 ;  canRace = false }
+      AI { Car = Magnus;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = MachineGuns0; CanBoost = false ; DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .50; SpawnOffset = .54 ;  canRace = false  }
+      AI { Car = Magnus;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = MachineGuns0; CanBoost = false ; DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .69; SpawnOffset = .72 ;  canRace = false }
+      AI { Car = Magnus;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = MachineGuns0; CanBoost = false ; DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .81; SpawnOffset = .85 ;  canRace = false  }
+    } // End Opponents
+    GoldGoal  { TimeLimit = 150; RivalTakedownTotal = 4 }
+    SilverGoal  { TimeLimit = 165; RivalTakedownTotal = 2 }
+    BronzeGoal  { TimeLimit = 180; RivalTakedownTotal = 1 }
+    GoldReward = Enforcer_BRG
+    SilverReward = Ardent_Blue
+  }
+
+Event <E069>
+  { Chapter = 0
+  	Prerequisite { E062 }
+    EventName	= Event_E069
+    Description = Desc_E069
+    EventType	= TimeTrial
+    DebugText	= "< Teach them how to use rear weapons against rivals>"
+    TrackName	= fa_T111
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Honcho> { } ; Car <Rambler> { } }
+    Presets	{ Peacock }
+    DDAValueKeys = [.6 .1 1.1] 
+    DDADistanceKeys = [-48 -12 1 24]
+    Opponents
+    { 
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; CanBoost = false ;	DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; SpawnOffset = .02 ;  canRace = false  }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; CanBoost = false ;	DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; SpawnOffset = .06 ;  canRace = false  }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; CanBoost = false ;	DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .15; SpawnOffset = .19 ;  canRace = false }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; CanBoost = false ;	DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .29; SpawnOffset = .31 ;  canRace = false }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; CanBoost = false ;	DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .49; SpawnOffset = .51 ;  canRace = false }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; CanBoost = false ;	DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .69; SpawnOffset = .73 ;  canRace = false }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; CanBoost = false ;	DifficultyLevel = 3; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .82; SpawnOffset = .87 ;  canRace = false }
+    } // End Opponents
+    GoldGoal  { TimeLimit = 110; RivalTakedownTotal =  2 }
+    SilverGoal  { TimeLimit = 130; RivalTakedownTotal =  2 }
+    BronzeGoal  { TimeLimit = 150; RivalTakedownTotal =  1 }
+    GoldReward = Enforcer_Matte_Black
+    SilverReward = Magnus_Dark_Blue
+    RampageWeaponMode	
+  }
+
+
+Event <E071>
+  { 
+    Chapter = 0
+  	Prerequisite { E062 }
+    EventName	= Event_E071
+    Description = Desc_E071
+    EventType	= TimeTrial
+    DebugText	= "< Use aiming weapon to kill enemies >"
+    TrackName	= fa_t622
+    NumLaps	= 1
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Tec_S2> { } ; Car <Vulcan> { } }
+    Presets	{ Spiker }
+    DDAValueKeys = [.83 .89 1.02] 
+    DDADistanceKeys = [-16 -0 12 24]
+    Opponents
+    { 	
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = ShotgunRear0; CanBoost = false ;	DifficultyLevel = 6; Bounty = 50000; TeamID = 2 ; canRespawn = false; SpawnOffset = .04 ;  canRace = false  }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = ShotgunRear0; CanBoost = false ;	DifficultyLevel = 6; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .15; SpawnOffset = .18 ;  canRace = false }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = ShotgunRear0; CanBoost = false ;	DifficultyLevel = 6; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .29; SpawnOffset = .31 ;  canRace = false }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = ShotgunRear0; CanBoost = false ;	DifficultyLevel = 6; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .52; SpawnOffset = .55 ;  canRace = false }
+      AI { Car = Demon;	Color = "Flaming Orange";	Primary = EmptyWeapon;	Secondary = ShotgunRear0; CanBoost = false ;	DifficultyLevel = 6; Bounty = 50000; TeamID = 2 ; canRespawn = false; StartSpawn = .65; SpawnOffset = .71 ;  canRace = false }
+    } // End Opponents
+    GoldGoal  { TimeLimit = 110; RivalTakedownTotal = 3 }
+    SilverGoal  { TimeLimit = 130; RivalTakedownTotal = 2 }
+    BronzeGoal  { TimeLimit = 180; RivalTakedownTotal = 1 }
+    GoldReward = Enforcer_Darkest_Red
+    SilverReward = Ardent_BRG
+    RampageWeaponMode
+  }
+
+Event <E075>
+  { 
+    Chapter = 0
+   	Prerequisite { E062 }
+    EventName	= Event_E075
+    Description = Desc_E075
+    EventType	= LapKnockout
+    DebugText	= "< Learn how to survive a race , now with lap knockout >"
+    TrackName	= fa_t113
+    NumLaps	= 6
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } ; Car <Tec_S2> { } }
+    Presets	{ Assault ; Melee }
+    DDAValueKeys = [0.83 0.91 1.65] 
+    DDADistanceKeys = [-230 -10 28 105]
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = GrenadeRear0;	DifficultyLevel = 6 }
+      AI { Car = Tec_S2;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = ShotgunRear0; 	DifficultyLevel = 6 }
+      AI { Car = Vulcan;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; 	DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon;	DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon; 	DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Flaming Orange";	Primary = MachineGuns0;	Secondary = EmptyWeapon;	DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal  { FinishPosition = 1 ; TimeLimit = 200 }
+    SilverGoal  { FinishPosition = 1 ; TimeLimit = 210 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Warlord_Dark_Red
+    SilverReward = Magnus_Lilac
+  }
+
+Event <E076>
+  { 
+    Chapter = 0
+    Prerequisite { E075 }
+    EventName	= Event_E076
+    Description = Desc_E076
+    EventType	= Race
+    DebugText	= "< Learn how to Semi Auto a race >"
+    TrackName	= fa_t112
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Magnus> { } ; Car <Vulcan> { } ; Car <Tec_S2> { } }
+    Presets	{ Hunter }
+    DDAValueKeys = [0.90 0.99 1.75] 
+    DDADistanceKeys = [-250 -8 24 128]
+    Opponents
+    { 
+      AI { Car = Phantom;	Color = "Flaming Orange";Primary = MachineGuns1; 		      Secondary = Mines0; 				TeamID = 2 ; DifficultyLevel = 9 }
+      AI { Car = Opulent;	Color = "Flaming Orange";Primary = MachineGuns1; canRespawn = false ; Secondary = ShotgunRear0; CanBoost = false ;	TeamID = 2 ; DifficultyLevel = 6 }
+      AI { Car = Magnus;	Color = "Flaming Orange";Primary = MachineGuns0; canRespawn = false ; Secondary = ShotgunRear0; CanBoost = false ;	TeamID = 2 ; DifficultyLevel = 6 }
+      AI { Car = Vulcan;	Color = "Flaming Orange";Primary = MachineGuns0; 		      Secondary = ShotgunRear0;  			TeamID = 3 ; DifficultyLevel = 6 }
+      AI { Car = Tec_S2;	Color = "Flaming Orange";Primary = MachineGuns0; canRespawn = false ; Secondary = ShotgunRear0; CanBoost = false ;	TeamID = 3 ; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 2 ; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 2 ; DamageTotal = 50000 }
+    BronzeGoal	{ FinishPosition = 2 ; DamageTotal = 20000 }
+    GoldReward   = Warlord_Olive_Drab
+    SilverReward = Demon_Electric_Green
+  }
+
+Event <E077>
+  { 
+    Chapter = 0
+    Prerequisite { E076 }
+    EventName	= Event_E077
+    Description = Desc_E077
+    EventType	= Race
+    DebugText	= "< Learn how to Full Auto a race >"
+    TrackName	= fa_t511
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } ; Car <Tec_S2> { } ; Car <Magnus> { } ; Car <Opulent> { } }
+    Presets	{ Hunter ; Melee }
+    DDAValueKeys = [0.95 0.99 1.75] 
+    DDADistanceKeys = [-210 -8 24 128]
+    Opponents
+    { 
+      AI { Car = Vulcan;	Color = "Yellow";		Primary = MachineGuns2;	Secondary = GrenadeRear1; TeamID = 2 ; DifficultyLevel = 6 ; Bounty = 500000 }
+      AI { Car = Opulent;	Color = "Flaming Orange";	Primary = MachineGuns0; Secondary = ShotgunRear1; canRespawn = false ; TeamID = 4 ; DifficultyLevel = 6 }
+      AI { Car = Tec_S2;	Color = "Flaming Orange";	Primary = MachineGuns0; Secondary = ShotgunRear0; canRespawn = false ; TeamID = 3 ; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Flaming Orange";	Primary = MachineGuns0; Secondary = ShotgunRear0; canRespawn = false ; TeamID = 2 ; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Flaming Orange";	Primary = MachineGuns0; Secondary = EmptyWeapon;  canRespawn = false ; TeamID = 3 ; DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Flaming Orange";	Primary = MachineGuns0; Secondary = EmptyWeapon;  canRespawn = false ; TeamID = 4 ; DifficultyLevel = 3 }
+      AI { Car = Python;	Color = "Flaming Orange";	Primary = MachineGuns0; Secondary = EmptyWeapon;  canRespawn = false ; TeamID = 5 ; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1;  DamageTotal = 525000; RivalTakedownTotal = 1}
+    SilverGoal	{ FinishPosition = 1;  DamageTotal = 520000; RivalTakedownTotal = 1}
+    BronzeGoal	{ FinishPosition = 1;  DamageTotal = 515000; RivalTakedownTotal = 1}
+    GoldReward   = Warlord_Mango_Wine
+    SilverReward = Enforcer_Dark_Red
+    }
+
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//End of JH Tutorial events
+//--------------------------------------------------------------------------------------- 
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------
+//JH Adding a bunch of test events to the script to check out lowest, highest and middle "difficulty". 
+//---------------------------------------------------------------------------------------
+
+/* 
+ Event <E090>
+  {
+    Chapter = 0
+    EventName	= Event_E090
+    Description = Desc_E090
+    EventType	= Race
+    DebugText	= "< Lowest Difficulty Attributes, full weapons. If cars are too slow then raise the abilities in difficultyscript and propgate increases to higher attributes.>"   
+    TrackName	= fa_t121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Jupiter> { } ; Car <Rampart> { } ; Car <Honcho> { } ; Car <Guardian> { } ; Car <Hitman> { } ; Car <Hookzilla> { } ; Car <Rambler> { } }
+    Presets	{ Assault; Melee; Tactical; Demolisher; Annihilator; Devastator ; Vacancy }
+    Opponents
+    { 
+      AI { Car = Jupiter;	Color = "Black";	Primary = EmptyWeapon; 	Secondary = EmptyWeapon;  	DifficultyLevel = 3 }
+      AI { Car = Rampart;	Color = "Dark Red";	Primary = EmptyWeapon; 	Secondary = EmptyWeapon; 	DifficultyLevel = 3 }
+      AI { Car = Honcho;	Color = "Slate Blue";	Primary = EmptyWeapon; 	Secondary = EmptyWeapon; 	DifficultyLevel = 3 }
+      AI { Car = Guardian;	Color = "Yellow";	Primary = EmptyWeapon; 	Secondary = EmptyWeapon; 	DifficultyLevel = 3 }
+      AI { Car = Hitman;	Color = "Flaming Orange";Primary = EmptyWeapon; Secondary = EmptyWeapon;  	DifficultyLevel = 3 }
+      AI { Car = Hookzilla;	Color = "Copper";	Primary = EmptyWeapon; 	Secondary = EmptyWeapon;  	DifficultyLevel = 3 }
+      AI { Car = Jupiter;	Color = "Deepest Green";Primary = EmptyWeapon; 	Secondary = EmptyWeapon;  	DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1}
+    SilverGoal	{ FinishPosition = 2}
+    BronzeGoal  { FinishPosition = 3}
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+Event <E091>
+  {
+    Chapter = 0
+    EventName	= Event_E091
+    Description = Desc_E091
+    EventType	= Race
+    DebugText	= "< This is a test-only event that is the same as 010, except at DifficultyLevel = 4 >"   
+    TrackName	= fa_t121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Jupiter> { } ; Car <Rampart> { } ; Car <Honcho> { } ; Car <Guardian> { } ; Car <Hitman> { } ; Car <Hookzilla> { } ; Car <Rambler> { } }
+    Presets	{ Assault; Melee; Tactical; Demolisher; Annihilator; Devastator ; Vacancy }
+    Opponents
+    { 
+      AI { Car = Jupiter;	Color = "Black";	Primary = MachineGuns1;	Secondary = GrenadeRear1; 	DifficultyLevel = 3 }
+      AI { Car = Rampart;	Color = "Dark Red";	Primary = Cannon1;	Secondary = ShotgunRear1; 	DifficultyLevel = 3 }
+      AI { Car = Honcho;	Color = "Slate Blue";	Primary = Missiles1;	Secondary = Smoke1; 		DifficultyLevel = 3 }
+      AI { Car = Guardian;	Color = "Yellow";	Primary = Rockets1;	Secondary = Mines1; 		DifficultyLevel = 3 }
+      AI { Car = Hitman;	Color = "Flaming Orange";Primary = Grenade1;	Secondary = GrenadeRear1; 	DifficultyLevel = 3 }
+      AI { Car = Hookzilla;	Color = "Copper";	Primary = Shotgun1;	Secondary = ShotgunRear1; 	DifficultyLevel = 3 }
+      AI { Car = Jupiter;	Color = "Deepest Green";Primary = Missiles1;	Secondary = Mines1; 		DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 15000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 7500 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+  
+  Event <E092>
+  {
+    Chapter = 0
+    EventName	= Event_E092
+    Description = Desc_E092
+    EventType	= Race
+    DebugText	= "< This is a test-only event that is similar to 010, except at DifficultyLevel = 9, with tougher enemy loadouts >"   
+    TrackName	= fa_t121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Jupiter> { } ; Car <Rampart> { } ; Car <Honcho> { } ; Car <Guardian> { } ; Car <Hitman> { } ; Car <Hookzilla> { } ; Car <Rambler> { } }
+    Presets	{ Assault; Melee; Tactical; Demolisher; Annihilator; Devastator ; Vacancy }
+    Opponents
+    { 
+      AI { Car = Jupiter;	Color = "Black";	Primary = MachineGuns1;	Secondary = GrenadeRear1; 	DifficultyLevel = 9 }
+      AI { Car = Rampart;	Color = "Dark Red";	Primary = Cannon1;	Secondary = ShotgunRear1; 	DifficultyLevel = 9 }
+      AI { Car = Honcho;	Color = "Slate Blue";	Primary = Missiles1;	Secondary = Smoke1; 		DifficultyLevel = 9 }
+      AI { Car = Guardian;	Color = "Yellow";	Primary = Rockets1;	Secondary = Mines1; 		DifficultyLevel = 9 }
+      AI { Car = Hitman;	Color = "Flaming Orange";Primary = Grenade1;	Secondary = GrenadeRear1; 	DifficultyLevel = 9 }
+      AI { Car = Hookzilla;	Color = "Copper";	Primary = Shotgun1;	Secondary = ShotgunRear1; 	DifficultyLevel = 9 }
+      AI { Car = Jupiter;	Color = "Deepest Green";Primary = Missiles1;	Secondary = Mines1; 		DifficultyLevel = 9 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 15000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 7500 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+//Demo style events with B class cars.
+
+Event <E093>
+  { 
+    Chapter = 0
+    EventName	= Event_E093
+    Description = Desc_E093
+    EventType	= Race
+    DebugText	= "< Demo event, B class cars with Attribute zero set. >"
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+    Presets	{ Assault; Melee; Tactical; Demolisher; Annihilator; Devastator ; Vacancy }
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Slate Blue";	Primary = MachineGuns0;	Secondary = Mines0; 	  	DifficultyLevel = 3; Bounty = 25000 }
+      AI { Car = Vulcan;	Color = "Blue Steel";	Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+      AI { Car = TEC_S2;	Color = "Dark Blue";	Primary = MachineGuns0;	Secondary = GrenadeRear0; 	DifficultyLevel = 3}
+      AI { Car = Opulent;	Color = "Silver";	Primary = MachineGuns0; Secondary = GrenadeRear0; 	DifficultyLevel = 3}
+      AI { Car = Kodiak;	Color = "BRG";		Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+      AI { Car = Python;	Color = "Gold";		Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+      AI { Car = Magnus;	Color = "Titanium";	Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+Event <E094>
+  { 
+    Chapter = 0
+    EventName	= Event_E094
+    Description = Desc_E094
+    EventType	= Race
+    DebugText	= "< Demo event B class cars with Attribute 4 set (Medium) >"
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+    Presets	{ Assault; Melee; Tactical; Demolisher; Annihilator; Devastator ; Vacancy }
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Slate Blue";	Primary = MachineGuns0;	Secondary = Mines0; 	  	DifficultyLevel = 3; Bounty = 25000 }
+      AI { Car = Vulcan;	Color = "Blue Steel";	Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+      AI { Car = TEC_S2;	Color = "Dark Blue";	Primary = MachineGuns0;	Secondary = GrenadeRear0; 	DifficultyLevel = 3}
+      AI { Car = Opulent;	Color = "Silver";	Primary = MachineGuns0; Secondary = GrenadeRear0; 	DifficultyLevel = 3}
+      AI { Car = Kodiak;	Color = "BRG";		Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+      AI { Car = Python;	Color = "Gold";		Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+      AI { Car = Magnus;	Color = "Titanium";	Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 3}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+Event <E095>
+  { 
+    Chapter = 0
+    EventName	= Event_E095
+    Description = Desc_E095
+    EventType	= Race
+    DebugText	= "< Demo event B class cars with Attribute Nine set (Hard) >"
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+    Presets	{ Assault; Melee; Tactical; Demolisher; Annihilator; Devastator ; Vacancy }
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Slate Blue";	Primary = MachineGuns0;	Secondary = Mines0; 	  	DifficultyLevel = 9; Bounty = 25000 }
+      AI { Car = Vulcan;	Color = "Blue Steel";	Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 9}
+      AI { Car = TEC_S2;	Color = "Dark Blue";	Primary = MachineGuns0;	Secondary = GrenadeRear0; 	DifficultyLevel = 9}
+      AI { Car = Opulent;	Color = "Silver";	Primary = MachineGuns0; Secondary = GrenadeRear0; 	DifficultyLevel = 9}
+      AI { Car = Kodiak;	Color = "BRG";		Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 9}
+      AI { Car = Python;	Color = "Gold";		Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 9}
+      AI { Car = Magnus;	Color = "Titanium";	Primary = MachineGuns0; Secondary = EmptyWeapon;  	DifficultyLevel = 9}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+//Demo Event with A class cars and full weapons.
+
+Event <E096>
+  { 
+    Chapter = 0
+    EventName	= Event_E096
+    Description = Desc_E096
+    EventType	= Race
+    DebugText	= "< Class A Easy settings full weapons>"
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Wraith> { } ; Car <Enforcer> { } ; Car <Demon> { } ; Car <Streamline> { } ; Car <Maverick> { } ; Car <Phantom> { } }
+    Presets	{ Assault; Melee ; Tactical; Ravager; Brawler }
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Black";	Primary = MachineGuns1;	Secondary = GrenadeRear1; 	DifficultyLevel = 3 }
+      AI { Car = Enforcer;	Color = "Dark Red";	Primary = Cannon1;	Secondary = ShotgunRear1; 	DifficultyLevel = 3 }
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = Missiles1;	Secondary = Smoke1; 		DifficultyLevel = 3 }
+      AI { Car = Demon;		Color = "Yellow";	Primary = Rockets1;	Secondary = Mines1; 		DifficultyLevel = 3 }
+      AI { Car = Maverick;	Color = "Flaming Orange";Primary = Grenade1;	Secondary = GrenadeRear1; 	DifficultyLevel = 3 }
+      AI { Car = Phantom;	Color = "Copper";	Primary = Shotgun1;	Secondary = ShotgunRear1; 	DifficultyLevel = 3 }
+      AI { Car = Wraith;	Color = "Deepest Green";Primary = Missiles1;	Secondary = Mines1; 		DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 15000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 7500 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+
+Event <E097>
+  { 
+    Chapter = 0
+    EventName	= Event_E097
+    Description = Desc_E097
+    EventType	= Race
+    DebugText	= "< Class A Medium Settings full weapons >"
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Wraith> { } ; Car <Enforcer> { } ; Car <Demon> { } ; Car <Streamline> { } ; Car <Maverick> { } ; Car <Phantom> { } }
+    Presets	{ Assault; Melee ; Tactical; Ravager; Brawler }
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Black";	Primary = MachineGuns1;	Secondary = GrenadeRear1; 	DifficultyLevel = 3 }
+      AI { Car = Enforcer;	Color = "Dark Red";	Primary = Cannon1;	Secondary = ShotgunRear1; 	DifficultyLevel = 3 }
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = Missiles1;	Secondary = Smoke1; 		DifficultyLevel = 3 }
+      AI { Car = Demon;		Color = "Yellow";	Primary = Rockets1;	Secondary = Mines1; 		DifficultyLevel = 3 }
+      AI { Car = Phantom;	Color = "Flaming Orange";Primary = Grenade1;	Secondary = GrenadeRear1; 	DifficultyLevel = 3 }
+      AI { Car = Maverick;	Color = "Copper";	Primary = Shotgun1;	Secondary = ShotgunRear1; 	DifficultyLevel = 3 }
+      AI { Car = Wraith;	Color = "Deepest Green";Primary = Missiles1;	Secondary = Mines1; 		DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 15000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 7500 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+  Event <E098>
+  { 
+    Chapter = 0
+    EventName	= Event_E098
+    Description = Desc_E098
+    EventType	= Race
+    DebugText	= "< Class A Hard settings full weapons. >"
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Wraith> { } ; Car <Enforcer> { } ; Car <Demon> { } ; Car <Streamline> { } ; Car <Maverick> { } ; Car <Phantom> { } }
+    Presets	{ Assault; Melee ; Tactical; Ravager; Brawler }
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Black";	Primary = MachineGuns1;	Secondary = GrenadeRear1; 	DifficultyLevel = 9 }
+      AI { Car = Enforcer;	Color = "Dark Red";	Primary = Cannon1;	Secondary = ShotgunRear1; 	DifficultyLevel = 9 }
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = Missiles1;	Secondary = Smoke1; 		DifficultyLevel = 9 }
+      AI { Car = Demon;		Color = "Yellow";	Primary = Rockets1;	Secondary = Mines1; 		DifficultyLevel = 9 }
+      AI { Car = Phantom;	Color = "Flaming Orange";Primary = Grenade1;	Secondary = GrenadeRear1; 	DifficultyLevel = 9 }
+      AI { Car = Maverick;	Color = "Copper";	Primary = Shotgun1;	Secondary = ShotgunRear1; 	DifficultyLevel = 9 }
+      AI { Car = Wraith;	Color = "Deepest Green";Primary = Missiles1;	Secondary = Mines1; 		DifficultyLevel = 9 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 15000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 7500 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+
+*/
+
+//---------------------------------------------------------------------------------------
+//End of JH Attribute test events
+//--------------------------------------------------------------------------------------- 
+
+//
+//   SERIES 1: CLASS C
+//   UNLOCK JUPITER, RAMBLER, HONCHO, HITMAN, RAMPART, GUARDIAN, HOOKZILLA
+//
+//
+
+  Event <E101>
+  {
+    Chapter = 1
+    Prerequisite { E062 }
+    EventName	= Event_E101
+    Description = Desc_E101
+    EventType	= Race
+    DebugText	= "< >"   
+    TrackName	= fa_t121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Jupiter> { } }
+    Presets	{ Assault }
+    Opponents
+    { 
+      AI { Car = Rambler;	Color = "Olive Drab";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Titanium";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Dark Blue";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Tan";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Taxi Yellow";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 60000 }
+    SilverGoal	{ FinishPosition = 3; DamageTotal = 7500 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Hitman_White
+    SilverReward = Jupiter_Dark_Blue
+    BronzeReward = Jupiter_Slate_Blue
+    }
+
+Event <E102>
+  {
+    Chapter = 1
+    Prerequisite { E101 }
+    EventName	= Event_E102
+    Description = Desc_E102
+    EventType	= Race
+    DebugText	= "< >"   
+    TrackName	= fa_t112
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Rampart> { } }
+    Presets	{ Assault }
+    Opponents
+    { 
+      AI { Car = Rampart;	Color = "Dark Grey";	Preset = Assault; DifficultyLevel = 3; Bounty = 10000;}
+      AI { Car = Honcho;	Color = "White";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 3 }
+      AI { Car = Honcho;	Color = "Dark Blue";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Olive Drab";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Tan";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 60000 }
+    SilverGoal	{ FinishPosition = 3; DamageTotal = 15000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Rampart_Taxi_Yellow
+    SilverReward = Rampart_Orange
+    BronzeReward = E102
+  }
+
+Event <E103>
+  {
+    Chapter = 1
+    Prerequisite { E102 }
+    EventName	= Event_E103
+    Description = Desc_E103
+    EventType	= Race
+    DebugText	= "< >"   
+    TrackName	= fa_t724
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Rambler> { } }
+    Presets	{ Assault }
+    Opponents
+    { 
+      AI { Car = Jupiter;	Color = "Light Blue";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 6; Bounty = 10000}
+      AI { Car = Rampart;	Color = "Darkest Green";	Preset = Assault; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Taxi Yellow";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Titanium";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Honcho;	Color = "Gloss Black";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 3 }
+      AI { Car = Honcho;	Color = "White";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 40000 }
+    SilverGoal	{ FinishPosition = 3; DamageTotal = 15000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Rambler_Titanium
+    SilverReward = Rambler_Taxi_Yellow
+    BronzeReward = E103
+  }
+
+Event <E104>
+  {
+    Chapter = 1
+    Prerequisite { E103 }
+    EventName	= Event_E104
+    Description = Desc_E104
+    EventType	= Race
+    DebugText	= "< >"   
+    TrackName	= fa_t111
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hitman> { } }
+    Presets	{ Assault }
+    //DDAValueKeys = [0.5 1.0 1.5] 
+    //DDADistanceKeys = [-100 -64 64 256]
+    Opponents
+    { 
+      AI { Car = Guardian;	Color = "Presidential Black";	Preset = Assault; DifficultyLevel = 6; Bounty = 15000}
+      AI { Car = Jupiter;	Color = "Lilac";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Jupiter;	Color = "Darkest Red";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Olive Drab";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rambler;	Color = "Dark Grey";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rampart;	Color = "Light Grey";	Preset = Assault; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 60000 }
+    SilverGoal	{ FinishPosition = 3; DamageTotal = 20000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Hitman_Dark_Blue
+    SilverReward = Hitman_BRG
+    BronzeReward = E104
+  }
+
+Event <E105>
+  {
+    Chapter = 1
+    Prerequisite { E104 }
+    EventName	= Event_E105
+    Description = Desc_E105
+    EventType	= Race
+    DebugText	= "< >"   
+    TrackName	= fa_t721
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Honcho> { } }
+    Presets	{ Assault }
+    Opponents
+    { 
+      AI { Car = Hitman;	Color = "Darkest Red";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6; Bounty = 15000 }
+      AI { Car = Guardian;	Color = "Silver";	Preset = Assault; DifficultyLevel = 3 }
+      AI { Car = Guardian;	Color = "White";	Preset = Assault; DifficultyLevel = 3 }
+      AI { Car = Jupiter;	Color = "Light Blue";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Jupiter;	Color = "Lilac";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Rampart;	Color = "Darkest Green";	Preset = Assault; DifficultyLevel = 3 }
+      AI { Car = Rampart;	Color = "Light Grey";	Preset = Assault; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 20000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Honcho_Indigo
+    SilverReward = Honcho_Titanium
+    BronzeReward = E105
+  }
+ 
+
+Event <E106>
+  {
+    Chapter = 1
+    Prerequisite { E105 }
+    EventName	= Event_E106
+    Description = Desc_E106
+    EventType	= Race
+    DebugText	= "< >"   
+    TrackName	= fa_t113
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Guardian> { } }
+    Presets	{ Assault }
+    Opponents
+    { 
+      AI { Car = Honcho;	Color = "Gloss Black";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 6; Bounty = 15000;}
+      AI { Car = Jupiter;	Color = "Slate Blue";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Jupiter;	Color = "Dark Blue";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Hitman;	Color = "Silver";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Hitman;	Color = "Dark Grey";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Guardian;	Color = "Grey";	Preset = Assault; DifficultyLevel = 3;}
+      AI { Car = Guardian;	Color = "White";	Preset = Assault; DifficultyLevel = 3;}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 70000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 20000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Guardian_Titanium
+    SilverReward = Guardian_BRG
+    BronzeReward = E106
+  }
+
+  
+Event <E107>
+  {
+    Chapter = 1
+    Prerequisite { E106 }
+    EventName	= Event_E107
+    Description = Desc_E107
+    EventType	= DownandBack
+    DebugText	= "< >"   
+    TrackName	= fa_t622
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hookzilla> {  } }
+    Presets	{ Assault }
+    Opponents
+    { 
+      AI { Car = Hookzilla;	Color = "Presidential Black";	Preset = Melee;	DifficultyLevel = 6; Bounty = 20000 }
+      AI { Car = Guardian;	Color = "Silver";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Guardian;	Color = "Dark Grey";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Rampart;	Color = "Taxi Yellow";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Rampart;	Color = "Orange";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Honcho;	Color = "Grape";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 3 }
+      AI { Car = Honcho;	Color = "Electric Green";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 80000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Hookzilla_Grey
+    SilverReward = Hookzilla_Darkest_Green
+    BronzeReward = E107
+  }
+
+Event <E108>
+  { 
+    Chapter = 1
+    Prerequisite { E107 }
+    EventName	= Event_E108
+    Description = Desc_E108
+    EventType	= LapKnockout
+    DebugText	= "< Class C Race 8 >"
+    TrackName	= fa_t111
+    NumLaps	= 3
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hookzilla> { } Car <Hitman> { } Car <Guardian> { } Car <Honcho> { } Car <Rambler> { } Car <Rampart> { } Car <Jupiter> { } }
+    Presets	{ Assault; Melee }
+    Opponents
+    { 
+      AI { Car = Hookzilla;	Color = "Darkest Green";	Preset = Melee; DifficultyLevel = 6 }
+      AI { Car = Guardian;	Color = "Presidential Black";	Preset = Assault; DifficultyLevel = 6}
+      AI { Car = Jupiter;	Color = "Lilac";	Primary = Shotgun1;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 80000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Hookzilla_Ferrari_Red
+    SilverReward = Hookzilla_Taxi_Yellow
+    BronzeReward = E108
+  }
+
+//
+//
+//   SERIES 2: CLASS B
+//   UNLOCK PYTHON, ARDENT, VULCAN, OPULENT, MAGNUS, TEC
+//
+//
+
+Event <E201>
+  { 
+    Chapter = 2
+    Prerequisite { E108 }
+    EventName	= Event_E201
+    Description = Desc_E201
+    EventType	= Race
+    DebugText	= "< Class B Race 1 >"
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Python> { } }
+    Presets	{ Assault; Melee }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-64 -16 64 128]
+    Opponents
+    { 
+      AI { Car = Python;	Color = "Gold";	Primary = Shotgun1;	Secondary = EmptyWeapon;DifficultyLevel = 3 }
+      AI { Car = Python;	Color = "Candy Apple Red";	Primary = Shotgun1;	Secondary = EmptyWeapon;DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Grape";	Primary = Shotgun1;	Secondary = EmptyWeapon;DifficultyLevel = 3 }
+      AI { Car = Magnus;	Color = "Champagne";	Primary = EmptyWeapon;	Secondary = GrenadeRear1;DifficultyLevel = 6 } 
+      AI { Car = Magnus;	Color = "BRG";	Primary = EmptyWeapon;	Secondary = GrenadeRear1;DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 85000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 40000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Honcho_Grape
+    SilverReward = Python_Candy_Apple_Red
+    BronzeReward = Python_Ferrari_Red
+  }
+
+Event <E202>
+  { 
+    Chapter = 2
+    Prerequisite { E201 }
+    EventName	= Event_E202
+    Description = Desc_E202
+    EventType	= Race
+    DebugText	= "< Class B Race 2 >"
+    TrackName	= fa_t215
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Ardent> { } }
+	DDAValueKeys = [0.5 1.0625 1.2] // Catch up improved!
+	DDADistanceKeys = [-100 -16 32 128]
+    Presets	{ Assault; Melee }
+    Opponents
+    { 
+      AI { Car = Opulent;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6;	Bounty = 10000 }
+      AI { Car = Python;	Color = "Dark Blue";	Primary = Shotgun0;	Secondary = EmptyWeapon;DifficultyLevel = 3 }
+      AI { Car = Python;	Color = "Darkest Red";	Primary = Shotgun0;	Secondary = EmptyWeapon;DifficultyLevel = 3 }
+      AI { Car = Python;	Color = "Gold";	Primary = Shotgun0;	Secondary = EmptyWeapon;DifficultyLevel = 3 }
+      AI { Car = Magnus;	Color = "BRG";	Primary = EmptyWeapon;	Secondary = GrenadeRear1;DifficultyLevel = 6 }
+      AI { Car = Magnus;	Color = "Silver";	Primary = EmptyWeapon;	Secondary = GrenadeRear1;DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Ardent_Slate_Blue
+    SilverReward = Ardent_Copper
+    BronzeReward = E202
+  }
+
+Event <E203>
+  { 
+    Chapter = 2
+    Prerequisite { E202 }
+    EventName	= Event_E203
+    Description = Desc_E203
+    EventType	= Race
+    DebugText	= "< Class B Race 3 >"
+    TrackName	= fa_t512
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Opulent> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 256]
+    Presets	{ Assault; Melee }
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Silver";	Primary = EmptyWeapon;	Secondary = Smoke1; DifficultyLevel = 6;Bounty = 10000 }
+      AI { Car = Magnus;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = GrenadeRear1;DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Dark Blue";	Primary = Shotgun0;	Secondary = EmptyWeapon;DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Gold";	Primary = Shotgun0;	Secondary = EmptyWeapon;DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Dark Grey";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Champagne";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 80000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 40000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Opulent_Dark_Blue
+    SilverReward = Opulent_BRG
+    BronzeReward = E203
+  }
+ 
+Event <E204>
+  { 
+    Chapter = 2
+    Prerequisite { E203 }
+    EventName	= Event_E204
+    Description = Desc_E204
+    EventType	= Race
+    DebugText	= "< Class B Race 4 >"
+    TrackName	= fa_t216
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+    Presets	{ Assault; Melee }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 256]
+    Opponents
+    { 
+      AI { Car = Vulcan;	Color = "Dark Red";	Preset = Melee; DifficultyLevel = 6;	Bounty = 15000 }
+      AI { Car = Ardent;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = Smoke1; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "Dark Green";	Primary = EmptyWeapon;	Secondary = Smoke1; DifficultyLevel = 3 }
+      AI { Car = Opulent;	Color = "BRG";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Grey";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Darkest Red";	Primary = Shotgun0;	Secondary = EmptyWeapon;DifficultyLevel = 3 }
+      AI { Car = Python;	Color = "Gold";	Primary = Shotgun0;	Secondary = EmptyWeapon;DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 60000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 30000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Vulcan_Flaming_Orange
+    SilverReward = Vulcan_Light_Blue
+    BronzeReward = E204
+  } 
+
+Event <E205>
+  { 
+    Chapter = 2
+    Prerequisite { E204 }
+    EventName	= Event_E205
+    Description = Desc_E205
+    EventType	= Race
+    DebugText	= "< Class B Race 5 >"
+    TrackName	= fa_t213
+    NumLaps	= 4
+    Direction	= Foward
+    TimeOfDay	= Default
+    Vehicles	{ Car <TEC_S2> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-128 -32 32 256]
+    Presets	{ Assault; Melee }
+    Opponents
+    { 
+      AI { Car = TEC_S2;	Color = "Dark Blue";	Primary = Missiles0;	Secondary = EmptyWeapon; DifficultyLevel = 6;	Bounty = 15000 }
+      AI { Car = Opulent;	Color = "Silver";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Blue";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Ardent;	Color = "Ferrari Red";	Primary = EmptyWeapon;	Secondary = Smoke1; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "Titanium";	Primary = EmptyWeapon;	Secondary = Smoke1; DifficultyLevel = 3 }
+      AI { Car = Vulcan;	Color = "Dark Red";	Preset = Melee; DifficultyLevel = 6}
+      AI { Car = Vulcan;	Color = "Light Blue";	Preset = Melee; DifficultyLevel = 6}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 175000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = TEC_S2_Titanium
+    SilverReward = TEC_S2_Blue
+    BronzeReward = E205
+  } 
+
+Event <E206>
+  { 
+    Chapter = 2
+    Prerequisite { E205 }
+    EventName	= Event_E206
+    Description = Desc_E206
+    EventType	= DownandBack
+    DebugText	= "< Class B Race 6 >"
+    TrackName	= fa_t722
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Magnus> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-128 -32 32 256]
+    Presets	{ Assault; Melee }
+    Opponents
+    { 
+      AI { Car = TEC_S2;	Color = "Darkest Green";	Primary = Missiles1;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = TEC_S2;	Color = "Dark Blue";	Primary = Missiles1;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = TEC_S2;	Color = "Titanium";	Primary = Missiles1;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Opulent;	Color = "Champagne";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "BRG";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Vulcan;	Color = "Dark Red";	Preset = Melee; DifficultyLevel = 6}
+      AI { Car = Vulcan;	Color = "Yellow";	Preset = Melee; DifficultyLevel = 6}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 70000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 35000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Magnus_Gloss_Black
+    SilverReward = Magnus_BRG
+    BronzeReward = E206
+  } 
+
+Event <E207>
+  { 
+    Chapter = 2
+    Prerequisite { E206 }
+    EventName	= Event_E207
+    Description = Desc_E207
+    EventType	= DownandBack
+    DebugText	= "< Class B Race 7 >"
+    TrackName	= fa_t721
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Kodiak>{ } }
+	DDAValueKeys = [0.5 1.0 1.0625] // Catch up improved!
+	DDADistanceKeys = [-256 -32 32 128]
+    Presets	{ Assault; Melee }
+    Opponents
+    { 
+      AI { Car = Kodiak;	Color = "Burnt Orange";	Preset = Tactical;DifficultyLevel = 6;	Bounty = 20000 }
+      AI { Car = Vulcan;	Color = "Dark Red";	Preset = Melee; DifficultyLevel = 6}
+      AI { Car = Vulcan;	Color = "Blue Steel";	Preset = Melee; DifficultyLevel = 6}
+      AI { Car = TEC_S2;	Color = "Dark Blue";	Primary = Missiles0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = TEC_S2;	Color = "Dark Grey";	Primary = Missiles0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Opulent;	Color = "Blue";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Silver";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 110000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 60000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Kodiak_Dark_Blue
+    SilverReward = Kodiak_Dark_Red
+    BronzeReward = E207
+  } 
+
+Event <E208>
+  { 
+    Chapter = 2
+    Prerequisite { E207 }
+    EventName	= Event_E208
+    Description = Desc_E208
+    EventType	= LapKnockout
+    DebugText	= "< Class B Race 8 >"
+    TrackName	= fa_t512
+    NumLaps	= 5
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Kodiak> { } Car <Vulcan >{ } Car <TEC_S2 >{ } Car <Opulent >{ } Car <Ardent >{ } Car <Magnus >{ } Car <Python >{ } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Kodiak;	Color = "Burnt Orange";	Preset = Tactical;DifficultyLevel = 6 }
+      AI { Car = Vulcan;	Color = "Dark Red";	Preset = Melee; DifficultyLevel = 6}
+      AI { Car = TEC_S2;	Color = "Dark Blue";	Primary = Missiles0;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+      AI { Car = Ardent;	Color = "Silver";	Primary = EmptyWeapon;	Secondary = Smoke2; DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Gold";	Primary = Shotgun0;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 110000  }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 55000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Kodiak_Blue_Steel
+    SilverReward = Kodiak_Copper
+    BronzeReward = E208
+  }
+
+//
+//
+//   SERIES 3: CLASS A
+//   UNLOCK DEMON, STREAMLINE, PHANTOM, ENFORCER, WRAITH, MAVERICK
+//
+//
+
+Event <E301>
+  { 
+    Chapter = 3
+    Prerequisite { E108; E208 }
+    EventName	= Event_E301
+    Description = Desc_E301
+    EventType	= Race
+    DebugText	= "< Class A Race 1 >"
+    TrackName	= fa_T216
+    NumLaps	= 6
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Streamline> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Gloss Black";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Dark Red";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Phantom;	Color = "Dark Blue";	Preset = Melee; DifficultyLevel = 3}
+      AI { Car = Phantom;	Color = "Champagne";	Preset = Melee; DifficultyLevel = 3}
+      AI { Car = Phantom;	Color = "Copper";	Preset = Melee; DifficultyLevel = 3}
+      AI { Car = Phantom;	Color = "BRG";		Preset = Melee; DifficultyLevel = 3}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 30000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Streamline_Ruby_Red
+    SilverReward = Streamline_BRG
+    BronzeReward = E301
+  }
+
+Event <E302>
+  { 
+    Chapter = 3
+    Prerequisite { E301 }
+    EventName	= Event_E302
+    Description = Desc_E302
+    EventType	= Race
+    DebugText	= "< Class A Race 2 >"
+    TrackName	= fa_T611
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Demon> { } }
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Enforcer;	Color = "Gloss Black";	Preset = Tactical; DifficultyLevel = 6; Bounty = 15000}
+      AI { Car = Phantom;	Color = "BRG";	Preset = Melee; DifficultyLevel = 3}
+      AI { Car = Phantom;	Color = "Copper";	Preset = Melee; DifficultyLevel = 3}
+      AI { Car = Phantom;	Color = "Titanium";	Preset = Melee; DifficultyLevel = 3}
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Mango Wine";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Ruby Red";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 100000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Demon_Dark_Red
+    SilverReward = Demon_Dark_Blue
+    BronzeReward = E302
+  }
+  
+
+Event <E303>
+  { 
+    Chapter = 3
+    Prerequisite { E302 }
+    EventName	= Event_E303
+    Description = Desc_E303
+    EventType	= Race
+    DebugText	= "< Class A Race 3 >"
+    TrackName	= fa_T615
+    NumLaps	= 4
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Phantom> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-128 -32 32 128]
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Yellow";	Preset = Assault; DifficultyLevel = 6; Bounty = 10000 }
+      AI { Car = Phantom;	Color = "BRG";		Preset = Melee; DifficultyLevel = 3 }
+      AI { Car = Phantom;	Color = "Copper";	Preset = Melee; DifficultyLevel = 3 }
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Mango Wine";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Enforcer;	Color = "Dark Blue";	Preset = Tactical; DifficultyLevel = 6}
+      AI { Car = Enforcer;	Color = "Dark Blue";	Preset = Tactical; DifficultyLevel = 6}
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 80000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 60000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Phantom_Slate_Green
+    SilverReward = Phantom_Copper
+    BronzeReward = E303
+   }
+
+Event <E304>
+  { 
+    Chapter = 3
+    Prerequisite { E303 }
+    EventName	= Event_E304
+    Description = Desc_E304
+    EventType	= DownandBack
+    DebugText	= "< Class A Race 4 >"
+    TrackName	= fa_T725
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Enforcer >{ } }
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Enforcer;	Color = "Olive Drab";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Wraith;	Color = "Yellow";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Wraith;	Color = "Indigo";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Phantom;	Color = "BRG";		Preset = Melee; DifficultyLevel = 3 }
+      AI { Car = Phantom;	Color = "Champagne";	Preset = Melee; DifficultyLevel = 3 }
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Dark Red";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 35000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Enforcer_Dark_Grey
+    SilverReward = Enforcer_Olive_Drab
+    BronzeReward = E304
+   }
+
+Event <E305>
+  { 
+    Chapter = 3
+    Prerequisite { E304 }
+    EventName	= Event_E305
+    Description = Desc_E305
+    EventType	= Race
+    DebugText	= "< Class A Race 5 >"
+    TrackName	= fa_T511
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Wraith> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Demon;		Color = "Matte Black";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6; Bounty = 15000 }
+      AI { Car = Enforcer;	Color = "Blue";		Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Enforcer;	Color = "Blue";		Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Wraith;	Color = "Yellow";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Wraith;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Phantom;	Color = "BRG";		Preset = Melee; DifficultyLevel = 3 }
+      AI { Car = Phantom;	Color = "Copper";	Preset = Melee; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 120000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Wraith_Gloss_Black
+    SilverReward = Wraith_Electric_Green
+    BronzeReward = E305
+   }
+
+Event <E306>
+  { 
+    Chapter = 3
+    Prerequisite { E305 }
+    EventName	= Event_E306
+    Description = Desc_E306
+    EventType	= Race
+    DebugText	= "< Class A Race 6 >"
+    TrackName	= fa_T511
+    NumLaps	= 2
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Maverick> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Maverick;	Color = "Yellow";	Preset = Ravager; DifficultyLevel = 6; Bounty = 15000 }
+      AI { Car = Demon;		Color = "Matte Black";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+      AI { Car = Demon;		Color = "Dark Red";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+      AI { Car = Wraith;	Color = "Yellow";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Wraith;	Color = "Flaming Orange";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "BRG";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 120000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Maverick_Darkest_Red
+    SilverReward = Maverick_Slate_Blue
+    BronzeReward = E306
+   }
+
+Event <E307>
+  { 
+    Chapter = 3
+    Prerequisite { E306 }
+    EventName	= Event_E307
+    Description = Desc_E307
+    EventType	= LapKnockout
+    DebugText	= "< Class C Race 8 >"
+    TrackName	= fa_t214
+    NumLaps	= 7
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Phantom> { } Car <Wraith> { } Car <Maverick> { } Car <Enforcer> { } Car <Streamline> { } Car <Demon> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical }
+    Opponents
+    { 
+      AI { Car = Phantom;	Color = "BRG";		Preset = Melee; DifficultyLevel = 6 }
+      AI { Car = Wraith;	Color = "Yellow";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Maverick;	Color = "Dark Red";	Preset = Ravager; DifficultyLevel = 6}
+      AI { Car = Enforcer;	Color = "Gloss Black";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6 }
+      AI { Car = Demon;		Color = "Matte Black";	Primary = MachineGuns1;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+      AI { Car = Demon;		Color = "Purple Envy";	Primary = MachineGuns1;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 125000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 100000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Maverick_Dark_Blue
+    SilverReward = Maverick_Dark_Green
+    BronzeReward = E307
+  }
+
+//
+//   SERIES 4: PURSUIT
+//
+
+Event <E401>
+  { 
+    Chapter = 4
+    Prerequisite { E062 }
+    EventName	= Event_E401
+    Description = Desc_E401
+    EventType	= TimeTrial
+    DebugText	= "<Spy Chaser>"
+    TrackName	= fa_t622
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Phantom> { } }
+	DDAValueKeys = [0.5 1.0 1.5] // SUPER Catch up!
+	DDADistanceKeys = [-24 -4 32 128]
+    Presets	{ Assault }
+    Opponents
+    { 
+      AI { Car = Ardent; Color = "Gloss Black";	TeamID=3; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 6; canRace = false; Bounty = 8000; CanBoost = false; canRespawn = false }
+      AI { Car = Ardent; Color = "Gloss Black";	TeamID=3; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 6; canRace = false; Bounty = 8000; CanBoost = false; canRespawn = false }
+      AI { Car = Ardent; Color = "Gloss Black";	TeamID=3; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 6; StartSpawn = .25; SpawnOffset = .28; canRace = false; Bounty = 8000; CanBoost = false; canRespawn = false }
+      AI { Car = Ardent; Color = "Gloss Black";	TeamID=3; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 6;  StartSpawn = .41; SpawnOffset = .45; canRace = false; Bounty = 8000; CanBoost = false; canRespawn = false}
+      AI { Car = Ardent; Color = "Gloss Black";	TeamID=3; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 6;  StartSpawn = .60; SpawnOffset = .65; canRace = false; Bounty = 8000; CanBoost = false; canRespawn = false}
+      
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 115; RivalTakedownTotal = 5 }
+    SilverGoal	{ TimeLimit = 125; RivalTakedownTotal = 3 }
+    BronzeGoal  { TimeLimit = 135; RivalTakedownTotal = 2 }
+    GoldReward = Guardian_Skin
+    SilverReward = TEC_S2_Dark_Red
+    BronzeReward = TEC_S2_Slate_Blue
+  }
+
+// ---------------------------Event notes:  The enemy agents must be stopped before they can warn the mastermind you're in town.-----
+
+Event <E402>
+  { 
+    Chapter = 4
+    Prerequisite { E401 }
+    EventName	= Event_E402
+    Description = Desc_E402
+    EventType	= TimeTrial
+    DebugText	= "<Bounty Hunter>"
+    TrackName	= fa_t724
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Kodiak> { } }
+	DDAValueKeys = [0.5 1.0 1.5] // SUPER Catch up Mod!
+	DDADistanceKeys = [-78 -16 16 78 ]
+    Presets	{ Melee }
+    Opponents
+    { 
+      AI { Car = Vulcan; Color = "Flaming Orange"; 	TeamID=3; Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 6;  canRace = false; Bounty = 10000; CanBoost = false; canRespawn = false }
+      AI { Car = Vulcan; Color = "Light Blue"; 		TeamID=3; Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 6;   canRace = false; Bounty = 10000; CanBoost = false; canRespawn = false }
+      AI { Car = Vulcan; Color = "Dark Red"; 		TeamID=3; Primary = EmptyWeapon; 	Secondary = EmptyWeapon; DifficultyLevel = 6; StartSpawn = .30; SpawnOffset = .35; canRace = false; Bounty = 10000; CanBoost = false; canRespawn = false}
+      AI { Car = Vulcan; Color = "Blue Steel"; 		TeamID=3; Primary = EmptyWeapon; 	Secondary = EmptyWeapon; DifficultyLevel = 6;  StartSpawn = .50; SpawnOffset = .54; CanBoost = false; Bounty = 10000; CanBoost = false; canRespawn = false}
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 100; RivalTakedownTotal = 4 }
+    SilverGoal	{ TimeLimit = 105; RivalTakedownTotal = 3 }
+    BronzeGoal  { TimeLimit = 110; RivalTakedownTotal = 2 }
+    GoldReward = Phantom_Gold
+    SilverReward = Jupiter_Darkest_Red
+    BronzeReward = Jupiter_Gloss_Black
+  }
+// ---------------------------Event notes:  You have tracked the fugitives to this stretch of highway, now take'em down!-----
+
+Event <E403>
+  { 
+    Chapter = 4
+    Prerequisite { E402 }
+    EventName	= Event_E403
+    Description = Desc_E403
+    EventType	= Race
+    DebugText	= "<Spy Killer>"
+    TrackName	= fa_t725
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Phantom> { } }
+	DDAValueKeys = [0.5 1.0 1.5] // SUPER Catch up!
+	DDADistanceKeys = [-24 -4 32 128]
+    Presets	{ Assault; Tactical }
+    Opponents
+    { 
+      AI { Car = Ardent; Color = "Gloss Black"; TeamID=3; Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6;   canRace = false; CanBoost = false }
+      AI { Car = Ardent; Color = "Gloss Black"; TeamID=3; Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6;   canRace = false; CanBoost = false }
+      AI { Car = Ardent; Color = "Gloss Black"; TeamID=3; Preset = Assault; DifficultyLevel = 6;  StartSpawn = .25; SpawnOffset = .24;  canRace = false; CanBoost = false }
+      AI { Car = Ardent; Color = "Gloss Black"; TeamID=3; Preset = Assault; DifficultyLevel = 6;  StartSpawn = .25; SpawnOffset = .24;  canRace = false; CanBoost = false }
+      AI { Car = Guardian; Color = "White"; TeamID=3; Preset = Tactical; DifficultyLevel = 6;  StartSpawn = .20; SpawnOffset = .23; canRace = false; CanBoost = false; Bounty = 30000; canRespawn = false}
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 50; DamageTotal = 80000; RivalTakedownTotal = 1 }
+    SilverGoal	{ TimeLimit = 55; DamageTotal = 35000; RivalTakedownTotal = 1 }
+    BronzeGoal  { TimeLimit = 60; RivalTakedownTotal = 1 }
+    GoldReward = Hitman_Matte_Black
+    SilverReward = Hitman_Dark_Grey
+    BronzeReward = Phantom_Gloss_Black
+    }
+// Notes:  Your mission, secret agent, is to track down and kill the well protected mastermind in his limo-----
+
+Event <E404>
+  { 
+    Chapter = 4
+    Prerequisite { E403 }
+    EventName	= Event_E404
+    Description = Desc_E404
+    EventType	= TimeTrial
+    DebugText	= "<Busted!>"
+    TrackName	= fa_t214
+    NumLaps	= 2
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Enforcer> { } }
+	DDAValueKeys = [0.5 1.0 1.1] //  Aggressive Catch up!
+	DDADistanceKeys = [-100 -16 32 128]
+    Presets	{ Assault; Melee }
+    Opponents
+    { 
+      AI { Car = Wraith; Color = "Titanium"; TeamID=3; Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6;  canRace = false; CanBoost = false  }
+      AI { Car = Wraith; Color = "Titanium"; TeamID=3; Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6;  canRace = false; CanBoost = false  }
+      AI { Car = Wraith; Color = "Gloss Black"; TeamID=3; Preset = Tactical; DifficultyLevel = 6;  StartSpawn = .15; SpawnOffset = .20; canRace = false; CanBoost = false  }
+      AI { Car = Wraith; Color = "Gloss Black"; TeamID=3; Preset = Tactical; DifficultyLevel = 6;  StartSpawn = .15; SpawnOffset = .20; canRace = false; CanBoost = false  }
+      AI { Car = Honcho; Color = "Grape"; 	TeamID=3; Preset = Annihilator; DifficultyLevel = 6; StartSpawn = .35; SpawnOffset = .40; canRace = false;  Bounty = 25000; canRespawn = false  }
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 115; DamageTotal = 45000; RivalTakedownTotal = 1}
+    SilverGoal	{ TimeLimit = 120; DamageTotal = 30000; RivalTakedownTotal = 1 }
+    BronzeGoal  { TimeLimit = 130; RivalTakedownTotal = 1 }
+    GoldReward = Phantom_Champagne
+    SilverReward = Demon_Gloss_Black
+    BronzeReward = Demon_Purple_Envy
+  }
+
+// Notes:  You're a cop and you've just tracked a car theft gang to the docks.  Now you're going in without backup to take down the gang boss- dead or alive!-----
+
+Event <E405>
+  { 
+    Chapter = 4
+    Prerequisite { E404 }
+    EventName	= Event_E405
+    Description = Desc_E405
+    EventType	= Race
+    DebugText	= "<string: Bad Boys>"
+    TrackName	= fa_t213
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Enforcer> { } }
+	DDAValueKeys = [0.5 1.0 1.1] //  Aggressive Catch up!
+	DDADistanceKeys = [-100 -16 32 128]
+    Presets	{ Assault; Tactical}
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Gloss Black"; 	TeamID=3; Preset = Tactical; DifficultyLevel = 6; Bounty = 15000; CanBoost = false; canRace = false; canRespawn = false; CanBoost = false }
+      AI { Car = Wraith;	Color = "Indigo"; 	TeamID=3; Preset = Tactical; DifficultyLevel = 6; Bounty = 15000; CanBoost = false; canRace = false; canRespawn = false; CanBoost = false }
+      AI { Car = Wraith;	Color = "Ferrari Red"; 	TeamID=3; Preset = Assault; DifficultyLevel = 6; Bounty = 15000; CanBoost = false; canRace = false; canRespawn = false; CanBoost = false }
+      AI { Car = Wraith;	Color = "Flaming Orange";	TeamID=3; Preset = Assault; DifficultyLevel = 6; Bounty = 15000; StartSpawn = .35; SpawnOffset = .37; CanBoost = false;  canRace = false; canRespawn = false }
+      AI { Car = Wraith;	Color = "Yellow";	TeamID=3; Preset = Ravager; DifficultyLevel = 6; Bounty = 15000; StartSpawn = .35; SpawnOffset = .37; CanBoost = false;  canRace = false; canRespawn = false }
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 135;  RivalTakedownTotal = 5 }
+    SilverGoal	{ TimeLimit = 140;  RivalTakedownTotal = 3 }
+    BronzeGoal  { TimeLimit = 150;  RivalTakedownTotal = 2 }
+    GoldReward = Enforcer_Skin
+    SilverReward = Enforcer_Blue
+    BronzeReward = Enforcer_Yellow
+  }
+
+// You're the cop with the job of taking down the criminals, but take care not to hurt innocent bystanders!
+
+Event <E406>
+  { 
+    Chapter = 4
+    Prerequisite { E405 }
+    EventName	= Event_E406
+    Description = Desc_E406
+    EventType	= TimeTrial
+    DebugText	= "<string: Fugitive>"
+    TrackName	= fa_t721
+    NumLaps	= 1
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Kodiak> { } }
+	DDAValueKeys = [0.5 1.0 1.1] //  Aggressive Catch up!
+	DDADistanceKeys = [-100 -16 32 128]
+    Presets	{ Melee; Tactical}
+    Opponents
+    { 
+      AI { Car = Vulcan; Color = "Blue Steel"; TeamID=3; Primary = MachineGuns0; Secondary = EmptyWeapon; DifficultyLevel = 6;  canRace = false;  }
+      AI { Car = Vulcan; Color = "Light Blue"; TeamID=3; Primary = MachineGuns0; Secondary = EmptyWeapon; DifficultyLevel = 6;  canRace = false;  }
+      AI { Car = Vulcan; Color = "Blue Steel"; TeamID=3; Primary = EmptyWeapon; Secondary = Mines0; DifficultyLevel = 6;  canRace = false; CanBoost = false; StartSpawn = .35; SpawnOffset = .33 }
+      AI { Car = Vulcan; Color = "Light Blue"; TeamID=3; Primary = MachineGuns0; Secondary = EmptyWeapon; DifficultyLevel = 6;  canRace = false; CanBoost = false; StartSpawn = .35; SpawnOffset = .33 }
+      AI { Car = Python; Color = "Flaming Orange"; TeamID=3; Preset = Melee; DifficultyLevel = 6;  canRace = false; StartSpawn = .45; SpawnOffset = .48; canRespawn = false; ; Bounty = 15000  }
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 145; DamageTotal = 75000; RivalTakedownTotal = 1 }
+    SilverGoal	{ TimeLimit = 150; DamageTotal = 40000; RivalTakedownTotal = 1 }
+    BronzeGoal  { TimeLimit = 160; RivalTakedownTotal = 1 }
+    GoldReward = Ardent_Gloss_Black
+    SilverReward = Ardent_Grey
+    BronzeReward = E406
+  }
+
+// The Bounty hunter fights through all opposition to stop a bail jumper running for the border.
+
+//
+//   SERIES 5: TIME TRIALS
+//
+
+Event <E501>
+
+  { 
+    Chapter = 5
+    Prerequisite { E062 }
+    EventName	= Event_E501
+    Description = Desc_E501
+    EventType	= TimeTrial
+    DebugText	= "< This event is not supposed to have weapons >"
+    TrackName	= fa_T121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Ardent> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 130 }
+    SilverGoal	{ TimeLimit = 140 }
+    BronzeGoal  { TimeLimit = 150 }
+    GoldReward = Ardent_Skin
+    SilverReward = Wraith_Candy_Apple_Red
+    BronzeReward = Wraith_Titanium
+  }
+
+Event <E502>
+
+  { 
+    Chapter = 5
+    Prerequisite { E501 }
+    EventName	= Event_E502
+    Description = Desc_E502
+    EventType	= TimeTrial
+    DebugText	= "< This event is not supposed to have weapons >"
+    TrackName	= fa_T722
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 70 }
+    SilverGoal	{ TimeLimit = 75 }
+    BronzeGoal  { TimeLimit = 90 }
+    GoldReward = Demon_Skin2
+    SilverReward = Jupiter_Electric_Green
+    BronzeReward = Jupiter_Lilac
+  }
+
+Event <E503>
+
+  { 
+    Chapter = 5
+    Prerequisite { E502 }
+    EventName	= Event_E503
+    Description = Desc_E503
+    EventType	= TimeTrial
+    DebugText	= "< This event is not supposed to have weapons >"
+    TrackName	= fa_T622
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Enforcer> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 85 }
+    SilverGoal	{ TimeLimit = 90 }
+    BronzeGoal  { TimeLimit = 100 }
+    GoldReward = Ardent_Dark_Blue
+    SilverReward = Ardent_Dark_Green
+    BronzeReward = TEC_S2_Orange
+    }
+
+Event <E504>
+
+  { 
+    Chapter = 5
+    Prerequisite { E503 }
+    EventName	= Event_E504
+    Description = Desc_E504
+    EventType	= TimeTrial
+    DebugText	= "< This event is not supposed to have weapons >"
+    TrackName	= fa_T725
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Wraith> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 40 }
+    SilverGoal	{ TimeLimit = 45 }
+    BronzeGoal  { TimeLimit = 55 }
+    GoldReward = Wraith_Skin
+    SilverReward = TEC_S2_Gloss_Black
+    BronzeReward = TEC_S2_Darkest_Green
+  }
+
+Event <E505>
+
+  { 
+    Chapter = 5
+    Prerequisite { E504 }
+    EventName	= Event_E505
+    Description = Desc_E505
+    EventType	= TimeTrial
+    DebugText	= "< This event is not supposed to have weapons >"
+    TrackName	= fa_T511
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Maverick> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 95 }
+    SilverGoal	{ TimeLimit = 100 }
+    BronzeGoal  { TimeLimit = 110}
+    GoldReward = Rambler_Dark_Red
+    SilverReward = Rambler_Dark_Blue
+    BronzeReward = E505
+  } 
+
+//
+//   SERIES 6: UNDERDOGS
+//
+
+Event <E601>
+  { 
+    Chapter = 6
+    Prerequisite { E062 }
+    EventName	= Event_E601
+    Description = Desc_E601
+    EventType	= Race
+    DebugText	= "< Class A Race 7 >"
+    TrackName	= fa_T112
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hitman> { } }
+    Presets	{ Assault; Melee; Tactical }
+	DDAValueKeys = [0.25 1.0 1.0] // FORWARD NERF!
+	DDADistanceKeys = [-100 -64 64 256]
+    Opponents
+    { 
+      AI { Car = TEC_S2;	Color = "Orange";	Preset = Melee; DifficultyLevel = 6 }
+      AI { Car = Ardent;	Color = "Ferrari Red";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "Gloss Black";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "Copper";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = TEC_S2;	Color = "Electric Green";	Preset = Melee; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 15000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Hitman_Skin
+    SilverReward = Phantom_Dark_Red
+    BronzeReward = Phantom_Dark_Blue
+   }
+
+Event <E602>
+  { 
+    Chapter = 6
+    Prerequisite { E601 }
+    EventName	= Event_E602
+    Description = Desc_E602
+    EventType	= Race
+    DebugText	= "< Underdogs >"
+    TrackName	= fa_T512
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Rambler> { } }
+    Presets	{ Assault; Melee; Tactical }
+	DDAValueKeys = [0.35 1.0 1.0] // FORWARD NERF!
+	DDADistanceKeys = [-100 -64 64 256]
+    Opponents
+    { 
+      AI { Car = Kodiak;	Color = "Yellow";	Preset = Tactical; DifficultyLevel = 3  }
+      AI { Car = Kodiak;	Color = "Copper";	Preset = Tactical; DifficultyLevel = 3 }
+      AI { Car = Opulent;	Color = "Ferrari Red";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Indigo";	Primary = MachineGuns0;	Secondary = EmptyWeapon; DifficultyLevel = 6 }
+      AI { Car = TEC_S2;	Color = "Electric Green";	Preset = Assault; DifficultyLevel = 3 }
+      AI { Car = TEC_S2;	Color = "Orange";	Preset = Assault; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 90000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 2 }
+    GoldReward = Streamline_Skin2
+    SilverReward = Rampart_Dark_Blue
+    BronzeReward = Rampart_Darkest_Green
+   }
+
+Event <E603>
+  { 
+    Chapter = 6
+    Prerequisite { E602 }
+    EventName	= Event_E603
+    Description = Desc_E603
+    EventType	= Race
+    DebugText	= "< Underdogs >"
+    TrackName	= fa_T213
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Honcho> { } }
+    Presets	{ Assault; Melee; Tactical }
+	DDAValueKeys = [0.4 1.0 1.1] // FORWARD NERF!
+	DDADistanceKeys = [-100 -64 64 256]
+    Opponents
+    { 
+      AI { Car = Vulcan;	Color = "Yellow";	Preset = Tactical; DifficultyLevel = 3  }
+      AI { Car = Vulcan;	Color = "Flaming Orange";	Preset = Tactical; DifficultyLevel = 3 }
+      AI { Car = Python;	Color = "Grape";	Preset = Hunter; DifficultyLevel = 3 }
+      AI { Car = Python;	Color = "Mango Wine";	Preset = Hunter;  DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "Ferrari Red";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Ardent;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 90000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 2 }
+    GoldReward = Ardent_Skin2
+    SilverReward = Phantom_BRG
+    BronzeReward = TEC_S2_BRG
+   }
+
+Event <E604>
+  { 
+    Chapter = 6
+    Prerequisite { E603 }
+    EventName	= Event_E604
+    Description = Desc_E604
+    EventType	= Race
+    DebugText	= "< Underdogs >"
+    TrackName	= fa_T113
+    NumLaps	= 6
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Opulent> { } }
+    Presets	{ Assault; Melee; Tactical }
+	DDAValueKeys = [0.35 1.0 1.1] // FORWARD NERF!
+	DDADistanceKeys = [-100 -64 64 256]
+    Opponents
+    { 
+      AI { Car = Enforcer;	Color = "Blue";	Preset = Tactical; DifficultyLevel = 3  }
+      AI { Car = Enforcer;	Color = "Blue";	Preset = Tactical; DifficultyLevel = 3 }
+      AI { Car = Streamline;	Color = "Mango Wine";	Preset = Ravager; DifficultyLevel = 3 }
+      AI { Car = Streamline;	Color = "Ruby Red";	Preset = Ravager;  DifficultyLevel = 6 }
+      AI { Car = Phantom;	Color = "Copper";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Phantom;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 100000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 50000 }
+    BronzeGoal  { FinishPosition = 2 }
+    GoldReward = Opulent_Skin
+    SilverReward = Vulcan_Gloss_Black
+    BronzeReward = Vulcan_Orange
+   }
+
+Event <E605>
+  { 
+    Chapter = 6
+    Prerequisite { E604 }
+    EventName	= Event_E605
+    Description = Desc_E605
+    EventType	= Race
+    DebugText	= "< Underdogs >"
+    TrackName	= fa_T613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Python> { } }
+    Presets	{ Assault; Melee; Tactical }
+	DDAValueKeys = [0.3 1.0 1.0125] // FORWARD NERF!
+	DDADistanceKeys = [-100 -64 64 256]
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Indigo";	Preset = Tactical; DifficultyLevel = 3  }
+      AI { Car = Wraith;	Color = "Dark Red";	Preset = Tactical; DifficultyLevel = 3 }
+      AI { Car = Phantom;	Color = "Gloss Black";	Preset = Hunter; DifficultyLevel = 6 }
+      AI { Car = Phantom;	Color = "Copper";	Preset = Hunter;  DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Ruby Red";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Mango Wine";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 40000 }
+    BronzeGoal  { FinishPosition = 2 }
+    GoldReward = Guardian_Skin2
+    SilverReward = Demon_Flaming_Orange
+    BronzeReward = Demon_Putty
+    }
+
+Event <E606>
+  { 
+    Chapter = 6
+    Prerequisite { E605 }
+    EventName	= Event_E606
+    Description = Desc_E606
+    EventType	= DownandBack
+    DebugText	= "< Underdogs >"
+    TrackName	= fa_T622
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+    Presets	{ Assault; Melee; Tactical }
+	DDAValueKeys = [0.55 1.0 1.0625] // FORWARD NERF!
+	DDADistanceKeys = [-100 -64 64 256]
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Flaming Orange";	Preset = Tactical; DifficultyLevel = 3  }
+      AI { Car = Wraith;	Color = "Electric Green";	Preset = Tactical; DifficultyLevel = 3 }
+      AI { Car = Phantom;	Color = "Titanium";	Preset = Melee; DifficultyLevel = 6 }
+      AI { Car = Phantom;	Color = "Dark Red";	Preset = Melee;  DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Dark Blue";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 120000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 90000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Opulent_Skin2
+    SilverReward = Honcho_White
+    BronzeReward = E606
+   }
+
+//
+//   SERIES 7: AMBUSH
+//
+
+Event <E701>
+  { 
+    Chapter = 7
+    Prerequisite { E307; E406 }
+    EventName	= Event_E701
+    Description = Desc_E701
+    EventType	= DownandBack
+    DebugText	= "< Alley Ambush >"
+    TrackName	= fa_T121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+	DDAValueKeys = [0.5 1.0 1.5] // tight AI
+	DDADistanceKeys = [-175 -32 64 100]
+    Presets	{ Assault; Melee; Tactical; Hunter }
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Silver";	Preset = Assault; DifficultyLevel = 6  }
+      AI { Car = Ardent;	Color = "Slate Blue";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Gold";	Preset = Melee; DifficultyLevel = 6 }
+      AI { Car = Python;	Color = "Light Blue";	Preset = Melee;  DifficultyLevel = 6 }
+      AI { Car = Hookzilla;	Color = "Presidential Black";	Preset = Annihilator; DifficultyLevel = 9;  StartSpawn = .41; SpawnOffset = .45; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-100 -16 32 128]  }
+      AI { Car = Hookzilla;	Color = "Presidential Black";	Preset = Annihilator; DifficultyLevel = 9;  StartSpawn = .41; SpawnOffset = .45; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-100 -16 32 128]  }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 110000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 65000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Vulcan_Skin
+    SilverReward = Python_Matte_Black
+    BronzeReward = Python_Grape
+   }
+
+//----------------Hookzillas appear at the halfway point of this DNB to stop you.  Can you prevail?
+
+Event <E702>
+  { 
+    Chapter = 7
+    Prerequisite { E701 }
+    EventName	= Event_E702
+    Description = Desc_E702
+    EventType	= Race
+    DebugText	= "< Lowdown Showdown >"
+    TrackName	= fa_T512
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Honcho> { } }
+	DDAValueKeys = [0.5 1.0 1.5] // tight AI
+	DDADistanceKeys = [-100 -32 64 100]
+    Presets	{ Assault; Melee; Tactical; Devastator }
+    Opponents
+    { 
+      AI { Car = Rambler;	Color = "Olive Drab";	Preset = Assault; DifficultyLevel = 9  }
+      AI { Car = Rambler;	Color = "Tan";	Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Hitman;	Color = "Titanium";	Preset = Melee; DifficultyLevel = 6 }
+      AI { Car = Hitman;	Color = "Dark Grey";	Preset = Melee;  DifficultyLevel = 6 }
+      AI { Car = Vulcan;	Color = "Flaming Orange";	Preset = Buckler; DifficultyLevel = 6;  StartSpawn = .5; SpawnOffset = .49; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.5]; DDADistanceKeys = [-24 -4 8 100 ] }
+      AI { Car = Vulcan;	Color = "Candy Apple Red";	Preset = Buckler; DifficultyLevel = 6;  StartSpawn = .5; SpawnOffset = .49; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.5]; DDADistanceKeys = [-24 -4 8 100 ] }
+      AI { Car = Wraith;	Color = "Yellow";	Preset = Brawler; DifficultyLevel = 9;  StartSpawn = .75; SpawnOffset = .73; canRace = false; Bounty = 15000; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-100 -16 32 128]} 
+   } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 150000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 90000 }
+    BronzeGoal  { FinishPosition = 2 }
+    GoldReward = Rampart_Ferrari_Red
+    SilverReward = Rampart_Tan
+    BronzeReward = Hitman_Flaming_Orange
+   }
+
+//----------------Rival appears from nowhere near end of race to stop you from finishing the race.  Can you prevail?
+
+Event <E703>
+  { 
+    Chapter = 7
+    Prerequisite { E702 }
+    EventName	= Event_E703
+    Description = Desc_E703
+    EventType	= Timetrial
+    DebugText	= "< Spy trap >"
+    TrackName	= fa_T622
+    NumLaps	= 1
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Phantom> { } }
+    Presets	{ Assault; Melee; Tactical; Brawler }
+    DDAValueKeys = [0.5 1.0 1.5] 
+    DDADistanceKeys = [-100 -16 16 256]
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6; canRespawn = false }
+      AI { Car = Ardent;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6; canRespawn = false }
+      AI { Car = Ardent;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 6; canRespawn = false }
+      AI { Car = Wraith;	Color = "Gloss Black";	Preset = Ravager; DifficultyLevel = 9;  StartSpawn = .4; SpawnOffset = .39; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-24 -4 16 80 ] }
+      AI { Car = Wraith;	Color = "Gloss Black";	Preset = Ravager; DifficultyLevel = 9;  StartSpawn = .4; SpawnOffset = .39; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-24 -4 16 80 ] }
+      AI { Car = Streamline;	Color = "Silver";	Preset = Tactical; DifficultyLevel = 9;  StartSpawn = .4; SpawnOffset = .39; canRace = false; Bounty = 20000; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-24 -4 8 75 ] } 
+   } // End Opponents
+    GoldGoal	{ TimeLimit = 95; DamageTotal = 50000; RivalTakedownTotal = 1}
+    SilverGoal	{ TimeLimit = 100; DamageTotal = 30000 }
+    BronzeGoal  { TimeLimit = 105  }
+    GoldReward = Phantom_Skin
+    SilverReward = Opulent_Champagne
+    BronzeReward = Wraith_BRG
+   }
+
+//----------------They will stop at nothing to destroy you, secret agent.  Can you survive the trap and take down the double agent who set it up?
+
+Event <E704>
+  { 
+    Chapter = 7
+    Prerequisite { E703 }
+    EventName	= Event_E704
+    Description = Desc_E704
+    EventType	= Race
+    DebugText	= "< The Four horsemen >"
+    TrackName	= fa_T615
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Demon> { } }
+   DDAValueKeys = [0.5 1.0 1.5] 
+    DDADistanceKeys = [-200 -32 16 256]
+    Presets	{ Assault; Melee; Tactical; Ravager }
+    Opponents
+    { 
+      AI { Car = Streamline; Color = "Slate Blue"; 	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Streamline; Color = "Slate Blue"; 	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Phantom; Color = "Titanium";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Wraith;TeamID=3;Color = "Gloss Black";	Preset = Tactical; DifficultyLevel = 6;  StartSpawn = .55; SpawnOffset = .54; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-100 -16 32 128]}
+      AI { Car = Wraith;TeamID=3;Color = "Gloss Black";	Preset = Tactical; DifficultyLevel = 6;  StartSpawn = .55; SpawnOffset = .54; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-100 -16 32 128]}
+      AI { Car = Wraith;TeamID=3;Color = "Gloss Black";	Preset = Melee; DifficultyLevel = 6; StartSpawn = .55; SpawnOffset = .54; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-100 -16 32 128]}
+      AI { Car = Wraith;TeamID=3;Color = "Gloss Black";	Preset = Melee; DifficultyLevel = 6; StartSpawn = .55; SpawnOffset = .54; canRace = false; canRespawn = false; DDAValueKeys = [0.5 1.0 1.1]; DDADistanceKeys = [-100 -16 32 128]}  
+   } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 100000}
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 80000 }
+    BronzeGoal  { FinishPosition = 2  }
+    GoldReward = TEC_S2_Electric_Green
+    SilverReward = Hitman_Indigo
+    BronzeReward = E704
+   }
+
+//----------------A race like any other?  Not after this posse shows up hot on your heels to cause havoc!
+
+//
+//   SERIES 8: DOMINATION
+//
+
+Event <E801>
+  { 
+    Chapter = 8
+    Prerequisite { E704 }
+    EventName	= Event_E801
+    Description = Desc_E801
+    EventType	= Race
+    DebugText	= "< Domination >"
+    TrackName	= fa_T611
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { }; Car <Magnus> { }; Car <Kodiak> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical; Buckler }
+    Opponents
+    { 
+      AI { Car = Ardent; TeamID=3;	Color = "Slate Blue";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 15000; canRespawn = false  }
+      AI { Car = Ardent; TeamID=3;	Color = "Grey";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 15000; canRespawn = false  }  
+      AI { Car = Ardent; TeamID=3;	Color = "Light Blue";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 15000; canRespawn = false  } 
+      AI { Car = Ardent; TeamID=3;	Color = "Titanium";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 15000; canRespawn = false  } 
+      AI { Car = Magnus; TeamID=3;	Color = "Darkest Red";	Preset = Melee; DifficultyLevel = 6  }
+      AI { Car = Kodiak; TeamID=3;	Color = "Matte Black";	Preset = Assault; DifficultyLevel = 6  }
+      AI { Car = Kodiak; TeamID=3;	Color = "Dark Red";	Preset = Assault; DifficultyLevel = 6  }
+     } // End Opponents
+   GoldGoal	{ FinishPosition = 1; RivalTakedownTotal = 3 }
+    SilverGoal	{ FinishPosition = 2; RivalTakedownTotal = 2 }
+    BronzeGoal  { FinishPosition = 3; RivalTakedownTotal = 1 }
+    GoldReward = Magnus_Skin
+    SilverReward = Hitman_Gloss_Black
+    BronzeReward = Wraith_Blue
+    }
+
+//------------first idea for this series to get kills by pushing and crashing.  but currently game doesn't support this?  Can we fix this, as this has ALWAYS been in error?
+
+
+Event <E802>
+  { 
+    Chapter = 8
+    Prerequisite { E801 }
+    EventName	= Event_E802
+    Description = Desc_E802
+    EventType	= Race
+    DebugText	= "< Domination >"
+    TrackName	= fa_T512
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Rampart> { }; Car <Hookzilla> { }; Car <Honcho> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical; Annihilator }
+    Opponents
+    { 
+      AI { Car = Rambler; TeamID=3;	Color = "Olive Drab";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Rambler; TeamID=3;	Color = "Tan";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Rambler; TeamID=3;	Color = "Dark Grey";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Rambler; TeamID=3;	Color = "Putty";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Hitman; TeamID=3;	Color = "Gloss Black";	Preset = Devastator; DifficultyLevel = 6 }
+      AI { Car = Guardian; TeamID=3;	Color = "Presidential Black";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Guardian; TeamID=3;	Color = "Presidential Black";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; RivalTakedownTotal = 4 }
+    SilverGoal	{ FinishPosition = 2; RivalTakedownTotal = 2 }
+    BronzeGoal  { FinishPosition = 2; RivalTakedownTotal = 1 }
+    GoldReward = Maverick_Skin2
+    SilverReward = Opulent_Candy_Apple_Red
+    BronzeReward = Wraith_Dark_Red
+    }
+
+Event <E803>
+  { 
+    Chapter = 8
+    Prerequisite { E802 }
+    EventName	= Event_E803
+    Description = Desc_E803
+    EventType	= Race
+    DebugText	= "< Domination >"
+    TrackName	= fa_T214
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Rambler> { }; Car <Hitman> { }; Car <Jupiter> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-78 -16 64 128]
+    Presets	{ Assault; Melee; Tactical; Devastator }
+    Opponents
+    { 
+      AI { Car = Opulent; TeamID=3;	Color = "Grey";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Opulent; TeamID=3;	Color = "Champagne";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Opulent; TeamID=3;	Color = "Titanium";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Opulent; TeamID=3;	Color = "Dark Grey";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Hitman; TeamID=3;	Color = "Gloss Black";	Preset = Annihilator; DifficultyLevel = 6 }
+      AI { Car = Guardian; TeamID=3;	Color = "Presidential Black";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Guardian; TeamID=3;	Color = "Presidential Black";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; RivalTakedownTotal = 4 }
+    SilverGoal	{ FinishPosition = 2; RivalTakedownTotal = 2 }
+    BronzeGoal  { FinishPosition = 2; RivalTakedownTotal = 1 }
+    GoldReward = Jupiter_Skin
+    SilverReward = Magnus_Slate_Blue
+    BronzeReward = E803
+   }
+
+//
+//   SERIES 9: RAMPAGE
+//
+
+Event <E901>
+  { 
+    Chapter = 9
+    Prerequisite { E505 }
+    EventName	= Event_E901
+    Description = Desc_E901
+    EventType	= Rampage
+    DebugText	= "< >"
+    TrackName	= fa_T121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Magnus> { } }
+    Presets	{ Hunter }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 145; TakedownTotal = 35 }
+    SilverGoal	{ TimeLimit = 150; TakedownTotal = 30 }
+    BronzeGoal  { TimeLimit = 160; TakedownTotal = 20 }
+    GoldReward = Phantom_Skin2
+    SilverReward = Honcho_Candy_Apple_Red
+    BronzeReward = Maverick_Indigo
+    }
+
+Event <E902>
+  { 
+    Chapter = 9
+    Prerequisite { E901 }
+    EventName	= Event_E902
+    Description = Desc_E902
+    EventType	= Rampage
+    DebugText	= "< >"
+    TrackName	= fa_T722
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Rampart> { } }
+    Presets	{ Hunter }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 85; TakedownTotal = 25 }
+    SilverGoal	{ TimeLimit = 90; TakedownTotal = 15 }
+    BronzeGoal  { TimeLimit = 95; TakedownTotal = 10 }
+    GoldReward = Honcho_Skin2
+    SilverReward = Kodiak_Gloss_Black
+    BronzeReward = Kodiak_Gold
+  }
+
+Event <E903>
+  { 
+    Chapter = 9
+    Prerequisite { E902 }
+    EventName	= Event_E903
+    Description = Desc_E903
+    EventType	= Rampage
+    DebugText	= "< >"
+    TrackName	= fa_T622
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Kodiak> { } }
+    Presets	{ Hunter }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 105; TakedownTotal = 25 }
+    SilverGoal	{ TimeLimit = 110; TakedownTotal = 20 }
+    BronzeGoal  { TimeLimit = 120; TakedownTotal = 15 }
+    GoldReward = Kodiak_Skin
+    SilverReward = Maverick_Ferrari_Red
+    BronzeReward = Kodiak_Yellow
+    }
+
+Event <E904>
+  { 
+    Chapter = 9
+    Prerequisite { E903 }
+    EventName	= Event_E904
+    Description = Desc_E904
+    EventType	= Rampage
+    DebugText	= "< >"
+    TrackName	= fa_T725
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hookzilla> { } }
+    Presets	{ Annihilator }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 60; TakedownTotal = 20 }
+    SilverGoal	{ TimeLimit = 65; TakedownTotal = 15 }
+    BronzeGoal  { TimeLimit = 70; TakedownTotal = 10 }
+    GoldReward = TEC_S2_Skin2
+    SilverReward = Hitman_Yellow
+    BronzeReward = Hitman_Electric_Green
+    }
+
+Event <E905>
+  { 
+    Chapter = 9
+    Prerequisite { E904 }
+    EventName	= Event_E905
+    Description = Desc_E905
+    EventType	= Rampage
+    DebugText	= "< >"
+    TrackName	= fa_T511
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Demon> { } }
+    Presets	{ Brawler }
+    Opponents
+    { 
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 100; TakedownTotal = 15 }
+    SilverGoal	{ TimeLimit = 105; TakedownTotal = 10 }
+    BronzeGoal  { TimeLimit = 115; TakedownTotal = 8 }
+    GoldReward = Demon_Skin
+    SilverReward = Maverick_BRG
+    BronzeReward = E905
+  }
+
+//
+//   SERIES 10: OVERTAKE
+//
+
+Event <E1001>
+  { 
+    Chapter = 10
+    Prerequisite { E905; E803 }
+    EventName	= Event_E1001
+    Description = Desc_E1001
+    EventType	= TimeTrial
+    DebugText	= "< Predator >"
+    TrackName	= fa_T121
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical; Hunter }
+    Opponents
+    { 
+      AI { Car = Jupiter;	Color = "Pink"; 	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 6;  canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Jupiter;	Color = "Light Blue";	Primary = EmptyWeapon;	Secondary = Mines0; DifficultyLevel = 6;  StartSpawn = .09; SpawnOffset = .11; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Rambler;	Color = "Putty";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6;  StartSpawn = .28; SpawnOffset = .29; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Rambler;	Color = "Olive Drab";	Primary = EmptyWeapon;	Secondary = GrenadeRear0; DifficultyLevel = 6;  StartSpawn = .38; SpawnOffset = .39; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Rampart;	Color = "Grey";	Preset = Tactical; DifficultyLevel = 6;  StartSpawn = .47; SpawnOffset = .49; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Rampart;	Color = "Orange";	Preset = Tactical; DifficultyLevel = 6;  StartSpawn = .57; SpawnOffset = .59; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Magnus;	Color = "Darkest Red";	Preset = Buckler; DifficultyLevel = 6;  StartSpawn = .67; SpawnOffset = .69; canRace = false; canRespawn = false; TeamID=3} 
+   } // End Opponents
+    GoldGoal	{ TimeLimit = 155; TakedownTotal = 5 }
+    SilverGoal	{ TimeLimit = 160; TakedownTotal = 4 }
+    BronzeGoal  { TimeLimit = 165; TakedownTotal = 3 }
+    GoldReward = Rambler_Skin
+    SilverReward = Streamline_Dark_Red
+    BronzeReward = Hookzilla_Gold
+   }
+
+Event <E1002>
+  { 
+    Chapter = 10
+    Prerequisite { E1001 }
+    EventName	= Event_E1002
+    Description = Desc_E1002
+    EventType	= TimeTrial
+    DebugText	= "< Reaper >"
+    TrackName	= fa_T622
+    NumLaps	= 1
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Demon> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical; Brawler }
+    Opponents
+    { 
+      AI { Car = Magnus;	Color = "Champagne";	Preset = Melee; DifficultyLevel = 6; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Magnus;	Color = "Lilac";	Preset = Melee; DifficultyLevel = 6; StartSpawn = .18; SpawnOffset = .2; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = TEC_S2;	Color = "Slate Grey";	Preset = Tactical; DifficultyLevel = 6; StartSpawn = .28; SpawnOffset = .3; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = TEC_S2;	Color = "Blue";	Preset = Melee; DifficultyLevel = 6; StartSpawn = .37; SpawnOffset = .4; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Ardent;	Color = "Silver";	Preset = Hunter; DifficultyLevel = 6; StartSpawn = .48; SpawnOffset = .5; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Ardent;	Color = "Dark Blue";	Preset = Hunter; DifficultyLevel = 6; StartSpawn = .58; SpawnOffset = .6; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Honcho;	Color = "Candy Apple Red";	Preset = Annihilator; DifficultyLevel = 6; StartSpawn = .78; SpawnOffset = .82; canRace = false; canRespawn = false; TeamID=3} 
+   } // End Opponents
+    GoldGoal	{ TimeLimit = 110; TakedownTotal = 5 }
+    SilverGoal	{ TimeLimit = 115; TakedownTotal = 4 }
+    BronzeGoal  { TimeLimit = 120; TakedownTotal = 3 }
+    GoldReward = Jupiter_Skin2
+    SilverReward = Rampart_Light_Grey
+    BronzeReward = Hookzilla_Olive_Drab
+   }
+
+Event <E1003>
+  { 
+    Chapter = 10
+    Prerequisite { E1002 }
+    EventName	= Event_E1003
+    Description = Desc_E1003
+    EventType	= TimeTrial
+    DebugText	= "< Convoy >"
+    TrackName	= fa_T721
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Wraith> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up mildly more improved!
+	DDADistanceKeys = [-78 -8 64 128]
+    Presets	{ Assault; Melee; Tactical; Brawler }
+    Opponents
+    { 
+      AI { Car = Kodiak;	Color = "Blue Steel";	Preset = Assault; DifficultyLevel = 6; canRace = false;canRespawn = false; TeamID=3} 
+      AI { Car = Kodiak;	Color = "Silver";	Preset = Melee; DifficultyLevel = 6; StartSpawn = .18; SpawnOffset = .2; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Kodiak;	Color = "Dark Blue";	Preset = Tactical; DifficultyLevel = 6; StartSpawn = .28; SpawnOffset = .3; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Kodiak;	Color = "Gold";	Preset = Tactical; DifficultyLevel = 6; StartSpawn = .38; SpawnOffset = .4; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Kodiak;	Color = "Burnt Orange";	Preset = Buckler; DifficultyLevel = 9; StartSpawn = .48; SpawnOffset = .5; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Kodiak;	Color = "Yellow";	Preset = Buckler; DifficultyLevel = 9; StartSpawn = .58; SpawnOffset = .6; canRace = false; canRespawn = false; TeamID=3} 
+      AI { Car = Hookzilla;	Color = "Ferrari Red";	Preset = Devastator; DifficultyLevel = 9; StartSpawn = .73; SpawnOffset = .75; canRace = false; canRespawn = false; TeamID=3} 
+   } // End Opponents
+    GoldGoal	{ TimeLimit = 145; TakedownTotal = 5 }
+    SilverGoal	{ TimeLimit = 150; TakedownTotal = 4 }
+    BronzeGoal  { TimeLimit = 155; TakedownTotal = 3 }
+    GoldReward = Streamline_Skin
+    SilverReward = Maverick_Gloss_Black
+    BronzeReward = E1003
+   }
+
+//
+//   SERIES 11: SUDDEN DEATH
+//
+
+Event <E1101>
+  { 
+    Chapter = 11
+    Prerequisite { E606 }
+    EventName	= Event_E1101
+    Description = Desc_E1101
+    playersCantRespawn
+    EventType	= DownandBack
+    DebugText	= "< Sudden death >"
+    TrackName	= fa_T724
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Jupiter> { } }
+    Presets	{ Assault; Melee; Tactical; Annihilator }
+    Opponents
+    { 
+      AI { Car = Hitman;	Color = "Flaming Orange";	Preset = Assault; DifficultyLevel = 9; Bounty = 20000 }
+      AI { Car = Rampart;	Color = "Orange";	Preset = Tactical; DifficultyLevel = 6  }
+      AI { Car = Rampart;	Color = "Ferrari Red";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Hookzilla;	Color = "Taxi Yellow";	Preset = Devastator; DifficultyLevel = 6 }
+      AI { Car = Hookzilla;	Color = "Dark Blue";	Preset = Devastator; DifficultyLevel = 6 }
+      AI { Car = Guardian;	Color = "Slate Blue";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Guardian;	Color = "Darkest Red";	Preset = Assault; DifficultyLevel = 6 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 80000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 40000 }
+    BronzeGoal  { FinishPosition = 3 }
+    GoldReward = Maverick_Skin
+    SilverReward = Streamline_Mango_Wine
+    BronzeReward = Python_Mango_Wine
+   }
+
+Event <E1102>
+  { 
+    Chapter = 11
+    Prerequisite { E1101 }
+    EventName	= Event_E1102
+    Description = Desc_E1102
+    playersCantRespawn
+    EventType	= Race
+    DebugText	= "< Sudden death >"
+    TrackName	= fa_T113
+    NumLaps	= 6
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <TEC_S2> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up mildly more improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Assault; Melee; Tactical; Hunter }
+    Opponents
+    { 
+      AI { Car = Opulent;	Color = "Mango Wine";	Preset = Tactical; DifficultyLevel = 6  }
+      AI { Car = Opulent;	Color = "Candy Apple Red";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Ardent;	Color = "Dark Green";	Preset = Buckler; DifficultyLevel = 6 }
+      AI { Car = Ardent;	Color = "Ferrari Red";	Preset = Buckler; DifficultyLevel = 6 }
+      AI { Car = Magnus;	Color = "BRG";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Magnus;	Color = "Dark Blue";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Vulcan;	Color = "Gold";	Preset = Assault; DifficultyLevel = 9; Bounty = 20000 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 185000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 80000 }
+    BronzeGoal  { FinishPosition = 2 }
+    GoldReward = Honcho_Electric_Green
+    SilverReward = Honcho_Flaming_Orange
+    BronzeReward = Jupiter_Candy_Apple_Red
+   }
+
+Event <E1103>
+  { 
+    Chapter = 11
+    Prerequisite { E1102 }
+    EventName	= Event_E1103
+    Description = Desc_E1103
+    playersCantRespawn
+    EventType	= Lapknockout
+    DebugText	= "< Sudden death >"
+    TrackName	= fa_T111
+    NumLaps	= 5
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Maverick> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up mild improve
+	DDADistanceKeys = [-128 -64 64 128]
+    Presets	{ Assault; Melee; Tactical; Brawler }
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Titanium";	Preset = Tactical; DifficultyLevel = 6  }
+      AI { Car = Wraith;	Color = "BRG";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Streamline;	Color = "Dark Red";	Preset = Buckler; DifficultyLevel = 6 }
+      AI { Car = Demon;		Color = "Yellow";	Preset = Assault; DifficultyLevel = 6 }
+      AI { Car = Maverick;	Color = "Indigo";	Preset = Assault; DifficultyLevel = 9; Bounty = 30000 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 200000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 100000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = TEC_S2_Skin
+    SilverReward = Maverick_Blue
+    BronzeReward = E1103
+   }
+
+//
+//   SERIES 12: WARLORD SERIES
+//
+
+Event <E1201>
+  { 
+    Chapter = 12
+    Prerequisite { E307; E1304 }
+    EventName	= Event_E1201
+    Description = Desc_E1201
+    EventType	= TimeTrial
+    DebugText	= "< Wolf among Sheep >"
+    TrackName	= fa_T512
+    NumLaps	= 4
+    Direction	= Reverse
+    TimeOfDay	= Default
+    Vehicles	{ Car <Warlord> { } }
+	DDAValueKeys = [0.5 1.0 1.5] // Catch up improved!
+	DDADistanceKeys = [-100 -16 64 128]
+    Presets	{ Demolisher }
+    Opponents
+    { 
+      AI { Car = Vulcan;	Color = "Blue Steel";	Preset = Tactical; TeamID=3; DifficultyLevel = 9; canRespawn = false; canRace = false }
+      AI { Car = Python;	Color = "Light Blue";	Preset = Melee; StartSpawn = .08; SpawnOffset = .10;  TeamID=3; canRespawn = false; DifficultyLevel = 9; canRace = false }
+      AI { Car = Wraith;	Color = "Titanium";	Preset = Ravager; StartSpawn = .18; SpawnOffset = .20;  TeamID=3; canRespawn = false; DifficultyLevel = 9; canRace = false }
+      AI { Car = Wraith;	Color = "Dark Red";	Preset = Ravager; StartSpawn = .28; SpawnOffset = .30;  TeamID=3; canRespawn = false; DifficultyLevel = 9; canRace = false }
+      AI { Car = Kodiak;	Color = "Dark Blue";	Preset = Buckler; StartSpawn = .43; SpawnOffset = .45;  TeamID=3; canRespawn = false; DifficultyLevel = 9; canRace = false }
+      AI { Car = Streamline;	Color = "Silver";	Preset = Assault; StartSpawn = .58; SpawnOffset = .60;  TeamID=3; canRespawn = false; DifficultyLevel = 9; canRace = false }
+      AI { Car = Streamline;	Color = "BRG";	Preset = Assault; StartSpawn = .78; SpawnOffset = .80;  TeamID=3; canRespawn = false; DifficultyLevel = 9; canRace = false }
+    } // End Opponents
+    GoldGoal	{ TimeLimit = 235; TakedownTotal = 7 }
+    SilverGoal	{ TimeLimit = 240; TakedownTotal = 6 }
+    BronzeGoal  { TimeLimit = 245; TakedownTotal = 5 }
+    GoldReward = Warlord_Skin
+    SilverReward = Guardian_Darkest_Red
+    BronzeReward = TEC_S2_Slate_Grey
+    }
+
+Event <E1202>
+  { 
+    Chapter = 12
+    Prerequisite { E1201 }
+    EventName	= Event_E1202
+    Description = Desc_E1202
+    EventType	= Race
+    DebugText	= "< Predator-hunt the weak >"
+    TrackName	= fa_T611
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Warlord> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, Leading debuffed
+	DDADistanceKeys = [-128 -32 32 128]
+    Presets	{ Defender }
+    Opponents
+    { 
+      AI { Car = Opulent; TeamID=3; Color = "Gloss Black"; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Opulent; TeamID=3; Color = "Gloss Black"; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Opulent; TeamID=3; Color = "Gloss Black"; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Opulent; TeamID=3; Color = "Gloss Black"; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000; canRespawn = false }
+      AI { Car = Warlord; TeamID=3; Color = "Slate Grey"; Preset = Demolisher; DifficultyLevel = 6 }
+      AI { Car = Warlord; TeamID=3; Color = "Slate Grey"; Preset = Defender; DifficultyLevel = 6 }
+      AI { Car = Warlord; TeamID=3; Color = "Slate Grey"; Preset = Defender; DifficultyLevel = 6 }    
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; RivalTakedownTotal = 4 }
+    SilverGoal	{ FinishPosition = 1; RivalTakedownTotal = 3 }
+    BronzeGoal  { FinishPosition = 1; RivalTakedownTotal = 2 }
+    GoldReward = Warlord_Gloss_Black
+    SilverReward = Warlord_Ferrari_Red
+    BronzeReward = Warlord_Darkest_Red
+   }
+
+Event <E1203>
+  { 
+    Chapter = 12
+    Prerequisite { E1202 }
+    EventName	= Event_E1203
+    Description = Desc_E1203
+    EventType	= Race
+    DebugText	= "< Armageddon >"
+    TrackName	= fa_T215
+    NumLaps	= 6
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Warlord> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, Leading debuffed
+	DDADistanceKeys = [-128 -32 32 128]
+    Presets	{ Assault; Melee; Tactical; Demolisher; Defender }
+    Opponents
+    { 
+      AI { Car = Warlord;	Color = "Gloss Black"; 	Preset = Defender; DifficultyLevel = 9 }
+      AI { Car = Warlord;	Color = "Darkest Red"; 	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Warlord;	Color = "Dark Grey"; 	Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Warlord;	Color = "Blue Steel"; 	Preset = Demolisher; DifficultyLevel = 9 }
+      AI { Car = Warlord;	Color = "Ferrari Red"; 	Preset = Defender; DifficultyLevel = 9 }
+      AI { Car = Warlord;	Color = "Olive Drab"; 	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Warlord;	Color = "Titanium"; 	Preset = Assault; DifficultyLevel = 9 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 200000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 100000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = E1203
+    SilverReward = Warlord_Skin2
+    BronzeReward = Warlord_Blue_Steel
+   }
+
+//
+//   SERIES 13: GANG WAR
+//
+
+Event <E1301>
+  { 
+    Chapter = 13
+    Prerequisite { E803 }
+    EventName	= Event_E1301
+    Description = Desc_E1301
+    EventType	= Race
+    DebugText	= "< Wolfpack >"
+    TrackName	= fa_T622
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Honcho> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, Leading debuffed
+	DDADistanceKeys = [-100 -16 32 256]
+    Presets	{ Assault; Melee; Tactical; Annihilator; Devastator }
+    Opponents
+    { 
+      AI { Car = Hitman;	Color = "Darkest Red"; TeamID=3;	Preset = Tactical; DifficultyLevel = 9 }
+      AI { Car = Hitman;	Color = "Darkest Red"; TeamID=3;	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Honcho;	Color = "Gold"; TeamID=1;	Preset = Devastator; DifficultyLevel = 9; canRace = false }
+      AI { Car = Honcho;	Color = "Gold"; TeamID=1;	Preset = Annihilator; DifficultyLevel = 9; canRace = false }
+      AI { Car = Hitman;	Color = "Darkest Red"; TeamID=3;	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Hitman;	Color = "Darkest Red"; TeamID=3;	Preset = Tactical; DifficultyLevel = 9 }
+      AI { Car = Honcho;	Color = "Gold"; TeamID=1;	Preset = Assault; DifficultyLevel = 9; canRace = false }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    BronzeGoal  { FinishPosition = 1; DamageTotal = 25000 }
+    GoldReward = Hookzilla_Skin2
+    SilverReward = Honcho_Gloss_Black
+    BronzeReward = Rampart_Putty
+    }
+
+Event <E1302>
+  { 
+    Chapter = 13
+    Prerequisite { E1301 }
+    EventName	= Event_E1302
+    Description = Desc_E1302
+    EventType	= Race
+    DebugText	= "< Gang War >"
+    TrackName	= fa_T215
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Python> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, Leading debuffed
+	DDADistanceKeys = [-100 -32 16 128]
+    Presets	{ Assault; Melee; Tactical; Hunter; Buckler }
+    Opponents
+    { 
+      AI { Car = TEC_S2;	Color = "Electric Green"; TeamID=3;	Preset = Tactical; DifficultyLevel = 9 }
+      AI { Car = TEC_S2;	Color = "Electric Green"; TeamID=3;	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Python;	Color = "Gold"; TeamID=1;	Preset = Assault; DifficultyLevel = 9; canRace = false }
+      AI { Car = Python;	Color = "Gold"; TeamID=1;	Preset = Buckler; DifficultyLevel = 9; canRace = false }
+      AI { Car = TEC_S2;	Color = "Electric Green"; TeamID=3;	Preset = Tactical; DifficultyLevel = 9 }
+      AI { Car = TEC_S2;	Color = "Electric Green"; TeamID=3;	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Python;	Color = "Gold"; TeamID=1;	Preset = Assault; DifficultyLevel = 9; canRace = false }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    BronzeGoal  { FinishPosition = 1; DamageTotal = 25000 }
+    GoldReward = Rambler_Skin2
+    SilverReward = Honcho_Pink
+    BronzeReward = Streamline_Dark_Blue
+    }
+
+Event <E1303>
+  { 
+    Chapter = 13
+    Prerequisite { E1302 }
+    EventName	= Event_E1303
+    Description = Desc_E1303
+    EventType	= Race
+    DebugText	= "< Rod Rumble >"
+    TrackName	= fa_T216
+    NumLaps	= 4
+    Direction	= OpposingForward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Demon> { } }
+	DDAValueKeys = [0.5 1.0 1.0625] // Catch up improved, Leading debuffed
+	DDADistanceKeys = [-150 -32 16 256]
+    Presets	{ Assault; Melee; Tactical; Ravager; Brawler }
+    Opponents
+    { 
+      AI { Car = Enforcer;	Color = "Gloss Black"; TeamID=3;	Preset = Tactical; DifficultyLevel = 9 }
+      AI { Car = Enforcer;	Color = "Gloss Black"; TeamID=3;	Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Demon;	Color = "Matte Black"; TeamID=1;	Preset = Assault; DifficultyLevel = 9; canRace = false }
+      AI { Car = Demon;	Color = "Matte Black"; TeamID=1;	Preset = Ravager; DifficultyLevel = 9; canRace = false }
+      AI { Car = Enforcer;	Color = "Gloss Black"; TeamID=3;	Preset = Tactical; DifficultyLevel = 9 }
+      AI { Car = Enforcer;	Color = "Gloss Black"; TeamID=3;	Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Demon;	Color = "Matte Black"; TeamID=1;	Preset = Assault; DifficultyLevel = 9; canRace = false }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 25000 }
+    BronzeGoal  { FinishPosition = 1; DamageTotal = 15000 }
+    GoldReward = Magnus_Skin2
+    SilverReward = Rambler_Burnt_Orange
+    BronzeReward = Rambler_Tan
+    }
+
+Event <E1304>
+  { 
+    Chapter = 13
+    Prerequisite { E1303 }
+    EventName	= Event_E1304
+    Description = Desc_E1304
+    EventType	= Race
+    DebugText	= "< Pit Bull >"
+    TrackName	= fa_T113
+    NumLaps	= 4
+    Direction	= OpposingForward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hookzilla> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, Leading debuffed
+	DDADistanceKeys = [-100 -16 32 256]
+    Presets	{ Assault; Melee; Tactical; Annihilator; Devastator }
+    Opponents
+    { 
+      AI { Car = Honcho;Color = "Candy Apple Red"; TeamID=3; Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Honcho;Color = "Candy Apple Red"; TeamID=3; Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Hookzilla;Color = "Dark Blue"; TeamID=1; Preset = Annihilator; DifficultyLevel = 9; canRace = false }
+      AI { Car = Hookzilla;Color = "Dark Blue"; TeamID=1; Preset = Tactical; DifficultyLevel = 9; canRace = false }
+      AI { Car = Honcho;Color = "Candy Apple Red"; TeamID=3; Preset = Tactical; DifficultyLevel = 9 }
+      AI { Car = Honcho;Color = "Candy Apple Red"; TeamID=3; Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Hookzilla;Color = "Dark Blue"; TeamID=1; Preset = Meleet; DifficultyLevel = 9; canRace = false }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 60000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 40000 }
+    BronzeGoal  { FinishPosition = 1; DamageTotal = 20000 }
+    GoldReward = Python_Skin
+    SilverReward = Vulcan_Gold
+    BronzeReward = Vulcan_BRG
+   }
+
+//
+//   SERIES 14: STREET RACERS
+//
+
+Event <E1401>
+  { 
+    Chapter = 14
+    Prerequisite { E1304; E1003 }
+    EventName	= Event_E1401
+    Description = Desc_E1401
+    EventType	= Race
+    DebugText	= "< Showdown >"
+    TrackName	= fa_T215
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{  Car <Honcho> { }; Car <Hitman> { }; Car <Jupiter> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, average lead
+	DDADistanceKeys = [-116 -8 32 128]
+    Presets	{ Vacancy }
+    Opponents
+    { 
+      AI { Car = Jupiter;Color = "Candy Apple Red"; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 0 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; TimeLimit = 80 }
+    SilverGoal	{ FinishPosition = 1; TimeLimit = 95 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Python_Skin2
+    SilverReward = Rambler_Presidential_Black
+    BronzeReward = Rambler_Putty
+    PlayersCantUnwind
+    }
+
+Event <E1402>
+  { 
+    Chapter = 14
+    Prerequisite { E1401 }
+    EventName	= Event_E1402
+    Description = Desc_E1402
+    EventType	= Race
+    DebugText	= "< Showdown >"
+    TrackName	= fa_T611
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, average lead
+	DDADistanceKeys = [-116 -8 32 128]
+    Vehicles	{ Car <Vulcan> { };  Car <TEC_S2> { }; Car <Ardent> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+      AI { Car = TEC_S2; Color = "Orange"; Primary = EmptyWeapon; Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; TimeLimit = 220 }
+    SilverGoal	{ FinishPosition = 1; TimeLimit = 225 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Kodiak_Skin2
+    SilverReward = Streamline_Dark_Green
+    BronzeReward = Hookzilla_Putty
+    PlayersCantUnwind
+    }
+
+Event <E1403>
+  { 
+    Chapter = 14
+    Prerequisite { E1402 }
+    EventName	= Event_E1403
+    Description = Desc_E1403
+    EventType	= Race
+    DebugText	= "< Showdown >"
+    TrackName	= fa_T213
+    NumLaps	= 4
+    Direction	= Forward
+    TimeOfDay	= Default
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, debuffed lead
+	DDADistanceKeys = [-116 -8 16 128]
+    Vehicles	{ Car <Wraith> { }; Car <Streamline> { }; Car <Demon> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+      AI { Car = Demon;	Color = "Purple Envy"; Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 9; Bounty = 10000 }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; TimeLimit = 240 }
+    SilverGoal	{ FinishPosition = 1; TimeLimit = 245 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Rampart_Skin
+    SilverReward = Opulent_Gloss_Black
+    BronzeReward = Opulent_Titanium
+    PlayersCantUnwind
+   }
+
+//
+//   SERIES 15: MARATHON
+//
+
+Event <E1501>
+  { 
+    Chapter = 15
+    Prerequisite { E1103; E1003 }
+    EventName	= Event_E1501
+    Description = Desc_E1501
+    EventType	= LapKnockout
+    DebugText	= "<Headhunter>"
+    TrackName	= fa_t214
+    NumLaps	= 6
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Hitman> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Catch up improved, average lead
+	DDADistanceKeys = [-116 -8 32 128]
+    Presets	{ Assault; Melee; Tactical; Annihilator; Devastator}
+    Opponents
+    { 
+      AI { Car = Rampart;	Color = "Taxi Yellow";	Preset = Melee; DifficultyLevel = 9; }
+      AI { Car = Rampart;	Color = "Orange";	Preset = Assault; DifficultyLevel = 9; }
+      AI { Car = Honcho; 	Color = "Gold";	Preset = Tactical; DifficultyLevel = 9; }
+      AI { Car = Honcho;	Color = "Electric Green";	Preset = Annihilator; DifficultyLevel = 9; }
+      AI { Car = Jupiter;	Color = "Darkest Red";	Preset = Devastator; DifficultyLevel = 9; }
+      AI { Car = Jupiter;	Color = "Gloss Black";	Preset = Tactical; DifficultyLevel = 9; }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 125000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 90000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Enforcer_Skin2
+    SilverReward = Python_Dark_Blue
+    BronzeReward = Python_Light_Blue
+    }
+
+Event <E1502>
+  { 
+    Chapter = 15
+    Prerequisite { E1501 }
+    EventName	= Event_E1502
+    Description = Desc_E1502
+    EventType	= Race
+    DebugText	= "<Enduro>"
+    TrackName	= fa_t611
+    NumLaps	= 6
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Streamline> { } }
+
+    Presets	{ Assault; Melee; Tactical; Ravager; Brawler}
+    Opponents
+    { 
+      AI { Car = Wraith;	Color = "Flaming Orange";	Preset = Melee; DifficultyLevel = 6; }
+      AI { Car = Wraith;	Color = "BRG";	Preset = Assault; DifficultyLevel = 6; }
+      AI { Car = Phantom;	Color = "Dark Red";	Preset = Tactical; DifficultyLevel = 6; }
+      AI { Car = Phantom;	Color = "Dark Green";	Preset = Ravager; DifficultyLevel = 6; }
+      AI { Car = Phantom;	Color = "Gold";	Preset = Brawler; DifficultyLevel = 6; }
+      AI { Car = Demon;		Color = "Electric Green";	Preset = Ravager; DifficultyLevel = 6; }
+      AI { Car = Demon;		Color = "Darkest Red";	Preset = Brawler; DifficultyLevel = 6; }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 120000 }
+    SilverGoal	{ FinishPosition = 2; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 2 }
+    GoldReward = Hitman_Skin2   
+    SilverReward = Kodiak_Darkest_Green
+    BronzeReward = Kodiak_Matte_Black
+    }
+
+Event <E1503>
+  { 
+    Chapter = 15
+    Prerequisite { E1502 }
+    EventName	= Event_E1503
+    Description = Desc_E1503
+    EventType	= DownandBack
+    DebugText	= "<Baha Battle>"
+    TrackName	= fa_t724
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Kodiak> { } }
+	DDAValueKeys = [0.5 1.0 1.1] // Holy crap did I debuff AI's so Streamline could compete with them!!!!
+	DDADistanceKeys = [-128 -50 16 100]
+    Presets	{ Assault; Melee; Tactical; Ravager; Brawler}
+    Opponents
+    { 
+      AI { Car = Kodiak;	Color = "Yellow";	Preset = Melee; DifficultyLevel = 6; }
+      AI { Car = Kodiak;	Color = "Ferrari Red";	Preset = Assault; DifficultyLevel = 6; }
+      AI { Car = Kodiak;	Color = "Gloss Black";	Preset = Tactical; DifficultyLevel = 6; }
+      AI { Car = Kodiak;	Color = "Gold";	Preset = Hunter; DifficultyLevel = 6; }
+      AI { Car = Kodiak;	Color = "Copper";	Preset = Buckler; DifficultyLevel = 6; }
+      AI { Car = Kodiak;	Color = "Silver";	Preset = Assault; DifficultyLevel = 6; }
+      AI { Car = Kodiak;	Color = "Blue Steel";	Preset = Melee; DifficultyLevel = 6; }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 50000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Rampart_Skin2 
+    SilverReward = Python_Dark_Red
+    BronzeReward = Python_Darkest_Red
+    }
+
+Event <E1504>
+  { 
+    Chapter = 15
+    Prerequisite { E1503 }
+    EventName	= Event_E1504
+    Description = Desc_E1504
+    EventType	= Race
+    DebugText	= "<Streets of Thunder>"
+    TrackName	= fa_t511
+    NumLaps	= 6
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Maverick> { } }
+	//DDAValueKeys = [0.5 1.0 1.0625] // Lead debuff, average catch up
+	//DDADistanceKeys = [-256 -75 4 75]
+    Presets	{ Assault; Melee; Tactical; Ravager; Brawler}
+    Opponents
+    { 
+      AI { Car = Maverick;	Color = "Gloss Black";	Preset = Melee; DifficultyLevel = 6; }
+      AI { Car = Maverick;	Color = "Ferrari Red";	Preset = Assault; DifficultyLevel = 6; }
+      AI { Car = Maverick;	Color = "BRG";	Preset = Tactical; DifficultyLevel = 6; }
+      AI { Car = Maverick;	Color = "Orange";	Preset = Ravager; DifficultyLevel = 6; }
+      AI { Car = Maverick;	Color = "Yellow";	Preset = Brawler; DifficultyLevel = 6; }
+      AI { Car = Maverick;	Color = "Dark Red";	Preset = Assault; DifficultyLevel = 6; }
+      AI { Car = Maverick;	Color = "Blue";	Preset = Melee; DifficultyLevel = 6; }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 100000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 75000  }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Honcho_Skin
+    SilverReward = Opulent_Copper
+    BronzeReward = Opulent_Mango_Wine
+  }
+
+//
+//   SERIES 16: IMPOSSIBLE
+//
+
+Event <E1601>
+  { 
+    Chapter = 16
+    Prerequisite { E1203; E1403; E1504 }
+    EventName	= Event_E1601
+    Description = Desc_E1601
+    EventType	= Race
+    DebugText	= "<Impossible>"
+    playersCantRespawn
+    TrackName	= fa_t613
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Rampart> { }; Car <Honcho> { }; Car <Guardian> { }; Car <Rambler> { }; Car <Hitman> { }; Car <Jupiter> { }; Car <Hookzilla> { } }
+    Presets	{ Assault; Melee; Tactical; Annihilator; Devastator}
+    Opponents
+    { 
+      AI { Car = Rampart;	Color = "Taxi Yellow";	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Rampart;	Color = "Olive Drab";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Hitman;	Color = "Darkest Red";	Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Hitman;	Color = "Yellow";	Preset = Devastator; DifficultyLevel = 6 }
+      AI { Car = Guardian;	Color = "Presidential Black";	Preset = Annihilator; DifficultyLevel = 6 }
+      AI { Car = Guardian;	Color = "Silver";	Preset = Assault; DifficultyLevel = 9 }
+      AI { Car = Vulcan;	Color = "Orange";	Preset = Melee; DifficultyLevel = 9; Bounty = 20000; canRespawn = false }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 100000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Wraith_Skin2 
+    SilverReward = Streamline_Titanium
+    BronzeReward = Streamline_Gloss_Black
+    PlayersCantUnwind
+   }
+
+Event <E1602>
+  { 
+    Chapter = 16
+    Prerequisite { E1601 }
+    EventName	= Event_E1602
+    Description = Desc_E1602
+    EventType	= Race
+    DebugText	= "<Impossible>"
+    playersCantRespawn
+    TrackName	= fa_t214
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Vulcan> { }; Car <Ardent> { }; Car <Magnus> { }; Car <TEC_S2> { }; Car <Opulent> { }; Car <Python> { }; Car <Kodiak> { } }
+    Presets	{ Assault; Melee; Tactical; Hunter; Buckler}
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "Ferrari Red";	Preset = Melee; DifficultyLevel = 9 }
+      AI { Car = Magnus;	Color = "Darkest Red";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Magnus;	Color = "Gloss Black";	Preset = Tactical; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Candy Apple Red";	Preset = Hunter; DifficultyLevel = 6 }
+      AI { Car = Opulent;	Color = "Mango Wine";	Preset = Hunter; DifficultyLevel = 6 }
+      AI { Car = Maverick;	Color = "Dark Green";	Preset = Assault; DifficultyLevel = 9; Bounty = 20000; canRespawn = false }
+      AI { Car = Maverick;	Color = "Indigo";	Preset = Assault; DifficultyLevel = 9; Bounty = 20000; canRespawn = false }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 110000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 75000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Vulcan_Skin2 
+    SilverReward = Hookzilla_Presidential_Black
+    BronzeReward = Wraith_Flaming_Orange
+    PlayersCantUnwind
+  }
+
+Event <E1603>
+  { 
+    Chapter = 16
+    Prerequisite { E1602 }
+    EventName	= Event_E1603
+    Description = Desc_E1603
+    EventType	= Race
+    DebugText	= "<Impossible>"
+    playersCantRespawn
+    TrackName	= fa_t511
+    NumLaps	= 2
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Phantom> { }; Car <Enforcer> { }; Car <Wraith> { }; Car <Streamline> { }; Car <Demon> { }; Car <Maverick> { } }
+    Presets	{ Assault; Melee; Tactical; Ravager; Brawler}
+    DDAValueKeys = [0.5 1.0 1.1] 
+    DDADistanceKeys = [-175 -64 32 128]
+    Opponents
+    { 
+      AI { Car = Warlord;	Color = "Gloss Black";	Preset = Assault; DifficultyLevel = 9; Bounty = 20000; canRespawn = false }
+      AI { Car = Warlord;	Color = "Slate Grey";	Preset = Melee; DifficultyLevel = 9; Bounty = 20000; canRespawn = false }
+      AI { Car = Maverick;	Color = "Ferrari Red";	Preset = Ravager; DifficultyLevel = 9; }
+      AI { Car = Maverick;	Color = "Orange";	Preset = Brawler; DifficultyLevel = 9; }
+      AI { Car = Wraith;	Color = "Yellow";	Preset = Assault; DifficultyLevel = 9; }
+      AI { Car = Wraith;	Color = "Indigo";	Preset = Tactical; DifficultyLevel = 9; }
+      AI { Car = Demon;		Color = "Dark Red";	Preset = Melee; DifficultyLevel = 9; }
+    } // End Opponents
+    GoldGoal	{ FinishPosition = 1; DamageTotal = 120000 }
+    SilverGoal	{ FinishPosition = 1; DamageTotal = 80000 }
+    BronzeGoal  { FinishPosition = 1 }
+    GoldReward = Hookzilla_Skin
+    SilverReward = Vulcan_Candy_Apple_Red
+    BronzeReward = Vulcan_Blue_Steel
+    PlayersCantUnwind
+  }
+
+
+
+/* This is the template event. It is a Circuit Race on Track 121. The player car and all seven AI opponents are white Ardents with no Presets.
+  Event <id: eventId>
+  { Chapter = x
+    Prerequisite { Exxx }
+    EventName	= <id: event name Id>
+    Description = <id: event description Id>
+    EventType	= Race
+    DebugText	= <string: a debug title for the event>
+    TrackName	= fa_t112
+    NumLaps	= 1
+    Direction	= Forward
+    TimeOfDay	= Default
+    Vehicles	{ Car <Ardent> { } }
+    Presets	{ Vacancy }
+    Opponents
+    { 
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+      AI { Car = Ardent;	Color = "White";	Primary = EmptyWeapon;	Secondary = EmptyWeapon; DifficultyLevel = 3 }
+    } // End Opponents
+    GoldGoal	{ }
+    SilverGoal	{ }
+    BronzeGoal  { }
+    GoldReward = Reward01
+    SilverReward = Reward02
+    BronzeReward = Reward03
+  }
+  
+*/

@@ -1,0 +1,7367 @@
+
+#VFXScript
+
+//Chris H says the takedown enter and exit are not used. 2005-09-02
+VFXScript <TakedownEnterVFX>
+{
+	TimeScale
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .65 //JH this was at .65 actually this might not be affecting the time during the pan...
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType	= Linear
+	}
+/*
+// [jh] removed for x05 demo - this is killing deathage display
+	HUDAlpha
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	}
+*/
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	} 
+}
+//-----------------------------------------------------------------------------
+VFXScript <TakedownExitVFX>
+{
+	TimeScale
+	{
+		ValueKey1      = .65 //JH this was at .65
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	}
+/*
+// [jh] removed for x05 demo - this is killing deathage display
+	HUDAlpha
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	}
+*/
+	MotionBlur
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	}    
+}
+//-----------------------------------------------------------------------------
+VFXScript <DeathEnterVFX>
+{
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.9
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType      = Flat
+	}
+	TimeScale
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .6
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .82
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.8
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType  = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.3
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 7
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 20
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.3
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.510
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.650
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	Contrast
+	{
+	        ValueKey1      = DEFAULT
+		ValueKey2      = 2.544
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType = Linear
+	}
+	Brightness
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.1
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	NoiseScale
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 5.146
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	NoiseIntensity
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.736
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	InterlaceBias
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.202
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceIntensity
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.0
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.
+  		CurveType   = Linear
+	}
+	InterlaceFrequency
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.
+  		CurveType   = Linear
+	}
+	SkyRadGain
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 2.312
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.05
+  		CurveType   = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <DeathExitVFX>
+{
+	FOV
+	{
+		ValueKey1      = 0.9
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType      = Flat
+	}
+	TimeScale
+	{
+		ValueKey1      = .6
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = .82
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Sin
+	}
+	DepthOfField
+	{
+		ValueKey1      = 1.3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 0.8
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType  = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 7
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 20
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = 1.3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = 1.2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = 1.51
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = 0.650
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	Contrast
+	{
+	        ValueKey1      = 2.544
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.3
+		CurveType = Linear
+	}
+	Brightness
+	{
+		ValueKey1      = 1.1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.3
+		CurveType   = Linear
+	}
+	NoiseScale
+	{
+ 		ValueKey1      = 5.146
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	NoiseIntensity
+	{
+ 		ValueKey1      = 0.736
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	InterlaceBias
+	{
+ 		ValueKey1      = 0.202
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceIntensity
+	{
+ 		ValueKey1      = 0
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0
+  		CurveType   = Linear
+	}
+	InterlaceFrequency
+	{
+ 		ValueKey1      = 0
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0
+  		CurveType   = Linear
+	}
+	SkyRadGain
+	{
+ 		ValueKey1      = 2.312
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	TintHR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .540
+		TimeKey1       = 0
+		TimeKey2       = .1
+		CurveType = Linear
+	}
+	TintHG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .59
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.65
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .46
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .37
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .32
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .22
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .22
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .52
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <UnwindEnterVFX>
+{
+	NoiseScale
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 8.3
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	NoiseIntensity
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.3
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	SkyRadSaturate
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.75
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.2
+  		CurveType   = Linear
+	}
+	SkyRadGain
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 2
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.05
+  		CurveType   = Linear
+	}
+	InterlaceBias
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.49
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceIntensity
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.3
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceFrequency
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 20
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.05
+  		CurveType   = Linear
+	}
+	Radiance
+ 	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.1
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.2
+  		CurveType   = Linear
+	}
+	FogAlpha
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.1
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	TimeScale
+	{
+		ValueKey1      = 0.0 //DEFAULT
+		ValueKey2      = 0.0
+		TimeKey1       = 0 //0.09 //jh was 0.125 -- tied it to flash end.
+		TimeKey2       = 0 //0.09 
+		CurveType   = Linear
+	}
+	Flash
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.06
+		CurveType   = Linear
+	}
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.06
+		TimeKey2       = 0.12
+		CurveType   = Linear
+	}
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType      = Linear
+	}
+	HUDAlpha
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.05
+		CurveType = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .78
+		TimeKey1       = 0
+		TimeKey2       = 0.3
+		CurveType = Linear
+	}
+/*
+	AmbientR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.0
+		CurveType = Linear
+	}
+	AmbientG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.0
+		CurveType = Linear
+	}
+	AmbientB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.0
+		CurveType = Linear
+	}
+*/
+	Contrast
+	{
+	        ValueKey1      = DEFAULT
+		ValueKey2      = 2.3
+		TimeKey1       = 0
+		TimeKey2       = 0.3
+		CurveType = Linear
+	}
+	Cloud0Alpha
+	{
+        	ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType = Linear
+	}
+	Cloud0Speed
+	{
+	        ValueKey1      = DEFAULT
+		ValueKey2      = .025
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Parabolic
+	}
+	Cloud1Alpha
+	{
+        	ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType = Linear
+	}
+	Cloud1Speed
+	{
+	        ValueKey1      = DEFAULT
+	        ValueKey2      = .025
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Parabolic
+	}		
+	Brightness
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.12
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .9
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 23
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 60
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 2
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.15
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.3
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	TintHR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .7
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .9
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .39
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .47
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .61
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .18
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .46
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .67
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .7
+		TimeKey1       = 0
+		TimeKey2       = .05
+		CurveType  = Linear
+	}
+	TintHR
+	{
+		ValueKey1      = .54
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .1
+		CurveType = Linear
+	}
+	TintHG
+	{
+		ValueKey1      = .59
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHB
+	{
+		ValueKey1      = 0.65
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMR
+	{
+		ValueKey1      = .46
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMG
+	{
+		ValueKey1      = .37
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMB
+	{
+		ValueKey1      = .32
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSR
+	{
+		ValueKey1      = .22
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSG
+	{
+		ValueKey1      = .22
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = .52
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	CameraShakeAX
+	{
+		ValueKey1      = DEFAULT 
+		ValueKey2      = 0.006
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType = Linear
+	}
+	CameraShakeAY
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.011 
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+}	
+//-----------------------------------------------------------------------------
+VFXScript <UnwindExitVFX>
+{
+	NoiseScale
+	{
+ 		ValueKey1      = 8.3
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	SkyRadSaturate
+	{
+ 		ValueKey1      = 0.75
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.2
+  		CurveType   = Linear
+	}
+	SkyRadGain
+	{
+ 		ValueKey1      = 2
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	NoiseIntensity
+	{
+ 		ValueKey1      = .3
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	InterlaceBias
+	{
+ 		ValueKey1      = 0.49
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceIntensity
+	{
+ 		ValueKey1      = .3
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceFrequency
+	{
+ 		ValueKey1      = 20
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.05
+  		CurveType   = Linear
+	}
+	Radiance
+ 	{
+ 		ValueKey1      = 0.1
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.2
+  		CurveType   = Linear
+ 	}
+	FogAlpha
+	{
+		ValueKey1      = 0.1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	TimeScale
+	{
+		ValueKey1      = DEFAULT //0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0 //0.5 
+		CurveType   = Parabolic
+	}
+	Flash
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.06
+		CurveType   = Linear
+	}
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.06
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType      = Linear
+	}
+	HUDAlpha
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.8
+		CurveType   = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = .78
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+/*
+	AmbientR
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Linear
+	}
+	AmbientG
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Linear
+	}
+	AmbientB
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Linear
+	}
+*/
+	Contrast
+	{
+	        ValueKey1      = 2.3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	Cloud0Alpha
+	{
+        	ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	Cloud0Speed
+	{
+	        ValueKey1      = .025
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Sin
+	}
+	Cloud1Alpha
+	{
+	       	ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	Cloud1Speed
+	{
+	        ValueKey1      = .025
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Sin
+	}	
+	Brightness
+	{
+		ValueKey1      = 1.12
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	TintHR
+	{
+		ValueKey1      = .7
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHG
+	{
+		ValueKey1      = .9
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHB
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMR
+	{
+		ValueKey1      = .39
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMG
+	{
+		ValueKey1      = .47
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMB
+	{
+		ValueKey1      = .61
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSR
+	{
+		ValueKey1      = .18
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSG
+	{
+		ValueKey1      = .46
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = .67
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = .9
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 23
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 60
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = 2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = 1.15
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = 1.2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = .3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = .7
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType  = Linear
+	}
+	CameraShakeAX
+	{
+		ValueKey1      = 0.011 
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType = Linear
+	}
+	CameraShakeAY
+	{
+		ValueKey1      = 0.011
+		ValueKey2      = DEFAULT 
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <TurboEnterVFX>
+{
+	CameraShakeAX
+	{
+		ValueKey1      = 0.011 //jh was 0.028
+		ValueKey2      = 0.006
+		TimeKey1       = 0
+		TimeKey2       = 0.3
+		CurveType = Linear
+	}
+	CameraShakeAX
+	{
+		ValueKey1      = 0.006 //jh added element
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.3
+		TimeKey2       = 2.5
+		CurveType = Sin
+	}
+	CameraShakeAY
+	{
+		ValueKey1      = 0.011 //jh was 0.028
+		ValueKey2      = 0.006 
+		TimeKey1       = 0
+		TimeKey2       = .3
+		CurveType = Linear
+	}
+	CameraShakeAY
+	{
+		ValueKey1      = 0.006 //jh added element
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.3
+		TimeKey2       = 2.5
+		CurveType = Sin
+	}
+	HUDShakeX
+	{
+		ValueKey1      = 10 
+		ValueKey2      = 2
+		TimeKey1       = 0
+		TimeKey2       = .4
+		CurveType = Linear 
+	}
+	HUDShakeX
+	{
+		ValueKey1      = 2 //jh added element
+		ValueKey2      = 2
+		TimeKey1       = 0.4
+		TimeKey2       = 2.5 
+		CurveType = Sin 
+	}
+	HUDShakeY
+	{
+		ValueKey1      = 10 
+		ValueKey2      = 2
+		TimeKey1       = 0
+		TimeKey2       = 0.4 
+		CurveType = Linear 
+	}
+	HUDShakeY
+	{
+		ValueKey1      = 2 //jh added element
+		ValueKey2      = 2
+		TimeKey1       = 0.4
+		TimeKey2       = 2.5 
+		CurveType = Sin 
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <TurboExitVFX>
+{
+	CameraShakeAX
+	{
+		ValueKey1      = .004 //jh added element
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType = Sin
+	}
+	CameraShakeAY
+	{
+		ValueKey1      = .004 //jh added element
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType = Sin
+	}
+	CameraShakeAZ
+	{
+		ValueKey1      = .004 //jh added element
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType = Sin
+	}
+	HUDShakeX
+	{
+		ValueKey1      = 2 //jh added element
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.0
+		TimeKey2       = 0.20 
+		CurveType = Linear 
+	}
+	HUDShakeY
+	{
+		ValueKey1      = 2 //jh added element
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.0
+		TimeKey2       = 0.20 
+		CurveType = Linear 
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <SpeedEventEndVFX>
+{
+
+}
+//-----------------------------------------------------------------------------
+VFXScript <QuickFlashVFX>
+{
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <HUDFadeOutQuickVFX>
+{
+	HUDAlpha
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <HUDFadeInQuickVFX>
+{
+	HUDAlpha
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <ToolTipStopTimeVFX>
+{
+
+	TimeScale
+	{
+		ValueKey1      = 0.00 // DEFAULT
+		ValueKey2      = 0.00
+		TimeKey1       = 0.00
+		TimeKey2       = 0.00 // 0.10
+		CurveType      = Linear
+	}
+
+	Desaturate
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.00
+		TimeKey1       = 0.00
+		TimeKey2       = 0.25
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <ToolTipStartTimeVFX>
+{
+
+	TimeScale
+	{
+		ValueKey1      = DEFAULT // 0.00
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.00
+		TimeKey2       = 0.00 // 0.25
+		CurveType      = Linear
+	}
+
+	Desaturate
+	{
+		ValueKey1      = 1.00
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.00
+		TimeKey2       = 0.25
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXDefault <DefaultsFrontEnd>
+{
+DofRange0 	= 20.000
+DofRange1 	= 55.000
+DepthOfField	= 1.25
+DofSpread 	= 0.800 
+SpecularGain	= 3 
+ToneGain	= 1.75
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Contrast	= 1.6
+Radiance	= 1.4
+RadSpread	= .25
+RadThresh	= .7
+VPaintGain	= 1.0
+FogStart	= 120
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .7
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= .2
+FogAlphaCurve2 	= 0
+FogColorGroundR	= .7
+FogColorGroundG	= .8
+FogColorGroundB	= 1
+FogColorSkyR	= .8
+FogColorSkyG	= .9
+FogColorSkyB	= 1
+FogColorLightr	= .85
+FogColorLightg	= .85
+FogColorLightB	= 1
+SkyBrightness	= 0.9
+SkyRadSpread	= 0.4
+SkyRadResist	= 0.42
+SkyRadResistBias = 0
+SkyRadThreshBias = 1
+SkyCoronaGain	= 0.12
+SkyRadGain	= 1.6
+ToneT	= 0
+QuadLightGain = 0.55
+}
+//-----------------------------------------------------------------------------
+VFXDefault <DefaultsOneTouchCheat>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0
+TintHR = 1
+TintHG = 1
+TintHB = .9
+TintMR = 1.1
+TintMG = .95
+TintMB = .6
+TintSR = 1.1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.85
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 1.8
+IrisMinGain = 1.15
+IrisMinScale = 0
+IrisMaxScale = 2
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = 1
+IrisEffectH = .7
+IrisEffectSky = .7
+IrisSkyContrib = 8
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 150
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.2
+FogColorSkyG	= .7
+FogColorSkyB	= .5
+FogColorLightr	= .5
+FogColorLightg	= .2
+FogColorLightB	= .2
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0
+SkyRadGain = 1.5
+SkyRadTintR = .8
+SkyRadTintG = .2
+SkyRadTintB = .1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+//FOV = 1.0 
+DepthOfField	= 1.25 
+DofRange0	= 20.0 
+DofRange1 	= 40.0
+MotionBlur = 0.4
+Desaturate  = .4 
+NoiseScale 	= 8.6 
+NoiseIntensity 	= .28
+InterlaceFrequency 	= 26
+InterlaceIntensity 	= .18
+InterlaceBias  	= .2
+Contrast 	= 2
+Brightness   = 1.5
+}
+//-----------------------------------------------------------------------------
+VFXDefault <DefaultsDCAPDemo>
+{
+
+FOV = 0.7
+
+
+//======
+//Color Balance
+//======
+Desaturate = .4
+TintHR = 1.02
+TintHG = .92
+TintHB = .83
+
+TintMR = 1.1
+TintMG = 1.02
+TintMB = 1.0
+
+TintSR = .9
+TintSG = .9
+TintSB = 1
+Contrast = 1.3
+ToneGain = 1
+
+//======
+//Iris Effect (No effect in MOD)
+//======
+IrisMaxGain = 1
+IrisMinGain = 1
+IrisMinScale = 1
+IrisMaxScale = 1
+IrisTransitionRate = 0
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = 1
+IrisEffectH = 2
+IrisSkyContrib = 8
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 10
+DofRange1 	= 250
+DepthOfField	= 0
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 45
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0.25
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 0
+FogAlphaCurve2 	= 0
+FogColorGroundR	= 0
+FogColorGroundG	= .4
+FogColorGroundB	= .7
+FogColorSkyR	= 1.0
+FogColorSkyG	= 0.892
+FogColorSkyB	= .870
+FogColorLightr	= 1
+FogColorLightg	= 1
+FogColorLightB	= 1
+
+//======
+//Sky Glow (Affects only radiance buffer stuff)
+//======
+ToneT	= 0
+SkyRadSpread	= .1
+SkyRadGain = 1
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//Filters
+//======
+NoiseIntensity = 0
+NoiseScale = 3
+InterlaceIntensity = 0
+}
+
+VFXDefault <DefaultsProdigalDemo>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0
+TintHR = 1
+TintHG = 1
+TintHB = 1
+TintMR = 1
+TintMG = 1
+TintMB = 1
+TintSR = 1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.8
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1
+IrisMinScale = -.5
+IrisMaxScale = 2.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .8
+IrisEffectH = .3
+IrisEffectSky = .7
+IrisSkyContrib = 4
+IrisGamma = 1
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 150
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.2
+FogColorSkyG	= .7
+FogColorSkyB	= .5
+FogColorLightr	= .5
+FogColorLightg	= .2
+FogColorLightB	= .2
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0.1
+SkyRadGain = 1.5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+// FOV and other camera stuff (?)
+//======
+FOV = 0.65
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults613>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0
+TintHR = 1
+TintHG = 1
+TintHB = .9
+TintMR = 1.1
+TintMG = .95
+TintMB = .6
+TintSR = 1.1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.8
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1
+IrisMinScale = -.5
+IrisMaxScale = 2.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .8
+IrisEffectH = .3
+IrisEffectSky = .7
+IrisSkyContrib = 4
+IrisGamma = 1
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 150
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.2
+FogColorSkyG	= .7
+FogColorSkyB	= .5
+FogColorLightr	= .5
+FogColorLightg	= .2
+FogColorLightB	= .2
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0.1
+SkyRadGain = 1.5
+SkyRadTintR = .8
+SkyRadTintG = .2
+SkyRadTintB = .1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults511>
+{
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .95
+TintMG = 1
+TintMB = 1
+TintSR = .8
+TintSG = .8
+TintSB = .8
+Contrast	= 1.5
+ToneGain = .95
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2
+IrisMinGain = 1
+IrisMinScale = 0
+IrisMaxScale = 2
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .3
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 1
+DofRange1 	= 2
+DepthOfField	= .3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 60
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.5
+FogColorSkyG	= 1.7
+FogColorSkyB	= 1.8
+FogColorLightr	= .3
+FogColorLightg	= .3
+FogColorLightB	= .3
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .8
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults615>
+{
+	DofRange0 	= 80.000
+	DofRange1 	= 150.000
+	DepthOfField	= 0
+	DofSpread 	= 0.800 
+	SpecularGain	= 2.2
+	ToneGain	= 1.3
+	Contrast	= 1.6
+	RadSpread	= .2
+	RadThresh	= .7
+	VPaintGain	= 1.21
+	Radiance	= .7
+	FogStart	= 60
+	FogAlpha	= .8
+	FogLight	= 1.0
+	FogDof		= 0.7
+	FogContrast	= .25
+	FogAlphaLight	= 0
+	FogAlphaCurve0 	= 1
+	FogAlphaCurve1 	= .2
+	FogAlphaCurve2 	= 0
+	FogColorGroundR	= 1.2
+	FogColorGroundG	= .97
+	FogColorGroundB	= .76
+	FogColorSkyR	= 0
+	FogColorSkyG	= 0
+	FogColorSkyB	= 0
+	FogColorLightr	= 1.0
+	FogColorLightg	= .996
+	FogColorLightB	= .914
+	SkyRadGain	= 2.0
+	SkyBrightness	= .266
+	SkyRadSpread	= .2
+	SkyRadResist	= .181
+	SkyRadResistBias = 0
+	SkyRadThreshBias = 1.0
+	SkyCoronaGain	= .12
+	ToneT = 0
+	QuadLightGain = 0.55
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults725>
+{
+	DofRange0 	= 80.000
+	DofRange1 	= 150.000
+	DepthOfField	= 0
+	DofSpread 	= 0.800 
+	SpecularGain	= 2.65 
+	ToneGain	= 1.3
+	Contrast	= 1.6
+	RadSpread	= .2
+	RadThresh	= .7
+	VPaintGain	= 1.21
+	Radiance	= .7
+	FogStart	= 60
+	FogAlpha	= .8
+	FogLight	= .8
+	FogDof		= 0.7
+	FogContrast	= .3
+	FogAlphaLight	= 0
+	FogAlphaCurve0 	= 1
+	FogAlphaCurve1 	= .2
+	FogAlphaCurve2 	= 0
+	FogColorGroundR	= 1.2
+	FogColorGroundG	= .97
+	FogColorGroundB	= .76
+	FogColorSkyR	= 0
+	FogColorSkyG	= 0
+	FogColorSkyB	= 0
+	FogColorLightr	= 1.0
+	FogColorLightg	= .996
+	FogColorLightB	= .914
+	SkyRadGain	= 2.0
+	SkyBrightness	= .6
+	SkyRadSpread	= .2
+	SkyRadResist	= .181
+	SkyRadResistBias = 0
+	SkyRadThreshBias = 1.0
+	SkyCoronaGain	= .12
+	ToneT = 0
+	QuadLightGain = 0.55
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults216>
+{
+	DofRange0 	= 80.000
+	DofRange1 	= 150.000
+	DepthOfField	= 0
+	DofSpread 	= 0.800 
+	SpecularGain	= 2.2 
+	ToneGain	= 1.3
+	Contrast	= 1.6
+	RadSpread	= .2
+	RadThresh	= .7
+	VPaintGain	= 1.21
+	Radiance	= .7
+	FogStart	= 60
+	FogAlpha	= .8
+	FogLight	= .8
+	FogDof		= 0.7
+	FogContrast	= .3
+	FogAlphaLight	= 0
+	FogAlphaCurve0 	= 1
+	FogAlphaCurve1 	= .2
+	FogAlphaCurve2 	= 0
+	FogColorGroundR	= 1.2
+	FogColorGroundG	= .97
+	FogColorGroundB	= .76
+	FogColorSkyR	= 0
+	FogColorSkyG	= 0
+	FogColorSkyB	= 0
+	FogColorLightr	= 1.0
+	FogColorLightg	= .996
+	FogColorLightB	= .914
+	SkyRadGain	= 2.0
+	SkyBrightness	= .38
+	SkyRadSpread	= .2
+	SkyRadResist	= .181
+	SkyRadResistBias = 0
+	SkyRadThreshBias = 1.0
+	SkyCoronaGain	= .12
+	ToneT = 0
+	QuadLightGain = 0.55
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults111>
+{
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .95
+TintMG = 1
+TintMB = 1
+TintSR = .8
+TintSG = .8
+TintSB = .8
+Contrast	= 1.5
+ToneGain = .95
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2
+IrisMinGain = 1
+IrisMinScale = 0
+IrisMaxScale = 2
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .3
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 1
+DofRange1 	= 2
+DepthOfField	= .3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 60
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.5
+FogColorSkyG	= 1.7
+FogColorSkyB	= 1.8
+FogColorLightr	= .3
+FogColorLightg	= .3
+FogColorLightB	= .3
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .8
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults611>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0
+TintHR = 1
+TintHG = 1
+TintHB = .9
+TintMR = 1.1
+TintMG = .95
+TintMB = .6
+TintSR = 1.1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.8
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1
+IrisMinScale = -.5
+IrisMaxScale = 2.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .8
+IrisEffectH = .3
+IrisEffectSky = .7
+IrisSkyContrib = 4
+IrisGamma = 1
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 150
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.2
+FogColorSkyG	= .7
+FogColorSkyB	= .5
+FogColorLightr	= .5
+FogColorLightg	= .2
+FogColorLightB	= .2
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0.1
+SkyRadGain = 1.5
+SkyRadTintR = .8
+SkyRadTintG = .2
+SkyRadTintB = .1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults622>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0
+TintHR = 1
+TintHG = 1
+TintHB = .9
+TintMR = 1.1
+TintMG = .95
+TintMB = .6
+TintSR = 1.1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.8
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1
+IrisMinScale = -.5
+IrisMaxScale = 2.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .8
+IrisEffectH = .3
+IrisEffectSky = .7
+IrisSkyContrib = 4
+IrisGamma = 1
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 150
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.2
+FogColorSkyG	= .7
+FogColorSkyB	= .5
+FogColorLightr	= .5
+FogColorLightg	= .2
+FogColorLightB	= .2
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0.1
+SkyRadGain = 1.5
+SkyRadTintR = .8
+SkyRadTintG = .2
+SkyRadTintB = .1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults722>
+{
+DofRange0 	= 80.000
+DofRange1 	= 150.000
+DepthOfField	= 0
+DofSpread 	= 0.800 
+SpecularGain	= 2.6
+ToneGain	= 1.3
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Contrast	= 1.6
+Radiance	= 1.2
+RadSpread	= .25
+RadThresh	= .7
+VPaintGain	= 1.0
+FogStart	= 120
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .7
+FogDof		= 0
+FogContrast	= 0.3
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= .2
+FogAlphaCurve2 	= 0
+FogColorGroundR	= .7
+FogColorGroundG	= .8
+FogColorGroundB	= 1
+FogColorSkyR	= .8
+FogColorSkyG	= .9
+FogColorSkyB	= 1
+FogColorLightr	= .85
+FogColorLightg	= .85
+FogColorLightB	= 1
+SkyBrightness	= 0.4
+SkyRadSpread	= 0.4
+SkyRadResist	= 0.42
+SkyRadResistBias = 0
+SkyRadThreshBias = 1
+SkyCoronaGain	= 0.12
+SkyRadGain	= 1.6
+ToneT	= 0
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults113>
+{
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .95
+TintMG = 1
+TintMB = 1
+TintSR = .8
+TintSG = .8
+TintSB = .8
+Contrast	= 1.5
+ToneGain = .95
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2
+IrisMinGain = 1
+IrisMinScale = 0
+IrisMaxScale = 2
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .3
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 1
+DofRange1 	= 2
+DepthOfField	= .3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 60
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.5
+FogColorSkyG	= 1.7
+FogColorSkyB	= 1.8
+FogColorLightr	= .3
+FogColorLightg	= .3
+FogColorLightB	= .3
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .8
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults121>
+{
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .95
+TintMG = 1
+TintMB = 1
+TintSR = .8
+TintSG = .8
+TintSB = .8
+Contrast	= 1.5
+ToneGain = .95
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2
+IrisMinGain = 1
+IrisMinScale = 0
+IrisMaxScale = 2
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .3
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 1
+DofRange1 	= 2
+DepthOfField	= .3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 60
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.5
+FogColorSkyG	= 1.7
+FogColorSkyB	= 1.8
+FogColorLightr	= .3
+FogColorLightg	= .3
+FogColorLightB	= .3
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .8
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults721>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0.25
+TintHR = .9
+TintHG = .9
+TintHB = .9
+TintMR = 1
+TintMG = .8
+TintMB = .7
+TintSR = .95
+TintSG = .95
+TintSB = 1
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1.2
+IrisMinScale = -3
+IrisMaxScale = 3.1
+IrisTransitionRate = .8
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .5
+IrisEffectH = .2
+IrisEffectSky = .5
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 170
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .2
+FogColorSkyG	= .6
+FogColorSkyB	= 1
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .7
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 0
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults711>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0.25
+TintHR = .9
+TintHG = .9
+TintHB = .9
+TintMR = 1
+TintMG = .8
+TintMB = .7
+TintSR = .95
+TintSG = .95
+TintSB = 1
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1.2
+IrisMinScale = -3
+IrisMaxScale = 3.1
+IrisTransitionRate = .8
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .5
+IrisEffectH = .2
+IrisEffectSky = .5
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 170
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .2
+FogColorSkyG	= .6
+FogColorSkyB	= 1
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .7
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 0
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults215>
+{
+DofRange0 	= 80.000
+DofRange1 	= 150.000
+DepthOfField	= 0
+DofSpread 	= 0.800 
+SpecularGain	= 2.6 
+ToneGain	= 1.3
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Contrast	= 1.4
+Radiance	= 1.2
+RadSpread	= .25
+RadThresh	= .7
+VPaintGain	= 1.0
+FogStart	= 80
+//FogEnd	= 500
+FogAlpha	= .65
+FogLight	= .6
+FogDof		= 0
+FogContrast	= 0.4
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= .2
+FogAlphaCurve2 	= 0
+FogColorGroundR	= .7
+FogColorGroundG	= .8
+FogColorGroundB	= 1
+FogColorSkyR	= .8
+FogColorSkyG	= .9
+FogColorSkyB	= 1
+FogColorLightr	= .85
+FogColorLightg	= .85
+FogColorLightB	= 1
+SkyBrightness	= 0.48
+SkyRadSpread	= 0.5
+SkyRadResist	= 0.42
+SkyRadResistBias = 0
+SkyRadThreshBias = 1
+SkyCoronaGain	= 0.12
+SkyRadGain	= 1.6
+ToneT	= 0
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults512>
+{
+	DofRange0 	= 80.000
+	DofRange1 	= 150.000
+	DepthOfField	= 0
+	DofSpread 	= 0.800 
+	SpecularGain	= 2.65
+	ToneGain	= 1.55
+	ToneGammaBias	= 0
+	ToneGammaDecay	= 0
+	Contrast	= 1.6
+	Radiance	= .7
+	RadSpread	= .2
+	RadThresh	= .7
+	VPaintGain	= 1.0
+	FogStart	= 80
+	//FogEnd	= 500
+	FogAlpha	= .8
+	FogLight	= .7
+	FogDof		= .4
+	FogContrast	= 0.4
+	FogAlphaLight	= 1
+	FogAlphaCurve0 	= 0
+	FogAlphaCurve1 	= 2
+	FogAlphaCurve2 	= 2
+	FogColorGroundR	= .4
+	FogColorGroundG	= .5
+	FogColorGroundB	= .65
+	FogColorSkyR	= 1
+	FogColorSkyG	= 1
+	FogColorSkyB	= .9
+	FogColorLightr	= 1
+	FogColorLightg	= 1
+	FogColorLightB	= .8
+	SkyBrightness	= .25
+	SkyRadSpread	= 1.5
+	SkyRadResist	= 0
+	SkyRadThreshBias = 1.0
+	SkyCoronaGain	= 0.12
+	SkyRadGain	= 2
+	ToneT	= 0
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults112>
+{
+	DofRange0 	= 80.000
+	DofRange1 	= 150.000
+	DepthOfField	= 0
+	DofSpread 	= 0.800 
+	SpecularGain	= 2.65 
+	ToneGain	= 1.5
+	ToneGammaBias	= 0
+	ToneGammaDecay	= 0
+	Contrast	= 1.6
+	Radiance	= 0.2
+	RadSpread	= .2
+	RadThresh	= .7
+	VPaintGain	= 1.0
+	FogStart	= 80
+	//FogEnd	= 500
+	FogAlpha	= .8
+	FogLight	= .8
+	FogDof		= .5
+	FogContrast	= 0.3
+	FogAlphaLight	= 1
+	FogAlphaCurve0 	= 0
+	FogAlphaCurve1 	= 2
+	FogAlphaCurve2 	= 2
+	FogColorGroundR	= .5
+	FogColorGroundG	= .5
+	FogColorGroundB	= .3
+	FogColorSkyR	= 1
+	FogColorSkyG	= 1
+	FogColorSkyB	= .9
+	FogColorLightr	= 1
+	FogColorLightg	= 1
+	FogColorLightB	= .8
+	SkyBrightness	= 0.32
+	SkyRadSpread	= 1.0
+	SkyRadResist	= 0
+	SkyRadThreshBias = 1.0
+	SkyCoronaGain	= 0.12
+	SkyRadGain	= 4.0
+	ToneT	= 0
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults214>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0.25
+TintHR = .8
+TintHG = .85
+TintHB = .8
+TintMR = .8
+TintMG = .95
+TintMB = .8
+TintSR = .9
+TintSG = 1
+TintSB = .9
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 3
+IrisMinGain = 1.3
+IrisMinScale = -.2
+IrisMaxScale = 3
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .2
+IrisEffectSky = .3
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= .3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 100
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .9
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= .75
+FogColorGroundG	= .8
+FogColorGroundB	= .75
+FogColorSkyR	= 0
+FogColorSkyG	= 0
+FogColorSkyB	= 0
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = .9
+SkyRadTintG = 1
+SkyRadTintB = .9
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults217>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0.25
+TintHR = .8
+TintHG = .85
+TintHB = .8
+TintMR = .8
+TintMG = .95
+TintMB = .8
+TintSR = .9
+TintSG = 1
+TintSB = .9
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 3
+IrisMinGain = 1.3
+IrisMinScale = -.2
+IrisMaxScale = 3
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .2
+IrisEffectSky = .3
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= .3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 100
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .9
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= .75
+FogColorGroundG	= .8
+FogColorGroundB	= .75
+FogColorSkyR	= 0
+FogColorSkyG	= 0
+FogColorSkyB	= 0
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = .9
+SkyRadTintG = 1
+SkyRadTintB = .9
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults213>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .35
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .9
+TintMG = .83
+TintMB = .75
+TintSR = 1.1
+TintSG = 1.1
+TintSB = 1.1
+Contrast	= 1.8
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2
+IrisMinGain = 1.2
+IrisMinScale = 1
+IrisMaxScale = 2.3
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .8
+IrisEffectH = .2
+IrisSkyContrib = 4
+IrisGamma = .9
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 1
+DofRange1 	= 2
+DepthOfField	= 0.3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 120
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .9
+FogDof		= 0
+FogContrast	= 0.2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= .9
+FogColorGroundG	= .9
+FogColorGroundB	= .9
+FogColorSkyR	= 0
+FogColorSkyG	= 0
+FogColorSkyB	= 0
+FogColorLightr	= 1
+FogColorLightg	= 1
+FogColorLightB	= 1
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .4
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults218>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .5
+TintHR = 1
+TintHG = 1
+TintHB = 1
+TintMR = .75
+TintMG = .68
+TintMB = .6
+TintSR = 1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.2
+IrisMinGain = 1.3
+IrisMinScale = 0
+IrisMaxScale = 2.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = 1
+IrisEffectH = .1
+IrisEffectSky = .7
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 150
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 80
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .9
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= .8
+FogColorGroundG	= .7
+FogColorGroundB	= .7
+FogColorSkyR	= 0
+FogColorSkyG	= 0
+FogColorSkyB	= 0
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults724>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0.25
+TintHR = .9
+TintHG = .9
+TintHB = .9
+TintMR = 1
+TintMG = .8
+TintMB = .7
+TintSR = .95
+TintSG = .95
+TintSB = 1
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1.2
+IrisMinScale = -3
+IrisMaxScale = 3.1
+IrisTransitionRate = .8
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .5
+IrisEffectH = .2
+IrisEffectSky = .5
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 170
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .2
+FogColorSkyG	= .6
+FogColorSkyB	= 1
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .7
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 0
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults541>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .85
+TintMG = 1
+TintMB = 1.15
+TintSR = 1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.5
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 3
+IrisMinGain = 1
+IrisMinScale = -1
+IrisMaxScale = 3
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.2
+IrisEffectM = .5
+IrisEffectH = .4
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 120
+//FogEnd	= 500
+FogAlpha	= .7
+FogLight	= .9
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .8
+FogColorSkyG	= .9
+FogColorSkyB	= .8
+FogColorLightr	= .65
+FogColorLightg	= .65
+FogColorLightB	= .7
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .1
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .33
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaultsighting_financial>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .2
+TintHR = 1.1
+TintHG = 1.1
+TintHB = 1.0
+TintMR = 0.9
+TintMG = 1
+TintMB = 1.1
+TintSR = 0.625
+TintSG = 0.6
+TintSB = 0.65
+Contrast	=1.0
+ToneGain = 0.87
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 3
+IrisMinGain = 0.87
+IrisMinScale = -2
+IrisMaxScale = 3.1
+IrisTransitionRate = 1.5
+IrisFocalWidth = 0.55
+IrisFocalHeight = 0.75
+IrisEffectS = 1
+IrisEffectM = 0.25
+IrisEffectH = 0.25
+IrisSkyContrib = 16
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 1
+DofRange1 	= 2.000
+DepthOfField	= 0
+DofSpread 	= 0.875
+
+//======
+//Fog
+//======
+FogStart	= 125
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .8
+FogDof		= 0
+FogContrast	= 1
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 0
+FogColorGroundR	= 1
+FogColorGroundG	= 1
+FogColorGroundB	= .7
+FogColorSkyR	= 1
+FogColorSkyG	= 1
+FogColorSkyB	= 1
+FogColorLightr	= .85
+FogColorLightg	= .85
+FogColorLightB	= 1
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0.01
+SkyRadGain = 0.5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0.33
+
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 0
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults513>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .85
+TintMG = 1
+TintMB = 1.15
+TintSR = 1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.5
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 3
+IrisMinGain = 1
+IrisMinScale = -1
+IrisMaxScale = 3
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.2
+IrisEffectM = .5
+IrisEffectH = .4
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 120
+//FogEnd	= 500
+FogAlpha	= .7
+FogLight	= .9
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .8
+FogColorSkyG	= .9
+FogColorSkyB	= .8
+FogColorLightr	= .65
+FogColorLightg	= .65
+FogColorLightB	= .7
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .1
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .33
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults514>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .85
+TintMG = 1
+TintMB = 1.15
+TintSR = 1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.5
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 3
+IrisMinGain = 1
+IrisMinScale = -1
+IrisMaxScale = 3
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.2
+IrisEffectM = .5
+IrisEffectH = .4
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .9
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 120
+//FogEnd	= 500
+FogAlpha	= .7
+FogLight	= .9
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .8
+FogColorSkyG	= .9
+FogColorSkyB	= .8
+FogColorLightr	= .65
+FogColorLightg	= .65
+FogColorLightB	= .7
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .1
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .33
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults241>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0.25
+TintHR = .8
+TintHG = .85
+TintHB = .8
+TintMR = .8
+TintMG = .95
+TintMB = .8
+TintSR = .9
+TintSG = 1
+TintSB = .9
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 3
+IrisMinGain = 1.3
+IrisMinScale = -.2
+IrisMaxScale = 3
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .2
+IrisEffectSky = .3
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= .3
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 100
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .9
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= .75
+FogColorGroundG	= .8
+FogColorGroundB	= .75
+FogColorSkyR	= 0
+FogColorSkyG	= 0
+FogColorSkyB	= 0
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = .9
+SkyRadTintG = 1
+SkyRadTintB = .9
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults242>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .5
+TintHR = 1
+TintHG = 1
+TintHB = 1
+TintMR = .75
+TintMG = .68
+TintMB = .6
+TintSR = 1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.2
+IrisMinGain = 1.3
+IrisMinScale = 0
+IrisMaxScale = 2.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = 1
+IrisEffectH = .1
+IrisEffectSky = .7
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 150
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 80
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= .9
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= .8
+FogColorGroundG	= .7
+FogColorGroundB	= .7
+FogColorSkyR	= 0
+FogColorSkyG	= 0
+FogColorSkyB	= 0
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults141>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= .25
+TintHR = .8
+TintHG = .8
+TintHB = .8
+TintMR = .85
+TintMG = 1
+TintMB = 1.15
+TintSR = .8
+TintSG = .8
+TintSB = .8
+Contrast	= 1.7
+ToneGain = .85
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2
+IrisMinGain = 1.6
+IrisMinScale = 0
+IrisMaxScale = 3.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 2
+IrisEffectM = .5
+IrisEffectH = .4
+IrisEffectSky = .1
+IrisSkyContrib = 4
+IrisGamma = .6
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 120
+//FogEnd	= 500
+FogAlpha	= .7
+FogLight	= .9
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .8
+FogColorSkyG	= .9
+FogColorSkyB	= .8
+FogColorLightr	= .65
+FogColorLightg	= .65
+FogColorLightB	= .7
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .1
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .33
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults641>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0
+TintHR = 1
+TintHG = 1
+TintHB = .9
+TintMR = 1.1
+TintMG = .95
+TintMB = .6
+TintSR = 1.1
+TintSG = 1
+TintSB = 1
+Contrast	= 1.8
+ToneGain = .9
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 2.5
+IrisMinGain = 1
+IrisMinScale = -.5
+IrisMaxScale = 2.5
+IrisTransitionRate = 1.5
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1.5
+IrisEffectM = .8
+IrisEffectH = .3
+IrisEffectSky = .7
+IrisSkyContrib = 4
+IrisGamma = 1
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= 1
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 150
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= .2
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= 1.2
+FogColorSkyG	= .7
+FogColorSkyB	= .5
+FogColorLightr	= .5
+FogColorLightg	= .2
+FogColorLightB	= .2
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0.1
+SkyRadGain = 1.5
+SkyRadTintR = .8
+SkyRadTintG = .2
+SkyRadTintB = .1
+SkyRadSaturate = 0
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 1
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+//-----------------------------------------------------------------------------
+VFXDefault <Defaults741>
+{
+//======
+//Colour Balance
+//======
+Desaturate	= 0.25
+TintHR = .9
+TintHG = .9
+TintHB = .9
+TintMR = 1
+TintMG = .8
+TintMB = .7
+TintSR = 1
+TintSG = .8
+TintSB = .7
+Contrast	= 1.5
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 1.8
+IrisMinGain = 1.2
+IrisMinScale = -3
+IrisMaxScale = 3.1
+IrisTransitionRate = .8
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = .5
+IrisEffectH = .2
+IrisEffectSky = .5
+IrisSkyContrib = 4
+IrisGamma = 1
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 170
+DofRange1 	= 500
+DepthOfField	= .5
+DofSpread 	= 0
+
+//======
+//Fog
+//======
+FogStart	= 170
+//FogEnd	= 500
+FogAlpha	= 1
+FogLight	= 1
+FogDof		= 0
+FogContrast	= 0
+FogAlphaLight	= 0
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= 0
+FogColorGroundG	= 0
+FogColorGroundB	= 0
+FogColorSkyR	= .2
+FogColorSkyG	= .6
+FogColorSkyB	= 1
+FogColorLightr	= .5
+FogColorLightg	= .5
+FogColorLightB	= .5
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= .1
+SkyRadGain = .7
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = .7
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 0
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+//=========== DEAD
+
+}
+
+//-----------------------------------------------------------------------------
+VFXDefault <Defaultsarage>
+{
+Desaturate	= 0
+TintHR = 1
+TintHG = 1
+TintHB = 1
+TintMR = 1
+TintMG = 1
+TintMB = 1
+TintSR = 1
+TintSG = 1
+TintSB = 1
+Contrast = 1
+ToneGain = 1
+
+//======
+//Iris Effect
+//======
+IrisMaxGain = 1
+IrisMinGain = 1
+IrisMinScale = 1
+IrisMaxScale = 1
+IrisTransitionRate = 0
+IrisFocalWidth = .5
+IrisFocalHeight = .7
+IrisEffectS = 1
+IrisEffectM = 1
+IrisEffectH = 2
+IrisSkyContrib = 8
+
+
+//======
+//Depth of Field
+//======
+DofRange0 	= 8
+DofRange1 	= 32
+DepthOfField	= 0
+DofSpread 	= 2
+
+//======
+//Fog
+//======
+FogStart	= 12
+FogAlpha	= 0.5
+FogLight	= 1.0
+FogDof		= 0.5
+FogContrast	= 1
+FogAlphaLight	= 1
+FogAlphaCurve0 	= 1
+FogAlphaCurve1 	= 1
+FogAlphaCurve2 	= 1
+FogColorGroundR	= .25
+FogColorGroundG	= .25
+FogColorGroundB	= .25
+FogColorSkyR	= 0.5
+FogColorSkyG	= 0.5
+FogColorSkyB	= 0.5
+FogColorLightr	= 1
+FogColorLightg	= 1
+FogColorLightB	= 1
+
+//======
+//Sky Glow
+//======
+ToneT	= 1
+SkyRadSpread	= 0.1
+SkyRadGain = 0.5
+SkyRadTintR = 1
+SkyRadTintG = 1
+SkyRadTintB = 1
+SkyRadSaturate = 0.25
+
+//======
+//DEAD
+//======
+VPaintGain	= 100.0
+RadSpread	= 0.25
+RadThresh	= 1000
+SkyCoronaGain	= 0
+SkyRadResist	= 0
+SkyRadResistBias = 0
+SkyRadThreshBias = 0
+SkyBrightness	= 0
+SpecularGain	= 1
+IrisEffect = 1
+ToneGammaBias	= 0
+ToneGammaDecay	= 0
+Radiance	= 0
+
+}
+//-----------------------------------------------------------------------------
+VFXScript <StartIntroRollbackVFX>
+{
+	Radiance
+ 	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.2
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.2
+  		CurveType   = Linear
+	}
+	FogAlpha
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.1
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	/*Flash
+ 	{
+  		ValueKey1      = 1
+  		ValueKey2      = 1
+  		TimeKey1       = 0
+  		TimeKey2       = .1
+  		CurveType   = Linear
+ 	}*/
+ 	Flash
+ 	{
+  		ValueKey1      = 1
+ 		ValueKey2      = DEFAULT
+  		TimeKey1       = 0
+  		TimeKey2       = .3
+  		CurveType   = Linear
+	}
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.6
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	HUDAlpha
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.05
+		CurveType = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.3
+		CurveType = Linear
+	}
+	AmbientR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.0
+		CurveType = Linear
+	}
+	AmbientG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.0
+		CurveType = Linear
+	}
+	AmbientB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 0.0
+		CurveType = Linear
+	}
+	Contrast
+	{
+	        ValueKey1      = DEFAULT
+		ValueKey2      = 1.95
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType = Linear
+	}
+	Cloud0Alpha
+	{
+        	ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType = Linear
+	}
+	Cloud0Speed
+	{
+	        ValueKey1      = DEFAULT
+		ValueKey2      = .025
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Parabolic
+	}
+	Cloud1Alpha
+	{
+        	ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType = Linear
+	}
+	Cloud1Speed
+	{
+	        ValueKey1      = DEFAULT
+	        ValueKey2      = .0125
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Parabolic
+	}		
+	Brightness
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.25
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 4
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 32
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.15
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.3
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	TintR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType = Linear
+	}
+	TintG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.140
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType = Linear
+	}
+	TintB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .850
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.0
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType  = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <EndIntroRollbackVFX>
+{
+	Radiance
+ 	{
+ 		ValueKey1      = 0.2
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.2
+  		CurveType   = Linear
+	}
+	FogAlpha
+	{
+		ValueKey1      = 0.1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	FOV
+	{
+		ValueKey1      = 0.6
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	HUDAlpha
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	AmbientR
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Linear
+	}
+	AmbientG
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Linear
+	}
+	AmbientB
+	{
+		ValueKey1      = 0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Linear
+	}
+	Contrast
+	{
+	        ValueKey1      = 1.95
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	Cloud0Alpha
+	{
+        	ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	Cloud0Speed
+	{
+	        ValueKey1      = .025
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Sin
+	}
+	Cloud1Alpha
+	{
+	       	ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	Cloud1Speed
+	{
+	        ValueKey1      = .0125
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Sin
+	}	
+	Brightness
+	{
+		ValueKey1      = 1.2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	TintR
+	{
+		ValueKey1      = 1.2   
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType = Linear
+	}
+	TintG
+	{
+		ValueKey1      = 1.140   
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType = Linear
+	}
+	TintB
+	{
+		ValueKey1      = .850   
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = 1.25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 4
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 52
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = 1.15
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = .3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.00
+		CurveType   = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 1.0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType  = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <TakedownNearStartVFX>
+{
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 2.5
+		TimeKey1       = 0
+		TimeKey2       = .1
+		CurveType  = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 2.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.1
+		TimeKey2       = 0.3
+		CurveType  = Sin
+	}
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = .1
+		CurveType      = Linear
+	}
+	FOV
+	{
+		ValueKey1      = 1.2
+		ValueKey2      = DEFAULT
+		TimeKey1       = .1
+		TimeKey2       = .3
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <TakedownNearEndVFX>
+{
+}
+//-----------------------------------------------------------------------------
+VFXScript <TakedownFarStartVFX>
+{
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 2.5
+		TimeKey1       = 0
+		TimeKey2       = .15
+		CurveType  = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 2.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = .15
+		TimeKey2       = .3
+		CurveType  = Linear
+	}
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = .15
+		CurveType      = Linear
+	}
+	FOV
+	{
+		ValueKey1      = 1.2
+		ValueKey2      = DEFAULT
+		TimeKey1       = .15
+		TimeKey2       = .3
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <TakedownFarEndVFX>
+{
+}
+//-----------------------------------------------------------------------------
+VFXScript <DeathStartVFX>
+{
+	TimeScale
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .60
+		TimeKey1       = 0
+		TimeKey2       = 0.25
+		CurveType = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.25
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .82
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = .0
+		TimeKey2       = 1
+		CurveType  = Sin
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 6
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 20
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.1
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	Radiance
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.3
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.3
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.400
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.8
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	Contrast
+	{
+	        ValueKey1      = DEFAULT
+		ValueKey2      = 2
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType = Linear
+	}
+	Brightness
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.15
+		TimeKey1       = 0
+		TimeKey2       = 1
+		CurveType   = Linear
+	}
+	NoiseScale
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 5.146
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	NoiseIntensity
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.736
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	InterlaceBias
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0.202
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceIntensity
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceFrequency
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 0
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0
+  		CurveType   = Linear
+	}
+	SkyRadGain
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 2.312
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.05
+  		CurveType   = Linear
+	}
+	TintHR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .540
+		TimeKey1       = 0
+		TimeKey2       = .1
+		CurveType = Linear
+	}
+	TintHG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .59
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.65
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .46
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .37
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .32
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .22
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .22
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .52
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <DeathEndVFX>
+{
+	TimeScale
+	{
+		ValueKey1      = .60
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = 1.25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	Desaturate
+	{
+		ValueKey1      = .82
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType = Sin
+	}
+	MotionBlur
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .01
+		CurveType  = Linear
+	}
+	Radiance
+	{
+		ValueKey1      = 1.3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 7
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 20
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	SpecularGain
+	{
+		ValueKey1      = 1.1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	RadSpread
+	{
+		ValueKey1      = 1.25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = 1.8
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = 0.400
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	Contrast
+	{
+	        ValueKey1      = 2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType = Linear
+	}
+	Brightness
+	{
+		ValueKey1      = 1.15
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	NoiseScale
+	{
+ 		ValueKey1      = 5.146
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	NoiseIntensity
+	{
+ 		ValueKey1      = 0.736
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.1
+  		CurveType   = Linear
+	}
+	InterlaceBias
+	{
+ 		ValueKey1      = 0.202
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	InterlaceIntensity
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0
+  		CurveType   = Linear
+	}
+	InterlaceFrequency
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.01
+  		CurveType   = Linear
+	}
+	SkyRadGain
+	{
+ 		ValueKey1      = 2.312
+ 	 	ValueKey2      = DEFAULT
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 0.05
+  		CurveType   = Linear
+	}
+	TintHR
+	{
+		ValueKey1      = .54
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .1
+		CurveType = Linear
+	}
+	TintHG
+	{
+		ValueKey1      = .59
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintHB
+	{
+		ValueKey1      = .65
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMR
+	{
+		ValueKey1      = .46
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMG
+	{
+		ValueKey1      = .37
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintMB
+	{
+		ValueKey1      = .32
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSR
+	{
+		ValueKey1      = .22
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSG
+	{
+		ValueKey1      = .22
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = .52
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <JumpStartVFX>
+{
+	FOV
+	{
+		ValueKey1      = 1.0
+		ValueKey2      = 1.0
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType      = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.25
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 25
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 65
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.55
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+// When the camera cuts back to the car
+VFXScript <JumpEndFastVFX>
+{
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType      = Flat
+	}
+	DepthOfField
+	{
+		ValueKey1      = 1.25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 65
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 0.55
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .01
+		CurveType  = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+// When the camera moves back to the car
+VFXScript <JumpEndSlowVFX>
+{
+	FOV
+	{
+		ValueKey1      = 1.0
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.35
+		CurveType      = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = 1.25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 65
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 0.55
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .01
+		CurveType  = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <DriveByStartVFX>
+{
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType      = Linear
+	}
+/*	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.3
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 7
+		TimeKey1       = 0
+		TimeKey2       = 0.05
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 30
+		TimeKey1       = 0
+		TimeKey2       = 0.05
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.05
+		CurveType   = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.4
+		TimeKey1       = 0
+		TimeKey2       = .05
+		CurveType  = Linear
+	}
+*/
+}
+//-----------------------------------------------------------------------------
+VFXScript <DriveByEndVFX>
+{
+/*	Flash
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType      = Linear
+	}
+	DepthOfField
+	{
+		ValueKey1      = 1.3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 7
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 30
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType   = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 0.4
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .2
+		CurveType  = Linear
+	}
+*/
+}
+//-----------------------------------------------------------------------------
+VFXScript <BountyStartVFX>
+{
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.25
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 7
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 25
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <BountyEndVFX>
+{
+	DepthOfField
+	{
+		ValueKey1      = 1.25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 7
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 30
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <IntroGlamStartVFX>
+{
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.25
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 8
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 20
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+/*	Radiance
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.600
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .975
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	FOV
+	{
+		ValueKey1      = 1
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+*/	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <IntroGlamEndVFX>
+{
+	DepthOfField
+	{
+		ValueKey1      = 1.25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 7
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 20
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+/*	Radiance
+	{
+		ValueKey1      = 1.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = 0.6
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	ToneGain
+	{
+		ValueKey1      = .975
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.01
+		CurveType   = Linear
+	}
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Linear
+	}
+*/
+}
+//-----------------------------------------------------------------------------
+VFXScript <EndRaceStartVFX>
+{
+	FOV
+	{
+		ValueKey1      = 1
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Flat
+	}
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.3
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Sin
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 25
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Sin
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 60
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Sin
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.8
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType   = Sin
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <EndRaceEndVFX>
+{
+	FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0
+		CurveType   = Flat
+	}
+	DepthOfField
+	{
+		ValueKey1      = 1.3
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = 25
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = 60
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = 0.8
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType   = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <OutroGlamStartVFX>
+{
+	DepthOfField
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.3
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType   = Linear
+	}
+	DofRange0
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 6
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType   = Linear
+	}
+	DofRange1
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 12
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType   = Linear
+	}
+	DofSpread
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.2
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType   = Linear
+	}
+/*	Radiance
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1.5
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType   = Linear
+	}
+	RadThresh
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.55
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType   = Linear
+	}
+*/
+}
+//-----------------------------------------------------------------------------
+// Used by frontend cameras
+VFXScript <VFXFrontendCamChangeOut>
+{
+	/*FOV
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = .75
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType = Linear 
+	}*/
+}
+//-----------------------------------------------------------------------------
+// Used by frontend cameras
+VFXScript <VFXFrontendCamChangeIn>
+{
+	/*FOV
+	{
+		ValueKey1      = .75
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.5
+		CurveType = Linear 
+	}*/
+}
+//-----------------------------------------------------------------------------
+//used in establishing shots
+VFXScript <VFXEstablishFOVStart>
+{
+	Flash
+ 	{
+  		ValueKey1      = 1
+ 		ValueKey2      = DEFAULT
+  		TimeKey1       = 0
+  		TimeKey2       = .5
+  		CurveType   = Linear
+	}
+	FOV
+	{
+		ValueKey1	= 1
+		ValueKey2	= 1
+		TimeKey1	= 0
+		TimeKey2	= 0.01
+		CurveType 	= Flat
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <VFXHackFOVStart>
+{
+	FOV
+	{
+		ValueKey1	= 1.33
+		ValueKey2	= 1.33
+		TimeKey1	= 0
+		TimeKey2	= 0.01
+		CurveType 	= Flat
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <VFXHackFOVEnd>
+{
+	FOV
+	{
+		ValueKey1	= 1
+		ValueKey2	= 1
+		TimeKey1	= 0
+		TimeKey2	= 0.01
+		CurveType 	= Flat
+	}
+}
+//-----------------------------------------------------------------------------
+//Reset after establishing shots
+VFXSCript <VFXEstablishFOVEnd>
+{
+
+	FOV
+	{
+		ValueKey1	= DEFAULT
+		ValueKey2	= DEFAULT
+		TimeKey1	= 0
+		TimeKey2	= 0.01
+		CurveType 	= Flat
+	}
+}
+//-----------------------------------------------------------------------------
+// When entering car select from normal menus
+VFXScript <VFXToCarSelect>
+{
+}
+//-----------------------------------------------------------------------------
+// When entering weapon select for car select
+VFXScript <VFXToWeaponsFromCar>
+{
+}
+//-----------------------------------------------------------------------------
+// To car select from wwapon selct
+VFXScript <VFXToCarFromWeapons>
+{
+}
+//-----------------------------------------------------------------------------
+// From car select to normal menus
+VFXScript <VFXFromCarSelect>
+{
+}
+//-----------------------------------------------------------------------------
+// During the flame-wipe
+VFXScript <VFXFlameWipe>
+{
+}
+//-----------------------------------------------------------------------------
+// Frontend car/weapon camera info
+FrontendCameras
+{
+  // Main frontend FOV
+  MainFOV   = 0.4
+  // FOV used in car select
+  CarFOV    = 1.0
+  // FOV used in weapon select
+  WeaponFOV = 1.0
+
+  // The vertical angle constraints on the car select camera in degrees (ex: within 0 to 89 degrees => [0 89])
+  VerticalAngles   = [0 60]
+
+  // Positional offset of the camera from the center of the screen--used to help position the
+  // center of the cars within the off-center region were they sit. This value is scaled depending 
+  // on the camera's distance from the car and has no absolute meaning, so it will probably need to be 
+  // adjusted by trial and error. The first value is the X-value, the second is the Y-value
+  CamOffset         = [0.1   1.1] // Single player at 4:3
+  CamOffset2P_1     = [0.1   1.85] // For the first player in 2P mode, 4:3
+  CamOffset2P_2     = [0.1   1.0] // For the second player in 2P mode, 4:3
+  CamOffsetWide     = [0.1   0.9] // Single player in 16:9
+  CamOffsetWide2P_1 = [0.05  1.5] // For the first player in 2P mode, 16:9
+  CamOffsetWide2P_2 = [0.05  0.85] // For the second player in 2P mode, 16:9
+  // Positions for weapon screen
+  WepCamOffset         = [0.1   1.1] // Single player at 4:3
+  WepCamOffset2P_1     = [0.1   1.85]  // For the first player in 2P mode, 4:3
+  WepCamOffset2P_2     = [0.1   1.0]  // For the second player in 2P mode, 4:3
+  WepCamOffsetWide     = [0.1   0.9] // Single player in 16:9
+  WepCamOffsetWide2P_1 = [0.05  1.5]  // For the first player in 2P mode, 16:9
+  WepCamOffsetWide2P_2 = [0.05  0.85] // For the second player in 2P mode, 16:9
+
+  // --- Car specific camera distances follow
+
+  // This is the set of values used for a car if no specific values are set for it
+  Car <Default>
+  {
+    // The minimum and maximum distances that the camera can move in towards the car (recall
+    // that the triggers can adjust that distance). Two identical values just means the 
+    // distance is fixed.
+    Distance         = [9.5  9.5]  // Single player at 4:3
+    Distance2P_1     = [10.8 10.8] // For the first player in 2P mode, 4:3
+    Distance2P_2     = [10.8 10.8] // For the second player in 2P mode, 4:3
+    DistanceWide     = [8    8   ] // Single player in 16:9
+    DistanceWide2P_1 = [9.5  9.5 ] // For the first player in 2P mode, 16:9
+    DistanceWide2P_2 = [9.5  9.5 ] // For the second player in 2P mode, 16:9
+    // The distance that the camera should be from the car in weapon mode
+    WepDistance         = 9.5;     // Single player at 4:3
+    WepDistance2P_1     = 10.8;    // For the first player in 2P mode, 4:3
+    WepDistance2P_2     = 10.8;    // For the second player in 2P mode, 4:3
+    WepDistanceWide     = 8;       // Single player in 16:9
+    WepDistanceWide2P_1 = 9.5;     // For the first player in 2P mode, 16:9
+    WepDistanceWide2P_2 = 9.5;     // For the second player in 2P mode, 16:9
+    // The vertical angle the camera should move to and maintain as it circles the car
+    WepVerticalAngle    = 10;
+  }
+}
+//-----------------------------------------------------------------------------
+VFXSCript <OneTouchReplayVFX>
+{
+	FOV
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 1.0 
+		TimeKey1       	= 0
+		TimeKey2       	= 0.1
+		CurveType	= Flat
+	}
+	DepthOfField
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 1.25 
+		TimeKey1       	= 0
+		TimeKey2       	= 0.1
+		CurveType	= Flat
+	}
+	DofRange0
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 20.0 
+		TimeKey1       	= 0
+		TimeKey2       	= 0.1
+		CurveType	= Flat
+	}
+	DofRange1
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 40.0
+		TimeKey1       	= 0
+		TimeKey2       	= 0.1
+		CurveType	= Flat
+	}
+	MotionBlur
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 0.4
+		TimeKey1       	= 0
+		TimeKey2       	= 0.1
+		CurveType	= Flat
+
+	}
+	Desaturate
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= .4 
+		TimeKey1       	= 0
+		TimeKey2       	= 0.1
+		CurveType	= Flat
+	}
+	NoiseScale
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 8.6 
+		TimeKey1       	= 0
+		TimeKey2       	= 0
+		CurveType	= Flat
+	}
+	NoiseIntensity
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= .28
+		TimeKey1       	= 0
+		TimeKey2       	= 0.1
+		CurveType	= Flat
+	}
+	InterlaceFrequency
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 26
+		TimeKey1       	= 0
+		TimeKey2       	= 0
+		CurveType	= Flat
+	}
+	InterlaceIntensity
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= .18
+		TimeKey1       	= 0
+		TimeKey2       	= 0
+		CurveType	= Flat
+	}
+	InterlaceBias
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= .2
+		TimeKey1       	= 0
+		TimeKey2       	= 0
+		CurveType	= Flat
+	}
+	Contrast
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 2
+		TimeKey1       	= 0
+		TimeKey2       	= 0
+		CurveType	= Flat
+	}
+	Brightness
+	{
+		ValueKey1      	= DEFAULT
+		ValueKey2      	= 1.5
+		TimeKey1       	= 0
+		TimeKey2       	= 0
+		CurveType	= Flat
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <NukeVFX>
+{
+	Flash
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.06
+		CurveType      = Linear
+	}
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.06
+		TimeKey2       = 0.12
+		CurveType      = Linear
+	}
+	MotionBlur
+	{
+		ValueKey1      = 1 
+		ValueKey2      = 1
+		TimeKey1       = 4
+		TimeKey2       = 8192
+		CurveType      = Flat
+	}
+	CameraShakeAX
+	{
+		ValueKey1      = DEFAULT 
+		ValueKey2      = 0.06
+		TimeKey1       = 0
+		TimeKey2       = 5
+		CurveType = Linear
+	}
+	CameraShakeAY
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0.1 
+		TimeKey1       = 4
+		TimeKey2       = 6
+		CurveType = Linear
+	}
+	Brightness
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 10
+		TimeKey1       = 3
+		TimeKey2       = 6
+		CurveType      = Linear
+	}
+	CameraShakeLZ
+	{
+		ValueKey1      = 0.25
+		ValueKey2      = 0.25
+		TimeKey1       = 4.5
+		TimeKey2       = 6
+		CurveType      = Linear
+	}
+	CameraShakeLY
+	{
+		ValueKey1      = 0.25
+		ValueKey2      = 0.25 
+		TimeKey1       = 4.5
+		TimeKey2       = 6
+		CurveType      = Linear
+	}
+	SkyRadGain
+	{
+ 		ValueKey1      = DEFAULT
+ 	 	ValueKey2      = 20
+ 	 	TimeKey1       = 0
+  		TimeKey2       = 6
+  		CurveType      = Linear
+	}
+	HUDAlpha
+	{
+		ValueKey1      = 0
+		ValueKey2      = 0
+		TimeKey1       = 6
+		TimeKey2       = 8192
+		CurveType      = Flat
+	}
+	TintHR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 6
+		TimeKey2       = 8192
+		CurveType      = Flat
+	}
+	TintHG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 6
+		TimeKey2       = 8192
+		CurveType      = Flat
+	}
+	TintHB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 6
+		TimeKey2       = 8192
+		CurveType      = Flat
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <EnvironmentForwardStartVFX>
+{
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <EnvironmentForwardEndVFX>
+{
+/*	Flash
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType      = Linear
+	}
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.4
+		TimeKey2       = 0.5
+		CurveType      = Linear
+	}
+*/
+}
+//-----------------------------------------------------------------------------
+VFXScript <EnvironmentReverseStartVFX>
+{
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <EnvironmentReverseEndVFX>
+{
+/*	Flash
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.4
+		CurveType      = Linear
+	}
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.6
+		TimeKey2       = 0.7
+		CurveType      = Linear
+	}
+*/
+}
+//-----------------------------------------------------------------------------
+VFXScript <PreraceRivalStartVFX>
+{
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.2
+		CurveType      = Linear
+	}
+}
+//-----------------------------------------------------------------------------
+VFXScript <PreraceRivalEndVFX>
+{
+	Flash
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 1
+		TimeKey1       = 0
+		TimeKey2       = 0.3
+		CurveType      = Linear
+	}
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0.3
+		TimeKey2       = 0.4
+		CurveType      = Linear
+	}
+}
+VFXScript <PostraceEnterVFX>
+{
+
+
+}
+VFXScript <PostraceExitVFX>
+{
+
+}
+VFXScript <FrontEndVFXEnter>
+{
+	Flash
+	{
+		ValueKey1      = 1
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType      = Linear
+	}
+	NoiseScale
+	{
+		ValueKey1      = 3.24
+		ValueKey2      = 3.24
+		TimeKey1       = 0
+		TimeKey2       = 0.1
+		CurveType      = Linear
+	}
+	NoiseIntensity
+	{
+		ValueKey1      = 2.5
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .25
+		CurveType      = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = 2
+		ValueKey2      = DEFAULT
+		TimeKey1       = 0
+		TimeKey2       = .5
+		CurveType = Linear
+	}
+}
+VFXScript <RivalRelativeStartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}
+VFXScript <RivalRelativeEndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}
+//-----------------------------------------------------------------------------
+// In-Game Rival camera Start VFX (Ends are after this block)
+//-----------------------------------------------------------------------------
+VFXScript <E802Rival5StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E802Rival5EndVFX>
+{	
+
+}	
+
+VFXScript <E802Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E802Rival2StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E802Rival3StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+	
+VFXScript <E102Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E102Rival2StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E504Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E504Rival2StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E213Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E213Rival5StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E503Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E211Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E201Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E201Rival2StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E312Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E403Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E323Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E322Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival2StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival3StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival4StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E523Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E702Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E501Rival1StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E501Rival2StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E501Rival3StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E701Rival3StartVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+//-----------------------------------------------------------------------------
+// In-Game Rival camera End VFX (Starts are before this block)
+//-----------------------------------------------------------------------------
+VFXScript <E802Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E802Rival2EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E802Rival3EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+	
+VFXScript <E102Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E102Rival2EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E504Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E504Rival2EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E213Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E213Rival5EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E503Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E211Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E201Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E201Rival2EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E201Rival2EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E312Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E403Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E323Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E322Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival2EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival3EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E321Rival4EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E523Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E702Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E501Rival1EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E501Rival2EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E501Rival3EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+VFXScript <E701Rival3EndVFX>
+{	
+	Flash
+	{
+		ValueKey1      = 1			
+		ValueKey2      = DEFAULT	
+		TimeKey1       = 0			
+		TimeKey2       = 0.2			
+		CurveType      = Linear			
+	}
+	
+}	
+//-----------------------------------------------------------------------------
+// Destruction camera VFX
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// VFX Fade to Black
+//-----------------------------------------------------------------------------
+VFXScript <FadeToBlack>
+{
+	TintHR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintHG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintHB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintMR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintMG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintMB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintSR
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintSG
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+	TintSB
+	{
+		ValueKey1      = DEFAULT
+		ValueKey2      = 0
+		TimeKey1       = 0
+		TimeKey2       = 3
+		CurveType      = Linear
+	}
+}

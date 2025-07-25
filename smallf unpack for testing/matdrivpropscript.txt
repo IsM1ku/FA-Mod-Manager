@@ -1,0 +1,59 @@
+#MatDrivPropScript
+
+//
+// Notes Last edited 4:24 PM 7/27/2005
+// This file contains the drag and traction properties of in-game materials.
+// The format should be:
+//
+// <MATERIAL_NAME> = [<TRACTION_MODIFIER> <DRAG_MODIFIER>]
+// 
+// Traction -- numbers bigger than 1 are more traction, less than 1 are less traction. 
+// Be careful with reducing traction -- losses are amplified at speed... 
+//	
+// Drag -- numbers bigger than 1 are more drag, less than 1 are less drag.
+// I think fairly safe to have very high numbers. 
+// UPDATE: High numbers (eg 5+) of drag cause the cars to want to swap ends. 
+//
+// isOffRoader and isTrackSpecial
+// 
+// There is also a per car modifier isOffRoader which overrides any traction loss and drag add.
+// Sample isOffRoader are Rambler, Kodiak, Honcho, Magnus, Hookzilla
+// 
+// There is a modifier called isTrackSpecial which adds bonus drag and 
+// tractionloss if the material is less than 1.
+// Sample isTrackSpecials are Maverick, Wraith, Tec, Streamline, Python
+//
+// TrackSpecial_traction    finalresult = tractionvalue - 0.05
+// TrackSpecial_drag        finalresult = dragvalue * 2.00 
+//
+// Available materials below as per materialTypes.h
+
+MaterialDrivingProperties
+{
+ Material_Steel        = [1.00 1.00]
+ Material_Concrete     = [1.00 1.00]
+ Material_Glass        = [1.00 1.00] 
+ Material_Rubber       = [1.00 1.00]
+ Material_HollowMetal  = [1.00 1.00]
+ Material_Fibreglass   = [1.00 1.00]
+ Material_Aluminum     = [1.00 1.00]
+ Material_Stone        = [1.00 2.00]
+ Material_Wood         = [1.00 2.00]
+ Material_Leather      = [1.00 1.00]
+ Material_Asphalt      = [1.00 1.00]
+ Material_Cobblestone  = [1.00 2.00]
+ Material_Sidewalk     = [1.00 1.00]
+ Material_Grass        = [1.00 4.00]
+ Material_Dirt         = [1.00 4.00]
+ Material_BeachSand    = [1.00 4.00]
+ Material_Gravel       = [1.00 4.00]
+ Material_Brick        = [1.00 2.00]
+ Material_CarGlass     = [1.00 1.00]
+ Material_CarSteel     = [1.00 1.00]
+ Material_CarAluminum  = [1.00 1.00]
+ Material_CarPlastic   = [1.00 1.00]
+ Material_CarFiberglass =[1.00 1.00]
+ Material_Neon         = [1.00 1.00]
+ TrackSpecial_traction = 0.00	   
+ TrackSpecial_drag = 2.0        
+}

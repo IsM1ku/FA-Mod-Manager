@@ -1,0 +1,224 @@
+#EventScript
+/*
+This file provides track information for arcade/multiplayer flow.
+Format:
+  TrackInfo
+  {
+    BatchName = <string/id: The file name of the track>
+    District  = <string: The district the track is in>
+    Description = <string: A brief description of the track>
+    Name        = <stirng: The title for the track>
+  }
+*/
+
+TrackInfo
+{
+  BatchName   = fa_T611
+  District    = "Entertainment"
+  Description = "Along the boardwalk under the eye of the Valkyrie"
+  Name        = "Sentinel"
+  Icon        = "trackselect_trackicons_611.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T612
+  District    = "Entertainment"
+  Description = "Tame the twisty cliffside drive to get to the King of Spades Casino"
+  Name        = "Joker (T612)"
+  Icon        = "trackselect_trackicons_612.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_t613
+  District    = "Entertainment"
+  Description = "Bet your life with a leap of faith"
+  Name        = "Gambit"
+  Icon        = "trackselect_trackicons_613.dds"
+  Image       = "trackimage_613.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_t621
+  District    = "Entertainment"
+  Description = "Take the fast lane between the Football Stadium and the King of Spades Casino"
+  Name        = "Vice (T621)"
+  Icon        = "trackselect_trackicons_621.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_t111
+  District    = "Downtown"
+  Description = "Tour the factories in Staunton's Garment District"
+  Name        = "Turnpike"
+  Icon        = "trackselect_trackicons_111.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T112
+  District    = "Downtown"
+  Description = "Cut through the red tape at Staunton City Hall"
+  Name        = "Inferno"
+  Icon        = "trackselect_trackicons_112.dds"
+}
+
+
+TrackInfo
+{
+  BatchName   = fa_T121
+  District    = "Downtown"
+  Description = "Survive tight alleys and streets ablaze"
+  Name        = "Gauntlet"
+  Icon        = "trackselect_trackicons_121.dds"
+  Image       = "trackimage_121.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T511
+  District    = "Downtown"
+  Description = "Get off the highway and into Staunton's city core"
+  Name        = "Takeover"
+  Icon        = "trackselect_trackicons_511.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_t211
+  District    = "Industrial"
+  Description = "Blast through Staunton's shipyards"
+  Name        = "Forge (T211)"
+  Icon        = "trackselect_trackicons_211.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T212
+  District    = "Industrial"
+  Description = "Avoid a meltdown at the nuclear power plant"
+  Name        = "Blackout (T212)"
+  Icon        = "trackselect_trackicons_212.dds"
+}
+
+
+TrackInfo
+{
+  BatchName   = fa_T213
+  District    = "Industrial"
+  Description = "Extreme speed on Staunton's super highway"
+  Name        = "Tempest"
+  Icon        = "trackselect_trackicons_213.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T214
+  District    = "Industrial"
+  Description = "Blast through Staunton's shipyards"
+  Name        = "Payload"
+  Icon        = "trackselect_trackicons_214.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T221
+  District    = "Industrial"
+  Description = "Find the quickest route between the power plant and the shipyards"
+  Name        = "(T221)"
+  Icon        = "trackselect_trackicons_221.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T721
+  District    = "Industrial"
+  Description = "Survive the long haul of the interstate ravine"
+  Name        = "Marathon"
+  Icon        = "trackselect_trackicons_721.dds"
+  Image       = "trackimage_721.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T216
+  District    = "Industrial"
+  Description = "From track to dock by any means necessary"
+  Name        = "Contraband"
+  Icon        = "trackselect_trackicons_216.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T215
+  District    = "Industrial"
+  Description = "Run the maze of shipping containers"
+  Name        = "Containment"
+  Icon        = "trackselect_trackicons_215.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T622
+  District    = "Entertainment"
+  Description = "Cut a swath from boardwalk to city core"
+  Name        = "Switchback"
+  Icon        = "trackselect_trackicons_622.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T615
+  District    = "Entertainment"
+  Description = "Race the unstable footing of the boardwalk"
+  Name        = "Boardwalk"
+  Icon        = "trackselect_trackicons_615.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T725
+  District    = "Outskirts"
+  Description = "Escape Staunton into the ravine"
+  Name        = "Roadkill"
+  Icon        = "trackselect_trackicons_725.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T722
+  District    = "Outskirts"
+  Description = "Flatten the yacht club en route through the interstate ravine"
+  Name        = "Landslide"
+  Icon        = "trackselect_trackicons_722.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T724
+  District    = "Outskirts"
+  Description = "Wind your way down the serpentine interstate"
+  Name        = "Twister"
+  Icon        = "trackselect_trackicons_724.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T113
+  District    = "Downtown"
+  Description = "Battle through the heart of the city"
+  Name        = "Revolver"
+  Icon        = "trackselect_trackicons_113.dds"
+}
+
+TrackInfo
+{
+  BatchName   = fa_T512
+  District    = "Downtown"
+  Description = "Battle from street level down through the underpass tunnel"
+  Name        = "Market Crash"
+  Icon        = "trackselect_trackicons_512.dds"
+}

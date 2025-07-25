@@ -1,0 +1,2082 @@
+//----------------------------------------------------------------------
+// HSK-75
+//----------------------------------------------------------------------
+// EVENT 601
+//----------------------------------------------------------------------
+Begin Event
+	Name = 601 Burnt Bacon
+	EventID = 601
+	TrackID = Track_214
+	Mode = Race
+	LapCount = 4
+	Theme = Backwards
+
+	Begin Objective
+		Name = Primary
+		Begin Condition
+            mustBeatKills = 7
+            minRacePercentage = 1
+		End 
+		Begin Description
+			textId = 130
+                                    
+			criterion = mustBeatKills minRacePercentage
+		End
+	End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			minScore = 50
+		End
+		Begin Description
+			textId = 131
+                    
+			criterion = minScore
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 5
+                            
+			criterion = maxDeaths eventIsComplete
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			minRivalTakedowns = 3
+		End
+		Begin Description
+			textId = 132
+                                          
+			criterion = minRivalTakedowns
+		End
+	End
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+	End
+
+
+// Opponent #1: Enforcer
+	Begin Opponent
+		name = Enforcer1
+		CarID = Enforcer
+		skinNumber = 2
+		ColorID = Base 
+		teamID = 3
+		difficulty = 18
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+	End
+// Opponent #2: Enforcer
+	Begin Opponent
+		name = Enforcer2
+		CarID = Enforcer
+		skinNumber = 2
+		ColorID = Base 
+		teamID = 3
+		difficulty = 18
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+	End
+// Opponent #3: Enforcer
+	Begin Opponent
+		name = Enforcer3
+		CarID = Enforcer
+		skinNumber = 2
+		ColorID = Base 
+		teamID = 3
+		difficulty = 18
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+	End
+// Opponent #4: Enforcer
+	Begin Opponent
+		name = Enforcer4
+		CarID = Enforcer
+		skinNumber = 2
+		ColorID = Base 
+		teamID = 3
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+	End
+// Opponent #5: Enforcer
+	Begin Opponent
+		name = Enforcer5
+		CarID = Enforcer
+		skinNumber = 2
+		ColorID = Base 
+		teamID = 3
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+	End
+// Opponent #6: Enforcer
+	Begin Opponent
+		name = Enforcer6
+		CarID = Enforcer
+		skinNumber = 2
+		ColorID = Base 
+		teamID = 3
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+	End
+// Opponent #7: HSK-75 RIVAL
+	Begin Opponent
+		name = HSK-75 Rival
+		CarID = HSK75
+		skinNumber = 3
+		ColorID = Amber 
+		teamID = 2
+		difficultysetup = Sharpshooter
+		difficulty = 14
+		PrimaryWeaponId = Laser
+		SecondaryWeaponId = ReverseGrenadier
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		hitpointgain = 2.0
+		displayName = true
+		type = Rival
+		isRival = true
+		onlyCountPlayerKills = true
+		onlyCountCompetitorKills = true
+		respawnDelay = 6
+		spamWeapons = true
+        unlimitedWeapons = true
+		//lives = 3
+	End
+// Opponent #8: Enforcer
+	Begin Opponent
+		name = Enforcer 7
+		CarID = Enforcer
+		skinNumber = 1
+		ColorID = Base 
+		teamID = 3
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+        triggeredSpawn = true
+	End
+// Opponent #9: Enforcer
+	Begin Opponent
+		name = Enforcer 8
+		CarID = Enforcer
+		skinNumber = 1
+		ColorID = Base 
+		teamID = 3
+		difficulty = 17
+		PrimaryWeaponId = MachineGuns
+		SecondaryWeaponId = RamPlate
+		armorGains = 0.3, 0.3, 0.3, 0.3
+        canParticipate = false
+        triggeredSpawn = true
+	End
+// Enforcers spawn and attack player and HSK!
+	Begin Script
+		Begin Condition
+			minTime = 15
+		End
+ 		Begin Commands 
+			SpawnOpponent "8 playerRelative -120 speed 120"
+			SpawnOpponent "9 playerRelative -120 speed 120"
+		End
+	End
+// Kill Counter for Player
+	Begin Script 
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 59
+                        
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 60
+                       
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 141
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 142
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 143
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 30
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 204
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 40
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 205
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 50
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 206
+                     
+		End
+	End
+// Kill Counter for HSK-75
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands
+			Message 207
+                         
+		End
+	End
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands 
+			Message 208
+                        
+		End
+	End
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands 
+			Message 209
+                       
+		End
+	End
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands 
+			Message 210
+                       
+		End
+	End
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands 
+			Message 211
+                       
+		End
+	End	
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 30
+		End
+		Begin Commands 
+			Message 212
+                       
+		End
+	End	
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 40
+		End
+		Begin Commands 
+			Message 213
+                       
+		End
+	End	
+	Begin Script 
+		opponentID = 7
+		Begin Condition
+			minTakedowns = 50
+		End
+		Begin Commands 
+			Message 214
+                       
+		End
+	End	
+End
+
+
+//----------------------------------------------------------------------
+// EVENT 602
+//----------------------------------------------------------------------
+Begin Event
+	Name =  602 Big Game Hunter
+	EventID = 602
+	TrackID = Track_541
+	Mode = Deathmatch
+	Theme = Forwards
+	validPopulationGroups = 02
+	maxTime = 300
+
+    Begin Objective
+		Name = Primary
+        Begin Condition
+            MustBeatScore = 1     //mustBeat = 1
+            eventIsComplete = true
+        End
+		Begin Description
+			textId = 133
+                                  
+			criterion = MustBeatScore eventIsComplete
+		End
+    End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Description
+			textId = 134
+                
+			criterion = minTakedowns
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxDeaths = 3
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 135
+                                                
+			criterion = maxDeaths eventIsComplete
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			minRivalTakedowns = 3
+		End
+		Begin Description
+			textId = 136
+                                 
+			criterion = minRivalTakedowns
+		End
+	End
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+		spawnPointOverride = 8
+	End
+
+// Opponent #1: HSK-75 RIVAL
+	Begin Opponent
+		name = HSK-75 Rival
+		CarID = HSK75
+		skinNumber = 3
+		ColorID = Amber 
+		teamID = 2
+		difficultysetup = Sharpshooter
+		difficulty = 17
+		PrimaryWeaponId = Laser
+		SecondaryWeaponId = Minelayer
+		armorGains = 2.0, 2.0, 2.0, 2.0
+		//hitpointgain = 2.0
+		displayName = true
+		type = Rival
+		isRival = true
+		onlyCountPlayerKills = true
+		//onlyCountCompetitorKills = true
+		//lives = 3
+		spawnPointOverride = 9
+	End
+// Opponent #2: Hookzilla
+	Begin Opponent
+		name = Hookzilla 1
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		//hasECM = true
+		spawnPointOverride = 1
+	End
+// Opponent #3: Hookzilla
+	Begin Opponent
+		name = Hookzilla 2
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		//hasECM = true
+		spawnPointOverride = 2
+	End
+// Opponent #4: Hookzilla
+	Begin Opponent
+		name = Hookzilla 3
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		//hasECM = true
+		spawnPointOverride = 3
+	End
+// Opponent #5: Hookzilla
+	Begin Opponent
+		name = Hookzilla 4
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		//hasECM = true
+		spawnPointOverride = 4
+	End
+// Opponent #6: Hookzilla
+	Begin Opponent
+		name = Hookzilla 5
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		//hasECM = true
+		spawnPointOverride = 7
+	End
+// Opponent #7: Hookzilla
+	Begin Opponent
+		name = Hookzilla 6
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		//hasECM = true
+		triggeredSpawn = true
+		spawnPointOverride = 8
+	End
+// Opponent #8: Hookzilla
+	Begin Opponent
+		name = Hookzilla 7
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+		//hasECM = true
+	End
+// Opponent #9: Hookzilla
+	Begin Opponent
+		name = Hookzilla 8
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+		//hasECM = true
+	End
+// Opponent #10: Hookzilla
+	Begin Opponent
+		name = Hookzilla 9
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+		//hasECM = true
+	End
+// Opponent #11: Hookzilla
+	Begin Opponent
+		name = Hookzilla 10
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 15
+		PrimaryWeaponId = EmptyWeapon
+		SecondaryWeaponId = EmptyWeapon
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+		//hasECM = true
+	End
+//HSK Pursues everyone!
+	Begin Script
+ 		Begin Commands 
+			AddAIGoal "1 Pursue -1"
+			AddAIGoal "1 Pursue 2"
+			AddAIGoal "1 Pursue 3"
+			AddAIGoal "1 Pursue 4"
+			AddAIGoal "1 Pursue 5"
+			AddAIGoal "1 Pursue 6"
+			AddAIGoal "1 Pursue 7"
+			AddAIGoal "1 Pursue 8"
+			AddAIGoal "1 Pursue 9"
+			AddAIGoal "1 Pursue 10"
+			AddAIGoal "1 Pursue 11"
+		End
+	End
+// Spawns more Hookzillas
+	Begin Script
+		Begin Condition
+			minTime = 6
+		End
+		Begin Commands
+			SpawnOpponent "7 SpawnPoint 6 speed 0"
+			SpawnOpponent "8 SpawnPoint 1 speed 0"
+			SpawnOpponent "9 SpawnPoint 3 speed 0"
+			SpawnOpponent "10 SpawnPoint 5 speed 0"
+			SpawnOpponent "11 SpawnPoint 7 speed 0"
+		End
+	End
+// Objective Messaging - Hookzillas evade player and HSK!
+	Begin Script
+ 		Begin Commands 
+			AddAIGoal "2 Avoid -1"
+//			AddAIGoal "2 Avoid 1"
+			AddAIGoal "3 Avoid -1"
+//			AddAIGoal "3 Avoid 1"
+			AddAIGoal "4 Avoid -1"
+//			AddAIGoal "4 Avoid 1"
+			AddAIGoal "5 Avoid -1"
+//			AddAIGoal "5 Avoid 1"
+			AddAIGoal "6 Avoid -1"
+//			AddAIGoal "6 Avoid 1"
+			AddAIGoal "7 Avoid -1"
+//			AddAIGoal "7 Avoid 1"
+			AddAIGoal "8 Avoid -1"
+			AddAIGoal "9 Avoid -1"
+			AddAIGoal "10 Avoid -1"
+			AddAIGoal "11 Avoid -1"
+		End
+	End
+
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minTime = 120
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 52
+                    
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		OpponentID =1 
+		Begin Condition
+			minPosition = 1     //mustBeat = -1
+			minTime = 120
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 53
+                   
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minTime = 235
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 52
+                    
+			Message 215
+                        
+			ClearAIGoal "2 avoid 1"
+			ClearAIGoal "3 avoid 1"
+			ClearAIGoal "4 avoid 1"
+			ClearAIGoal "5 avoid 1""
+			ClearAIGoal "6 avoid 1"
+			ClearAIGoal "7 avoid 1"
+			ClearAIGoal "8 avoid 1"
+			ClearAIGoal "9 avoid 1"
+			ClearAIGoal "10 avoid 1"
+			ClearAIGoal "11 avoid 1"
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		OpponentID =1 
+		Begin Condition
+			minPosition = 1     //mustBeat = -1
+			minTime = 235
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 53
+                   
+			Message 215
+                        
+			ClearAIGoal "2 avoid -1"
+			ClearAIGoal "3 avoid -1"
+			ClearAIGoal "4 avoid -1"
+			ClearAIGoal "5 avoid -1"
+			ClearAIGoal "6 avoid -1"
+			ClearAIGoal "7 avoid -1"
+			ClearAIGoal "8 avoid -1"
+			ClearAIGoal "9 avoid -1"
+			ClearAIGoal "10 avoid -1"
+			ClearAIGoal "11 avoid -1"
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minTime = 270
+		End
+		Begin Commands 
+			Message 216
+                       
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minTime = 275
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 52
+                    
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		OpponentID =1 
+		Begin Condition
+			minPosition = 1     //mustBeat = -1
+			minTime = 275
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 53
+                   
+		End
+	End
+
+// Kill Counter for Player
+	Begin Script 
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 59
+                        
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 60
+                       
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 141
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 142
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 143
+                     
+		End
+	End
+// Kill Counter for HSK-75
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands 
+			Message 217
+                               
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands 
+			Message 218
+                              
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands 
+			Message 219
+                             
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands 
+			Message 220
+                             
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands 
+			Message 221
+                             
+		End
+	End
+End
+
+//----------------------------------------------------------------------
+// EVENT 603
+//----------------------------------------------------------------------
+Begin Event
+	Name = 603 The Cheat
+	EventID = 603
+	TrackID = Track_724
+	Mode = Race
+	LapCount = 1
+	Theme = Forwards
+	//endOnFailure = true
+
+    Begin Objective
+		Name = Primary
+        Begin Condition
+            minPosition = 1     //mustBeat = 1
+            minRacePercentage = 1.0
+        End
+		Begin Description
+			textId = 137
+                           
+			criterion = minPosition minRacePercentage
+		End
+    End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			minRacePercentage = 1.0
+			maxTime = 120
+		End
+		Begin Description
+			textId = 14
+                  
+			criterion = maxTime minRacePercentage
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			minTakedowns = 6
+		End
+		Begin Description
+			textId = 138
+           
+			criterion = minTakedowns
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			minRivalTakedowns = 2
+		End
+		Begin Description
+			textId = 139
+                          
+			criterion = minRivalTakedowns
+		End
+	End
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+	End
+
+// Opponent #1: HSK-75 RIVAL
+	Begin Opponent
+		name = HSK-75 Rival
+		CarID = HSK75
+		skinNumber = 3
+		ColorID = Amber 
+		teamID = 2
+		difficulty = 14
+//		difficultysetup = Sharpshooter
+		PrimaryWeaponId = Laser
+		SecondaryWeaponId = Minelayer
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		displayName = true
+		type = Rival
+		isRival = true
+		onlyCountPlayerKills = true
+//		onlyCountCompetitorKills = true
+//		lives = 3
+	End
+// Opponent #2: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 1
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = ElectricGreen 
+		teamID = 3
+		difficulty = 13
+//		Begin Goal
+//			type = Pursue
+//			targetID = -1
+//		End
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #3: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 2
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = ElectricGreen 
+		teamID = 3
+		difficulty = 13
+//		Begin Goal
+//			type = Pursue
+//			targetID = -1
+//		End
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #4: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 3
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = Amber 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = HomingMissiles
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #5: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 4
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = Amber
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = HomingMissiles
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #6: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 5
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = ElectricGreen 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #7: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 6
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = ElectricGreen 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #8: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 7
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = FlamingOrange
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #9: Outlaw
+	Begin Opponent
+		name = Outlaw Attacker 8
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = FlamingOrange 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = Flamethrower
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Outlaws attack player and HSK!
+	Begin Script
+		Begin Condition
+			minRacePercentage = .15
+		End
+ 		Begin Commands 
+			SpawnOpponent "2 playerRelative -120 speed 80"
+			SpawnOpponent "3 playerRelative -120 speed 80"
+			ClearCustomMessages
+			Message 28
+                           
+		End
+	End
+// Outlaws attack player and HSK!
+	Begin Script
+		Begin Condition
+			minRacePercentage = .30
+		End
+ 		Begin Commands 
+			SpawnOpponent "4 playerRelative -120 speed 80"
+			SpawnOpponent "5 playerRelative -120 speed 80"
+			ClearCustomMessages
+//			Message 28
+                           
+		End
+	End
+// Outlaws attack player and HSK!
+	Begin Script
+		Begin Condition
+			minRacePercentage = .40
+		End
+ 		Begin Commands 
+			SpawnOpponent "6 playerRelative -120 speed 80"
+			SpawnOpponent "7 playerRelative -120 speed 80"
+			ClearCustomMessages
+//			Message 28
+                           
+		End
+	End
+// Outlaws attack player and HSK!
+	Begin Script
+		Begin Condition
+			minRacePercentage = .50
+		End
+ 		Begin Commands 
+			SpawnOpponent "8 playerRelative -120 speed 80"
+			SpawnOpponent "9 playerRelative -120 speed 80"
+			ClearCustomMessages
+//			Message 28
+                           
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minRacePercentage = 0.33
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 52
+                    
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		OpponentID =1 
+		Begin Condition
+			minPosition = 1     //mustBeat = -1
+			minRacePercentage = 0.33
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 53
+                   
+		End
+	End
+/*
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minRacePercentage = 0.66
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 52
+                    
+		End
+	End
+*/
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minRacePercentage = 0.85
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 222
+                 
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		OpponentID =1 
+		Begin Condition
+			minPosition = 1     //mustBeat = -1
+			minRacePercentage = 0.85
+		End
+		Begin Commands
+			ClearCustomMessages
+			//CustomMessage "Hurry Up!"
+			Message 223
+                 
+		End
+	End
+// Objective Messaging - HSK-75 Died
+	Begin Script 
+		OpponentID = 1
+		Begin Condition
+			minDeaths = 2
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 224
+                           
+			//CustomMessage "Secondary Objective Complete."
+		End
+	End
+// Finish when the HSK wins.
+	Begin Script
+		OpponentID = 1
+		Begin Condition
+			minRacePercentage = 1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 225
+                     
+		End
+	End
+	Begin Script
+		OpponentID = 1
+		Delay = 3
+		Begin Condition
+			minRacePercentage = 1
+		End
+		Begin Commands
+			failEvent
+		End
+	End	
+End
+//----------------------------------------------------------------------
+// EVENT 604
+//----------------------------------------------------------------------
+Begin Event
+	Name = 604 Overload
+	EventID = 604
+	TrackID = Track_641
+	Mode = Deathmatch
+	Theme = Forwards
+	validPopulationGroups = 01
+	//endOnFailure = true
+	maxTime = 360
+	
+    Begin Objective
+		Name = Primary
+        Begin Condition
+            minPosition = 1     //mustBeat = 1
+            eventIsComplete = true
+            maxDeaths = 2
+        End
+		Begin Description
+			textId = 140
+                             
+			criterion = MinPosition eventIsComplete maxDeaths
+		End
+    End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Description
+			textId = 141
+          
+			criterion = minTakedowns
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 5
+                            
+			criterion = maxDeaths eventIsComplete
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			minRivalTakedowns = 3
+		End
+		Begin Description
+			textId = 142
+                     
+			criterion = minRivalTakedowns
+		End
+	End
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+		lives = 3
+		spawnPointOverride = 8
+	End
+
+// Opponent #1: HSK-75 RIVAL
+	Begin Opponent
+		name = HSK-75 Rival
+		CarID = HSK75
+		skinNumber = 3
+		ColorID = Amber 
+		teamID = 2
+		difficulty = 16
+		PrimaryWeaponId = Laser
+		SecondaryWeaponId = RamPlate
+		armorGains = 2.0, 2.0, 2.0, 2.0
+//		hitpointGain = 2.0
+		displayName = true
+		type = Rival
+		isRival = true
+		spawnPointOverride = 9
+		onlyCountPlayerKills = true
+		onlyCountCompetitorKills = true
+		lives = 3
+	End
+// Opponent #2: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 1
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = 1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MachineGuns
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+	End
+// Opponent #3: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 2
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MachineGuns
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+	End
+// Opponent #4: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 3
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = Yellow 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = 1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MachineGuns
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+	End
+// Opponent #5: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 4
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = Amber 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = MachineGuns
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #6: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 5
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = Amber 
+		teamID = 3
+		difficulty = 13
+		Begin Goal
+			type = Pursue
+			targetID = 1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #7: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 6
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = Amber 
+		teamID = 3
+		difficulty = 14
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #8: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 7
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = FlamingOrange
+		teamID = 3
+		difficulty = 14
+		Begin Goal
+			type = Pursue
+			targetID = 1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = Minelayer
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #9: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 8
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = FlamingOrange 
+		teamID = 3
+		difficulty = 14
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #10: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 9
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = FlamingOrange 
+		teamID = 3
+		difficulty = 14
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #11: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 10
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = FlamingOrange 
+		teamID = 3
+		difficulty = 14
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+// Opponent #12: Sceptre
+	Begin Opponent
+		name = Sceptre Attacker 11
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = FlamingOrange 
+		teamID = 3
+		difficulty = 14
+		Begin Goal
+			type = Pursue
+			targetID = -1
+		End
+		PrimaryWeaponId = MiniRockets
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 0.5, 0.5, 0.5, 0.5
+		canParticipate = false
+		triggeredSpawn = true
+	End
+
+
+// Sceptres attack player and HSK!
+	Begin Script
+		Begin Condition
+			minTakedowns = 3
+		End
+ 		Begin Commands 
+			SpawnOpponent 5
+			SpawnOpponent 6
+			SpawnOpponent 7
+			ClearCustomMessages
+			Message 62
+                       
+		End
+	End
+// Sceptres attack player and HSK!
+	Begin Script
+		Begin Condition
+			minTakedowns = 6
+		End
+ 		Begin Commands 
+			SpawnOpponent 8
+			SpawnOpponent 9
+			SpawnOpponent 10
+			ClearCustomMessages
+			Message 226
+                  
+		End
+	End
+// Sceptres attack player and HSK!
+	Begin Script
+		Begin Condition
+			minTakedowns = 9
+		End
+ 		Begin Commands 
+//			SpawnOpponent 11
+//			SpawnOpponent 12
+			AddAIGoal "8 pursue 1"
+			AddAIGoal "9 pursue 1"
+			AddAIGoal "10 pursue 1"
+//			AddAIGoal "11 pursue 1"
+//			AddAIGoal "12 pursue 1"
+			ClearCustomMessages
+			Message 227
+                       
+		End
+	End
+
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minTime = 120
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 52
+                    
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		OpponentID =1 
+		Begin Condition
+			minPosition = 1     //mustBeat = -1
+			minTime = 120
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 53
+                   
+		End
+	End
+// Checkpoint update
+	Begin Script 
+		Begin Condition
+			minPosition = 1     //mustBeat = 1
+			minTime = 240
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 52
+                    
+		End
+	End
+
+// Kill Counter for Player
+	Begin Script 
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 59
+                        
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 60
+                       
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 141
+                     
+			//CustomMessage "Secondary Objective Complete."
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 142
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 143
+                     
+		End
+	End
+// Kill Counter for HSK-75
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 217
+                               
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 218
+                              
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 219
+                             
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 220
+                             
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 221
+                             
+		End
+	End
+// Objective Messaging - HSK-75 Died 1 time
+	Begin Script 
+		OpponentID = 1
+		Begin Condition
+			minDeaths = 1
+		End
+		Begin Commands
+			ClearCustomMessages
+			Message 228
+                          
+		End
+	End
+// Objective Messaging - HSK-75 Died 2 times
+	Begin Script 
+		OpponentID = 1
+		Begin Condition
+			minDeaths = 2
+		End
+		Begin Commands 
+			ClearCustomMessages
+			Message 229
+                         
+		End
+	End
+// Objective Messaging - HSK-75 Rival Died 3 times
+	Begin Script 
+		OpponentID = 1
+		Begin Condition
+			minDeaths = 3
+		End
+ 		Begin Commands 
+ 			ClearCustomMessages
+			Message 230
+                           
+			//CustomMessage "Secondary Objective Complete"
+		End
+	End
+End
+//----------------------------------------------------------------------
+// EVENT 605
+//----------------------------------------------------------------------
+Begin Event
+	Name = 605 One by One
+	EventID = 605
+	TrackID = Track_514
+	Mode = Knockout
+	LapCount = 6
+	Theme = Backwards
+
+    Begin Objective
+		Name = Primary
+        Begin Condition
+            minPosition = 1
+            minRacePercentage = 1
+        End
+		Begin Description
+			textId = 143
+                 
+			criterion = minPosition minRacePercentage
+		End
+    End
+	Begin Objective
+		Name = Secondary1
+		Begin Condition
+			minTakedowns = 8
+		End
+		Begin Description
+			textId = 144
+                   
+			criterion = minTakedowns
+		End
+	End
+	Begin Objective
+		Name = Secondary2
+		Begin Condition
+			maxDeaths = 0
+			eventIsComplete = true
+		End
+		Begin Description
+			textId = 145
+                         
+			criterion = maxDeaths eventIsComplete
+		End
+	End
+	Begin Objective
+		Name = Secondary3
+		Begin Condition
+			minRivalTakedowns = 3
+		End
+		Begin Description
+			textId = 136
+                                 
+			criterion = minRivalTakedowns
+		End
+	End
+
+// Player Setup!
+	Begin Player
+		teamID = 1
+//		lives = 3
+	End
+
+// Opponent #1: HSK-75 RIVAL
+	Begin Opponent
+		name = HSK-75 Rival
+		CarID = HSK75
+		skinNumber = 3
+		ColorID = Amber 
+		teamID = 2
+		difficulty = 16
+		PrimaryWeaponId = Laser
+		SecondaryWeaponId = ReverseGrenadier
+		armorGains = 1.5, 1.5, 1.5, 1.5
+		displayName = true
+		type = Rival
+		isRival = true
+		onlyCountPlayerKills = true
+//		onlyCountCompetitorKills = true
+//		lives = 3
+	End
+// Opponent #2: Enforcer
+	Begin Opponent
+		name = Enforcer
+		CarID = Enforcer
+		skinNumber = 0
+		ColorID = DarkBlueMetallic 
+		teamID = 2
+		difficulty = 16
+		PrimaryWeaponId = ScatterGun
+		SecondaryWeaponId = ReverseScatterGun
+		armorGains = 1.0, 1.0, 1.0, 1.0
+	End
+// Opponent #3: Hookzilla
+	Begin Opponent
+		name = Hookzilla
+		CarID = Hookzilla
+		skinNumber = 0
+		ColorID = PurpleEnvy 
+		teamID = 2
+		difficulty = 18
+		PrimaryWeaponId = HeavyStubber
+		SecondaryWeaponId = Minelayer
+		armorGains = 1.0, 1.0, 1.0, 1.0
+	End
+// Opponent #4: Sceptre
+	Begin Opponent
+		name = Sceptre
+		CarID = Sceptre
+		skinNumber = 0
+		ColorID = MetallicWine 
+		teamID = 2
+		difficulty = 16
+		PrimaryWeaponId = Rockets
+		SecondaryWeaponId = ECMSprayer
+		armorGains = 1.0, 1.0, 1.0, 1.0
+	End
+// Opponent #5: Outlaw
+	Begin Opponent
+		name = Outlaw
+		CarID = Outlaw
+		skinNumber = 0
+		ColorID = ElectricGreen 
+		teamID = 2
+		difficulty = 15
+		PrimaryWeaponId = TwinRifle
+		SecondaryWeaponId = Flamethrower
+		armorGains = 1.0, 1.0, 1.0, 1.0
+	End
+
+
+// Kill Counter for Player
+	Begin Script 
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands 
+			Message 59
+                        
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands 
+			Message 60
+                       
+			//CustomMessage "Secondary Objective Complete."
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands 
+			Message 141
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands 
+			Message 142
+                     
+		End
+	End
+	Begin Script 
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands 
+			Message 143
+                     
+		End
+	End
+// Kill Counter for HSK-75
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 5
+		End
+		Begin Commands 
+			Message 217
+                               
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 10
+		End
+		Begin Commands 
+			Message 218
+                              
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 15
+		End
+		Begin Commands 
+			Message 219
+                             
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 20
+		End
+		Begin Commands 
+			Message 220
+                             
+		End
+	End
+	Begin Script 
+		opponentID = 1
+		Begin Condition
+			minTakedowns = 25
+		End
+		Begin Commands 
+			Message 221
+                             
+		End
+	End
+// Objective Messaging - HSK-75 Rival Died 1 time
+	Begin Script 
+		OpponentID = 1
+		Begin Condition
+			minRivalTakedowns = 1
+		End
+		Begin Commands 
+			Message 231
+                               
+		End
+	End
+// Objective Messaging - HSK-75 Rival Died 2 times
+	Begin Script 
+		OpponentID = 1
+		Begin Condition
+			minRivalTakedowns = 2
+		End
+		Begin Commands 
+			Message 232
+                                
+		End
+	End
+// Objective Messaging - HSK-75 Died 3 times
+	Begin Script 
+		Begin Condition
+			minRivalTakedowns = 3
+		End
+ 		Begin Commands 
+			Message 233
+                               
+			//CustomMessage "Secondary Objective Complete."
+		End
+	End
+End
+//----------------------------------------------------------------------
+// UNLOCK SEQUENCE & REWARDS					(3, 13)
+//----------------------------------------------------------------------
+Begin Reward
+	Name = Event 601 Complete
+	EventID = 601
+	isPrimaryReward = true
+	unlockedEvents = 602
+End
+Begin Reward
+	Name = Event 602 Complete
+	EventID = 602
+	isPrimaryReward = true
+	unlockedEvents = 603
+End
+Begin Reward
+	Name = Event 603 Complete
+	EventID = 603
+	isPrimaryReward = true
+	unlockedEvents = 604
+End
+Begin Reward
+	Name = Event 604 Complete
+	EventID = 604
+	isPrimaryReward = true
+	unlockedEvents = 605
+End
+Begin Reward
+	Name = Primary Reward pack for HSK-75
+	EventID = 605
+	isPrimaryReward = true
+	unlockedEvents = 701
+	unlockedCars = HSK75
+	unlockedWeapons = Laser
+End
+Begin Reward
+	Name = Secondary Reward pack #1 for HSK-75
+	EventID = 600
+	isPrimaryReward = false
+	objectiveCount = 8
+	unlockedSkins = HSK75.1 HSK75.2
+End
+Begin Reward
+	Name = Secondary Reward pack #2 for HSK-75
+	EventID = 600
+	isPrimaryReward = false
+	objectiveCount = 13
+	unlockedSkins = HSK75.3
+End
+//----------------------------------------------------------------------
