@@ -113,7 +113,7 @@ The paths you choose are saved back to `fa_mod_manager_config.json` under
 
 ## License
 
-- See [LICENSE.TXT](LICENSE.TXT) for details about extract-xiso and other included third-party code.
+- See [LICENSE.TXT](exiso/LICENSE.TXT) for details about extract-xiso and other included third-party code.
 - All original code in this repository is released under the MIT License unless otherwise noted.
 
 ---
