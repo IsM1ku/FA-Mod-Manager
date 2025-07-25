@@ -28,6 +28,8 @@ class FAModManager(TkinterDnD.Tk):
         self.game_paths.update(config.get("game_paths", {}))
         self.logging_enabled = config.get("logging_enabled", False)
         self.comments_enabled = config.get("comments_enabled", True)
+        self.xbox_iso = config.get("xbox_iso", "")
+        self.extract_root = config.get("extract_root", backend.XBOX_EXTRACT_DIR)
         backend.init_logger(self.logging_enabled)
         backend.init_comments(self.comments_enabled)
 
@@ -72,9 +74,9 @@ class FAModManager(TkinterDnD.Tk):
                 self.profile_placeholder.place_forget()
 
         self.update_profile_placeholder = update_profile_placeholder
-        for profile in backend.list_existing_profiles():
+        for game_key, profile in backend.list_existing_profiles():
             self.profile_list.insert('end', profile)
-            self.profile_smallfs[profile] = (None, os.path.join(backend.FINISHED_DIR, profile, 'smallf.dat'))
+            self.profile_smallfs[profile] = (game_key, backend.get_profile_smallf(game_key, profile))
         self.update_profile_placeholder()
         tk.Button(profiles_frame, text='Set Active', command=self.set_active_profile).pack(fill='x', pady=2)
         tk.Button(profiles_frame, text='Revert to Original', command=self.restore_original).pack(fill='x', pady=2)
@@ -163,6 +165,45 @@ class FAModManager(TkinterDnD.Tk):
             entries[game] = var
             row += 1
 
+        tk.Label(win, text="Xbox 360 ISO").grid(row=row, column=0, sticky="w", padx=5, pady=2)
+        iso_var = tk.StringVar(value=self.xbox_iso)
+        tk.Entry(win, textvariable=iso_var, width=40).grid(row=row, column=1, padx=5)
+
+        def browse_iso():
+            path = filedialog.askopenfilename(title="Select Xbox 360 ISO", filetypes=[("ISO Files", "*.iso"), ("All Files", "*.*")])
+            if path:
+                iso_var.set(path)
+
+        tk.Button(win, text="Browse", command=browse_iso).grid(row=row, column=2, padx=5)
+        row += 1
+
+        tk.Label(win, text="Extract to").grid(row=row, column=0, sticky="w", padx=5, pady=2)
+        extract_var = tk.StringVar(value=self.extract_root)
+        tk.Entry(win, textvariable=extract_var, width=40).grid(row=row, column=1, padx=5)
+
+        def browse_extract():
+            path = filedialog.askdirectory(title="Select extract folder", mustexist=False)
+            if path:
+                extract_var.set(path)
+
+        tk.Button(win, text="Browse", command=browse_extract).grid(row=row, column=2, padx=5)
+        row += 1
+
+        def run_extract():
+            iso = iso_var.get()
+            if not iso:
+                messagebox.showwarning("Select ISO", "No ISO selected")
+                return
+            dest = extract_var.get() or backend.XBOX_EXTRACT_DIR
+            try:
+                backend.extract_xbox_iso(iso, dest)
+                messagebox.showinfo("Extracted", f"ISO extracted to:\n{dest}")
+            except Exception as exc:
+                messagebox.showerror("Error", f"Extraction failed:\n{exc}")
+
+        tk.Button(win, text="Extract ISO", command=run_extract).grid(row=row, column=0, columnspan=3, pady=2)
+        row += 1
+
         log_var = tk.BooleanVar(value=self.logging_enabled)
         tk.Checkbutton(win, text="Enable logging", variable=log_var).grid(row=row, column=0, columnspan=3, sticky="w", pady=4, padx=5)
         row += 1
@@ -175,7 +216,15 @@ class FAModManager(TkinterDnD.Tk):
                 self.game_paths[g] = var.get()
             self.logging_enabled = log_var.get()
             self.comments_enabled = comment_var.get()
-            backend.save_config({"game_paths": self.game_paths, "logging_enabled": self.logging_enabled, "comments_enabled": self.comments_enabled})
+            self.xbox_iso = iso_var.get()
+            self.extract_root = extract_var.get()
+            backend.save_config({
+                "game_paths": self.game_paths,
+                "logging_enabled": self.logging_enabled,
+                "comments_enabled": self.comments_enabled,
+                "xbox_iso": self.xbox_iso,
+                "extract_root": self.extract_root,
+            })
             backend.init_logger(self.logging_enabled)
             backend.init_comments(self.comments_enabled)
             win.destroy()
@@ -216,13 +265,16 @@ class FAModManager(TkinterDnD.Tk):
             new_name = simpledialog.askstring("Rename Profile", f"Enter new name for '{old_name}':")
             if new_name and new_name != old_name:
                 try:
-                    new_path = backend.rename_profile(old_name, new_name)
+                    game_key, _ = self.profile_smallfs.get(old_name, (None, None))
+                    if game_key is None:
+                        game_key = 'fa2' if 'Full Auto 2' in self.game_var.get() else 'fa'
+                    new_path = backend.rename_profile(game_key, old_name, new_name)
                 except Exception as exc:
                     messagebox.showerror("Error", f"Failed to rename profile:\n{exc}")
                     return
                 self.profile_list.delete(selected[0])
                 self.profile_list.insert(selected[0], new_name)
-                game_key, _ = self.profile_smallfs.pop(old_name, (None, None))
+                self.profile_smallfs.pop(old_name, None)
                 self.profile_smallfs[new_name] = (game_key, new_path)
         else:
             messagebox.showwarning("Select a Profile", "No profile selected!")
@@ -232,7 +284,10 @@ class FAModManager(TkinterDnD.Tk):
         if selected:
             name = self.profile_list.get(selected[0])
             try:
-                backend.delete_profile(name)
+                game_key, _ = self.profile_smallfs.get(name, (None, None))
+                if game_key is None:
+                    game_key = 'fa2' if 'Full Auto 2' in self.game_var.get() else 'fa'
+                backend.delete_profile(game_key, name)
             except Exception as exc:
                 messagebox.showerror("Error", f"Failed to delete profile:\n{exc}")
                 return
