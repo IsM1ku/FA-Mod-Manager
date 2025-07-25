@@ -86,10 +86,11 @@ class FAModManager(TkinterDnD.Tk):
         # Left: Mod profiles
         profiles_frame = tk.LabelFrame(main_frame, text='Mod Profiles')
         profiles_frame.pack(side='left', fill='y', padx=10, ipadx=8)
-        # wider listbox so placeholder text fits comfortably
-        self.profile_list = tk.Listbox(profiles_frame, height=10, width=35)
+        # Treeview allows an icon next to each profile entry
+        self.profile_list = ttk.Treeview(profiles_frame, show='tree', selectmode='browse', height=10)
         self.profile_list.pack(padx=5, pady=5)
-        # Use a Message widget so long text wraps correctly within the list box
+        # Use a Message widget so long text wraps correctly within the list
+        # when no items exist.
         self.profile_placeholder = tk.Message(
             self.profile_list,
             text='No mod profiles found, create one or import one',
@@ -98,14 +99,15 @@ class FAModManager(TkinterDnD.Tk):
         self.profile_placeholder.place(relx=0.5, rely=0.5, anchor='center')
 
         def update_profile_placeholder(event=None):
-            if self.profile_list.size() == 0:
+            if not self.profile_list.get_children():
                 self.profile_placeholder.place(relx=0.5, rely=0.5, anchor='center')
             else:
                 self.profile_placeholder.place_forget()
 
         self.update_profile_placeholder = update_profile_placeholder
         for game_key, profile in backend.list_existing_profiles():
-            self.profile_list.insert('end', profile)
+            icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+            self.profile_list.insert('', 'end', iid=profile, text=profile, image=icon)
             self.profile_smallfs[profile] = (game_key, backend.get_profile_smallf(game_key, profile))
         self.update_profile_placeholder()
         tk.Button(profiles_frame, text='Set Active', command=self.set_active_profile).pack(fill='x', pady=2)
@@ -297,12 +299,12 @@ class FAModManager(TkinterDnD.Tk):
         tk.Button(win, text="Save", command=save).grid(row=row, column=0, columnspan=3, pady=5)
 
     def set_active_profile(self):
-        selected = self.profile_list.curselection()
+        selected = self.profile_list.selection()
         if not selected:
             messagebox.showwarning("Select a Profile", "No profile selected!")
             return
 
-        profile = self.profile_list.get(selected[0])
+        profile = self.profile_list.item(selected[0], "text")
         info = self.profile_smallfs.get(profile)
         if not info:
             messagebox.showwarning("Build Missing", "Run Merge for this profile first.")
@@ -312,6 +314,13 @@ class FAModManager(TkinterDnD.Tk):
         if game_key is None:
             game_key = "fa2" if "Full Auto 2" in self.game_var.get() else "fa"
         selected_game = self.game_var.get()
+        selected_game_key = "fa2" if "Full Auto 2" in selected_game else "fa"
+        if game_key != selected_game_key:
+            messagebox.showerror(
+                "Wrong Game",
+                "This profile was built for a different game.",
+            )
+            return
         game_root = self.game_paths.get(selected_game, "")
         if not game_root:
             messagebox.showerror("Error", "Game folder not set. Please use Settings first.")
@@ -324,9 +333,9 @@ class FAModManager(TkinterDnD.Tk):
             messagebox.showerror("Error", f"Failed to export:\n{exc}")
 
     def rename_profile(self):
-        selected = self.profile_list.curselection()
+        selected = self.profile_list.selection()
         if selected:
-            old_name = self.profile_list.get(selected[0])
+            old_name = self.profile_list.item(selected[0], "text")
             new_name = simpledialog.askstring("Rename Profile", f"Enter new name for '{old_name}':")
             if new_name and new_name != old_name:
                 try:
@@ -338,16 +347,17 @@ class FAModManager(TkinterDnD.Tk):
                     messagebox.showerror("Error", f"Failed to rename profile:\n{exc}")
                     return
                 self.profile_list.delete(selected[0])
-                self.profile_list.insert(selected[0], new_name)
+                icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+                self.profile_list.insert('', selected[0], iid=new_name, text=new_name, image=icon)
                 self.profile_smallfs.pop(old_name, None)
                 self.profile_smallfs[new_name] = (game_key, new_path)
         else:
             messagebox.showwarning("Select a Profile", "No profile selected!")
 
     def delete_profile(self):
-        selected = self.profile_list.curselection()
+        selected = self.profile_list.selection()
         if selected:
-            name = self.profile_list.get(selected[0])
+            name = self.profile_list.item(selected[0], "text")
             try:
                 game_key, _ = self.profile_smallfs.get(name, (None, None))
                 if game_key is None:
@@ -388,8 +398,10 @@ class FAModManager(TkinterDnD.Tk):
         game_key = 'fa2' if 'Full Auto 2' in selected_game else 'fa'
         dest = backend.import_profile(game_key, profile_name, smallf_path)
         self.profile_smallfs[profile_name] = (game_key, dest)
-        if profile_name not in self.profile_list.get(0, 'end'):
-            self.profile_list.insert('end', profile_name)
+        existing = [self.profile_list.item(i, 'text') for i in self.profile_list.get_children()]
+        if profile_name not in existing:
+            icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+            self.profile_list.insert('', 'end', iid=profile_name, text=profile_name, image=icon)
         self.update_profile_placeholder()
 
     # --- Mod list helpers ---
@@ -588,8 +600,10 @@ class FAModManager(TkinterDnD.Tk):
             backend.apply_mods_to_temp(game_key, mods=mod_paths, merge_name=merge_name)
             out_path = backend.repack_smallf(game_key, merge_name)
             self.profile_smallfs[merge_name] = (game_key, out_path)
-            if merge_name not in self.profile_list.get(0, 'end'):
-                self.profile_list.insert('end', merge_name)
+            existing = [self.profile_list.item(i, 'text') for i in self.profile_list.get_children()]
+            if merge_name not in existing:
+                icon = self.icon_ps3 if game_key == 'fa2' else self.icon_xbox
+                self.profile_list.insert('', 'end', iid=merge_name, text=merge_name, image=icon)
                 self.update_profile_placeholder()
             messagebox.showinfo(
                 "Merge Complete",
