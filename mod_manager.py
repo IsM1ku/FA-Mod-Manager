@@ -5,6 +5,14 @@ from tkinterdnd2 import TkinterDnD, DND_FILES
 
 import mod_manager_backend as backend
 
+
+def find_smallf_file(folder):
+    """Return path to smallf.dat in *folder* regardless of case."""
+    for name in os.listdir(folder):
+        if name.lower() == "smallf.dat":
+            return os.path.join(folder, name)
+    return None
+
 # --- Dummy data for demo purposes ---
 GAMES = ['Full Auto (Xbox 360)', 'Full Auto 2: Battlelines (PS3)']
 DEMO_PROFILES = []
@@ -370,8 +378,8 @@ class FAModManager(TkinterDnD.Tk):
         folder = filedialog.askdirectory(title='Select folder with smallf.dat', mustexist=True)
         if not folder:
             return
-        smallf_path = os.path.join(folder, 'smallf.dat')
-        if not os.path.isfile(smallf_path):
+        smallf_path = find_smallf_file(folder)
+        if not smallf_path:
             messagebox.showerror('Error', 'smallf.dat not found in selected folder.')
             return
         profile_name = os.path.basename(folder)

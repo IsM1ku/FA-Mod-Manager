@@ -299,6 +299,18 @@ def _append_summary_comment(target_path, changed_lines, mod_name=None, author=No
 
 
 # ----------- Unpack and repack functions -----------
+
+def _normalize_smallf_dir(path):
+    """Ensure unpacked directory uses a lowercase 'smallf' folder."""
+    lower = os.path.join(path, "smallf")
+    if os.path.isdir(lower):
+        return lower
+    for name in os.listdir(path):
+        if name.lower() == "smallf":
+            os.rename(os.path.join(path, name), lower)
+            return lower
+    return lower
+
 def _ensure_base_unpacked(game):
     """Unpack the original smallf.dat once and cache the result."""
     exe = os.path.join(TOOLS_DIR, "unpack_smallf_win.exe")
@@ -316,6 +328,7 @@ def _ensure_base_unpacked(game):
         subprocess.check_call([exe, os.path.basename(dat_copy)], cwd=unpack_dir)
         os.remove(dat_copy)
         log(f"[OK] Cached base unpack to: {unpack_dir}")
+    _normalize_smallf_dir(unpack_dir)
     return unpack_dir
 
 
@@ -331,6 +344,7 @@ def unpack_smallf(game):
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
     shutil.copytree(unpack_dir, temp_dir)
+    _normalize_smallf_dir(temp_dir)
     log(f"[OK] Prepared temp folder at {temp_dir}")
     return temp_dir
 
