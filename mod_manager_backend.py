@@ -307,7 +307,15 @@ def _normalize_smallf_dir(path):
         return lower
     for name in os.listdir(path):
         if name.lower() == "smallf":
-            os.rename(os.path.join(path, name), lower)
+            src = os.path.join(path, name)
+            if src == lower:
+                return lower
+            try:
+                os.rename(src, lower)
+            except OSError:
+                tmp = os.path.join(path, "_tmp_smallf")
+                os.rename(src, tmp)
+                os.rename(tmp, lower)
             return lower
     return lower
 
