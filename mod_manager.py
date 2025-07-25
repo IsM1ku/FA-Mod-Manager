@@ -111,12 +111,10 @@ class FAModManager(TkinterDnD.Tk):
         mods_frame.pack(side='left', fill='both', padx=10, expand=True)
         header = tk.Frame(mods_frame)
         header.pack(fill='x', padx=5)
-        header.columnconfigure(4, weight=1)
+        header.columnconfigure(2, weight=1)
         tk.Label(header, text="", width=3).grid(row=0, column=0)
         tk.Label(header, text="", width=6).grid(row=0, column=1)
-        tk.Label(header, text="Name", width=20, anchor='w').grid(row=0, column=2, sticky='w')
-        tk.Label(header, text="Author", width=15, anchor='w').grid(row=0, column=3, sticky='w')
-        tk.Label(header, text="Description", anchor='w').grid(row=0, column=4, sticky='w')
+        tk.Label(header, text="Name", anchor='w').grid(row=0, column=2, sticky='w')
 
         # Canvas + scrollbar to allow scrolling when many mods are listed
         canvas_frame = tk.Frame(mods_frame)
@@ -392,7 +390,7 @@ class FAModManager(TkinterDnD.Tk):
             games = {'fa', 'fa2'}
 
         row = tk.Frame(self.mods_container)
-        row.columnconfigure(4, weight=1)
+        row.columnconfigure(2, weight=1)
         cb = tk.Checkbutton(row, variable=var)
         cb.grid(row=0, column=0, padx=2)
 
@@ -403,12 +401,8 @@ class FAModManager(TkinterDnD.Tk):
             tk.Label(icon_frame, image=self.icon_fa2).pack(side='left')
         icon_frame.grid(row=0, column=1, padx=2)
 
-        name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w', width=20)
+        name_lbl = tk.Label(row, text=name or os.path.basename(path), anchor='w')
         name_lbl.grid(row=0, column=2, sticky='w')
-        author_lbl = tk.Label(row, text=author or '', anchor='w', width=15)
-        author_lbl.grid(row=0, column=3, sticky='w')
-        desc_lbl = tk.Label(row, text=desc or '', anchor='w', wraplength=400, justify='left')
-        desc_lbl.grid(row=0, column=4, sticky='ew')
 
         row.bind('<Button-1>', lambda e, i=idx: self.select_mod(i))
         for child in row.winfo_children():
@@ -420,7 +414,7 @@ class FAModManager(TkinterDnD.Tk):
             'var': var,
             'widget': row,
             'cb': cb,
-            'labels': [name_lbl, author_lbl, desc_lbl],
+            'labels': [name_lbl],
             'games': games,
             'meta': meta,
         })
@@ -447,16 +441,17 @@ class FAModManager(TkinterDnD.Tk):
             self.update_mod_placeholder()
 
     def select_mod(self, index):
+        def _set_bg(widget, color):
+            widget.configure(background=color)
+            for child in widget.winfo_children():
+                _set_bg(child, color)
+
         if self.selected_mod_index is not None and 0 <= self.selected_mod_index < len(self.mod_entries):
             old_row = self.mod_entries[self.selected_mod_index]['widget']
-            for child in old_row.winfo_children():
-                child.configure(background=old_row.cget('background'))
-            old_row.configure(background=self.mods_container.cget('background'))
+            _set_bg(old_row, self.mods_container.cget('background'))
         self.selected_mod_index = index
         new_row = self.mod_entries[index]['widget']
-        new_row.configure(background='lightblue')
-        for child in new_row.winfo_children():
-            child.configure(background='lightblue')
+        _set_bg(new_row, 'lightblue')
         self.show_mod_info(index)
 
     def remove_selected_mods(self):
