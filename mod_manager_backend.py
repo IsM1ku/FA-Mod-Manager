@@ -435,9 +435,15 @@ def export_smallf_to_game(game, mod_name, game_root):
     if not os.path.isfile(src):
         raise FileNotFoundError(f"Repacked file not found: {src}")
 
-    dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
+    if game == "fa2":
+        dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
+        os.makedirs(dest_dir, exist_ok=True)
+        filename = "smallf.dat"
+    else:
+        dest_dir = game_root
+        filename = "smallF.dat"
     os.makedirs(dest_dir, exist_ok=True)
-    dest = os.path.join(dest_dir, "smallf.dat")
+    dest = os.path.join(dest_dir, filename)
     shutil.copy2(src, dest)
     log(f"[OK] Exported modified smallf to: {dest}")
 
@@ -446,11 +452,14 @@ def restore_original_smallf(game, game_root):
     """Restore the original smallf.dat for the given game."""
     if game == "fa2":
         src = os.path.join(BASE_FA2_DIR, "smallf.dat")
+        dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
+        filename = "smallf.dat"
     else:
         src = os.path.join(BASE_FA_DIR, "smallF.dat")
-    dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
+        dest_dir = game_root
+        filename = "smallF.dat"
     os.makedirs(dest_dir, exist_ok=True)
-    dest = os.path.join(dest_dir, "smallf.dat")
+    dest = os.path.join(dest_dir, filename)
     shutil.copy2(src, dest)
     log(f"[OK] Restored original smallf to: {dest}")
 

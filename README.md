@@ -36,7 +36,7 @@ Use the **Settings** button in the GUI to select or update these paths, toggle l
 3. **Repack** – `backend.repack_smallf(game, mod_name)` copies the unpacked files
    into `bundled/tools` and runs `repack_smallf_win.exe` without arguments. The
    resulting file is stored under `mod_profiles/<game>/<mod_name>/smallf.dat`.
-4. **Export** – `backend.export_smallf_to_game(game, mod_name, game_root)` copies the new file to `PS3_GAME/USRDIR/smallf.dat`, replacing the existing file. Use the **Revert to Original** button to restore the vanilla file.
+4. **Export** – `backend.export_smallf_to_game(game, mod_name, game_root)` copies the new file back to the game. On PS3 it is placed in `PS3_GAME/USRDIR/smallf.dat`, while the Xbox 360 version expects `smallF.dat` directly in the game root. Use the **Revert to Original** button to restore the vanilla file.
 
 This sequence is also demonstrated in the `__main__` section of `mod_manager_backend.py` and forms the foundation of the GUI.
 
