@@ -12,7 +12,7 @@ This project relies on several external tools, which are included or used by the
 - **smallf unpacker & repacker**  
   - Original code by **Protorizer**  
   - Used for extracting and rebuilding `smallf.dat` archives for Full Auto and Full Auto 2: Battlelines.  
-  - Source code and binaries are included in this repository with permission.
+  - Binaries are included in this repository with permission.
 
 - **extract-xiso**  
   - Original project by [in@fishtank.com](mailto:in@fishtank.com), maintained by the [XboxDev team](https://github.com/XboxDev/extract-xiso).  
