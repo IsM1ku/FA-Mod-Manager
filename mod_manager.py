@@ -15,8 +15,8 @@ class FAModManager(TkinterDnD.Tk):
     def __init__(self):
         super().__init__()
         self.title('Full Auto Mod Manager Prototype')
-        self.geometry('800x500')
-        self.minsize(720, 400)
+        self.geometry('900x500')
+        self.minsize(800, 400)
         self.resizable(True, True)
 
         # Store paths to repacked smallf per profile
@@ -78,12 +78,12 @@ class FAModManager(TkinterDnD.Tk):
         profiles_frame = tk.LabelFrame(main_frame, text='Mod Profiles')
         profiles_frame.pack(side='left', fill='y', padx=10, ipadx=8)
         # wider listbox so placeholder text fits comfortably
-        self.profile_list = tk.Listbox(profiles_frame, height=10, width=25)
+        self.profile_list = tk.Listbox(profiles_frame, height=10, width=30)
         self.profile_list.pack(padx=5, pady=5)
         self.profile_placeholder = tk.Label(
             self.profile_list,
             text='No mod profiles found, create one or import one',
-            foreground='gray', wraplength=180, justify='center'
+            foreground='gray', wraplength=200, justify='center'
         )
         self.profile_placeholder.place(relx=0.5, rely=0.5, anchor='center')
 
@@ -175,9 +175,9 @@ class FAModManager(TkinterDnD.Tk):
         self.info_name.pack(anchor='w')
         self.info_author = tk.Label(info_frame, text='')
         self.info_author.pack(anchor='w')
-        self.info_desc = tk.Label(info_frame, text='', wraplength=180, justify='left')
+        self.info_desc = tk.Label(info_frame, text='', wraplength=220, justify='left')
         self.info_desc.pack(anchor='w', pady=(4, 0))
-        self.info_warning = tk.Label(info_frame, text='', fg='red', wraplength=180)
+        self.info_warning = tk.Label(info_frame, text='', fg='red', wraplength=220)
         self.info_warning.pack(anchor='w', pady=(4, 0))
         tk.Button(info_frame, text='Remove Mod', command=self.remove_selected_mods).pack(pady=5)
 
