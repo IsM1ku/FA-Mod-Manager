@@ -1,24 +1,47 @@
 import os
+import sys
 import shutil
 import subprocess
 import json
 import logging
 
 # ----------- Setup paths relative to this script -----------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SMALLF_DIR = os.path.join(BASE_DIR, "smallf")
-TOOLS_DIR = os.path.join(SMALLF_DIR, "tools")
-FINISHED_DIR = os.path.join(SMALLF_DIR, "finished")
-BASE_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa")
-BASE_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2")
+if getattr(sys, "frozen", False):
+    # Running from a PyInstaller bundle
+    APP_DIR = os.path.dirname(sys.executable)
+    BUNDLED_DIR = os.path.join(sys._MEIPASS, "bundled")
+else:
+    APP_DIR = os.path.dirname(os.path.abspath(__file__))
+    BUNDLED_DIR = os.path.join(APP_DIR, "bundled")
 
-UNPACKED_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa_unpacked")
-UNPACKED_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2_unpacked")
-TEMP_FA_DIR = os.path.join(SMALLF_DIR, "base", "fa_temp")
-TEMP_FA2_DIR = os.path.join(SMALLF_DIR, "base", "fa2_temp")
+SMALLF_DIR = os.path.join(APP_DIR, "smallf")
+MOD_PROFILES_DIR = os.path.join(APP_DIR, "mod_profiles")
+EXISO_DIR = os.path.join(APP_DIR, "exiso")
+XBOX_EXTRACT_DIR = os.path.join(APP_DIR, "xbox_extract")
 
-CONFIG_FILE = os.path.join(BASE_DIR, "fa_mod_manager_config.json")
-LOG_FILE = os.path.join(BASE_DIR, "fa_mod_manager.log")
+TOOLS_DIR = os.path.join(BUNDLED_DIR, "tools")
+BASE_FA_DIR = os.path.join(SMALLF_DIR, "fa")
+BASE_FA2_DIR = os.path.join(SMALLF_DIR, "fa2")
+
+UNPACKED_FA_DIR = os.path.join(SMALLF_DIR, "fa_unpacked")
+UNPACKED_FA2_DIR = os.path.join(SMALLF_DIR, "fa2_unpacked")
+TEMP_FA_DIR = os.path.join(SMALLF_DIR, "fa_temp")
+TEMP_FA2_DIR = os.path.join(SMALLF_DIR, "fa2_temp")
+
+CONFIG_FILE = os.path.join(APP_DIR, "fa_mod_manager_config.json")
+CONFIG_EXAMPLE = os.path.join(BUNDLED_DIR, "fa_mod_manager_config.example.json")
+LOG_FILE = os.path.join(APP_DIR, "fa_mod_manager.log")
+EXISO_EXE = os.path.join(EXISO_DIR, "extract-xiso.exe")
+
+
+def _profile_dir(game, name):
+    """Return directory for a profile of the given game."""
+    return os.path.join(MOD_PROFILES_DIR, game, name)
+
+
+def get_profile_smallf(game, name):
+    """Return path to ``smallf.dat`` for a profile."""
+    return os.path.join(_profile_dir(game, name), "smallf.dat")
 
 logger = logging.getLogger("fa_mod_manager")
 logger.setLevel(logging.INFO)
@@ -35,11 +58,16 @@ def save_config(config):
 def load_config():
     """Return config dictionary, creating a default one if needed."""
     if not os.path.isfile(CONFIG_FILE):
-        example = os.path.join(BASE_DIR, "fa_mod_manager_config.example.json")
-        if os.path.isfile(example):
-            shutil.copy2(example, CONFIG_FILE)
+        if os.path.isfile(CONFIG_EXAMPLE):
+            shutil.copy2(CONFIG_EXAMPLE, CONFIG_FILE)
         else:
-            default = {"game_paths": {}, "logging_enabled": False, "comments_enabled": True}
+            default = {
+                "game_paths": {},
+                "logging_enabled": False,
+                "comments_enabled": True,
+                "xbox_iso": "",
+                "extract_root": "",
+            }
             with open(CONFIG_FILE, "w") as f:
                 json.dump(default, f)
     try:
@@ -55,6 +83,10 @@ def load_config():
         data["logging_enabled"] = False
     if "comments_enabled" not in data:
         data["comments_enabled"] = True
+    if "xbox_iso" not in data:
+        data["xbox_iso"] = ""
+    if "extract_root" not in data:
+        data["extract_root"] = ""
     return data
 
 
@@ -313,9 +345,9 @@ def repack_smallf(game, mod_name):
     else:
         src = candidate2
 
-    finished_subdir = os.path.join(FINISHED_DIR, mod_name)
+    finished_subdir = _profile_dir(game, mod_name)
     os.makedirs(finished_subdir, exist_ok=True)
-    dest = os.path.join(finished_subdir, "smallf.dat")
+    dest = get_profile_smallf(game, mod_name)
     shutil.move(src, dest)
 
     # Clean up the working folder
@@ -328,9 +360,9 @@ def repack_smallf(game, mod_name):
 def export_smallf_to_game(game, mod_name, game_root):
     """Copy the repacked smallf.dat into the given game's PS3 folder as
     ``smallf.dat``."""
-    finished_subdir = os.path.join(FINISHED_DIR, mod_name)
+    finished_subdir = _profile_dir(game, mod_name)
 
-    src = os.path.join(finished_subdir, "smallf.dat")
+    src = get_profile_smallf(game, mod_name)
     if not os.path.isfile(src):
         raise FileNotFoundError(f"Repacked file not found: {src}")
 
@@ -353,43 +385,56 @@ def restore_original_smallf(game, game_root):
     shutil.copy2(src, dest)
     log(f"[OK] Restored original smallf to: {dest}")
 
+
+def extract_xbox_iso(iso_path, dest=None):
+    """Extract an Xbox 360 ISO using ``extract-xiso``."""
+    if dest is None:
+        dest = XBOX_EXTRACT_DIR
+    os.makedirs(dest, exist_ok=True)
+    cmd = [EXISO_EXE, iso_path, "-d", dest]
+    subprocess.check_call(cmd, cwd=EXISO_DIR)
+    log(f"[OK] Extracted {os.path.basename(iso_path)} to: {dest}")
+    return dest
+
 # ----------- Profile management -----------
 def import_profile(game, profile_name, source_smallf):
     """Import an existing smallf.dat as a mod profile."""
-    finished_subdir = os.path.join(FINISHED_DIR, profile_name)
+    finished_subdir = _profile_dir(game, profile_name)
     os.makedirs(finished_subdir, exist_ok=True)
-    dest = os.path.join(finished_subdir, "smallf.dat")
+    dest = get_profile_smallf(game, profile_name)
     shutil.copy2(source_smallf, dest)
     log(f"[OK] Imported profile '{profile_name}' -> {dest}")
     return dest
 
 
-def rename_profile(old_name, new_name):
-    """Rename a profile folder inside ``finished`` and return new path."""
-    old_dir = os.path.join(FINISHED_DIR, old_name)
-    new_dir = os.path.join(FINISHED_DIR, new_name)
+def rename_profile(game, old_name, new_name):
+    """Rename a profile folder and return new path."""
+    old_dir = _profile_dir(game, old_name)
+    new_dir = _profile_dir(game, new_name)
     if not os.path.isdir(old_dir):
         raise FileNotFoundError(f"Profile not found: {old_name}")
     if os.path.isdir(new_dir):
         raise FileExistsError(f"Profile already exists: {new_name}")
     os.rename(old_dir, new_dir)
-    return os.path.join(new_dir, "smallf.dat")
+    return get_profile_smallf(game, new_name)
 
 
 def list_existing_profiles():
-    """Return names of profiles already present in ``finished``."""
-    if not os.path.isdir(FINISHED_DIR):
-        return []
-    names = []
-    for name in os.listdir(FINISHED_DIR):
-        if os.path.isfile(os.path.join(FINISHED_DIR, name, "smallf.dat")):
-            names.append(name)
-    return names
+    """Return list of (game, profile_name) tuples for existing profiles."""
+    result = []
+    for game in ("fa", "fa2"):
+        gdir = os.path.join(MOD_PROFILES_DIR, game)
+        if not os.path.isdir(gdir):
+            continue
+        for name in os.listdir(gdir):
+            if os.path.isfile(os.path.join(gdir, name, "smallf.dat")):
+                result.append((game, name))
+    return result
 
 
-def delete_profile(name):
-    """Remove a profile folder inside ``finished``."""
-    path = os.path.join(FINISHED_DIR, name)
+def delete_profile(game, name):
+    """Remove a profile folder."""
+    path = _profile_dir(game, name)
     if not os.path.isdir(path):
         raise FileNotFoundError(f"Profile not found: {name}")
     shutil.rmtree(path)

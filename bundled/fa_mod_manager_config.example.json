@@ -5,4 +5,6 @@
   },
   "logging_enabled": false,
   "comments_enabled": true
+  ,"xbox_iso": ""
+  ,"extract_root": ""
 }
