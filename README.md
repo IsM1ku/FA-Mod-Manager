@@ -105,7 +105,6 @@ The paths you choose are saved back to `fa_mod_manager_config.json` under
 
 - Native Linux compatibility (in progress)
 - Expanded mod metadata and compatibility checks
-- Additional unpacking and repacking tools for other platforms
 - Custom music
 - Editable variables for each mod
 
