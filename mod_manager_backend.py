@@ -3,16 +3,26 @@ import sys
 import shutil
 import subprocess
 import json
-import logging
+
+from config_manager import (
+    APP_DIR,
+    BUNDLED_DIR,
+    CONFIG_FILE,
+    CONFIG_EXAMPLE,
+    LOG_FILE,
+    save_config,
+    load_config,
+    init_logger,
+    init_comments,
+    get_logging_enabled,
+    get_comments_enabled,
+    log,
+    save_game_paths,
+    load_game_paths,
+)
 
 # ----------- Setup paths relative to this script -----------
-if getattr(sys, "frozen", False):
-    # Running from a PyInstaller bundle
-    APP_DIR = os.path.dirname(sys.executable)
-    BUNDLED_DIR = os.path.join(sys._MEIPASS, "bundled")
-else:
-    APP_DIR = os.path.dirname(os.path.abspath(__file__))
-    BUNDLED_DIR = os.path.join(APP_DIR, "bundled")
+# Paths provided by config_manager
 
 SMALLF_DIR = os.path.join(APP_DIR, "smallf")
 MOD_PROFILES_DIR = os.path.join(APP_DIR, "mod_profiles")
@@ -30,9 +40,6 @@ UNPACKED_FA2_DIR = os.path.join(SMALLF_DIR, "fa2_unpacked")
 TEMP_FA_DIR = os.path.join(SMALLF_DIR, "fa_temp")
 TEMP_FA2_DIR = os.path.join(SMALLF_DIR, "fa2_temp")
 
-CONFIG_FILE = os.path.join(APP_DIR, "fa_mod_manager_config.json")
-CONFIG_EXAMPLE = os.path.join(BUNDLED_DIR, "fa_mod_manager_config.example.json")
-LOG_FILE = os.path.join(APP_DIR, "fa_mod_manager.log")
 EXISO_EXE = os.path.join(EXISO_DIR, "extract-xiso.exe")
 
 # Name of the json file storing metadata for each profile
@@ -76,93 +83,8 @@ def read_profile_info(game, name):
             return {}
     return {}
 
-logger = logging.getLogger("fa_mod_manager")
-logger.setLevel(logging.INFO)
-LOGGING_ENABLED = False
-COMMENTS_ENABLED = True
 
-
-# ----------- Config management -----------
-def save_config(config):
-    with open(CONFIG_FILE, "w") as f:
-        json.dump(config, f)
-
-
-def load_config():
-    """Return config dictionary, creating a default one if needed."""
-    if not os.path.isfile(CONFIG_FILE):
-        if os.path.isfile(CONFIG_EXAMPLE):
-            shutil.copy2(CONFIG_EXAMPLE, CONFIG_FILE)
-        else:
-            default = {
-                "game_paths": {},
-                "logging_enabled": False,
-                "comments_enabled": True,
-                "xbox_iso": "",
-                "extract_root": "",
-            }
-            with open(CONFIG_FILE, "w") as f:
-                json.dump(default, f)
-    try:
-        with open(CONFIG_FILE, "r") as f:
-            data = json.load(f)
-    except Exception:
-        data = {}
-
-    if "game_paths" not in data:
-        # upgrade old format
-        data = {"game_paths": data, "logging_enabled": False, "comments_enabled": True}
-    if "logging_enabled" not in data:
-        data["logging_enabled"] = False
-    if "comments_enabled" not in data:
-        data["comments_enabled"] = True
-    if "xbox_iso" not in data:
-        data["xbox_iso"] = ""
-    if "extract_root" not in data:
-        data["extract_root"] = ""
-    return data
-
-
-def init_logger(enabled):
-    """Enable or disable file logging."""
-    global LOGGING_ENABLED
-    LOGGING_ENABLED = enabled
-    logger.handlers.clear()
-    if enabled:
-        handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
-        handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
-        logger.addHandler(handler)
-
-
-def get_logging_enabled():
-    return LOGGING_ENABLED
-
-
-def init_comments(enabled):
-    """Enable or disable summary comments."""
-    global COMMENTS_ENABLED
-    COMMENTS_ENABLED = enabled
-
-
-def get_comments_enabled():
-    return COMMENTS_ENABLED
-
-
-def log(msg):
-    print(msg)
-    if LOGGING_ENABLED:
-        logger.info(msg)
-
-
-# Backwards compatibility wrappers
-def save_game_paths(game_paths):
-    data = load_config()
-    data["game_paths"] = game_paths
-    save_config(data)
-
-
-def load_game_paths():
-    return load_config().get("game_paths", {})
+# Config functionality is provided by config_manager
 
 
 # ----------- Mod parsing and patching -----------
@@ -192,48 +114,60 @@ def _parse_mod_file(path):
                 continue
             if line.startswith("[FILE") and line.endswith("]"):
                 if current_file and current_section and current_data:
-                    patches.append({
-                        "file": current_file,
-                        "section": current_section,
-                        "data": current_data,
-                        "game": current_game,
-                    })
+                    patches.append(
+                        {
+                            "file": current_file,
+                            "section": current_section,
+                            "data": current_data,
+                            "game": current_game,
+                        }
+                    )
                     current_section = None
                     current_data = []
                     current_game = "both"
                 current_file = line[5:-1].strip()
-            elif stripped.startswith("sectionfa2:") or stripped.startswith("sectionfa:") or stripped.startswith("section:"):
+            elif (
+                stripped.startswith("sectionfa2:")
+                or stripped.startswith("sectionfa:")
+                or stripped.startswith("section:")
+            ):
                 if current_file is None:
                     continue
                 if current_section and current_data:
-                    patches.append({
-                        "file": current_file,
-                        "section": current_section,
-                        "data": current_data,
-                        "game": current_game,
-                    })
+                    patches.append(
+                        {
+                            "file": current_file,
+                            "section": current_section,
+                            "data": current_data,
+                            "game": current_game,
+                        }
+                    )
                     current_data = []
                 if stripped.startswith("sectionfa2:"):
                     current_game = "fa2"
-                    current_section = stripped[len("sectionfa2:"):].strip()
+                    current_section = stripped[len("sectionfa2:") :].strip()
                 elif stripped.startswith("sectionfa:"):
                     current_game = "fa"
-                    current_section = stripped[len("sectionfa:"):].strip()
+                    current_section = stripped[len("sectionfa:") :].strip()
                 else:
                     current_game = "both"
-                    current_section = stripped[len("section:"):].strip()
+                    current_section = stripped[len("section:") :].strip()
             elif stripped.startswith(";") or stripped.startswith(".;"):
                 if current_file and current_section:
                     after_header = stripped.startswith(".;")
-                    content = stripped[2:].strip() if after_header else stripped[1:].strip()
+                    content = (
+                        stripped[2:].strip() if after_header else stripped[1:].strip()
+                    )
                     current_data.append({"line": content, "after_header": after_header})
     if current_file and current_section and current_data:
-        patches.append({
-            "file": current_file,
-            "section": current_section,
-            "data": current_data,
-            "game": current_game,
-        })
+        patches.append(
+            {
+                "file": current_file,
+                "section": current_section,
+                "data": current_data,
+                "game": current_game,
+            }
+        )
 
     # Determine the next section marker for each patch within the same file
     for i, patch in enumerate(patches):
@@ -258,6 +192,7 @@ def _extract_key(line):
         return f"{parts[0]} {parts[1]}"
     return parts[0]
 
+
 def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
     """Patch a single file in place and return list of modified line numbers."""
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -268,7 +203,10 @@ def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
             anchor = i
             break
     if anchor is None:
-        raise ValueError(f"Section '{section}' not found in {target_path}")
+        raise ValueError(
+            f"Section '{section}' not found in {os.path.basename(target_path)}. "
+            "Ensure the section name is correct."
+        )
 
     # find end of section for appends
     section_end = len(lines)
@@ -304,11 +242,11 @@ def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
             changed.append(insert_pos + 1)
             section_end += 1
 
-
     with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("\n".join(lines) + "\n")
     log(f"[OK] Patched {os.path.basename(target_path)} section '{section}'")
     return changed
+
 
 def _append_summary_comment(target_path, changed_lines, mod_name=None, author=None):
     """Append a summary comment listing changed lines for a mod."""
@@ -326,10 +264,11 @@ def _append_summary_comment(target_path, changed_lines, mod_name=None, author=No
     summary = f"{c_start}line(s): {','.join(str(n) for n in changed_lines)} modified by {mod_desc}{c_end}"
     lines.append(summary)
     with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
-        f.write('\n'.join(lines) + '\n')
+        f.write("\n".join(lines) + "\n")
 
 
 # ----------- Unpack and repack functions -----------
+
 
 def _find_smallf_dir(path):
     """Return the path to the ``smallf`` folder inside ``path`` regardless of case."""
@@ -374,6 +313,7 @@ def _normalize_smallf_dir(path):
         # If renaming fails, fall back to using the existing directory.
         return found
 
+
 def _ensure_base_unpacked(game):
     """Unpack the original smallf.dat once and cache the result."""
     exe = os.path.join(TOOLS_DIR, "unpack_smallf_win.exe")
@@ -403,13 +343,13 @@ def unpack_smallf(game):
         temp_dir = TEMP_FA_DIR
     unpack_dir = _ensure_base_unpacked(game)
 
-
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
     shutil.copytree(unpack_dir, temp_dir)
     _normalize_smallf_dir(temp_dir)
     log(f"[OK] Prepared temp folder at {temp_dir}")
     return temp_dir
+
 
 def repack_smallf(game, mod_name):
     """Repack the temp folder into ``finished/<mod_name>/smallf.dat``.
@@ -444,8 +384,7 @@ def repack_smallf(game, mod_name):
     else:
         src = candidate2
 
-    finished_subdir = _profile_dir(game, mod_name)
-    os.makedirs(finished_subdir, exist_ok=True)
+    os.makedirs(_profile_dir(game, mod_name), exist_ok=True)
     dest = get_profile_smallf(game, mod_name)
     shutil.move(src, dest)
 
@@ -458,15 +397,17 @@ def repack_smallf(game, mod_name):
     log(f"[OK] Repacked smallf written to: {dest}")
     return dest
 
+
 # ----------- Export to game folder -----------
 def export_smallf_to_game(game, mod_name, game_root):
-    """Copy the repacked smallf.dat into the given game's PS3 folder as
-    ``smallf.dat``."""
-    finished_subdir = _profile_dir(game, mod_name)
+    """Copy the repacked smallf.dat into the given game's folder."""
+    os.makedirs(_profile_dir(game, mod_name), exist_ok=True)
 
     src = get_profile_smallf(game, mod_name)
     if not os.path.isfile(src):
-        raise FileNotFoundError(f"Repacked file not found: {src}")
+        raise FileNotFoundError(
+            f"Repacked file not found: {src}. Run Merge before exporting."
+        )
 
     if game == "fa2":
         dest_dir = os.path.join(game_root, "PS3_GAME", "USRDIR")
@@ -524,7 +465,7 @@ def extract_xbox_iso(iso_path, dest=None):
     # interprets "-d" as a filename. Pass arguments in the correct order.
     cmd = [EXISO_EXE, "-d", dest, iso_path]
     try:
-        result = subprocess.run(
+        subprocess.run(
             cmd,
             cwd=EXISO_DIR,
             capture_output=True,
@@ -540,11 +481,11 @@ def extract_xbox_iso(iso_path, dest=None):
     log(f"[OK] Extracted {os.path.basename(iso_path)} to: {dest}")
     return dest
 
+
 # ----------- Profile management -----------
 def import_profile(game, profile_name, source_smallf):
     """Import an existing smallf.dat as a mod profile."""
-    finished_subdir = _profile_dir(game, profile_name)
-    os.makedirs(finished_subdir, exist_ok=True)
+    os.makedirs(_profile_dir(game, profile_name), exist_ok=True)
     dest = get_profile_smallf(game, profile_name)
     shutil.copy2(source_smallf, dest)
     write_profile_info(game, profile_name, {"game": game})
@@ -559,7 +500,9 @@ def rename_profile(game, old_name, new_name):
     if not os.path.isdir(old_dir):
         raise FileNotFoundError(f"Profile not found: {old_name}")
     if os.path.isdir(new_dir):
-        raise FileExistsError(f"Profile already exists: {new_name}")
+        raise FileExistsError(
+            f"Profile already exists: {new_name}. Choose a different name."
+        )
     os.rename(old_dir, new_dir)
     return get_profile_smallf(game, new_name)
 
@@ -590,6 +533,7 @@ def delete_profile(game, name):
         raise FileNotFoundError(f"Profile not found: {name}")
     shutil.rmtree(path)
     log(f"[OK] Deleted profile '{name}'")
+
 
 # ----------- Patch/merge logic placeholder -----------
 def apply_mods_to_temp(game, mods, merge_name=None):
@@ -629,14 +573,22 @@ def apply_mods_to_temp(game, mods, merge_name=None):
                 err = f"Target file not found: {p['file']} in {mod}"
                 log(f"[ERROR] {err}")
                 raise FileNotFoundError(err)
-            log(f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'")
+            log(
+                f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'"
+            )
             try:
-                changed = _apply_patch_to_file(target, p["section"], p["data"], p.get("next_section"))
+                changed = _apply_patch_to_file(
+                    target, p["section"], p["data"], p.get("next_section")
+                )
                 pending.setdefault(target, []).extend(changed)
                 if p.get("next_section") is None:
-                    _append_summary_comment(target, pending.pop(target, []), mod_name, author)
+                    _append_summary_comment(
+                        target, pending.pop(target, []), mod_name, author
+                    )
             except Exception as exc:
-                log(f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}")
+                log(
+                    f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}"
+                )
                 raise
         for path, lines_list in pending.items():
             _append_summary_comment(path, lines_list, mod_name, author)

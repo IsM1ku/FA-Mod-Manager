@@ -55,7 +55,7 @@ Game directories and settings are stored in `fa_mod_manager_config.json`. The JS
 }
 ```
 
-Use the **Settings** button in the GUI to select or update these paths, toggle logging, and enable/disable the experimental comment feature. The backend saves them using `save_config()` and they are loaded on startup via `load_config()`. The same file also stores the last Xbox 360 ISO you opened (`xbox_iso`) and the folder used for extraction (`extract_root`).
+Use the **Settings** button in the GUI to select or update these paths, toggle logging, and enable/disable the experimental comment feature. Configuration helpers are now housed in `config_manager.py`. The backend saves settings using `save_config()` and they are loaded on startup via `load_config()`. The same file also stores the last Xbox 360 ISO you opened (`xbox_iso`) and the folder used for extraction (`extract_root`).
 
 ---
 
