@@ -45,6 +45,32 @@ EXISO_EXE = os.path.join(EXISO_DIR, "extract-xiso.exe")
 # Name of the json file storing metadata for each profile
 PROFILE_INFO_NAME = "profile.json"
 
+def _read_text_lines(path):
+    """Return text lines, encoding and newline style of a file."""
+    with open(path, "rb") as f:
+        raw = f.read()
+
+    encoding = "utf-8"
+    if raw.startswith(b"\xff\xfe") or raw.startswith(b"\xfe\xff"):
+        encoding = "utf-16"
+    elif raw.startswith(b"\xef\xbb\xbf"):
+        encoding = "utf-8-sig"
+
+    try:
+        text = raw.decode(encoding, errors="ignore")
+    except Exception:
+        encoding = "utf-8"
+        text = raw.decode(encoding, errors="ignore")
+
+    newline = "\r\n" if "\r\n" in text else "\n"
+    lines = text.splitlines()
+    return lines, encoding, newline
+
+
+def _write_text_lines(path, lines, encoding, newline):
+    """Write ``lines`` to ``path`` using encoding and newline style."""
+    with open(path, "w", encoding=encoding, newline="") as f:
+        f.write(newline.join(lines) + newline)
 
 def _profile_dir(game, name):
     """Return directory for a profile of the given game."""
@@ -209,8 +235,7 @@ def _extract_key(line):
 
 def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
     """Patch a single file in place and return list of modified line numbers."""
-    with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
-        lines = f.read().splitlines()
+    lines, enc, newline = _read_text_lines(target_path)
     anchor = None
     for i, line in enumerate(lines):
         if section in line:
@@ -256,16 +281,14 @@ def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
             changed.append(insert_pos + 1)
             section_end += 1
 
-    with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
-        f.write("\n".join(lines) + "\n")
+    _write_text_lines(target_path, lines, enc, newline)
     log(f"[OK] Patched {os.path.basename(target_path)} section '{section}'")
     return changed
 
 
 def _apply_line_edits_to_file(target_path, edits):
     """Apply line-based replacements and return list of modified lines."""
-    with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
-        lines = f.read().splitlines()
+    lines, enc, newline = _read_text_lines(target_path)
     changed = []
     for item in edits:
         idx = item["line"] - 1
@@ -277,8 +300,7 @@ def _apply_line_edits_to_file(target_path, edits):
         lines[idx] = item["text"]
         changed.append(item["line"])
     if changed:
-        with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
-            f.write("\n".join(lines) + "\n")
+        _write_text_lines(target_path, lines, enc, newline)
         log(
             f"[OK] Replaced lines {','.join(str(n) for n in changed)} in {os.path.basename(target_path)}"
         )
@@ -289,8 +311,7 @@ def _append_summary_comment(target_path, changed_lines, mod_name=None, author=No
     """Append a summary comment listing changed lines for a mod."""
     if not get_comments_enabled() or not changed_lines:
         return
-    with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
-        lines = f.read().splitlines()
+    lines, enc, newline = _read_text_lines(target_path)
     if target_path.lower().endswith(".psc"):
         c_start, c_end = "// ", ""
     else:
@@ -300,8 +321,7 @@ def _append_summary_comment(target_path, changed_lines, mod_name=None, author=No
         mod_desc = f"{mod_desc} by {author}" if mod_desc else f"by {author}"
     summary = f"{c_start}line(s): {','.join(str(n) for n in changed_lines)} modified by {mod_desc}{c_end}"
     lines.append(summary)
-    with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
-        f.write("\n".join(lines) + "\n")
+    _write_text_lines(target_path, lines, enc, newline)
 
 
 # ----------- Unpack and repack functions -----------
