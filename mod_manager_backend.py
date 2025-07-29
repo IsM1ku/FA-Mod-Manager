@@ -55,6 +55,25 @@ def _read_text_lines(path):
         encoding = "utf-16"
     elif raw.startswith(b"\xef\xbb\xbf"):
         encoding = "utf-8-sig"
+    else:
+        # Heuristic detection for UTF-16 files without BOM
+        if len(raw) >= 4:
+            even_nulls = raw[0::2].count(0)
+            odd_nulls = raw[1::2].count(0)
+            total_pairs = len(raw) // 2
+            if even_nulls > total_pairs // 2:
+                encoding = "utf-16-be"
+            elif odd_nulls > total_pairs // 2:
+                encoding = "utf-16-le"
+
+    # Detect newline style before decoding
+    newline = "\n"
+    if encoding.startswith("utf-16"):
+        if b"\r\x00\n\x00" in raw or b"\x00\r\x00\n" in raw:
+            newline = "\r\n"
+    else:
+        if b"\r\n" in raw:
+            newline = "\r\n"
 
     try:
         text = raw.decode(encoding, errors="ignore")
@@ -62,7 +81,6 @@ def _read_text_lines(path):
         encoding = "utf-8"
         text = raw.decode(encoding, errors="ignore")
 
-    newline = "\r\n" if "\r\n" in text else "\n"
     lines = text.splitlines()
     return lines, encoding, newline
 
