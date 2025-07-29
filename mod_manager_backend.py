@@ -250,7 +250,7 @@ def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
 
 def _append_summary_comment(target_path, changed_lines, mod_name=None, author=None):
     """Append a summary comment listing changed lines for a mod."""
-    if not COMMENTS_ENABLED or not changed_lines:
+    if not get_comments_enabled() or not changed_lines:
         return
     with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.read().splitlines()
