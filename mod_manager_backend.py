@@ -89,13 +89,15 @@ def read_profile_info(game, name):
 
 # ----------- Mod parsing and patching -----------
 def _parse_mod_file(path):
-    """Return metadata dict and ordered patch instructions from a mod file.
+    """Return metadata dict, section patches and line edits from a mod file.
 
-    Each patch entry contains ``file``, ``section``, ``data`` and ``game`` keys.
+    Section patches contain ``file``, ``section``, ``data`` and ``game`` keys.
     ``game`` is ``"fa"`` for Xbox 360, ``"fa2"`` for PS3 or ``"both``" for
-    universal sections.
+    universal sections. ``line_edits`` is a list of ``file``, ``line`` and
+    ``text`` mappings describing direct line replacements.
     """
     patches = []
+    line_edits = []
     metadata = {}
     current_file = None
     current_section = None
@@ -152,6 +154,18 @@ def _parse_mod_file(path):
                 else:
                     current_game = "both"
                     current_section = stripped[len("section:") :].strip()
+            elif (
+                stripped.startswith("L")
+                and ";" in stripped
+                and current_file
+                and current_section is None
+            ):
+                num_part, repl = stripped[1:].split(";", 1)
+                try:
+                    line_num = int(num_part.strip())
+                except ValueError:
+                    continue
+                line_edits.append({"file": current_file, "line": line_num, "text": repl.strip()})
             elif stripped.startswith(";") or stripped.startswith(".;"):
                 if current_file and current_section:
                     after_header = stripped.startswith(".;")
@@ -176,7 +190,7 @@ def _parse_mod_file(path):
             if patches[j]["file"] == patch["file"]:
                 patch["next_section"] = patches[j]["section"]
                 break
-    return metadata, patches
+    return metadata, patches, line_edits
 
 
 # Helper to compare lines ignoring values
@@ -245,6 +259,29 @@ def _apply_patch_to_file(target_path, section, data_lines, next_section=None):
     with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
         f.write("\n".join(lines) + "\n")
     log(f"[OK] Patched {os.path.basename(target_path)} section '{section}'")
+    return changed
+
+
+def _apply_line_edits_to_file(target_path, edits):
+    """Apply line-based replacements and return list of modified lines."""
+    with open(target_path, "r", encoding="utf-8", errors="ignore") as f:
+        lines = f.read().splitlines()
+    changed = []
+    for item in edits:
+        idx = item["line"] - 1
+        if idx < 0 or idx >= len(lines):
+            log(
+                f"[WARN] Line {item['line']} out of range in {os.path.basename(target_path)}"
+            )
+            continue
+        lines[idx] = item["text"]
+        changed.append(item["line"])
+    if changed:
+        with open(target_path, "w", encoding="utf-8", errors="ignore") as f:
+            f.write("\n".join(lines) + "\n")
+        log(
+            f"[OK] Replaced lines {','.join(str(n) for n in changed)} in {os.path.basename(target_path)}"
+        )
     return changed
 
 
@@ -559,10 +596,44 @@ def apply_mods_to_temp(game, mods, merge_name=None):
     # is lowercase so patched file paths match consistently.
     target_root = _normalize_smallf_dir(temp_dir)
 
+    parsed = []
     for mod in mods:
-        meta, patches = _parse_mod_file(mod)
-        mod_name = meta.get("name", os.path.basename(mod))
+        meta, patches, line_edits = _parse_mod_file(mod)
+        parsed.append({"path": mod, "meta": meta, "patches": patches, "lines": line_edits})
+
+    # Apply line edits from all mods first
+    for item in parsed:
+        mod_path = item["path"]
+        meta = item["meta"]
+        mod_name = meta.get("name", os.path.basename(mod_path))
         author = meta.get("author")
+        edits_by_file = {}
+        for le in item["lines"]:
+            edits_by_file.setdefault(le["file"], []).append(le)
+        pending = {}
+        for rel, edits in edits_by_file.items():
+            target = os.path.join(target_root, rel)
+            if not os.path.isfile(target):
+                err = f"Target file not found: {rel} in {mod_path}"
+                log(f"[ERROR] {err}")
+                raise FileNotFoundError(err)
+            log(f"[INFO] Applying line edits from {os.path.basename(mod_path)} -> {rel}")
+            changed = _apply_line_edits_to_file(target, edits)
+            pending.setdefault(target, []).extend(changed)
+        for path, lines_list in pending.items():
+            _append_summary_comment(path, lines_list, mod_name, author)
+        if item["lines"]:
+            log(f"[OK] Applied line edits from {os.path.basename(mod_path)}")
+
+    # Then process section-based patches
+    last_mod_name = None
+    for item in parsed:
+        mod_path = item["path"]
+        meta = item["meta"]
+        patches = item["patches"]
+        mod_name = meta.get("name", os.path.basename(mod_path))
+        author = meta.get("author")
+        last_mod_name = mod_name
         pending = {}
         for p in patches:
             p_game = p.get("game", "both")
@@ -570,11 +641,11 @@ def apply_mods_to_temp(game, mods, merge_name=None):
                 continue
             target = os.path.join(target_root, p["file"])
             if not os.path.isfile(target):
-                err = f"Target file not found: {p['file']} in {mod}"
+                err = f"Target file not found: {p['file']} in {mod_path}"
                 log(f"[ERROR] {err}")
                 raise FileNotFoundError(err)
             log(
-                f"[INFO] Applying patch from {os.path.basename(mod)} -> {p['file']} section '{p['section']}'"
+                f"[INFO] Applying patch from {os.path.basename(mod_path)} -> {p['file']} section '{p['section']}'"
             )
             try:
                 changed = _apply_patch_to_file(
@@ -587,11 +658,12 @@ def apply_mods_to_temp(game, mods, merge_name=None):
                     )
             except Exception as exc:
                 log(
-                    f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod)}: {exc}"
+                    f"[ERROR] Failed patch {p['file']} from {os.path.basename(mod_path)}: {exc}"
                 )
                 raise
         for path, lines_list in pending.items():
             _append_summary_comment(path, lines_list, mod_name, author)
-        log(f"[OK] Applied mod: {os.path.basename(mod)}")
-    final_name = merge_name or mod_name
+        if patches:
+            log(f"[OK] Applied mod: {os.path.basename(mod_path)}")
+    final_name = merge_name or last_mod_name
     log(f"\n[Done] Mods applied for '{final_name}'. Ready for repack.")

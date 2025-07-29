@@ -545,8 +545,8 @@ class FAModManager(TkinterDnD.Tk):
         idx = len(self.mod_entries)
         var = tk.BooleanVar(value=True)
         try:
-            meta, patches = backend._parse_mod_file(path)
-            if not patches:
+            meta, patches, line_edits = backend._parse_mod_file(path)
+            if not patches and not line_edits:
                 messagebox.showerror(
                     "Invalid Mod File",
                     f"{os.path.basename(path)} does not contain mod data.",

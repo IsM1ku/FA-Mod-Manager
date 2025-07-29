@@ -86,9 +86,10 @@ Mods are defined as simple `.txt` files:
 
 - **Metadata:** `name`, `author`, `description`
 - **Patch instructions:** Each `[FILE ...]` block targets a specific file (e.g., `.psc` or `.txt`), a section (anchor), and supplies edit lines.
-- **Insertion Syntax:**  
-  - `;` prefix: replace existing line or append if not found  
+- **Insertion Syntax:**
+  - `;` prefix: replace existing line or append if not found
   - `.;` prefix: insert immediately after section header
+  - `L<number>;text` replace the specified line (1-indexed) before any section processing
 
 **Example Mod:**
 ```
