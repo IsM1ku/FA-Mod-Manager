@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from tkinterdnd2 import TkinterDnD, DND_FILES
 
 import mod_manager_backend as backend
+import music_manager
 
 
 def find_smallf_file(folder):
@@ -396,7 +397,7 @@ class FAModManager(TkinterDnD.Tk):
                 "Set the Full Auto 2 folder in Settings first.",
             )
             return
-        MusicManagerWindow(self, game_root)
+        music_manager.MusicManagerWindow(self, game_root)
 
     def set_active_profile(self):
         selected = self.profile_list.selection()
@@ -792,95 +793,6 @@ class FAModManager(TkinterDnD.Tk):
                 ),
             )
 
-
-class MusicManagerWindow(tk.Toplevel):
-    def __init__(self, master, game_root):
-        super().__init__(master)
-        self.title("Full Auto 2 Music Manager")
-        self.transient(master)
-        self.grab_set()
-        self.game_root = game_root
-
-        self.file_list = []
-
-        main = tk.Frame(self)
-        main.pack(padx=10, pady=10, fill="both", expand=True)
-        list_frame = tk.Frame(main)
-        list_frame.pack(side="left", fill="both", expand=True)
-
-        self.listbox = tk.Listbox(list_frame)
-        self.listbox.pack(side="left", fill="both", expand=True)
-        sb = tk.Scrollbar(list_frame, command=self.listbox.yview)
-        sb.pack(side="right", fill="y")
-        self.listbox.configure(yscrollcommand=sb.set)
-        self.listbox.bind("<<ListboxSelect>>", self.update_details)
-        self.listbox.drop_target_register(DND_FILES)
-        self.listbox.dnd_bind("<<Drop>>", self.on_drop)
-
-        right = tk.Frame(main)
-        right.pack(side="left", padx=10, fill="y")
-
-        self.info = tk.Label(right, text="")
-        self.info.pack(anchor="w")
-
-        tk.Button(right, text="Add .yuk File", command=self.add_file).pack(fill="x", pady=2)
-        tk.Button(right, text="Remove Selected", command=self.remove_selected).pack(fill="x", pady=2)
-        tk.Button(right, text="Revert Selected to Original", command=self.revert_selected).pack(fill="x", pady=2)
-        tk.Button(right, text="Revert All Originals", command=self.revert_all).pack(fill="x", pady=2)
-
-        self.refresh_list()
-
-    def on_drop(self, event):
-        files = self.tk.splitlist(event.data)
-        backend.add_music_files(self.game_root, [f for f in files if f.lower().endswith(".yuk")])
-        self.refresh_list()
-
-    def add_file(self):
-        paths = filedialog.askopenfilenames(parent=self, title="Select .yuk files", filetypes=[("YUK files", "*.yuk"), ("All Files", "*.*")])
-        backend.add_music_files(self.game_root, paths)
-        self.refresh_list()
-
-    def remove_selected(self):
-        sel = self.listbox.curselection()
-        if not sel:
-            return
-        name = self.file_list[sel[0]]["name"]
-        backend.remove_music_files(self.game_root, [name])
-        self.refresh_list()
-
-    def revert_selected(self):
-        sel = self.listbox.curselection()
-        if not sel:
-            return
-        name = self.file_list[sel[0]]["name"]
-        backend.revert_music_file(self.game_root, name)
-        self.refresh_list()
-
-    def revert_all(self):
-        backend.revert_all_music(self.game_root)
-        self.refresh_list()
-
-    def refresh_list(self):
-        self.file_list = backend.list_music_files(self.game_root)
-        self.listbox.delete(0, tk.END)
-        for info in self.file_list:
-            prefix = {
-                "original": "\u2705",
-                "modified": "\u26A0\ufe0f",
-                "custom": "\u2753",
-            }.get(info["status"], "")
-            self.listbox.insert(tk.END, f"{prefix} {info['name']}")
-        self.info.configure(text="")
-
-    def update_details(self, event=None):
-        sel = self.listbox.curselection()
-        if not sel:
-            self.info.configure(text="")
-            return
-        info = self.file_list[sel[0]]
-        self.info.configure(
-            text=f"File: {info['name']}\nStatus: {info['status'].capitalize()}"
-        )
 
 
 if __name__ == "__main__":
