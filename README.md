@@ -88,6 +88,14 @@ Each profile folder contains a small `profile.json` file with metadata such as
 which game it belongs to. The manager uses this information when listing and
 loading profiles.
 
+## Music Manager
+
+Use the **Music Manager** button to manage the contents of `PS3_GAME/USRDIR/media/fa2_rxx`.
+It lists all `.yuk` files in that folder and highlights whether each file is
+original, modified, or custom. You can drag-and-drop new music files, remove
+existing ones, and revert individual or all tracks to the bundled originals
+found under `bundled/music/fa2`.
+
 ---
 
 ## Xbox 360 ISO Extraction
@@ -105,7 +113,7 @@ The paths you choose are saved back to `fa_mod_manager_config.json` under
 
 - Native Linux compatibility (in progress)
 - Expanded mod metadata and compatibility checks
-- Custom music
+- Custom music (via the new Music Manager)
 - Editable variables for each mod
 
 ---
