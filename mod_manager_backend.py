@@ -40,6 +40,9 @@ UNPACKED_FA2_DIR = os.path.join(SMALLF_DIR, "fa2_unpacked")
 TEMP_FA_DIR = os.path.join(SMALLF_DIR, "fa_temp")
 TEMP_FA2_DIR = os.path.join(SMALLF_DIR, "fa2_temp")
 
+# Directory containing the original FA2 music files shipped with the manager
+MUSIC_ORIG_DIR = os.path.join(BUNDLED_DIR, "music", "fa2")
+
 EXISO_EXE = os.path.join(EXISO_DIR, "extract-xiso.exe")
 
 # Name of the json file storing metadata for each profile
@@ -705,3 +708,68 @@ def apply_mods_to_temp(game, mods, merge_name=None):
             log(f"[OK] Applied mod: {os.path.basename(mod_path)}")
     final_name = merge_name or last_mod_name
     log(f"\n[Done] Mods applied for '{final_name}'. Ready for repack.")
+
+
+# ----------- Music management -----------
+def _music_dir(game_root):
+    """Return the fa2_rxx music directory within ``game_root``."""
+    return os.path.join(game_root, "PS3_GAME", "USRDIR", "media", "fa2_rxx")
+
+
+def list_music_files(game_root):
+    """Return a list of dictionaries with ``name`` and ``status`` for each .yuk file."""
+    music_dir = _music_dir(game_root)
+    os.makedirs(music_dir, exist_ok=True)
+    files = []
+    for name in sorted(os.listdir(music_dir)):
+        if not name.lower().endswith(".yuk"):
+            continue
+        path = os.path.join(music_dir, name)
+        status = "custom"
+        orig_path = os.path.join(MUSIC_ORIG_DIR, name)
+        if os.path.isfile(orig_path):
+            if os.path.getsize(orig_path) == os.path.getsize(path):
+                status = "original"
+            else:
+                status = "modified"
+        files.append({"name": name, "status": status})
+    return files
+
+
+def add_music_files(game_root, paths):
+    """Copy the given .yuk files into the game's music folder."""
+    music_dir = _music_dir(game_root)
+    os.makedirs(music_dir, exist_ok=True)
+    for src in paths:
+        if not os.path.isfile(src):
+            continue
+        dest = os.path.join(music_dir, os.path.basename(src))
+        shutil.copy2(src, dest)
+
+
+def remove_music_files(game_root, names):
+    """Remove the specified files from the music folder."""
+    music_dir = _music_dir(game_root)
+    for name in names:
+        path = os.path.join(music_dir, name)
+        if os.path.isfile(path):
+            os.remove(path)
+
+
+def revert_music_file(game_root, name):
+    """Restore a single track from the bundled originals."""
+    src = os.path.join(MUSIC_ORIG_DIR, name)
+    if not os.path.isfile(src):
+        return
+    dest = os.path.join(_music_dir(game_root), name)
+    shutil.copy2(src, dest)
+
+
+def revert_all_music(game_root):
+    """Restore all original tracks from the bundled folder."""
+    music_dir = _music_dir(game_root)
+    os.makedirs(music_dir, exist_ok=True)
+    for name in os.listdir(MUSIC_ORIG_DIR):
+        src = os.path.join(MUSIC_ORIG_DIR, name)
+        if os.path.isfile(src):
+            shutil.copy2(src, os.path.join(music_dir, name))
